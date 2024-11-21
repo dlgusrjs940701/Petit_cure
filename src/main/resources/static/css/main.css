@@ -117,8 +117,12 @@ li > a:hover {
 .carousel-caption > div{
     width: 550px; height: 150px; margin-left: 500px; border: 1px solid; background-color: aliceblue; color: black;
 }
+.maincon {
+    background-color: #e24e4e; width: 1920px; height: 470px; margin-left: 0px;
+    margin-top: 50px;
+}
 
-.content > #info {
+.maincon > #info {
     display: inline-block;
     margin-top: 25px;
     margin-left: 40px;
@@ -133,3 +137,5 @@ footer {
     height: 330px;
     background-color: antiquewhite;
 }
+
+
