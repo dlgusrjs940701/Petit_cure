@@ -1,7 +1,6 @@
 package curevengers.petit_cure.controller;
 
 import curevengers.petit_cure.Dto.freeBoardDTO;
-import curevengers.petit_cure.Dto.healthCheckDTO;
 import curevengers.petit_cure.Dto.testDto;
 import curevengers.petit_cure.Service.testService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,11 +56,14 @@ public class testhome {
     public String dep() {
         return "depBoard";
     }
-
-    // 건강검진 결과
-    @GetMapping(value = "healthcheckresult")
-    public String healthCheck(@ModelAttribute healthCheckDTO dto, Model model) throws Exception {
-        model.addAttribute("dto", dto);
+    @GetMapping(value = "/healthresult")
+    public String healthresult() {
         return "healthcheckresult";
     }
+    @GetMapping(value = "/health")
+    public String health() {
+        return "healthcheck";
+    }
+
 }
+
