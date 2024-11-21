@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/depBoard.css">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,260 +13,11 @@
         @import url('https://fonts.googleapis.com/css2?family=Jua&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik+Wet+Paint&family=Yeon+Sung&display=swap');
     </style>
 </head>
-<style>
-    .jua-regular {
-        font-family: "Jua", sans-serif;
-        font-weight: 400;
-        font-style: normal;
-        font-size: large;
-    }
-    .funnel-sans-uniquifier {
-        font-family: "Funnel Sans", sans-serif;
-        font-optical-sizing: auto;
-        /*font-weight: weight;*/
-        font-style: normal;
-    }
-    .faculty-glyphic-regular {
-        font-family: "Faculty Glyphic", sans-serif;
-        font-weight: 400;
-        font-style: normal;
-    }
-    .yeon-sung-regular {
-        font-family: "Yeon Sung", system-ui;
-        font-weight: 400;
-        font-style: normal;
-    }
-    .roboto-regular {
-        font-family: "Roboto", serif;
-        font-weight: 400;
-        font-style: normal;
-    }
-    body {
-        width: 1920px;
-        height: 1080px;
-        /* background-color: rgb(240, 240, 180); */
-    }
-    header > div {
-        height: 120px;
-        text-align: center;
-        margin-top: 30px;
-        padding-top: 15px;
-    }
-
-    nav  li {
-        /* display: inline; */
-        float: left;
-        margin-left: 100px;
-    }
-    nav  li > a{
-        display: block;
-        color: white;
-        padding: 14px 16px;
-        text-align: center;
-        text-decoration: none;
-        font-size: 25px;
-    }
-    nav > ul {
-        display: flex;
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        /* overflow: hidden; */
-        /* background-color: #f59292; */
-        background-color: #e24e4e;
-        height: 65px;
-    }
-
-    li > a:hover {
-        /* background-color: #ee8787; */
-        background-color: #cc4a4a;
-    }
-    #nav>ul>li>ul {
-        list-style-type: none;
-        position: absolute;
-        left: 0;
-        top: 50px;
-        background-color: #f5a8a8;
-        width: 300px;
-        display: none;
-    }
-    #nav>ul>li>ul>li>a{
-        padding: 10px;
-        display: block;
-        transition: all 1s;
-
-    }
-    #nav>ul>li>ul>li>a:hover {
-        padding-left: 0px;
-        width: 300px;
-        background-color: #e48d8d;
-    }
-    #nav>ul>li>ul>li {
-        margin-left: 0px;
-        padding-left: 0px;
-    }
-
-    .request {
-        padding: 10px 30px;
-        margin-bottom: 20px;
-        /* padding: 10px; */
-        background: #fff;
-        width: 700px;
-        /* min-height: auto; */
-        /* height: 10px; */
-        /* box-sizing: border-box; */
-        border: 5px solid #ddd;
-        border-radius: 8px;
-        text-align: center;
-    }
-    #aaa {
-        /* background-color: #e24e4e; */
-        margin-left: 50px; /* 전체 가운데 정령하는 곳 */
-    }
-    .btn {
-        min-width: 110px;
-        height: 50px;
-        text-align: center;
-        border-radius: 10px;
-        font-size: 1.125rem;
-        font-family: 'NotoKR-Medium';
-        padding: 0 20px;
-        background-color: #cc4a4a;
-    }
 
 
-    h2 {
-        padding-bottom: 10px;
-        border-bottom: 1px solid gray;
-    }
-
-    .aside {
-        width: 300px;
-        float: left;
-        padding-bottom: 20px;
-        /* background-color: greenyellow; */
-    }
-
-    .select-grup {
-        width: auto;
-        float: right;
-        text-align: right;
-        /* background-color: gray; */
-    }
-
-    .select-text {
-        color: gray;
-        font-size: 120%;
-        font-weight: bolder;
-        padding: 10px;
-    }
-
-    .select-dropbox {
-        height: 25px;
-        font-size: 16px;
-    }
-
-    .select-textbox {
-        height: 20px;
-    }
-
-    table.board-table {
-        width: 1300px;
-        height: 80px;
-        border-spacing: 0;
-        text-align: center;
-
-    }
-
-    .container {
-        /* background-color: gray; */
-        width: 100%;
-        margin: auto;
-        text-align: center;
-        padding-top: 70px;
-    }
-
-    .board-table th {
-        background-color: lightsalmon;
-        border-top: 5px solid gray;
-        padding: 5px;
-    }
-
-    .board-table td {
-        border-bottom: 1px solid #ccc;
-        padding: 5px;
-        text-align: center;
-
-    }
-    .page {
-        text-align: center;
-        padding: 20px;
-    }
-
-    .button {
-        float: right;
-        text-align: center;
-    }
-
-    .button-gray {
-        border: 0px;
-        border-radius: 5px;
-        background-color: gray;
-        color: white;
-        font: 12px 굴림;
-        font-weight: bold;
-        width: 60px;
-        height: 30px;
-    }
-
-    .button-black {
-        border: 0px;
-        border-radius: 5px;
-        background-color: rgb(46, 46, 46);
-        color: white;
-        font: 12px 굴림;
-        font-weight: bold;
-        width: 70px;
-        height: 30px;
-    }
-
-
-
-
-
-</style>
 <body>
-<header class="roboto-regular">
-    <div>
-        <h1 style="font-weight: bold; font-size: 50px;">WELCOME TO PETIT CURE</h1>
-    </div>
-</header>
-<nav class="jua-regular" id="nav">
-    <ul>
-        <li class="dropdown">
-            <a href="자가셀프검진">자가셀프검진</a>
-            <ul class="submenu">
-                <li><a href="#">건강검진 check</a></li>
-                <li><a href="#">우울증 check</a></li>
-            </ul>
-        </li>
-        <li><a href="게시판">게시판</a></li>
-        <li><a href="검색">검색</a></li>
-        <li><a href="회사소개">회사소개</a></li>
-        <div style="display: inline;" id="login">
-            <li style="margin-left: 700px;"><a href="회원가입">회원가입</a></li>
-            <li style="margin-left: 5px;"><a href="#">/</a></li>
-            <li style="margin-left: 5px;"><a href="로그인">로그인</a></li>
-        </div>
-        <div style="display: inline;" id="logout" hidden>
-            <li style="margin-left: 700px;"><a href="마이페이지">마이페이지</a></li>
-            <li style="margin-left: 5px;"><a href="#">/</a></li>
-            <li style="margin-left: 5px;"><a href="로그아웃">로그아웃</a></li>
-        </div>
-    </ul>
-</nav>
-
-
+<div th:include="main::header"></div>
+<div th:include="main::nav"></div>
 <section>
     <article>
         <div class="container">
@@ -285,7 +39,7 @@
                     </span>
                     <span>
                         <input type="text" name="search" class="select-textbox">
-                        <input type="submit" class="button-black" value="검색" />
+                        <input type="submit" class="button-black" value="검색"/>
                     </span>
                 </form>
             </div>
@@ -585,7 +339,6 @@
                     <td>2024-11-21</td>
                 </tr>
                 </tbody>
-
 
 
             </table>
