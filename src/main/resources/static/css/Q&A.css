@@ -52,12 +52,15 @@ table {
     margin-top: 20px;
     border-radius: 10px;
 }
-table .tbody{
+
+table .tbody {
     border-radius: 10px;
     /*border: 1px solid;*/
     background-color: oldlace;
 }
-th, td {
+
+th,
+td {
     padding: 12px;
     text-align: center;
     /*border: 1px solid #2c3e50;*/
@@ -71,14 +74,16 @@ th {
     color: #333;
     text-align: center;
     border-radius: 10px;
-    /*border: 1px solid #ddd;*/
+    border: 1px solid #ddd;
 }
 
 tr:hover {
     background-color: darkgrey;
 }
 
-.num, .visit, .date {
+.num,
+.visit,
+.date {
     width: 100px;
 }
 

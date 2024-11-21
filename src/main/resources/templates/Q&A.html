@@ -12,13 +12,14 @@
     <title>자유게시판</title>
 </head>
 
+
 <body>
 <!-- main화면 include 설정 -->
 <div th:include="main::header"></div>
 <div th:include="main::nav"></div>
 <div class="container">
     <div class="title-container">
-        <h2><strong>자유게시판</strong></h2>
+        <h2><strong>Q&A게시판</strong></h2>
         <button class="write-btn" onclick="location.href='/write'"><strong>글쓰기</strong></button>
     </div>
 
@@ -28,21 +29,21 @@
             <th class="num">번호</th>
             <th class="title text-center">제목</th>
             <th class="name">이름</th>
-            <th class="visit">조회수</th>
+            <th class="visit">추천수</th>
             <th class="date">작성일</th>
         </tr>
         </thead>
         <tbody class="tbody">
-            <tr th:each="board : ${list}">
+        <tr th:each="board : ${list}">
 
-                <td th:text="${board.no}"></td>
-                <td>   <a th:href="@{/view(no=${board.no})}" th:text="${board.title}"></a>
-               </td>
+            <td th:text="${board.no}"></td>
+            <td> <a th:href="@{/view(no=${board.no})}" th:text="${board.title}"></a>
+            </td>
 
-                <td th:text="${board.name}"></td>
-                <td th:text="${board.visit}"></td>
-                <td th:text="${board.date}"></td>
-            </tr>
+            <td th:text="${board.name}"></td>
+            <td th:text="${board.visit}"></td>
+            <td th:text="${board.date}"></td>
+        </tr>
         </tbody>
     </table>
 </div>
