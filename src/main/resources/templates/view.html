@@ -14,37 +14,37 @@
 <div th:include="main::header"></div>
 <div th:include="main::nav"></div>
 <section>
-<div class="container mt-4">
-    <div class="title-container mb-4">
-        <h2><strong>게시글 상세보기</strong></h2>
+    <div class="container mt-4">
+        <div class="title-container mb-4">
+            <h2><strong>게시글 상세보기</strong></h2>
+        </div>
+
+
+        <div class="board-detail">
+
+            <h3 th:text="${dto.title}" class="mb-3"></h3>
+
+
+            <div class="meta-info mb-4">
+                <p><strong>작성자:</strong> <span th:text="${dto.id}"></span></p>
+                <p><strong>카테고리:</strong> <span th:text="${dto.cate}"></span></p>
+                <p><strong>조회수:</strong> <span th:text="${dto.visit}"></span></p>
+                <p><strong>작성일:</strong> <span th:text="${dto.date}"></span></p>
+            </div>
+
+
+            <div class="content mb-4">
+                <p th:text="${dto.content}"></p>
+            </div>
+
+            <!-- 뒤로 가기 버튼은 알아두면 좋음-->
+            <div class="mt-4">
+                <button class="btn btn-secondary" onclick="history.back()">뒤로 가기</button>
+            </div>
+        </div>
     </div>
-
-
-    <div class="board-detail">
-
-        <h3 th:text="${dto.title}" class="mb-3"></h3>
-
-
-        <div class="meta-info mb-4">
-            <p><strong>작성자:</strong> <span th:text="${dto.id}"></span></p>
-            <p><strong>카테고리:</strong> <span th:text="${dto.cate}"></span></p>
-            <p><strong>조회수:</strong> <span th:text="${dto.visit}"></span></p>
-            <p><strong>작성일:</strong> <span th:text="${dto.date}"></span></p>
-        </div>
-
-
-        <div class="content mb-4">
-            <p th:text="${dto.content}"></p>
-        </div>
-
-        <!-- 뒤로 가기 버튼은 알아두면 좋음-->
-        <div class="mt-4">
-            <button class="btn btn-secondary" onclick="history.back()">뒤로 가기</button>
-        </div>
-    </div>
-</div>
 </section>
-
+<div th:include="main::footer"></div>
 </body>
 </html>
 <script>
