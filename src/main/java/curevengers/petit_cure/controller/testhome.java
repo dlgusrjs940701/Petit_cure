@@ -52,4 +52,8 @@ public class testhome {
 
         return "view";
     }
+    @GetMapping(value = "/dep")
+    public String dep() {
+        return "depBoard";
+    }
 }
