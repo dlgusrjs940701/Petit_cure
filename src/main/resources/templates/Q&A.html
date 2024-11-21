@@ -18,7 +18,7 @@
 <div class="container">
     <div class="title-container">
         <h2><strong>Q&A게시판</strong></h2>
-        <button class="write-btn" onclick="location.href='/write'"><strong>글쓰기</strong></button>
+        <button class="write-btn" onclick="location.href='/qawrite'"><strong>글쓰기</strong></button>
     </div>
 
     <table>
@@ -32,14 +32,14 @@
         </tr>
         </thead>
         <tbody class="tbody">
-        <tr th:each="board : ${list}">
+        <tr th:each="board : ${qalist}">
 
             <td th:text="${board.no}"></td>
-            <td> <a th:href="@{/view(no=${board.no})}" th:text="${board.title}"></a>
+            <td> <a th:href="@{/qaview(no=${board.no})}" th:text="${board.title}"></a>
             </td>
 
-            <td th:text="${board.name}"></td>
-            <td th:text="${board.visit}"></td>
+<!--            <td th:text="${board.name}"></td>-->
+            <td th:text="${board.good}"></td>
             <td th:text="${board.date}"></td>
         </tr>
         </tbody>

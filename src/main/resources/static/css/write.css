@@ -1,5 +1,5 @@
 .card-write {
-    height: 650px;
+    height: auto;
     padding: 20px;
     width: 60%;
     margin-top: 100px;
@@ -16,7 +16,7 @@
 .card-write input, textarea {
     margin-left: 10px;
     padding: 10px;
-    border: 1px solid;
+    border: 1px solid #ccc;
     border-radius: 10px;
     box-shadow: 3px 3px 10px #e6e6e6;
 }
@@ -57,11 +57,12 @@
 
 .card-write .form-select {
     width: 40%;
-    margin-top: 20px;
+    margin-top: 10px;
     margin-left: 40px;
+    margin-bottom: 30px;
     border-radius: 10px;
     box-shadow: 3px 3px 10px #e6e6e6;
-    border: 1px solid;
+    border: 1px solid #ccc;
     /* padding-bottom: 20px; */
 }
 
@@ -74,9 +75,44 @@
     margin-left: 500px;
 }
 
-.button a {
+.card-write .msg .btn {
     background-color: tomato;
     padding: 10px;
     color: antiquewhite;
     border-radius: 10px;
+}
+.card-write .msg .btn:hover{
+    background-color: darkorange;
+}
+.card-write .age {
+    /*margin-left: 10px;*/
+    width: 30%;
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 3px 3px 10px #e6e6e6;
+}
+.card-write .admin{
+    /*margin-left: 10px;*/
+    width: 30%;
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 3px 3px 10px #e6e6e6;
+}
+.card-write .visibility{
+    /*margin-left: 10px;*/
+    width: 30%;
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 3px 3px 10px #e6e6e6;
+}
+.card-write .info-group{
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
 }
