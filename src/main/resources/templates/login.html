@@ -39,3 +39,19 @@
 <div th:include="main::footer"></div>
 </body>
 </html>
+<script>
+  const submenuList = document.querySelectorAll(".dropdown");
+
+  submenuList.forEach(li => {
+    li.addEventListener("mouseover", () => {
+      li.querySelectorAll("ul").forEach((el) => {
+        el.style.display = "block";
+      })
+    });
+    li.addEventListener("mouseout", () => {
+      li.querySelectorAll("ul").forEach((el) => {
+        el.style.display = "none";
+      })
+    });
+  });
+</script>

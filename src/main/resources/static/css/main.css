@@ -136,6 +136,7 @@ li > a:hover {
 footer {
     height: 330px;
     background-color: antiquewhite;
+    margin-bottom: 0px;
 }
 
 

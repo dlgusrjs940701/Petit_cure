@@ -10,15 +10,157 @@
     <!--타임리프를 사용할 때는 @{} 형식-->
     <link rel="stylesheet" th:href="@{/css/main.css}">
     <link rel="stylesheet" th:href="@{/css/login.css}">
+    <link rel="stylesheet" th:href="@{/css/mplus.css}">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
 <!-- main화면 include 설정 -->
 <div th:include="main::header"></div>
 <div th:include="main::nav"></div>
-<section class="jua-regular">
+<section class="jua-regular" >
+    <div class="container">
+        <div class="input-form-backgroud row">
+            <div class="input-form col-md-12 mx-auto">
+                <h4 class="mb-5" style="font-size: 35px"> - 회원가입 - </h4>
+                <form class="validation-form" novalidate>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="name">이름</label>
+                            <input type="text" class="form-control" id="name" placeholder="" value="" required>
+                            <div class="invalid-feedback">
+                                이름을 입력해주세요.
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="jumin">주민번호</label><br>
+                            <input type="text" maxlength="6" class="form-control" id="jumin1" style="width: 100px; display: inline;" required>
+                            -
+                            <input type="password" maxlength="1"class="form-control" id="jumin2" style="width: 30px; display: inline;" required>******
+                            <div class="invalid-feedback">
+                                주민번호를 입력하세요
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8 mb-3">
+                            <label for="id">ID</label>
+                            <input type="text" class="form-control" id="id" placeholder="" value="" required>
+                            <div class="invalid-feedback">
+                                ID를 입력해주세요.
+                            </div>
+                        </div>
+                        <div class="col-md-2" style="margin-top: 24px; margin-left: 40px;">
+                            <button class="btn btn-primary" type="submit" style="font-size: 25px">ID 중복확인</button>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="pass">비밀번호</label>
+                        <input type="password" class="form-control" id="pass" placeholder="(?,*,!,@)중에 1개 이상 포함, 영문+숫자의 형태" required>
+                        <div class="invalid-feedback">
+                            비밀번호를 입력해주세요.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="c_pass">비밀번호 확인</label>
+                        <input type="password" class="form-control" id="c_pass" placeholder="(?,*,!,@)중에 1개 이상 포함, 영문+숫자의 형태" required>
+                        <div class="invalid-feedback">
+                            비밀번호를 확인해주세요.
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8 mb-3">
+                            <label for="email">이메일</label>
+                            <input type="email" class="form-control" id="email" placeholder="you@example.com" required>
+                            <div class="invalid-feedback">
+                                이메일을 입력해주세요.
+                            </div>
+                        </div>
+                        <div class="col-md-2 mt-2">
+                            <button class="btn btn-primary" type="submit" style="margin-left: 50px; margin-top: 20px; font-size: 25px" >이메일 인증</button>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="address">주소</label>
+                        <input type="text" class="form-control" id="address" placeholder="서울특별시 강남구" required>
+                        <div class="invalid-feedback">
+                            주소를 입력해주세요.
+                        </div>
+                    </div>
 
+                    <div class="mb-3">
+                        <label for="address2">상세주소<span class="text-muted">&nbsp;(필수 아님)</span></label>
+                        <input type="text" class="form-control" id="address2" placeholder="상세주소를 입력해주세요.">
+                    </div>
+
+
+
+                    <hr class="mb-4">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="aggrement" required>
+                        <label class="custom-control-label" for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>
+                    </div>
+                    <div class="mb-4"></div>
+                    <button class="btn btn-primary btn-lg btn-block" type="submit" style="font-size: 25px">가입 완료</button>
+                </form>
+            </div>
+        </div>
+        <div class="my-3 text-center text-small mb-5">
+            <p class="mb-1">@Petit_Cure</p>
+        </div>
+    </div>
 </section>
 <div th:include="main::footer"></div>
 </body>
 </html>
+<script>
+    window.addEventListener('load', () => {
+        const forms = document.getElementsByClassName('validation-form');
+
+        Array.prototype.filter.call(forms, (form) => {
+            form.addEventListener('submit', function (event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+
+                form.classList.add('was-validated');
+            }, false);
+        });
+    }, false);
+
+    const submenuList = document.querySelectorAll(".dropdown");
+
+        submenuList.forEach(li => {
+        li.addEventListener("mouseover", () => {
+            li.querySelectorAll("ul").forEach((el) => {
+                el.style.display = "block";
+            })
+        });
+        li.addEventListener("mouseout", () => {
+        li.querySelectorAll("ul").forEach((el) => {
+            el.style.display = "none";
+            })
+        });
+    });
+</script>
+<script src="../static/css/key.js"></script>
+<script>
+    window.onload = () => {
+        let base_url ='https://business.juso.go.kr/addrlink/addrLinkApi.do';
+        let params1 = 'currentPage=1&countPerPage=5';
+        let params2 = `keyword=${encodeURIComponent('경기도청')}`;         // 한글은 반드시 인코딩 해줘야함
+        let params3 = `confmKey=${roadAddrKey}&resultType=json`;
+        let url = `${base_url}?${params1}&${params2}&${params3}`;
+
+        fetch(url)
+            .then(response => response.json())
+            .then(result => {
+                // console.log(result);
+                let roadAddr = result.results.juso[0].roadAddr;       // object이므로 .하나 누르고 키값 써주기
+                document.getElementById('address').innerHTML = roadAddr;
+            });
+
+        // document.querySelector('p').innerHTML = url;
+    };
+
+</script>
