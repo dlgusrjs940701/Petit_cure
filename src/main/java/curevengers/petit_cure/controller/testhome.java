@@ -56,4 +56,15 @@ public class testhome {
 
         return "view";
     }
+
+    // 글쓰기
+    @GetMapping(value = "/aaaaa")
+    public String view() {
+        return "write";
+    }
+
+    @GetMapping(value = "/aaaaaa")
+    public String QA() {
+        return "Q&A";
+    }
 }
