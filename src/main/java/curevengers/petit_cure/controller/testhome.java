@@ -30,13 +30,8 @@ public class testhome {
     }
 
 
-    @GetMapping(value = "/a")
-    public String board(){
-        return "freeBoard";
-    }
-
     // 자유게시판
-    @GetMapping(value = "/aaa")
+    @GetMapping(value = "/freeboard")
     public String getFreeBoardList(Model model) {
         List<freeBoardDTO> freeBoardList=testservice.getAllFreeBoards();
         model.addAttribute("list", freeBoardList);
@@ -52,18 +47,52 @@ public class testhome {
 
         return "view";
     }
-    @GetMapping(value = "/dep")
+
+    // 우울증게시판
+    @GetMapping(value = "/depboard")
     public String dep() {
         return "depBoard";
     }
+
+    // Q&A 게시판
+    @GetMapping(value = "/qanda")
+    public String qanda() {
+        return "Q&A";
+    }
+
+    // 글쓰기
+    @GetMapping(value = "/write")
+    public String write() {
+        return "write";
+    }
+
+    // 회원가입화면
+    @GetMapping(value = "/mplus")
+    public String mplus(){
+        return "mplus";
+    }
+
+    // 로그인화면
+    @GetMapping(value = "/login")
+    public String login() {
+        return "login";
+    }
+
+    // 건강검진결과로
     @GetMapping(value = "/healthresult")
     public String healthresult() {
         return "healthcheckresult";
     }
+
+    // 건강검진화면
     @GetMapping(value = "/health")
     public String health() {
         return "healthcheck";
     }
 
+    @GetMapping(value = "/dpcheck")
+    public String dpcheck() {
+        return "dpcheck";
+    }
 }
 
