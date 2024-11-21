@@ -52,4 +52,10 @@ public class testhome {
 
         return "view";
     }
+    // 우울증 설문지
+    @GetMapping(value = "/aaaa1")
+    public String dpcheck(){
+        return "dpcheck";
+    }
+
 }
