@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="curevengers.petit_cure.Dao.healthCheckMapper">
+    <insert id="insert" parameterType="curevengers.petit_cure.Dto.healthCheckDTO">
+        insert into healthcheckresult values (#{height},#{weight},#{AC},#{SBP},#{DBP},#{FBG},#{TC},#{HDL},#{TG},#{LDL},#{AST},#{ALT})
+    </insert>
+</mapper>
