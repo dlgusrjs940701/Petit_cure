@@ -29,10 +29,6 @@ public class testhome {
         return "test";
     }
 
-    @GetMapping(value = "/login")
-    public String login() {
-        return "login";
-    }
 
     @GetMapping(value = "/a")
     public String board(){
@@ -56,15 +52,8 @@ public class testhome {
 
         return "view";
     }
-
-    // 글쓰기
-    @GetMapping(value = "/aaaaa")
-    public String view() {
-        return "write";
-    }
-
-    @GetMapping(value = "/aaaaaa")
-    public String QA() {
-        return "Q&A";
+    @GetMapping(value = "/dep")
+    public String dep() {
+        return "depBoard";
     }
 }
