@@ -29,6 +29,10 @@ public class testhome {
         return "test";
     }
 
+    @GetMapping(value = "/login")
+    public String login() {
+        return "login";
+    }
 
     @GetMapping(value = "/a")
     public String board(){
