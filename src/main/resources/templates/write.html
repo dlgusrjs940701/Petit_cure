@@ -8,6 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/freeBoard.css">
+    <link rel="stylesheet" href="/css/write.css">
 </head>
 
 <body>
@@ -15,13 +16,27 @@
 <div th:include="main::header"></div>
 <div th:include="main::nav"></div>
 
-<div class="container mt-5">
+<div class="card-write">
     <h2><strong>글쓰기</strong></h2>
-    <form action="/write" method="post">
-
-    </form>
+    <div class="myinfo">
+        <strong>이름</strong><input type="text" placeholder="이름 입력">
+        <strong>비밀번호</strong><input type="password" placeholder="비번 입력">
+    </div>
+    <select class="form-select" aria-label="Default select example">
+        <option selected><strong>카테고리</strong></option>
+        <option value="1">함께 공유해요</option>
+        <option value="2">나 진지해요</option>
+        <option value="3">우리 잡담해요</option>
+    </select>
+    <div class="title-w">
+        <strong>제목</strong><input type="text" placeholder="제목 입력">
+    </div>
+    <div class="msg">
+        <strong>내용</strong><textarea name="" id="" placeholder="내용 입력"></textarea>
+        <input type="file" name="" id="">
+        <div class="button"><a href="#">저장</a></div>
+    </div>
 </div>
-
 </body>
 </html>
 <script>
