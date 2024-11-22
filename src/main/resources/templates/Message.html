@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>alert</title>
+<!--    값이 존재한다면 해당 메세지를 실행하도록 길이를 확인하는 작업-->
+    <th:block th:if="${#strings.length(data.message) != 0}">
+        <script>
+            top.alert(`[[${data.message}]]`);
+        </script>
+    </th:block>
+    <th:block th:if="${#strings.length(data.href)!0=}">
+        <script>
+            top.location.href =`[[${data.href}]]`;
+        </script>
+    </th:block>
+</head>
+<body>
+
+</body>
+</html>

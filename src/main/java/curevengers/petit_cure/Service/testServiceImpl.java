@@ -13,7 +13,7 @@ import java.util.List;
 public class testServiceImpl implements testService {
 
     @Autowired
-    private UserMapper userMapper;
+    UserMapper userMapper;
 
     @Override
     public void add(testDto dto) {
