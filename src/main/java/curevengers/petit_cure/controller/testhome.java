@@ -2,6 +2,7 @@ package curevengers.petit_cure.controller;
 
 import curevengers.petit_cure.Dto.QABoardDTO;
 import curevengers.petit_cure.Dto.freeBoardDTO;
+import curevengers.petit_cure.Dto.pageDTO;
 import curevengers.petit_cure.Dto.testDto;
 import curevengers.petit_cure.Service.testService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,7 @@ public class testhome {
         testservice.addFreeBoard(dto);
         return "freeBoard";
     }
+
     // QA게시판 글쓰기 저장
     @PostMapping(value = "/qasave")
     public String qasave(@ModelAttribute QABoardDTO dto) {
@@ -48,7 +50,11 @@ public class testhome {
     // 자유게시판
     @GetMapping(value = "/freeboard")
     public String getFreeBoardList(Model model) {
-        List<freeBoardDTO> freeBoardList=testservice.getAllFreeBoards();
+//        if (pagedto.getPage()==null){
+//            pagedto.setPage(1);
+//        }
+//        pagedto.setTotalCount(testservice.totalCountBoard());
+        List<freeBoardDTO> freeBoardList = testservice.getAllFreeBoards();
         model.addAttribute("list", freeBoardList);
         return "freeBoard";
     }
@@ -56,7 +62,7 @@ public class testhome {
     // QA게시판
     @GetMapping(value = "/qanda")
     public String getQABoardList(Model model) {
-        List<QABoardDTO> QABoardList=testservice.getAllQABoards();
+        List<QABoardDTO> QABoardList = testservice.getAllQABoards();
         model.addAttribute("qalist", QABoardList);
         return "Q&A";
     }
@@ -64,17 +70,17 @@ public class testhome {
     // 자유게시판 글 자세히 보기
     @GetMapping(value = "/view")
     public String boardView(@RequestParam("no") String no, Model model) {
-        freeBoardDTO board=testservice.getBoardNo(no);
-
+        freeBoardDTO board = testservice.getBoardNo(no);
+//        List<String> attachList=testservice.getAttach(no);
         model.addAttribute("dto", board);
-
+//        model.addAttribute("attachList", attachList);
         return "view";
     }
 
-//    // Q&A게시판 글 자세히 보기
+    //    // Q&A게시판 글 자세히 보기
     @GetMapping(value = "/qaview")
     public String QAboardView(@RequestParam("no") String no, Model model) {
-        QABoardDTO board=testservice.getQABoardNo(no);
+        QABoardDTO board = testservice.getQABoardNo(no);
 
         model.addAttribute("dto", board);
 
@@ -101,7 +107,7 @@ public class testhome {
 
     // 회원가입화면
     @GetMapping(value = "/mplus")
-    public String mplus(){
+    public String mplus() {
         return "mplus";
     }
 
@@ -127,5 +133,20 @@ public class testhome {
     public String dpcheck() {
         return "dpcheck";
     }
+
+    @GetMapping(value = "/searchTitle")
+    public String searchBoard(@RequestParam("title") String title, Model model) {
+        List<freeBoardDTO> board = testservice.getsearchFreeBoards(title);
+        model.addAttribute("list", board);
+        return "searchfreeBoard";
+    }
+
+    @GetMapping(value = "/searchQATitle")
+    public String searchQABoard(@RequestParam("title") String title, Model model) {
+        List<QABoardDTO> board = testservice.getsearchQABoards(title);
+        model.addAttribute("list", board);
+        return "searchQABoard";
+    }
+
 }
 

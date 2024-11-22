@@ -15,6 +15,11 @@ public class testServiceImpl implements testService {
     @Autowired
     private UserMapper userMapper;
 
+//    @Override
+//    public int totalCountBoard() {
+//        return userMapper.cntBoard();
+//    }
+
     @Override
     public void add(testDto dto) {
         System.out.println("서비스창");
@@ -61,6 +66,16 @@ public class testServiceImpl implements testService {
     @Override
     public void addQABoard(QABoardDTO dto) {
         userMapper.insertQABoard(dto);
+    }
+
+    @Override
+    public List<freeBoardDTO> getsearchFreeBoards(String title) {
+        return userMapper.findSearchBoards(title);
+    }
+
+    @Override
+    public List<QABoardDTO> getsearchQABoards(String title) {
+        return userMapper.findSearchQABoards(title);
     }
 
 
