@@ -5,30 +5,52 @@
 <mapper namespace="curevengers.petit_cure.Dao.UserMapper">
 
     <insert id="insert" parameterType="curevengers.petit_cure.Dto.testDto">
-        insert into test values (#{id})
+        insert into test
+        values (#{id})
     </insert>
     <!--    // 자유게시판 글 저장-->
     <insert id="insertFreeBoard" parameterType="curevengers.petit_cure.Dto.freeBoardDTO">
-        insert into freeboard (id, title, cate, content) values (#{id},#{title},#{cate},#{content})
+        insert into freeboard (id, title, cate, content)
+        values (#{id}, #{title}, #{cate}, #{content})
     </insert>
     <!--    // QA게시판 글 저장-->
     <insert id="insertQABoard" parameterType="curevengers.petit_cure.Dto.QABoardDTO">
-        insert into qaboard (id, title, cate, content) values (#{id},#{title},#{cate},#{content})
+        insert into qaboard (id, title, cate, content)
+        values (#{id}, #{title}, #{cate}, #{content})
     </insert>
 
     <!-- 게시판 글 목록-->
     <select id="findAllBoards" resultType="curevengers.petit_cure.Dto.freeBoardDTO">
-        select no, title, visit, date from freeboard
+        select no, title, visit, date
+        from freeboard
     </select>
     <select id="findQAAllBoards" resultType="curevengers.petit_cure.Dto.QABoardDTO">
-        select no, title, good, date from qaboard
+        select no, title, good, date
+        from qaboard
+    </select>
+
+    <!-- 자유게시판 검색기능-->
+    <select id="findSearchBoards" parameterType="String" resultType="curevengers.petit_cure.Dto.freeBoardDTO">
+        select no, title, visit, date
+        from freeboard
+        where title like CONCAT ('%', #{title}, '%')
+    </select>
+    <!--     QA게시판 검색기능-->
+    <select id="findSearchQABoards" parameterType="String" resultType="curevengers.petit_cure.Dto.QABoardDTO">
+        select no, title, good, date
+        from qaboard
+        where title like CONCAT ('%', #{title}, '%')
     </select>
 
     <!-- 게시판 글 자세히보기-->
     <select id="selectOne" parameterType="String" resultType="curevengers.petit_cure.Dto.freeBoardDTO">
-        select * from freeboard where no=#{no}
+        select *
+        from freeboard
+        where no =#{no}
     </select>
     <select id="selectQAOne" parameterType="String" resultType="curevengers.petit_cure.Dto.QABoardDTO">
-        select * from qaboard where no=#{no}
+        select *
+        from qaboard
+        where no =#{no}
     </select>
 </mapper>

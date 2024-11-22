@@ -5,7 +5,32 @@
 <!--jsp를 사용하는 html은 @{} 방식을 쓰지않음-->
 <link rel="stylesheet" href="/css/main.css">
 <link rel="stylesheet" href="/css/freeBoard.css">
+<style>
+    .input-text {
+        width: 348px;
+        height: 20px;
+        margin: 6px 0 0 9px;
+        border: 0;
+        outline: none;
+        font-size: 16px;
+    }
 
+    .search {
+        width: 54px;
+        height: 40px;
+        margin: 0;
+        border: 0;
+        background-color: #200400;
+        color: white;
+        font-weight: bold;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+    .search:hover {
+        background-color: #4e0f06;
+    }
+</style>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,6 +44,10 @@
 <div class="container">
     <div class="title-container">
         <h2><strong>자유게시판</strong></h2>
+        <form class="search-box" action="searchTitle" method="get">
+            <input id="text" type="text" class="input-text" name="title" placeholder="검색어 입력">
+            <input type="submit" value="검색" class="search">
+        </form>
         <button class="write-btn" onclick="location.href='/write'"><strong>글쓰기</strong></button>
     </div>
 
@@ -33,16 +62,17 @@
         </tr>
         </thead>
         <tbody class="tbody">
-            <tr th:each="board : ${list}">
+        <tr th:each="board : ${list}">
 
-                <td th:text="${board.no}"></td>
-                <td>   <a th:href="@{/view(no=${board.no})}" th:text="${board.title}"></a>
-               </td>
+            <td th:text="${board.no}"></td>
+            <td><a th:href="@{/view(no=${board.no})}" th:text="${board.title}"></a>
+            </td>
 
-                <td th:text="${board.name}"></td>
-                <td th:text="${board.visit}"></td>
-                <td th:text="${board.date}"></td>
-            </tr>
+            <td th:text="${board.name}"></td>
+            <td th:text="${board.visit}"></td>
+            <td th:text="${board.date}"></td>
+        </tr>
+
         </tbody>
     </table>
 </div>

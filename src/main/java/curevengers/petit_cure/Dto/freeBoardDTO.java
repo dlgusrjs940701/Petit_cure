@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class freeBoardDTO {
     private String no;
-    private String id;
+    private String member_id;
     private String title;
     private String cate;
     private String content;
