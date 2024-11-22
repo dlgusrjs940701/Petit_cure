@@ -34,20 +34,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Q&A</title>
+    <title>자유게시판</title>
 </head>
+
 <body>
 <!-- main화면 include 설정 -->
 <div th:include="main::header"></div>
 <div th:include="main::nav"></div>
 <div class="container">
     <div class="title-container">
-        <h2><strong>Q&A게시판</strong></h2>
-        <form class="search-box" action="searchQATitle" method="get">
+        <h2><strong>QA게시판</strong></h2>
+        <form class="search-box" action="/searchQATitle" method="get">
             <input id="text" type="text" class="input-text" name="title" placeholder="검색어 입력">
             <input type="submit" value="검색" class="search">
         </form>
-        <button class="write-btn" onclick="location.href='/qawrite'"><strong>글쓰기</strong></button>
+        <button class="write-btn" onclick="location.href='/write'"><strong>글쓰기</strong></button>
     </div>
 
     <table>
@@ -61,7 +62,8 @@
         </tr>
         </thead>
         <tbody class="tbody">
-        <tr th:each="board : ${qalist}">
+
+        <tr th:each="board : ${list}">
 
             <td th:text="${board.no}"></td>
             <td><a th:href="@{/qaview(no=${board.no})}" th:text="${board.title}"></a>
@@ -71,6 +73,7 @@
             <td th:text="${board.good}"></td>
             <td th:text="${board.date}"></td>
         </tr>
+
         </tbody>
     </table>
 </div>
