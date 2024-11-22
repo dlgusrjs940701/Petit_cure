@@ -2,8 +2,10 @@ package curevengers.petit_cure.controller;
 
 import curevengers.petit_cure.Dto.QABoardDTO;
 import curevengers.petit_cure.Dto.freeBoardDTO;
+
 import curevengers.petit_cure.Dto.pageDTO;
 import curevengers.petit_cure.Dto.testDto;
+import curevengers.petit_cure.Service.memberService;
 import curevengers.petit_cure.Service.testService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -147,6 +149,5 @@ public class testhome {
         model.addAttribute("list", board);
         return "searchQABoard";
     }
-
 }
 

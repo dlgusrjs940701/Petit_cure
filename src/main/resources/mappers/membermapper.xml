@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="curevengers.petit_cure.Dao.MemberMapper">
+
+    <insert id="insertMember" parameterType="curevengers.petit_cure.Dto.memberDTO">
+        insert into member values (#{id},#{pass},#{name},#{email},#{addr},#{gender},#{age},default)
+    </insert>
+
+    <select id="selectID" resultType="curevengers.petit_cure.Dto.memberDTO">
+        select id from member where id=#{id};
+    </select>
+</mapper>
