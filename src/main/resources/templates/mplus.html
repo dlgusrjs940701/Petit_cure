@@ -37,7 +37,7 @@
                             <label for="jumin1">주민번호</label><br>
                             <input type="text" maxlength="6" class="form-control" id="jumin1" name="jumin1" style="width: 100px; display: inline;" required>
                             -
-                            <input type="password" maxlength="1"class="form-control" id="jumin2" name="jumin2" style="width: 40px; display: inline;" required>******
+                            <input type="password" maxlength="1" class="form-control" id="jumin2" name="jumin2" style="width: 40px; display: inline;" required>******
                             <div class="invalid-feedback">
                                 주민번호를 입력하세요
                             </div>
@@ -56,7 +56,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="pass">비밀번호</label>
-                        <input type="password" class="form-control" id="pass" name="pass" placeholder="(?,*,!,@)중에 1개 이상 포함, 영문+숫자의 형태" oninput="psCheck()" required>
+                        <input type="password" class="form-control" id="pass" name="pass" placeholder="(?,*,!,@)중에 1개 이상 포함, 대문자 1개 이상 포함, 영문+숫자+특수문자의 형태(8자이상)" oninput="psCheck()" required>
                         <div id="checkPassword1">
                         </div>
                         <div class="invalid-feedback">
@@ -65,7 +65,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="c_pass">비밀번호 확인</label>
-                        <input type="password" class="form-control" id="c_pass" placeholder="(?,*,!,@)중에 1개 이상 포함, 영문+숫자의 형태" required>
+                        <input type="password" class="form-control" id="c_pass" placeholder="(?,*,!,@)중에 1개 이상 포함, 대문자 1개 이상 포함, 영문+숫자+특수문자의 형태(8자이상)" oninput="psDCheck()" required>
                         <div id="checkPassword2">
                         </div>
                         <div class="invalid-feedback">
@@ -81,8 +81,14 @@
                             </div>
                         </div>
                         <div class="col-md-2 mt-2">
-                            <input type="button" style="margin-left: 50px; margin-top: 20px; font-size: 25px" value="이메일 인증">
+                            <input type="button" style="margin-left: 50px; margin-top: 20px; font-size: 25px" value="인증번호 받기" id="sendBtn" onclick="sendNumber()">
                         </div>
+                    </div>
+                    <div id="mail_number" style="display: none">
+                        <input type="text"  id="number" placeholder="인증번호 입력" required>
+                        <input type="button" id="confirmBtn" value="인증번호 확인" onclick="confirmNumber()">
+                    </div>
+                    <div id="comment">
                     </div>
                     <div class="mb-3">
                         <label for="addr">주소</label>
@@ -174,7 +180,7 @@
             url: "/idCheck", //컨트롤러에 지정한 value값
             data: {id: id},
             success: function(data) {
-                console.log(data);
+                // console.log(data);
                 if(data>0){
                     document.getElementById("checkId").class = "invalid-feedback"
                     $("#checkId").text("이미 사용중인 이름입니다.");
@@ -218,14 +224,35 @@
             document.getElementById("checkPassword1").style.color = "#00d0ff";
             btn.disabled = false;
         }else if(passwordPattern.test(password)==false){
-            console.log(password)
-            console.log(passwordPattern.test(password))
+            // console.log(password)
+            // console.log(passwordPattern.test(password))
             $("#checkPassword1").text("유효하지 않은 비밀번호입니다.");
             document.getElementById("checkPassword1").style.color = "#ff0000";
             btn.disabled = true;
         }
     }
 </script>
+<script>
+    function psDCheck(){
+        const nowps = document.getElementById("pass").value;
+        const conps = document.getElementById("c_pass").value;
+        let btn = document.getElementById('btn');
+
+        console.log(nowps+" / "+conps);
+
+         if(nowps != conps){
+                $("#checkPassword2").text("비밀번호가 일치하지 않습니다.");
+                document.getElementById("checkPassword2").style.color = "#ff0000";
+                btn.disabled = true;
+        }else if(nowps == conps){
+            $("#checkPassword2").text("비밀번호가 일치합니다.");
+            document.getElementById("checkPassword2").style.color = "#00d0ff";
+            btn.disabled = false;
+        }
+
+    }
+</script>
+
 <script>
     function Postcode() {
         new daum.Postcode({
@@ -275,4 +302,35 @@
         }).open();
     }
 
+</script>
+<script>
+    function sendNumber(){
+        $("#mail_number").css("display","block");
+        $.ajax({
+            url: "/api/v1/email/send",
+            type: "post",
+            dataType: "json",
+            data: {"mail": $("#email").val()},
+            success: function (data) {
+                alert("인증번호 발송");
+                $("#comment").innerText=data;
+                // $("#Confirm").attr("value", data);
+            }
+        });
+    }
+
+    function confirmNumber() {
+        let mail = $("#email").val();
+        let number = $("#number").val();
+        $.ajax({
+            url: "/api/v1/email/verify",
+            type: "post",
+            dataType: "json",
+            data: {"mail": mail, "verifyCode": number},
+            success: function (data, status, xhr) {
+                $("#comment").innerText=data;
+                console.log(status);
+            }
+        });
+    }
 </script>

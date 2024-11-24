@@ -42,8 +42,7 @@ public class memberController {
     @ResponseBody
     @GetMapping("/idCheck")
     public int idCheck(@RequestParam String id) {
-        int cnt = memberservice.cofrmID(id);
-        return cnt;
+        return memberservice.cofrmID(id);
     }
 
 }

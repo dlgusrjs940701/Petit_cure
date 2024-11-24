@@ -51,7 +51,6 @@ public class memberServiceImpl implements memberService{
 
     @Override
     public int cofrmID(String id) {
-        int cnt = memberMapper.selectID(id).size();
-        return cnt;
+        return memberMapper.selectID(id).size();
     }
 }
