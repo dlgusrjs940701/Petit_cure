@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="/css/depBoard.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>main</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Jua&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik+Wet+Paint&family=Yeon+Sung&display=swap');
+    </style>
+</head>
+<body>
+<div th:include="main::header"></div>
+<div th:include="main::nav"></div>
+<section>
+    <article>
+        <div class="container">
+            <h2>우울증게시판</h2>
+
+            <div class="aside">
+                ▷ 여려개의 게시글을 보유 중
+            </div>
+
+            <div class="select-grup">
+                <form action="">
+                    <span class="select-text"></span>
+                    <span>
+                        <select class="select-dropbox">
+                            <option value="s-title">제목</option>
+                            <option value="s-writer">글쓴이</option>
+                            <option value="s-">일시</option>
+                        </select>
+                    </span>
+                    <span>
+                        <input type="text" name="search" class="select-textbox">
+                        <input type="submit" class="button-black" value="검색"/>
+                    </span>
+                </form>
+            </div>
+
+            <table class="board-table">
+                <thead>
+                <tr>
+                    <th>no</th>
+                    <th>아이디</th>
+                    <th>제목</th>
+                    <th>내용</th>
+                    <th>작성일</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>시퀸스 사용</td>
+                    <td>Yunyul841</td>
+                    <td>열심히 하자</td>
+                    <td>오늘은 막걸리~</td>
+                    <td>2024-11-21</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td>시퀸스 사용</td>
+                    <td>Yunyul841</td>
+                    <td>열심히 하자</td>
+                    <td>오늘은 막걸리~</td>
+                    <td>2024-11-21</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td>시퀸스 사용</td>
+                    <td>Yunyul841</td>
+                    <td>열심히 하자</td>
+                    <td>오늘은 막걸리~</td>
+                    <td>2024-11-21</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td>시퀸스 사용</td>
+                    <td>Yunyul841</td>
+                    <td>열심히 하자</td>
+                    <td>오늘은 막걸리~</td>
+                    <td>2024-11-21</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td>시퀸스 사용</td>
+                    <td>Yunyul841</td>
+                    <td>열심히 하자</td>
+                    <td>오늘은 막걸리~</td>
+                    <td>2024-11-21</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td>시퀸스 사용</td>
+                    <td>Yunyul841</td>
+                    <td>열심히 하자</td>
+                    <td>오늘은 막걸리~</td>
+                    <td>2024-11-21</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td>시퀸스 사용</td>
+                    <td>Yunyul841</td>
+                    <td>열심히 하자</td>
+                    <td>오늘은 막걸리~</td>
+                    <td>2024-11-21</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td>시퀸스 사용</td>
+                    <td>Yunyul841</td>
+                    <td>열심히 하자</td>
+                    <td>오늘은 막걸리~</td>
+                    <td>2024-11-21</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td>시퀸스 사용</td>
+                    <td>Yunyul841</td>
+                    <td>열심히 하자</td>
+                    <td>오늘은 막걸리~</td>
+                    <td>2024-11-21</td>
+                </tr>
+                </tbody>
+
+                <tbody>
+                <tr>
+                    <td>시퀸스 사용</td>
+                    <td>Yunyul841</td>
+                    <td>열심히 하자</td>
+                    <td>오늘은 막걸리~</td>
+                    <td>2024-11-21</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td>시퀸스 사용</td>
+                    <td>Yunyul841</td>
+                    <td>열심히 하자</td>
+                    <td>오늘은 막걸리~</td>
+                    <td>2024-11-21</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td>시퀸스 사용</td>
+                    <td>Yunyul841</td>
+                    <td>열심히 하자</td>
+                    <td>오늘은 막걸리~</td>
+                    <td>2024-11-21</td>
+                </tr>
+                </tbody>
+
+                <tbody>
+                <tr>
+                    <td>시퀸스 사용</td>
+                    <td>Yunyul841</td>
+                    <td>열심히 하자</td>
+                    <td>오늘은 막걸리~</td>
+                    <td>2024-11-21</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td>시퀸스 사용</td>
+                    <td>Yunyul841</td>
+                    <td>열심히 하자</td>
+                    <td>오늘은 막걸리~</td>
+                    <td>2024-11-21</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td>시퀸스 사용</td>
+                    <td>Yunyul841</td>
+                    <td>열심히 하자</td>
+                    <td>오늘은 막걸리~</td>
+                    <td>2024-11-21</td>
+                </tr>
+                </tbody>
+
+                <tbody>
+                <tr>
+                    <td>시퀸스 사용</td>
+                    <td>Yunyul841</td>
+                    <td>열심히 하자</td>
+                    <td>오늘은 막걸리~</td>
+                    <td>2024-11-21</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td>시퀸스 사용</td>
+                    <td>Yunyul841</td>
+                    <td>열심히 하자</td>
+                    <td>오늘은 막걸리~</td>
+                    <td>2024-11-21</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td>시퀸스 사용</td>
+                    <td>Yunyul841</td>
+                    <td>열심히 하자</td>
+                    <td>오늘은 막걸리~</td>
+                    <td>2024-11-21</td>
+                </tr>
+                </tbody>
+
+                <tbody>
+                <tr>
+                    <td>시퀸스 사용</td>
+                    <td>Yunyul841</td>
+                    <td>열심히 하자</td>
+                    <td>오늘은 막걸리~</td>
+                    <td>2024-11-21</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td>시퀸스 사용</td>
+                    <td>Yunyul841</td>
+                    <td>열심히 하자</td>
+                    <td>오늘은 막걸리~</td>
+                    <td>2024-11-21</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td>시퀸스 사용</td>
+                    <td>Yunyul841</td>
+                    <td>열심히 하자</td>
+                    <td>오늘은 막걸리~</td>
+                    <td>2024-11-21</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td>시퀸스 사용</td>
+                    <td>Yunyul841</td>
+                    <td>열심히 하자</td>
+                    <td>오늘은 막걸리~</td>
+                    <td>2024-11-21</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td>시퀸스 사용</td>
+                    <td>Yunyul841</td>
+                    <td>열심히 하자</td>
+                    <td>오늘은 막걸리~</td>
+                    <td>2024-11-21</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td>시퀸스 사용</td>
+                    <td>Yunyul841</td>
+                    <td>열심히 하자</td>
+                    <td>오늘은 막걸리~</td>
+                    <td>2024-11-21</td>
+                </tr>
+                </tbody>
+
+                <tbody>
+                <tr>
+                    <td>시퀸스 사용</td>
+                    <td>Yunyul841</td>
+                    <td>열심히 하자</td>
+                    <td>오늘은 막걸리~</td>
+                    <td>2024-11-21</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td>시퀸스 사용</td>
+                    <td>Yunyul841</td>
+                    <td>열심히 하자</td>
+                    <td>오늘은 막걸리~</td>
+                    <td>2024-11-21</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td>시퀸스 사용</td>
+                    <td>Yunyul841</td>
+                    <td>열심히 하자</td>
+                    <td>오늘은 막걸리~</td>
+                    <td>2024-11-21</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td>시퀸스 사용</td>
+                    <td>Yunyul841</td>
+                    <td>열심히 하자</td>
+                    <td>오늘은 막걸리~</td>
+                    <td>2024-11-21</td>
+                </tr>
+                </tbody>
+
+                <tbody>
+                <tr>
+                    <td>시퀸스 사용</td>
+                    <td>Yunyul841</td>
+                    <td>열심히 하자</td>
+                    <td>오늘은 막걸리~</td>
+                    <td>2024-11-21</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td>시퀸스 사용</td>
+                    <td>Yunyul841</td>
+                    <td>열심히 하자</td>
+                    <td>오늘은 막걸리~</td>
+                    <td>2024-11-21</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td>시퀸스 사용</td>
+                    <td>Yunyul841</td>
+                    <td>열심히 하자</td>
+                    <td>오늘은 막걸리~</td>
+                    <td>2024-11-21</td>
+                </tr>
+                </tbody>
+
+
+            </table>
+
+            <div class="page">
+                <span><a href="#!">◀ 이전</a></span>
+                <span><a href="#!">1</a></span>
+                <span><a href="#!">다음 ▶</a></span>
+            </div>
+
+            <div class="button">
+                <span><input type="button" class="button-gray" value="목록"></span>
+                <span><input type="button" class="button-black" value="글쓰기"></span>
+                <span><input type="button" class="button-black" value="수정"></span>
+                <span><input type="button" class="button-black" value="삭제"></span>
+            </div>
+
+        </div>
+    </article>
+</section>
+
+</body>
+</html>
+<script>
+    const submenuList = document.querySelectorAll(".dropdown");
+
+    submenuList.forEach(li => {
+        li.addEventListener("mouseover", () => {
+            li.querySelectorAll("ul").forEach((el) => {
+                el.style.display = "block";
+            })
+        });
+        li.addEventListener("mouseout", () => {
+            li.querySelectorAll("ul").forEach((el) => {
+                el.style.display = "none";
+            })
+        });
+    });
+</script>
