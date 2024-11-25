@@ -309,12 +309,14 @@
         $.ajax({
             url: "/api/v1/email/send",
             type: "post",
-            dataType: "json",
+            dataType: "text",
             data: {"mail": $("#email").val()},
             success: function (data) {
                 alert("인증번호 발송");
-                $("#comment").innerText=data;
-                // $("#Confirm").attr("value", data);
+                console.log(data);
+                $("#comment").val(data);
+                document.getElementById("comment").innerText=data;
+                document.getElementById("comment").style.color="#ff0000";
             }
         });
     }
@@ -325,11 +327,16 @@
         $.ajax({
             url: "/api/v1/email/verify",
             type: "post",
-            dataType: "json",
+            dataType: "text",
             data: {"mail": mail, "verifyCode": number},
             success: function (data, status, xhr) {
-                $("#comment").innerText=data;
-                console.log(status);
+                document.getElementById("comment").innerText=data;
+                if(data=="인증 실패하셨습니다."){
+                    document.getElementById("comment").style.color="#ff0000";
+                }else{
+                    document.getElementById("comment").style.color="#00d0ff";
+                }
+                // console.log(status);
             }
         });
     }
