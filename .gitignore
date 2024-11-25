@@ -41,7 +41,7 @@ out/
 key.js
 
 #directory를 못올리게 하려면
-dir/
+dir/resources/templates/application.properties
 
 # 비밀번호 올라감 방지
 application.properties
