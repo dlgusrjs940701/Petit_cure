@@ -73,6 +73,7 @@ public class testhome {
     @GetMapping(value = "/view")
     public String boardView(@RequestParam("no") String no, Model model) {
         freeBoardDTO board = testservice.getBoardNo(no);
+        testservice.updateVisit(Integer.parseInt(no));
 //        List<String> attachList=testservice.getAttach(no);
         model.addAttribute("dto", board);
 //        model.addAttribute("attachList", attachList);
@@ -148,6 +149,13 @@ public class testhome {
         List<QABoardDTO> board = testservice.getsearchQABoards(title);
         model.addAttribute("list", board);
         return "searchQABoard";
+    }
+
+    // QA게시판 좋아요 기능
+    @GetMapping(value = "/goodUp")
+    public String goodUp(@RequestParam("no") String no, Model model) {
+        testservice.updateGood(no);
+        return "qaview";
     }
 }
 

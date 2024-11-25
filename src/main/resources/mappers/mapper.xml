@@ -53,4 +53,17 @@
         from qaboard
         where no =#{no}
     </select>
+
+    <!-- 조회수 구현 -->
+    <update id="updateVisit" parameterType="int">
+        update freeboard
+        set visit=visit + 1
+        where no =#{no}
+    </update>
+    <update id="updateGood" parameterType="String" >
+        update qaboard
+        set good=good + 1
+        where no =#{no}
+    </update>
+
 </mapper>

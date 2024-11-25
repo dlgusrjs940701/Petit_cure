@@ -78,5 +78,15 @@ public class testServiceImpl implements testService {
         return userMapper.findSearchQABoards(title);
     }
 
+    @Override
+    public void updateVisit(int no) {
+        userMapper.updateVisit(no);
+    }
+
+    @Override
+    public void updateGood(String no) {
+        userMapper.updateGood(no);
+    }
+
 
 }
