@@ -2,7 +2,9 @@ package curevengers.petit_cure.controller;
 
 import curevengers.petit_cure.Dto.*;
 
-import curevengers.petit_cure.Service.healthCheckService;
+
+import curevengers.petit_cure.Dto.testDto;
+
 import curevengers.petit_cure.Service.testService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -23,13 +25,6 @@ public class testhome {
     @Autowired
     testService testservice;
 
-    @Autowired
-    healthCheckService healthcheckservice;
-
-    @GetMapping(value = "/")
-    public String home() {
-        return "main";
-    }
 
     @GetMapping(value = "/aa")
     public String home(@ModelAttribute testDto dto) {
@@ -116,11 +111,6 @@ public class testhome {
         return "mplus";
     }
 
-    // 로그인화면
-    @GetMapping(value = "/login")
-    public String login() {
-        return "login";
-    }
 
     // 건강검진화면
     @GetMapping(value = "/health")

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/memberdelete.css">
+</head>
+<body>
+<header class="roboto-regular">
+    <div>
+        <h1 style="font-weight: bold; font-size: 50px;">WELCOME TO PETIT CURE</h1>
+    </div>
+</header>
+<nav class="jua-regular" id="nav">
+    <ul>
+        <li class="dropdown">
+            <a href="자가셀프검진">자가셀프검진</a>
+            <ul class="submenu">
+                <li><a href="#">건강검진 check</a></li>
+                <li><a href="#">우울증 check</a></li>
+            </ul>
+        </li>
+        <li><a href="게시판">게시판</a></li>
+        <li><a href="검색">검색</a></li>
+        <li><a href="회사소개">회사소개</a></li>
+        <div style="display: inline;" id="login">
+            <li style="margin-left: 700px;"><a href="회원가입">회원가입</a></li>
+            <li style="margin-left: 5px;"><a href="#">/</a></li>
+            <li style="margin-left: 5px;"><a href="로그인">로그인</a></li>
+        </div>
+        <div style="display: inline;" id="logout" hidden>
+            <li style="margin-left: 700px;"><a href="마이페이지">마이페이지</a></li>
+            <li style="margin-left: 5px;"><a href="#">/</a></li>
+            <li style="margin-left: 5px;"><a href="로그아웃">로그아웃</a></li>
+        </div>
+    </ul>
+</nav>
+
+
+<!-- <aside>
+    <h1>회원 탈퇴</h1>
+</aside> -->
+
+
+<section>
+    <form action="">
+        <table style="margin-top: 50px;">
+            <tr>
+                <td colspan="3" id="td1" style=" text-align: center; width: 1000px; height: 100px; font-size: 40px; font-weight: bold;">회원 탈퇴<hr></td>
+            </tr>
+            <tr>
+                <td id="td1" style="vertical-align: top;">회원 탈퇴 안내</td>
+                <td id="td1" colspan="2">
+                    <div style="font-size: 25px;">
+                        <span>회원 탈퇴 시 아래 사항을 반드시 숙지하시기 바랍니다.</span>
+                        <ul>
+                            <li>계정 및 모든 데이터가 삭제됩니다.</li>
+                            <li>복구가 불가능합니다.</li>
+                            <li>더 이상 서비스를 이용하실 수 없습니다.</li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td id="td1">
+                    <div>
+                        아이디
+                    </div>
+                </td>
+
+                <td colspan="2">
+                    <input type="text" placeholder="현재 아이디를 입력해주세요" style="width: 600px; height: 60px; float:left;" class="d-inline-block form-control">
+                </td>
+            </tr>
+            <tr>
+                <td id="td1">
+                    <div>
+                        비밀번호
+                    </div>
+                </td>
+                <td colspan="2">
+                    <input type="text"placeholder="현재 비밀번호를 입력해주세요" style="width: 600px; height: 60px; float:left;" class="d-inline-block form-control">
+                </td>
+            </tr>
+            <tr>
+                <td id="td1">탈퇴 사유</td>
+                <td id="td1"><input type="checkbox" id="del1" class="form-check-input"><label class="form-check-label" for="del1">&nbsp; 사용빈도 낮음</label></td>
+                <td id="td1"><input type="checkbox" id="del2" class="form-check-input"><label class="form-check-label" for="del2">&nbsp; 서비스 불만</label></td>
+            </tr>
+            <tr>
+                <td id="td1">&nbsp;</td>
+                <td id="td1"><input type="checkbox" id="del3" class="form-check-input"><label class="form-check-label" for="del3">&nbsp; 고객응대 불만</label></td>
+                <td id="td1"><input type="checkbox" id="del4" class="form-check-input"><label class="form-check-label" for="del4">&nbsp; 개인정보 유출 우려</label></td>
+            </tr>
+            <tr>
+                <td id="td1">&nbsp;</td>
+                <td id="td1"><input type="checkbox" id="del5" class="form-check-input"><label class="form-check-label" for="del5">&nbsp; 기타</label></td></td>
+                <td id="td1">&nbsp;</td>
+            </tr>
+            <tr>
+                <td id="td1" style="vertical-align: top;">의견</td>
+                <td id="td1" colspan="2"> <textarea class="form-control" rows="1" style=" width: 610px; height: 200px;"></textarea></td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <div class="button d-flex justify-content-center">
+                        <button type= "submit"class="button1" onclick="confirmWithdrawal(), test()" >탈퇴하기</button>
+                        <button type= "button"class="button2"onclick="test1()">계속 이용하기</button>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+</section>
+</body>
+</html>
