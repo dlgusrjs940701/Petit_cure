@@ -4,6 +4,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="curevengers.petit_cure.Dao.healthCheckMapper">
     <insert id="insert" parameterType="curevengers.petit_cure.Dto.healthCheckDTO">
-        insert into healthcheckresult values (#{height},#{weight},#{AC},#{SBP},#{DBP},#{FBG},#{TC},#{HDL},#{TG},#{LDL},#{AST},#{ALT})
+        insert into healthcheckresult values (#{id},#{height},#{weight},#{AC},#{SBP},#{DBP},#{FBG},#{TC},#{HDL},#{TG},#{LDL},#{AST},#{ALT},default)
     </insert>
+    <select id="selectOne" resultType="curevengers.petit_cure.Dto.healthCheckDTO">
+        select * from healthcheckresult where id = #{id} order by date desc limit 1
+    </select>
+    <select id="selectAll" resultType="curevengers.petit_cure.Dto.healthCheckDTO">
+        select * from healthcheckresult where id = #{id} order by date desc
+    </select>
 </mapper>
