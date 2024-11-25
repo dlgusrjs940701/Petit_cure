@@ -3,9 +3,7 @@ package curevengers.petit_cure.controller;
 import curevengers.petit_cure.Dto.QABoardDTO;
 import curevengers.petit_cure.Dto.freeBoardDTO;
 
-import curevengers.petit_cure.Dto.pageDTO;
 import curevengers.petit_cure.Dto.testDto;
-import curevengers.petit_cure.Service.memberService;
 import curevengers.petit_cure.Service.testService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,11 +20,6 @@ public class testhome {
 
     @Autowired
     testService testservice;
-
-    @GetMapping(value = "/")
-    public String home() {
-        return "main";
-    }
 
     @GetMapping(value = "/aa")
     public String home(@ModelAttribute testDto dto) {
@@ -113,11 +106,6 @@ public class testhome {
         return "mplus";
     }
 
-    // 로그인화면
-    @GetMapping(value = "/login")
-    public String login() {
-        return "login";
-    }
 
     // 건강검진결과로
     @GetMapping(value = "/healthresult")

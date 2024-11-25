@@ -1,48 +1,52 @@
 package curevengers.petit_cure.controller;
 
-import curevengers.petit_cure.Dto.Message;
 import curevengers.petit_cure.Dto.memberDTO;
-import curevengers.petit_cure.Service.memberService;
+import curevengers.petit_cure.Service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class memberController {
 
 
-    @Autowired
-    memberService memberservice;
 
-    @PostMapping(value = "/memplus")
+    @Autowired
+    UserServiceImpl userservice;
+
+    @PostMapping(value = "/memplus")        // 회원가입
     public String memplus(@ModelAttribute memberDTO memberdto) {
-        System.out.println(memberdto.toString());
-        memberservice.addmember(memberdto);
-        return "/login";
+        try {
+            userservice.signup(memberdto);
+        } catch (DuplicateKeyException e) {
+            return "redirect:/signup?error_code=-1";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "redirect:/signup?error_code=-99";
+        }
+        return "redirect:/login";
     }
 
-//    @PostMapping(value = "/idCheck")
-//    public void idCheck(HttpServletRequest request, HttpServletResponse response) throws Exception {
-//        // 자바스크립트로 아이디 중복 체크 위한 함수 추가완료.
-//        // 중복체크버튼 클릭시 idCheck로 요청
-//        String userid = request.getParameter("userid");
-//        memberservice.cofrmID(userid);
-//
-//        int result = memberservice.cofrmID(userid);
-//
-//        request.setAttribute("userid",userid);
-//        request.setAttribute("result",result);
-//        // 중복있으면 1, 없으면 -1
-//
-//        RequestDispatcher dispatcher = request.getRequestDispatcher("/mplus.html");
-//        dispatcher.forward(request, response);
-//    }
+    @GetMapping(value = "/")
+    public String home(Model model) {
+        String id = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        memberDTO memberdto = userservice.getMemberById(id);
+        memberdto.setPass(null);        // 비밀번호는 안보이도록 null로 설정
+        model.addAttribute("member", memberdto);
+        return "main";
+    }
 
-    @ResponseBody
-    @GetMapping("/idCheck")
-    public int idCheck(@RequestParam String id) {
-        return memberservice.cofrmID(id);
+    @GetMapping("/login")
+    public String loginPage() { // 로그인되지 않은 상태이면 로그인 페이지를, 로그인된 상태이면 main 페이지를 보여줌
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication instanceof AnonymousAuthenticationToken)
+            return "login";
+        return "redirect:/";
     }
 
 }
