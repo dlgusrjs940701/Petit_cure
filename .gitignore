@@ -41,7 +41,7 @@ out/
 key.js
 
 #directory를 못올리게 하려면
-dir/
+java/curevengers/petit_cure/gitignore
 
 # 비밀번호 올라감 방지
 application.properties
