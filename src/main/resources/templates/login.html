@@ -25,13 +25,15 @@
       <div id="loginBoxTitle">PETIT CURE Login</div>
       <!-- 아이디, 비번, 버튼 박스 -->
       <div id="inputBox">
-        <div class="input-form-box"><span>아이디 </span><input type="text" name="uid" class="form-control" style="height: 40px; font-size: 20px;"></div>
-        <div class="input-form-box"><span>비밀번호 </span><input type="password" name="upw" class="form-control" style="height: 40px; font-size: 20px;"></div>
-        <div class="button-login-box" >
-          <button type="button" class="btn btn-primary btn-xs" style="width:100%">로그인</button>
-          <div style="text-align: center">또는</div>
-          <button type="button" class="btn btn-secondary btn-xs" style="width:100%">회원가입</button>
-        </div>
+        <form method="post" action="/logincon">
+          <div class="input-form-box"><span>아이디 </span><input type="text" name="uid" id="uid" class="form-control" style="height: 40px; font-size: 20px;"></div>
+          <div class="input-form-box"><span>비밀번호 </span><input type="password" name="upw" id="upw" class="form-control" style="height: 40px; font-size: 20px;"></div>
+          <div class="button-login-box" >
+            <button type="button" class="btn btn-primary btn-xs" style="width:100%">로그인</button>
+            <div style="text-align: center">또는</div>
+            <a href="mplus"><button type="button" class="btn btn-secondary btn-xs" style="width:100%">회원가입</button></a>
+          </div>
+        </form>
       </div>
     </div>
   </div>
@@ -55,3 +57,28 @@
     });
   });
 </script>
+<!--<script>-->
+
+<!--  function logincon(){-->
+<!--    const id = document.getElementById("uid").value;-->
+<!--    const pw = document.getElementById("upw").value;-->
+
+<!--    $.ajax({-->
+<!--      type: 'POST',-->
+<!--      url: "/logincon", //컨트롤러에 지정한 value값-->
+<!--      data: {id: id, pw: pw},-->
+<!--      success: function(data) {-->
+<!--        // console.log(data);-->
+<!--        if(data>0){-->
+<!--           alert(id+"님 환영합니다. 로그인이 완료되었습니다.");-->
+<!--        }else{-->
+<!--          alert("아이디 / 비밀번호가 일치하지 않습니다.");-->
+<!--        }-->
+<!--      },-->
+<!--      error: function (){-->
+<!--        alert("에러입니다.")-->
+<!--      }-->
+<!--    })-->
+<!--  }-->
+
+<!--</script>-->
