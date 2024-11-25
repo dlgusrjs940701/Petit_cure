@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>main</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/freeBoard.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Jua&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik+Wet+Paint&family=Yeon+Sung&display=swap');
+    </style>
+</head>
+<style>
+    section {
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+    table {
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+    }
+    th {
+        font-size: 25px;
+    }
+    td {
+        font-size: 25px;
+        margin-top: 25px;
+        margin-bottom: 10px;
+    }
+</style>
+<body>
+<div th:include="main::header"></div>
+<div th:include="main::nav"></div>
+<section class="jua-regular" style="text-align: center;">
+    <table>
+        <tr>
+            <th colspan="2">
+                건강검진 check 결과
+            </th>
+        </tr>
+        <tr>
+            <td>ID</td>
+            <td>검진 날짜</td>
+        </tr>
+        <tr th:each="list : ${list}">
+            <td th:text="${list.id}"></td>
+            <td th:text="${list.date}"></td>
+        </tr>
+    </table>
+</section>
+<div th:include="main::footer"></div>
+</body>
+</html>
+<script>
+    const submenuList = document.querySelectorAll(".dropdown");
+
+    submenuList.forEach(li => {
+        li.addEventListener("mouseover", () => {
+            li.querySelectorAll("ul").forEach((el) => {
+                el.style.display = "block";
+            })
+        });
+        li.addEventListener("mouseout", () => {
+            li.querySelectorAll("ul").forEach((el) => {
+                el.style.display = "none";
+            })
+        });
+    });
+</script>

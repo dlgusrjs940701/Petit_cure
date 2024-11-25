@@ -11,132 +11,221 @@
   </style>
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/css/freeBoard.css">
+  <style>
+    tr td {
+      border: 1px solid;
+      border-radius: 0;
+    }
+  </style>
 </head>
 <body>
 <div th:include="main::header"></div>
 <div th:include="main::nav"></div>
 <section class="jua-regular" style="font-size: 30px; text-align: center;">
-  <form action="check" method="post">
-    <div>
-      <div>신장</div>
-      <div class="container-fluid row justify-content-center">
-        <input class="form-control" type="text" style="height: 40px; margin-left: 20px; width: 200px;" name="height" placeholder="cm">
-      </div>
-    </div>
-    <div>
-      <div>몸무게</div>
-      <div class="container-fluid row justify-content-center">
-        <input class="form-control" type="text" style="height: 40px; margin-left: 20px; width: 200px;" name="weight" placeholder="kg">
-      </div>
-    </div>
-    <br>
-    <div>( 저 / 중 / 고 ) 중에 선택해주세요</div>
-    <br>
-    <div>
-      <div>AC (복부 둘레)</div>
-      <span style="margin-left: 5px; margin-right: 5px;">저</span>
-      <span style="margin-left: 5px; margin-right: 5px;">중</span>
-      <span style="margin-left: 5px; margin-right: 5px;">고</span>
-      <br>
-      <input style="width: 30px; height: 30px;" type="radio" value="1" name="AC">
-      <input style="width: 30px; height: 30px;" type="radio" value="2" name="AC">
-      <input style="width: 30px; height: 30px;" type="radio" value="3" name="AC">
-    </div>
-    <div>
-      <div>SBP (최고혈압)</div>
-      <span style="margin-left: 5px; margin-right: 5px;">저</span>
-      <span style="margin-left: 5px; margin-right: 5px;">중</span>
-      <span style="margin-left: 5px; margin-right: 5px;">고</span>
-      <br>
-      <input style="width: 30px; height: 30px;" type="radio" value="1" name="SBP">
-      <input style="width: 30px; height: 30px;" type="radio" value="2" name="SBP">
-      <input style="width: 30px; height: 30px;" type="radio" value="3" name="SBP">
-    </div>
-    <div>
-      <div>DBP (최저혈압)</div>
-      <span style="margin-left: 5px; margin-right: 5px;">저</span>
-      <span style="margin-left: 5px; margin-right: 5px;">중</span>
-      <span style="margin-left: 5px; margin-right: 5px;">고</span>
-      <br>
-      <input style="width: 30px; height: 30px;" type="radio" value="1" name="DBP">
-      <input style="width: 30px; height: 30px;" type="radio" value="2" name="DBP">
-      <input style="width: 30px; height: 30px;" type="radio" value="3" name="DBP">
-    </div>
-    <div>
-      <div>FBG (공복혈당)</div>
-      <span style="margin-left: 5px; margin-right: 5px;">저</span>
-      <span style="margin-left: 5px; margin-right: 5px;">중</span>
-      <span style="margin-left: 5px; margin-right: 5px;">고</span>
-      <br>
-      <input style="width: 30px; height: 30px;" type="radio" value="1" name="FBG">
-      <input style="width: 30px; height: 30px;" type="radio" value="2" name="FBG">
-      <input style="width: 30px; height: 30px;" type="radio" value="3" name="FBG">
-    </div>
-    <div>
-      <div>TC (총 콜레스테롤)</div>
-      <span style="margin-left: 5px; margin-right: 5px;">저</span>
-      <span style="margin-left: 5px; margin-right: 5px;">중</span>
-      <span style="margin-left: 5px; margin-right: 5px;">고</span>
-      <br>
-      <input style="width: 30px; height: 30px;" type="radio" value="1" name="TC">
-      <input style="width: 30px; height: 30px;" type="radio" value="2" name="TC">
-      <input style="width: 30px; height: 30px;" type="radio" value="3" name="TC">
-    </div>
-    <div>
-      <div>HDL (고밀도 지단백)</div>
-      <span style="margin-left: 5px; margin-right: 5px;">저</span>
-      <span style="margin-left: 5px; margin-right: 5px;">중</span>
-      <span style="margin-left: 5px; margin-right: 5px;">고</span>
-      <br>
-      <input style="width: 30px; height: 30px;" type="radio" value="1" name="HDL">
-      <input style="width: 30px; height: 30px;" type="radio" value="2" name="HDL">
-      <input style="width: 30px; height: 30px;" type="radio" value="3" name="HDL">
-    </div>
-    <div>
-      <div>TG (중성지방)</div>
-      <span style="margin-left: 5px; margin-right: 5px;">저</span>
-      <span style="margin-left: 5px; margin-right: 5px;">중</span>
-      <span style="margin-left: 5px; margin-right: 5px;">고</span>
-      <br>
-      <input style="width: 30px; height: 30px;" type="radio" value="1" name="TG">
-      <input style="width: 30px; height: 30px;" type="radio" value="2" name="TG">
-      <input style="width: 30px; height: 30px;" type="radio" value="3" name="TG">
-    </div>
-    <div>
-      <div>LDL (저밀도 지단백)</div>
-      <span style="margin-left: 5px; margin-right: 5px;">저</span>
-      <span style="margin-left: 5px; margin-right: 5px;">중</span>
-      <span style="margin-left: 5px; margin-right: 5px;">고</span>
-      <br>
-
-      <input style="width: 30px; height: 30px;" type="radio" value="1" name="LDL">
-      <input style="width: 30px; height: 30px;" type="radio" value="2" name="LDL">
-      <input style="width: 30px; height: 30px;" type="radio" value="3" name="LDL">
-    </div>
-    <div>
-      <div>AST</div>
-      <span style="margin-left: 5px; margin-right: 5px;">저</span>
-      <span style="margin-left: 5px; margin-right: 5px;">중</span>
-      <span style="margin-left: 5px; margin-right: 5px;">고</span>
-      <br>
-      <input style="width: 30px; height: 30px;" type="radio" value="1" name="AST">
-      <input style="width: 30px; height: 30px;" type="radio" value="2" name="AST">
-      <input style="width: 30px; height: 30px;" type="radio" value="3" name="AST">
-    </div>
-    <div>
-      <div>ALT</div>
-      <span style="margin-left: 5px; margin-right: 5px;">저</span>
-      <span style="margin-left: 5px; margin-right: 5px;">중</span>
-      <span style="margin-left: 5px; margin-right: 5px;">고</span>
-      <br>
-      <input style="width: 30px; height: 30px;" type="radio" value="1" name="ALT">
-      <input style="width: 30px; height: 30px;" type="radio" value="2" name="ALT">
-      <input style="width: 30px; height: 30px;" type="radio" value="3" name="ALT">
-    </div>
-    <br>
-    <input type="submit" class="btn btn-primary btn-lg" value="확인" style="size: 50px;">
-    <br>
-    <br>
+  <form action="/healthresult" method="post">
+    <table style="width: 33%; margin-right: auto; margin-left: auto; margin-bottom: 20px">
+      <tr>
+        <td style="width: 33%">신장</td>
+        <td colspan="2">
+          <input class="form-control" type="text" style="height: 40px; margin-right: auto; margin-left: auto; width: 250px;" name="height" placeholder="cm">
+        </td>
+      </tr>
+      <tr>
+        <td>몸무게</td>
+        <td colspan="2">
+          <input class="form-control" type="text" style="height: 40px; margin-right: auto; margin-left: auto; width: 250px;" name="weight" placeholder="kg">
+        </td>
+      </tr>
+      <tr>
+        <td>허리둘레</td>
+        <td colspan="2">
+          <input class="form-control" type="text" style="height: 40px; margin-right: auto; margin-left: auto; width: 250px;" name="AC" placeholder="cm">
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">수치를 선택해주세요</td>
+      </tr>
+      <tr>
+        <tr>
+          <td colspan="3">
+            SBP (최고혈압)
+          </td>
+        </tr>
+        <tr>
+          <td style="margin-left: 5px; margin-right: 5px;">저</td>
+          <td style="margin-left: 5px; margin-right: 5px;">중</td>
+          <td style="margin-left: 5px; margin-right: 5px;">고</td>
+        </tr>
+        <tr>
+          <td>
+            <input style="width: 30px; height: 30px;" type="radio" value="1" name="SBP">
+          </td>
+          <td>
+            <input style="width: 30px; height: 30px;" type="radio" value="2" name="SBP">
+          </td>
+          <td>
+            <input style="width: 30px; height: 30px;" type="radio" value="3" name="SBP">
+          </td>
+        </tr>
+      </tr>
+      <tr>
+        <td colspan="3">DBP (최저혈압)</td>
+      </tr>
+      <tr>
+        <td style="margin-left: 5px; margin-right: 5px;">저</td>
+        <td style="margin-left: 5px; margin-right: 5px;">중</td>
+        <td style="margin-left: 5px; margin-right: 5px;">고</td>
+      </tr>
+      <tr>
+        <td>
+        <input style="width: 30px; height: 30px;" type="radio" value="1" name="DBP">
+        </td>
+        <td>
+        <input style="width: 30px; height: 30px;" type="radio" value="2" name="DBP">
+        </td>
+        <td>
+        <input style="width: 30px; height: 30px;" type="radio" value="3" name="DBP">
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">FBG (공복혈당)</td>
+      </tr>
+      <tr>
+        <td style="margin-left: 5px; margin-right: 5px;">70미만</td>
+        <td style="margin-left: 5px; margin-right: 5px;">70~99</td>
+        <td style="margin-left: 5px; margin-right: 5px;">100이상</td>
+      </tr>
+      <tr>
+        <td>
+        <input style="width: 30px; height: 30px;" type="radio" value="1" name="FBG">
+        </td>
+        <td>
+        <input style="width: 30px; height: 30px;" type="radio" value="2" name="FBG">
+        </td>
+        <td>
+        <input style="width: 30px; height: 30px;" type="radio" value="3" name="FBG">
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">TC (총 콜레스테롤)</td>
+      </tr>
+      <tr>
+        <td style="margin-left: 5px; margin-right: 5px;">120미만</td>
+        <td style="margin-left: 5px; margin-right: 5px;">120~199</td>
+        <td style="margin-left: 5px; margin-right: 5px;">200이상</td>
+      </tr>
+      <tr>
+        <td>
+        <input style="width: 30px; height: 30px;" type="radio" value="1" name="TC">
+        </td>
+        <td>
+        <input style="width: 30px; height: 30px;" type="radio" value="2" name="TC">
+        </td>
+        <td>
+        <input style="width: 30px; height: 30px;" type="radio" value="3" name="TC">
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">HDL (고밀도 지단백)</td>
+      </tr>
+      <tr>
+        <td style="margin-left: 5px; margin-right: 5px;">저</td>
+        <td style="margin-left: 5px; margin-right: 5px;">중</td>
+        <td style="margin-left: 5px; margin-right: 5px;">고</td>
+      </tr>
+      <tr>
+        <td>
+        <input style="width: 30px; height: 30px;" type="radio" value="1" name="HDL">
+        </td>
+        <td>
+        <input style="width: 30px; height: 30px;" type="radio" value="2" name="HDL">
+        </td>
+        <td>
+        <input style="width: 30px; height: 30px;" type="radio" value="3" name="HDL">
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">TG (중성지방)</td>
+      </tr>
+      <tr>
+        <td style="margin-left: 5px; margin-right: 5px;">50미만</td>
+        <td style="margin-left: 5px; margin-right: 5px;">50~149</td>
+        <td style="margin-left: 5px; margin-right: 5px;">150이상</td>
+      </tr>
+      <tr>
+        <td>
+        <input style="width: 30px; height: 30px;" type="radio" value="1" name="TG">
+        </td>
+        <td>
+        <input style="width: 30px; height: 30px;" type="radio" value="2" name="TG">
+        </td>
+        <td>
+        <input style="width: 30px; height: 30px;" type="radio" value="3" name="TG">
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">LDL (저밀도 지단백)</td>
+      </tr>
+      <tr>
+        <td style="margin-left: 5px; margin-right: 5px;">40미만</td>
+        <td style="margin-left: 5px; margin-right: 5px;">40~99</td>
+        <td style="margin-left: 5px; margin-right: 5px;">100이상</td>
+      </tr>
+      <tr>
+        <td>
+        <input style="width: 30px; height: 30px;" type="radio" value="1" name="LDL">
+        </td>
+        <td>
+        <input style="width: 30px; height: 30px;" type="radio" value="2" name="LDL">
+        </td>
+        <td>
+        <input style="width: 30px; height: 30px;" type="radio" value="3" name="LDL">
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">AST</td>
+      </tr>
+      <tr>
+        <td style="margin-left: 5px; margin-right: 5px;">10미만</td>
+        <td style="margin-left: 5px; margin-right: 5px;">10~39</td>
+        <td style="margin-left: 5px; margin-right: 5px;">40이상</td>
+      </tr>
+      <tr>
+        <td>
+        <input style="width: 30px; height: 30px;" type="radio" value="1" name="AST">
+        </td>
+        <td>
+        <input style="width: 30px; height: 30px;" type="radio" value="2" name="AST">
+        </td>
+        <td>
+        <input style="width: 30px; height: 30px;" type="radio" value="3" name="AST">
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">ALT</td>
+      </tr>
+      <tr>
+        <td style="margin-left: 5px; margin-right: 5px;">7미만</td>
+        <td style="margin-left: 5px; margin-right: 5px;">7~34</td>
+        <td style="margin-left: 5px; margin-right: 5px;">35이상</td>
+      </tr>
+      <tr>
+        <td>
+        <input style="width: 30px; height: 30px;" type="radio" value="1" name="ALT">
+        </td>
+        <td>
+        <input style="width: 30px; height: 30px;" type="radio" value="2" name="ALT">
+        </td>
+        <td>
+        <input style="width: 30px; height: 30px;" type="radio" value="3" name="ALT">
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3">
+          <input type="submit" class="btn btn-primary btn-lg" value="확인" style="size: 50px;">
+        </td>
+      </tr>
+    </table>
   </form>
 </section>
 <div th:include="main::footer"></div>
