@@ -1,8 +1,8 @@
 package curevengers.petit_cure.Service;
 
 
+import curevengers.petit_cure.Dto.AuthVO;
 import curevengers.petit_cure.Dto.memberDTO;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 
@@ -12,6 +12,5 @@ public interface userService {
     public void signup(memberDTO memberdto);
     public void edit(memberDTO memberdto);
     public void withdraw(String id);
-    public PasswordEncoder passwordEncoder();
     public int cofrmID(String id);
 }
