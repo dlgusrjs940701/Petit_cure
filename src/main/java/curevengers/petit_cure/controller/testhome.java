@@ -30,10 +30,10 @@ public class testhome {
     healthCheckService healthcheckservice;
 
 
-    @GetMapping(value = "/")
-    public String home(Model model) {
-        return "main";
-    }
+//    @GetMapping(value = "/")
+//    public String home(Model model) {
+//        return "main";
+//    }
 
     @GetMapping(value = "/aa")
     public String home(@ModelAttribute testDto dto) {
@@ -111,11 +111,6 @@ public class testhome {
         return "qawrite";
     }
 
-    // 회원가입화면
-    @GetMapping(value = "/mplus")
-    public String mplus() {
-        return "mplus";
-    }
 
 
     // 건강검진화면
