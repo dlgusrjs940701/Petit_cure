@@ -84,9 +84,16 @@ public class testServiceImpl implements testService {
     }
 
     @Override
-    public void updateGood(String no) {
+    public void updateGood(int no) {
         userMapper.updateGood(no);
     }
+
+    @Override
+    public void updateGoodDown(int no) {
+        userMapper.updateGoodDown(no);
+    }
+
+
 
 
 }

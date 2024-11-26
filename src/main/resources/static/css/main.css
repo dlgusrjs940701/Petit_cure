@@ -139,4 +139,11 @@ footer {
     margin-bottom: 0px;
 }
 
+nav .pagination{
+    background-color: white;
+}
+
+.btn-danger{
+    margin-top: 20px;
+}
 

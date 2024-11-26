@@ -38,12 +38,23 @@
             </div>
 
             <div>
-                <button class="btn btn-success" onclick="location.href='/goodUp'">추천</button>
+                <form action="/goodUp" method="get">
+                    <input type="hidden" name="no" th:value="${dto.no}"/>
+                    <button type="submit" class="btn btn-success" onclick="alert('추천 완료!');">
+                        추천
+                    </button>
+                </form>
+                <form action="/goodDown" method="get">
+                    <input type="hidden" name="no" th:value="${dto.no}"/>
+                    <button type="submit" class="btn btn-danger"  onclick="alert('추천 취소!');">
+                        추천 취소
+                    </button>
+                </form>
             </div>
 
             <!-- 뒤로 가기 버튼은 알아두면 좋음-->
             <div class="mt-4">
-                <button class="btn btn-secondary" onclick="history.back()" >뒤로 가기</button>
+                <button class="btn btn-secondary" onclick="location.href='/qanda'">뒤로 가기</button>
             </div>
         </div>
     </div>

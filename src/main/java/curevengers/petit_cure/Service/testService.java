@@ -37,6 +37,11 @@ public interface testService {
     // 조회수 구현
     public void updateVisit(int no);
 
+    // 좋아요 구현
+    void updateGood(int no);
 
-    void updateGood(String no);
+    // 좋아요 취소 구현
+    void updateGoodDown(int no);
+
+
 }

@@ -10,7 +10,6 @@ import curevengers.petit_cure.Service.testService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -60,10 +59,6 @@ public class testhome {
     // 자유게시판
     @GetMapping(value = "/freeboard")
     public String getFreeBoardList(Model model) {
-//        if (pagedto.getPage()==null){
-//            pagedto.setPage(1);
-//        }
-//        pagedto.setTotalCount(testservice.totalCountBoard());
         List<freeBoardDTO> freeBoardList = testservice.getAllFreeBoards();
         model.addAttribute("list", freeBoardList);
         return "freeBoard";
@@ -175,9 +170,18 @@ public class testhome {
 
     // QA게시판 좋아요 기능
     @GetMapping(value = "/goodUp")
-    public String goodUp(@RequestParam("no") String no, Model model) {
-        testservice.updateGood(no);
-        return "qaview";
+    public String goodUp(@RequestParam("no") int no) {;
+        testservice.updateGood((no));
+
+        return "redirect:/qaview?no=" + no;
+    }
+
+    // QA게시판 좋아요 취소 기능
+    @GetMapping(value = "/goodDown")
+    public String goodDown(@RequestParam("no") int no) {;
+        testservice.updateGoodDown((no));
+
+        return "redirect:/qaview?no=" + no;
     }
 }
 

@@ -60,10 +60,19 @@
         set visit=visit + 1
         where no =#{no}
     </update>
-    <update id="updateGood" parameterType="String" >
+    <!-- 좋아요 구현 -->
+    <update id="updateGood" parameterType="int" >
         update qaboard
         set good=good + 1
         where no =#{no}
     </update>
+
+    <!-- 좋아요 취소 구현 -->
+    <update id="updateGoodDown" parameterType="int" >
+        update qaboard
+        set good=good -1
+        where no =#{no}
+    </update>
+
 
 </mapper>

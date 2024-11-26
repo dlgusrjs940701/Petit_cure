@@ -34,5 +34,9 @@ public interface UserMapper {
     void updateVisit(int no);
 
 
-    void updateGood(String no);
+    void updateGood(int no);
+
+    void updateGoodDown(int no);
+
+
 }
