@@ -1,7 +1,11 @@
 package curevengers.petit_cure.Dto;
 
 
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 public class pageDTO {
     // 페이지에 시작되는 글 번호
     private int startNo;
@@ -21,24 +25,12 @@ public class pageDTO {
     private String searchType;
     private String searchKeyword;
 
-    public int getEndNo() {
-        return endNo;
-    }
-
     public void setEndNo(int endNo) {
         this.endNo = endNo;
     }
 
-    public String getSearchType() {
-        return searchType;
-    }
-
     public void setSearchType(String searchType) {
         this.searchType = searchType;
-    }
-
-    public String getSearchKeyword() {
-        return searchKeyword;
     }
 
     public void setSearchKeyword(String searchKeyword) {
@@ -80,66 +72,33 @@ public class pageDTO {
         // 클릭한 page번호로 계산된 게시물수가 실제 게시물 개수보다 작다면 다음페이지가 있음. true
     }
 
-    public int getTotalCount() {
-        return totalCount;
-    }
-
     public void setTotalCount(int totalCount) {
         this.totalCount = totalCount;
         calcPage();// totalCount 전제게시물개수가 있어야지 페이지계산을 할 수 있기 때문에
-    }
-
-    public int getEndPage() {
-        return endPage;
     }
 
     public void setEndPage(int endPage) {
         this.endPage = endPage;
     }
 
-    public int getStartPage() {
-        return startPage;
-    }
-
     public void setStartPage(int startPage) {
         this.startPage = startPage;
-    }
-
-    public boolean isPrev() {
-        return prev;
     }
 
     public void setPrev(boolean prev) {
         this.prev = prev;
     }
 
-    public boolean isNext() {
-        return next;
-    }
-
     public void setNext(boolean next) {
         this.next = next;
-    }
-
-    public Integer getPage() {
-        return page;
     }
 
     public void setPage(Integer page) {
         this.page = page;
     }
 
-    public int getStartNo() {
-
-        return startNo;
-    }
-
     public void setStartNo(int startNo) {
         this.startNo = startNo;
-    }
-
-    public int getPerPageNum() {
-        return perPageNum;
     }
 
     public void setPerPageNum(int perPageNum) {

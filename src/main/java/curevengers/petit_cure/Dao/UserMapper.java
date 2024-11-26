@@ -30,4 +30,13 @@ public interface UserMapper {
     List<freeBoardDTO> findSearchBoards(String title);
 
     List<QABoardDTO> findSearchQABoards(String title);
+
+    void updateVisit(int no);
+
+
+    void updateGood(int no);
+
+    void updateGoodDown(int no);
+
+
 }
