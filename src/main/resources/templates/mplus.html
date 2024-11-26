@@ -37,7 +37,7 @@
                             <label for="jumin1">주민번호</label><br>
                             <input type="text" maxlength="6" class="form-control" id="jumin1" name="jumin1" style="width: 100px; display: inline;" required>
                             -
-                            <input type="password" maxlength="1"class="form-control" id="jumin2" name="jumin2" style="width: 40px; display: inline;" required>******
+                            <input type="password" maxlength="1" class="form-control" id="jumin2" name="jumin2" style="width: 40px; display: inline;" required>******
                             <div class="invalid-feedback">
                                 주민번호를 입력하세요
                             </div>
@@ -56,7 +56,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="pass">비밀번호</label>
-                        <input type="password" class="form-control" id="pass" name="pass" placeholder="(?,*,!,@)중에 1개 이상 포함, 영문+숫자의 형태" oninput="psCheck()" required>
+                        <input type="password" class="form-control" id="pass" name="pass" placeholder="(?,*,!,@)중에 1개 이상 포함, 대문자 1개 이상 포함, 영문+숫자+특수문자의 형태(8자이상)" oninput="psCheck()" required>
                         <div id="checkPassword1">
                         </div>
                         <div class="invalid-feedback">
@@ -65,7 +65,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="c_pass">비밀번호 확인</label>
-                        <input type="password" class="form-control" id="c_pass" placeholder="(?,*,!,@)중에 1개 이상 포함, 영문+숫자의 형태" required>
+                        <input type="password" class="form-control" id="c_pass" name="pass" placeholder="(?,*,!,@)중에 1개 이상 포함, 대문자 1개 이상 포함, 영문+숫자+특수문자의 형태(8자이상)" oninput="psDCheck()" required>
                         <div id="checkPassword2">
                         </div>
                         <div class="invalid-feedback">
@@ -81,8 +81,14 @@
                             </div>
                         </div>
                         <div class="col-md-2 mt-2">
-                            <input type="button" style="margin-left: 50px; margin-top: 20px; font-size: 25px" value="이메일 인증">
+                            <input type="button" style="margin-left: 50px; margin-top: 20px; font-size: 25px" value="인증번호 받기" id="sendBtn" onclick="sendNumber()"  required>
                         </div>
+                    </div>
+                    <div id="mail_number" style="display: none">
+                        <input type="text"  id="number" placeholder="인증번호 입력" >
+                        <input type="button" id="confirmBtn" value="인증번호 확인" onclick="confirmNumber()" >
+                    </div>
+                    <div id="comment">
                     </div>
                     <div class="mb-3">
                         <label for="addr">주소</label>
@@ -112,7 +118,7 @@
                         <label class="custom-control-label" for="aggrement" style="margin-left: 10px">개인정보 수집 및 이용에 동의합니다.</label>
                     </div>
                     <div class="mb-4"></div>
-                    <button class="btn btn-primary btn-lg btn-block" type="submit" style="font-size: 25px" id="btn" disabled="false">가입 완료</button>
+                    <button class="btn btn-primary btn-lg btn-block" type="submit" style="font-size: 25px" id="btn" disabled="true">가입 완료</button>
                 </form>
             </div>
         </div>
@@ -164,7 +170,15 @@
         });
     });
 </script>
+
+
 <script>
+    // 회원 아이디, 비밀번호, 이메일 체크
+    let con1 = false;
+    let con2 = false;
+    let con3 = false;
+
+    // 회원 아이디
     function idCheck() {
         let id = $('#id').val();     //  현재 id에 입력된 값을 가져옴
         let btn = document.getElementById('btn');
@@ -174,17 +188,20 @@
             url: "/idCheck", //컨트롤러에 지정한 value값
             data: {id: id},
             success: function(data) {
-                console.log(data);
+                // console.log(data);
                 if(data>0){
+                    con1=false;
                     document.getElementById("checkId").class = "invalid-feedback"
                     $("#checkId").text("이미 사용중인 이름입니다.");
                     document.getElementById("checkId").style.color = "#ff0000";
                     btn.disabled = true;
+                    confirm();
                 }else{
+                    con1=true;
                     document.getElementById("checkId").class = "valid-feedback"
                     $("#checkId").text("사용 가능한 아이디입니다.");
                     document.getElementById("checkId").style.color = "#00d0ff";
-                    btn.disabled = false;
+                    confirm();
                 }
             },
             error: function (){
@@ -193,8 +210,8 @@
         })
 
     }
-</script>
-<script>
+
+    // 회원 비밀번호 체크
     function psCheck(){
         // // 최소 8글자 이상
         // const passwordPattern1 = /^.{8,}$/;
@@ -216,17 +233,105 @@
         if(passwordPattern.test(password)){
             $("#checkPassword1").text("사용가능한 비밀번호 입니다.");
             document.getElementById("checkPassword1").style.color = "#00d0ff";
-            btn.disabled = false;
         }else if(passwordPattern.test(password)==false){
-            console.log(password)
-            console.log(passwordPattern.test(password))
+            // console.log(password)
+            // console.log(passwordPattern.test(password))
             $("#checkPassword1").text("유효하지 않은 비밀번호입니다.");
             document.getElementById("checkPassword1").style.color = "#ff0000";
             btn.disabled = true;
         }
     }
+
+    // 비밀번호 확인 체크
+    function psDCheck(){
+        const nowps = document.getElementById("pass").value;
+        const conps = document.getElementById("c_pass").value;
+        let btn = document.getElementById('btn');
+
+        console.log(nowps+" / "+conps);
+
+         if(nowps != conps){
+             con2=false;
+             $("#checkPassword2").text("비밀번호가 일치하지 않습니다.");
+             document.getElementById("checkPassword2").style.color = "#ff0000";
+             btn.disabled = true;
+             confirm();
+        }else if(nowps == conps){
+             con2=true;
+             $("#checkPassword2").text("비밀번호가 일치합니다.");
+             document.getElementById("checkPassword2").style.color = "#00d0ff";
+             confirm();
+        }
+
+    }
+
+    // 이메일 인증
+    let btn = document.getElementById('btn');
+    function sendNumber(){
+        $("#mail_number").css("display","block");
+        $.ajax({
+            url: "/api/v1/email/send",
+            type: "post",
+            dataType: "text",
+            data: {"mail": $("#email").val()},
+            beforeSend: function () {
+                btn.disabled = true;
+                console.log("인증코드가 발송되었습니다.");
+                document.getElementById("comment").innerText="인증코드가 발송되었습니다.";
+                document.getElementById("comment").style.color="#ff0000";
+            },
+            error:function (){
+                alert("이메일이 올바르지 않아서 인증번호 전송에 실패했습니다.");
+            }
+        });
+
+    }
+    function confirmNumber() {
+        let mail = $("#email").val();
+        let number = $("#number").val();
+        $.ajax({
+            url: "/api/v1/email/verify",
+            type: "post",
+            dataType: "text",
+            data: {"mail": mail, "verifyCode": number},
+            success: function (data, status, xhr) {
+                document.getElementById("comment").innerText=data;
+                if(data=="인증 실패하셨습니다."){
+                    con3=false;
+                    document.getElementById("comment").style.color="#ff0000";
+                    btn.disabled = true;
+                    confirm();
+                }else{
+                    con3=true;
+                    document.getElementById("comment").style.color="#00d0ff";
+                    btn.disabled = false;
+                    confirm();
+                }
+                // console.log(status);
+            }
+        });
+    }
+
+    function confirm(){
+        if(con1&&con2&&con3){
+            // console.log(con1+" / "+con2+" / "+con3)
+            btn.disabled = false;
+        }else if((con3==false)&&con1&&con2){
+            // console.log(con1+" / "+con2+" / "+con3)
+            document.getElementById("comment").innerText="이메일 인증을 완료해주세요.";
+            btn.disabled = true;
+        }else{
+            // console.log(con1+" / "+con2+" / "+con3)
+            btn.disabled = true;
+        }
+    }
+
 </script>
+
+
+
 <script>
+    // 우편번호 찾기 기능
     function Postcode() {
         new daum.Postcode({
             oncomplete: function(data) {
@@ -273,6 +378,6 @@
                 document.getElementById("detailAddress").focus();
             }
         }).open();
-    }
 
+    }
 </script>
