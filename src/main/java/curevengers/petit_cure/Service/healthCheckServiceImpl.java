@@ -19,8 +19,8 @@ public class healthCheckServiceImpl implements healthCheckService {
     }
 
     @Override
-    public healthCheckDTO selectOne(String id) throws Exception {
-        healthCheckDTO dto = hcMapper.selectOne(id);
+    public healthCheckDTO selectOne(String id, String date) throws Exception {
+        healthCheckDTO dto = hcMapper.selectOne(id, date);
         return dto;
     }
 

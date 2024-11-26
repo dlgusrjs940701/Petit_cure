@@ -9,7 +9,7 @@ import java.util.List;
 public interface healthCheckService {
     public void insert(healthCheckDTO dto) throws Exception;
 
-    public healthCheckDTO selectOne(String id) throws Exception;
+    public healthCheckDTO selectOne(String id, String date) throws Exception;
 
     public List<healthCheckDTO> selectAll(String id) throws Exception;
 }

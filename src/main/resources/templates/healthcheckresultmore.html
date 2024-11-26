@@ -38,7 +38,7 @@
     <table>
         <tr>
             <th colspan="2">
-                건강검진 check 결과
+                건강검진 check 결과 리스트
             </th>
         </tr>
         <tr>
@@ -47,7 +47,9 @@
         </tr>
         <tr th:each="list : ${list}">
             <td th:text="${list.id}"></td>
-            <td th:text="${list.date}"></td>
+            <td>
+                <input class="btn btn-secondary fs-4" th:value="(${list.date})" th:onclick="selectOne([[${list.date}]])">
+            </td>
         </tr>
     </table>
 </section>
@@ -69,4 +71,23 @@
             })
         });
     });
+
+    function selectOne(a) {
+        let form = document.createElement('form');
+        form.setAttribute('action', '/healthresultone');
+        form.setAttribute('method', 'post');
+
+        console.log(a)
+
+        let date = document.createElement('input');
+
+        date.setAttribute('name', 'date');
+        date.setAttribute('value', a);
+
+        form.appendChild(date);
+
+        document.body.appendChild(form);
+
+        form.submit();
+    }
 </script>

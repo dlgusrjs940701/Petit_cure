@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
+import static org.thymeleaf.util.StringUtils.substring;
+
 @Controller
 public class testhome {
 
@@ -137,7 +139,7 @@ public class testhome {
         Object nowId = "1";
         dto.setId((String)nowId);
         healthcheckservice.insert(dto);
-        healthCheckDTO result = healthcheckservice.selectOne((String)nowId);
+        healthCheckDTO result = healthcheckservice.selectOne((String)nowId, dto.getDate());
         model.addAttribute("dto", result);
         return "healthcheckresult";
     }
@@ -151,6 +153,18 @@ public class testhome {
         List<healthCheckDTO> list = healthcheckservice.selectAll((String)nowId);
         model.addAttribute("list", list);
         return "healthcheckresultmore";
+    }
+
+    @PostMapping(value = "/healthresultone")
+    public String healthresultOne(@RequestParam("date") String date, Model model, HttpServletRequest request) throws Exception {
+        System.out.println(date);
+        HttpSession session = request.getSession();
+//        Object nowId = session.getAttribute("id");
+        // 임의값 설정
+        Object nowId = "1";
+        healthCheckDTO result = healthcheckservice.selectOne((String)nowId, date);
+        model.addAttribute("dto", result);
+        return "healthcheckresult";
     }
 
     @GetMapping(value = "/dpcheck")
