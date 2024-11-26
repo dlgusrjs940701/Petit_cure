@@ -1,24 +1,40 @@
 package curevengers.petit_cure.Service;
 
 import curevengers.petit_cure.Dao.MemberMapper;
-import curevengers.petit_cure.Dto.memberDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import curevengers.petit_cure.Dto.memberDTO;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.thymeleaf.util.StringUtils.concat;
 import static org.thymeleaf.util.StringUtils.substring;
 
-@Service
-public class memberServiceImpl{
 
+@Service
+public class UserServiceImpl implements userService{
+
+    LocalDate now = LocalDate.now();
     @Autowired
     private MemberMapper memberMapper;
 
-    LocalDate now = LocalDate.now();
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    public void addmember(memberDTO memberdto) {
+    @Override
+    public List<memberDTO> getMemberList(){
+        return memberMapper.getMemberList();
+    }
+
+    @Override
+    public memberDTO getMemberById(String id){
+        return memberMapper.getMemberByID(id);
+    }
+
+    @Override
+    public void signup(memberDTO memberdto){
         String agejumin = memberdto.getJumin1();
         String genderjumin = memberdto.getJumin2();
         int age;
@@ -45,14 +61,30 @@ public class memberServiceImpl{
                 memberdto.setGender("여");
             }
         }
+        memberdto.setPass(passwordEncoder.encode(memberdto.getPass()));
+        // 비밀번호를 암호화해서 DB에 저장
         memberMapper.insertMember(memberdto);
     }
 
-    public int cofrmID(String id) {
-        return memberMapper.selectID(id).size();
+    @Override
+    public void edit(memberDTO memberdto){      // 회원 정보 수정
+        // 비밀번호를 암호화해서 DB에 저장
+        memberdto.setPass(passwordEncoder.encode(memberdto.getPass()));
+        memberMapper.updateMember(memberdto);
     }
 
-    public boolean login(String id, String pass) {
-        return false;
+    @Override
+    public void withdraw(String id){        // 회원 탈퇴
+        memberMapper.deleteMember(id);
+    }
+
+    @Override
+    public PasswordEncoder passwordEncoder() {
+        return this.passwordEncoder;
+    }
+
+    @Override
+    public int cofrmID(String id) {
+        return memberMapper.selectID(id).size();
     }
 }

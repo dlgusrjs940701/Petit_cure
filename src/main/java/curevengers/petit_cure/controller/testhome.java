@@ -1,19 +1,23 @@
 package curevengers.petit_cure.controller;
 
-import curevengers.petit_cure.Dto.QABoardDTO;
-import curevengers.petit_cure.Dto.freeBoardDTO;
+import curevengers.petit_cure.Dto.*;
 
-import curevengers.petit_cure.Dto.pageDTO;
+
 import curevengers.petit_cure.Dto.testDto;
-import curevengers.petit_cure.Service.memberService;
+
+import curevengers.petit_cure.Service.healthCheckService;
 import curevengers.petit_cure.Service.testService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 
 import java.util.List;
 
@@ -23,8 +27,12 @@ public class testhome {
     @Autowired
     testService testservice;
 
+    @Autowired
+    healthCheckService healthcheckservice;
+
+
     @GetMapping(value = "/")
-    public String home() {
+    public String home(Model model) {
         return "main";
     }
 
@@ -114,22 +122,36 @@ public class testhome {
         return "mplus";
     }
 
-    // 로그인화면
-    @GetMapping(value = "/login")
-    public String login() {
-        return "login";
-    }
-
-    // 건강검진결과로
-    @GetMapping(value = "/healthresult")
-    public String healthresult() {
-        return "healthcheckresult";
-    }
 
     // 건강검진화면
     @GetMapping(value = "/health")
     public String health() {
         return "healthcheck";
+    }
+
+    // 건강검진결과로
+    @PostMapping(value = "/healthresult")
+    public String healthresult(@ModelAttribute healthCheckDTO dto, Model model, HttpServletRequest request) throws Exception {
+        HttpSession session = request.getSession();
+//        Object nowId = session.getAttribute("id");
+        // 임의값 설정
+        Object nowId = "1";
+        dto.setId((String)nowId);
+        healthcheckservice.insert(dto);
+        healthCheckDTO result = healthcheckservice.selectOne((String)nowId);
+        model.addAttribute("dto", result);
+        return "healthcheckresult";
+    }
+
+    @GetMapping(value = "/moreresult")
+    public String moreresult(Model model, HttpServletRequest request) throws Exception {
+        HttpSession session = request.getSession();
+//        Object nowId = session.getAttribute("id");
+        // 임의값 설정
+        Object nowId = "1";
+        List<healthCheckDTO> list = healthcheckservice.selectAll((String)nowId);
+        model.addAttribute("list", list);
+        return "healthcheckresultmore";
     }
 
     @GetMapping(value = "/dpcheck")
