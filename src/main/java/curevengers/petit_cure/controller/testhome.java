@@ -10,7 +10,6 @@ import curevengers.petit_cure.Service.testService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,10 +32,10 @@ public class testhome {
     healthCheckService healthcheckservice;
 
 
-    @GetMapping(value = "/")
-    public String home(Model model) {
-        return "main";
-    }
+//    @GetMapping(value = "/")
+//    public String home(Model model) {
+//        return "main";
+//    }
 
     @GetMapping(value = "/aa")
     public String home(@ModelAttribute testDto dto) {
@@ -62,10 +61,6 @@ public class testhome {
     // 자유게시판
     @GetMapping(value = "/freeboard")
     public String getFreeBoardList(Model model) {
-//        if (pagedto.getPage()==null){
-//            pagedto.setPage(1);
-//        }
-//        pagedto.setTotalCount(testservice.totalCountBoard());
         List<freeBoardDTO> freeBoardList = testservice.getAllFreeBoards();
         model.addAttribute("list", freeBoardList);
         return "freeBoard";
@@ -83,6 +78,7 @@ public class testhome {
     @GetMapping(value = "/view")
     public String boardView(@RequestParam("no") String no, Model model) {
         freeBoardDTO board = testservice.getBoardNo(no);
+        testservice.updateVisit(Integer.parseInt(no));
 //        List<String> attachList=testservice.getAttach(no);
         model.addAttribute("dto", board);
 //        model.addAttribute("attachList", attachList);
@@ -117,11 +113,6 @@ public class testhome {
         return "qawrite";
     }
 
-    // 회원가입화면
-    @GetMapping(value = "/mplus")
-    public String mplus() {
-        return "mplus";
-    }
 
 
     // 건강검진화면
@@ -184,6 +175,22 @@ public class testhome {
         List<QABoardDTO> board = testservice.getsearchQABoards(title);
         model.addAttribute("list", board);
         return "searchQABoard";
+    }
+
+    // QA게시판 좋아요 기능
+    @GetMapping(value = "/goodUp")
+    public String goodUp(@RequestParam("no") int no) {;
+        testservice.updateGood((no));
+
+        return "redirect:/qaview?no=" + no;
+    }
+
+    // QA게시판 좋아요 취소 기능
+    @GetMapping(value = "/goodDown")
+    public String goodDown(@RequestParam("no") int no) {;
+        testservice.updateGoodDown((no));
+
+        return "redirect:/qaview?no=" + no;
     }
 }
 

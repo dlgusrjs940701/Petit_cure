@@ -33,4 +33,15 @@ public interface testService {
     List<freeBoardDTO> getsearchFreeBoards(String title);
 
     List<QABoardDTO> getsearchQABoards(String title);
+
+    // 조회수 구현
+    public void updateVisit(int no);
+
+    // 좋아요 구현
+    void updateGood(int no);
+
+    // 좋아요 취소 구현
+    void updateGoodDown(int no);
+
+
 }

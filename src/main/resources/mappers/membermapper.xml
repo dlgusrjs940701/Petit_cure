@@ -8,20 +8,27 @@
         insert into member values (#{id},#{pass},#{name},#{email},#{addr},#{gender},#{age},default)
     </insert>
 
+    <insert id="insertAuth" parameterType="String">
+        insert into tb_auths values (#{id});
+    </insert>
+
+
     <select id="selectID" resultType="curevengers.petit_cure.Dto.memberDTO">
         select id from member where id=#{id};
     </select>
 
+
     <select id="getMemberList()">
         select * from member;
     </select>
+
 
     <select id="getMemberByID">
         select * from member where id=#{id};
     </select>
 
     <update id="updateMember">
-        update member set (pass=#{pass},name=#{name},email=#{email},addr=#{addr},gender=#{gender},age=#{age},grade=default) where id=#{id};
+        update member set (pass=#{pass},name=#{name},email=#{email},addr=#{addr},gender=#{gender},age=#{age},auth_name=default) where id=#{id};
     </update>
 
     <delete id="deleteMember">

@@ -1,9 +1,8 @@
 package curevengers.petit_cure.Service;
 
 import curevengers.petit_cure.Dao.MemberMapper;
+import curevengers.petit_cure.Dto.AuthVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import curevengers.petit_cure.Dto.memberDTO;
 
@@ -18,10 +17,10 @@ import static org.thymeleaf.util.StringUtils.substring;
 public class UserServiceImpl implements userService{
 
     LocalDate now = LocalDate.now();
-    @Autowired
-    private MemberMapper memberMapper;
 
-    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    @Autowired
+    MemberMapper memberMapper;
+
 
     @Override
     public List<memberDTO> getMemberList(){
@@ -61,15 +60,14 @@ public class UserServiceImpl implements userService{
                 memberdto.setGender("여");
             }
         }
-        memberdto.setPass(passwordEncoder.encode(memberdto.getPass()));
         // 비밀번호를 암호화해서 DB에 저장
         memberMapper.insertMember(memberdto);
+        memberMapper.insertAuth(memberdto.getId());
     }
 
     @Override
     public void edit(memberDTO memberdto){      // 회원 정보 수정
         // 비밀번호를 암호화해서 DB에 저장
-        memberdto.setPass(passwordEncoder.encode(memberdto.getPass()));
         memberMapper.updateMember(memberdto);
     }
 
@@ -78,10 +76,6 @@ public class UserServiceImpl implements userService{
         memberMapper.deleteMember(id);
     }
 
-    @Override
-    public PasswordEncoder passwordEncoder() {
-        return this.passwordEncoder;
-    }
 
     @Override
     public int cofrmID(String id) {
