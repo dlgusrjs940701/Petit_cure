@@ -72,10 +72,27 @@
             <td th:text="${board.visit}"></td>
             <td th:text="${board.date}"></td>
         </tr>
-
         <tr>
-
         </tr>
+        <td colspan="5">
+            <!-- 이전 페이지 그룹 링크 -->
+            <span th:if="${pageDTO.prev}">
+                <!--/*@thymesVar id="pageDTO" type=""*/-->
+                <a th:href="@{/freeboard(page=${pageDTO.startPage - 1})}">[이전페이지그룹]</a>
+            </span>
+
+            <!-- 페이지 번호 반복 -->
+            <!--/*@thymesVar id="pageDTO" type=""*/-->
+            <span th:each="idx : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}">
+                <span th:if="${pageDTO.page == idx}">*</span>
+                <a th:href="@{/freeboard(page=${idx})}" th:text="${idx}"></a>
+            </span>
+
+            <!-- 다음 페이지 그룹 링크 -->
+            <span th:if="${pageDTO.next}">
+                <a th:href="@{/freeboard(page=${pageDTO.endPage + 1})}">[다음페이지그룹]</a>
+            </span>
+        </td>
 
         </tbody>
 

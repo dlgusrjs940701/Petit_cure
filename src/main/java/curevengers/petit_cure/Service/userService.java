@@ -3,6 +3,7 @@ package curevengers.petit_cure.Service;
 
 import curevengers.petit_cure.Dto.AuthVO;
 import curevengers.petit_cure.Dto.memberDTO;
+import org.springframework.stereotype.Controller;
 
 import java.util.List;
 

@@ -83,7 +83,7 @@ li > a:hover {
 }
 #nav>ul>li>ul>li>a{
     padding: 5px;
-    display:flexbox;
+    display: flexbox;
     transition: all 0.75s;
     width: 300px;
 }
@@ -136,7 +136,8 @@ li > a:hover {
 footer {
     height: 330px;
     background-color: antiquewhite;
-    margin-bottom: 0px;
+    bottom: 0px;
+
 }
 
 nav .pagination{
