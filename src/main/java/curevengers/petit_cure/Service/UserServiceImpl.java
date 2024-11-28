@@ -3,6 +3,10 @@ package curevengers.petit_cure.Service;
 import curevengers.petit_cure.Dao.MemberMapper;
 import curevengers.petit_cure.Dto.AuthVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import curevengers.petit_cure.Dto.memberDTO;
 
@@ -61,8 +65,8 @@ public class UserServiceImpl implements userService{
             }
         }
         // 비밀번호를 암호화해서 DB에 저장
+        passwordEncoder().encode(memberdto.getPass());
         memberMapper.insertMember(memberdto);
-        memberMapper.insertAuth(memberdto.getId());
     }
 
     @Override
@@ -80,5 +84,9 @@ public class UserServiceImpl implements userService{
     @Override
     public int cofrmID(String id) {
         return memberMapper.selectID(id).size();
+    }
+
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }

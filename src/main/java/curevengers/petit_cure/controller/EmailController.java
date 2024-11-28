@@ -5,6 +5,7 @@ import curevengers.petit_cure.Service.EmailService;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +18,7 @@ public class EmailController {
     private final EmailService emailService;
 
     // 인증코드 메일 발송
-    @PostMapping("/send")
+    @GetMapping("/send")
     public String mailSend(EmailDto emailDto) throws MessagingException{
         log.info("EmailController.mailSend()");
         emailService.sendEmail(emailDto.getMail());
@@ -25,7 +26,7 @@ public class EmailController {
     }
 
     // 인증코드 인증
-    @PostMapping("/verify")
+    @GetMapping("/verify")
     public String verify(EmailDto emailDto) {
         log.info("EmailController.verify()");
         boolean isVerify = emailService.verifyEmailCode(emailDto.getMail(), emailDto.getVerifyCode());
