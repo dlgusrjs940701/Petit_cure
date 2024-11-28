@@ -200,6 +200,10 @@ public class testhome {
         return "redirect:/qaview?no=" + no;
     }
 
+    @GetMapping(value = "/company")
+    public String company() {
+        return "company";
+    }
 
 }
 
