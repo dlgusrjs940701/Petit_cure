@@ -42,10 +42,10 @@ public class testhome {
     healthCheckService healthcheckservice;
 
 
-//    @GetMapping(value = "/")
-//    public String home(Model model) {
-//        return "main";
-//    }
+    @GetMapping(value = "/")
+    public String home() {
+        return "main";
+    }
 
     @GetMapping(value = "/aa")
     public String home(@ModelAttribute testDto dto) {

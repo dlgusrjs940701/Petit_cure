@@ -15,7 +15,7 @@ public interface MemberMapper {
     public List<memberDTO> selectID(String id);     // 해당하는 회원 정보를 가져오기
 
     List<memberDTO> getMemberList();        // 전체 정보 가져오기
-    public memberDTO getMemberByID(String id);  // 한명의 정보 가져오기
+    public memberDTO getMemberByID(String username);  // 한명의 정보 가져오기
     public void updateMember(memberDTO memberdto);  // 회원 정보 수정
     public void deleteMember(String id);    // 회원 탈퇴
 
