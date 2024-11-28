@@ -21,12 +21,16 @@
 
     <!-- 게시판 글 목록-->
     <select id="findAllBoards" resultType="curevengers.petit_cure.Dto.freeBoardDTO">
-        select no, title, visit, date
-        from freeboard
+        SELECT *
+        FROM freeboard
+        ORDER BY date DESC
+            LIMIT #{perPageNum} OFFSET #{startNo}
     </select>
     <select id="findQAAllBoards" resultType="curevengers.petit_cure.Dto.QABoardDTO">
-        select no, title, good, date
-        from qaboard
+        SELECT *
+        FROM qaboard
+        ORDER BY date DESC
+            LIMIT #{perPageNum} OFFSET #{startNo}
     </select>
 
     <!-- 자유게시판 검색기능-->
@@ -73,6 +77,10 @@
         set good=good -1
         where no =#{no}
     </update>
+
+    <select id="cntBoard" resultType="int">
+        select count(*) from freeboard
+    </select>
 
 
 </mapper>

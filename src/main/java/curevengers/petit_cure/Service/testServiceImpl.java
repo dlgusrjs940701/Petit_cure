@@ -3,6 +3,7 @@ package curevengers.petit_cure.Service;
 import curevengers.petit_cure.Dao.UserMapper;
 import curevengers.petit_cure.Dto.QABoardDTO;
 import curevengers.petit_cure.Dto.freeBoardDTO;
+import curevengers.petit_cure.Dto.pageDTO;
 import curevengers.petit_cure.Dto.testDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,9 +28,9 @@ public class testServiceImpl implements testService {
     }
 
     @Override
-    public List<freeBoardDTO> getAllFreeBoards() {
+    public List<freeBoardDTO> getAllFreeBoards(pageDTO pagedto) {
         try {
-            return userMapper.findAllBoards();
+            return userMapper.findAllBoards(pagedto);
         } catch (Exception e) {
             // 예외 로그 출력
             e.printStackTrace();
@@ -38,9 +39,9 @@ public class testServiceImpl implements testService {
     }
 
     @Override
-    public List<QABoardDTO> getAllQABoards() {
+    public List<QABoardDTO> getAllQABoards(pageDTO pagedto) {
         try {
-            return userMapper.findQAAllBoards();
+            return userMapper.findQAAllBoards(pagedto);
         } catch (Exception e) {
             // 예외 로그 출력
             e.printStackTrace();
@@ -93,7 +94,10 @@ public class testServiceImpl implements testService {
         userMapper.updateGoodDown(no);
     }
 
-
+    @Override
+    public int totalCountBoard() {
+        return userMapper.cntBoard();
+    }
 
 
 }
