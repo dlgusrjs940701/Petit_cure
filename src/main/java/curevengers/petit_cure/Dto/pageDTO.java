@@ -25,17 +25,6 @@ public class pageDTO {
     private String searchType;
     private String searchKeyword;
 
-    public void setEndNo(int endNo) {
-        this.endNo = endNo;
-    }
-
-    public void setSearchType(String searchType) {
-        this.searchType = searchType;
-    }
-
-    public void setSearchKeyword(String searchKeyword) {
-        this.searchKeyword = searchKeyword;
-    }
 
     private void calcPage() {
         // DB쿼리에서 사용... 시작데이터번호 = (jsp클릭한 페이지번호-1)*페이지당 보여지는 개수
@@ -77,31 +66,5 @@ public class pageDTO {
         calcPage();// totalCount 전제게시물개수가 있어야지 페이지계산을 할 수 있기 때문에
     }
 
-    public void setEndPage(int endPage) {
-        this.endPage = endPage;
-    }
 
-    public void setStartPage(int startPage) {
-        this.startPage = startPage;
-    }
-
-    public void setPrev(boolean prev) {
-        this.prev = prev;
-    }
-
-    public void setNext(boolean next) {
-        this.next = next;
-    }
-
-    public void setPage(Integer page) {
-        this.page = page;
-    }
-
-    public void setStartNo(int startNo) {
-        this.startNo = startNo;
-    }
-
-    public void setPerPageNum(int perPageNum) {
-        this.perPageNum = perPageNum;
-    }
 }
