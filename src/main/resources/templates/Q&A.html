@@ -74,12 +74,12 @@
         <td colspan="5">
             <!-- 이전 페이지 그룹 링크 -->
             <span th:if="${pageDTO.prev}">
-                <!--/*@thymesVar id="pageDTO" type=""*/-->
+
                 <a th:href="@{/qanda(page=${pageDTO.startPage - 1})}">[이전페이지그룹]</a>
             </span>
 
             <!-- 페이지 번호 반복 -->
-            <!--/*@thymesVar id="pageDTO" type=""*/-->
+
             <span th:each="idx : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}">
                 <span th:if="${pageDTO.page == idx}">*</span>
                 <a th:href="@{/qanda(page=${idx})}" th:text="${idx}"></a>

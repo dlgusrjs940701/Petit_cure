@@ -1,10 +1,7 @@
 package curevengers.petit_cure.Service;
 
 import curevengers.petit_cure.Dao.UserMapper;
-import curevengers.petit_cure.Dto.QABoardDTO;
-import curevengers.petit_cure.Dto.freeBoardDTO;
-import curevengers.petit_cure.Dto.pageDTO;
-import curevengers.petit_cure.Dto.testDto;
+import curevengers.petit_cure.Dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -98,6 +95,26 @@ public class testServiceImpl implements testService {
     public int totalCountBoard() {
         return userMapper.cntBoard();
     }
+
+    @Override
+    public int totalQACountBoard() {
+        return userMapper.cntQABoard();
+    }
+
+    @Override
+    public void addComment(commentDTO dto) {
+        userMapper.insertComment(dto);
+    }
+
+    @Override
+    public List<commentDTO> getComment(String no) {
+        return userMapper.selectQAComment(no);
+    }
+
+//    @Override
+//    public List<commentDTO> getAllComments(commentDTO dto) {
+//        return userMapper.findComment(dto);
+//    }
 
 
 }

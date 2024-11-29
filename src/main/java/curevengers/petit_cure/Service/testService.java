@@ -1,9 +1,6 @@
 package curevengers.petit_cure.Service;
 
-import curevengers.petit_cure.Dto.QABoardDTO;
-import curevengers.petit_cure.Dto.freeBoardDTO;
-import curevengers.petit_cure.Dto.pageDTO;
-import curevengers.petit_cure.Dto.testDto;
+import curevengers.petit_cure.Dto.*;
 
 import java.util.List;
 
@@ -46,4 +43,12 @@ public interface testService {
 
 
     int totalCountBoard();
+
+    int totalQACountBoard();
+
+    void addComment(commentDTO dto);
+
+    List<commentDTO> getComment(String no);
+
+//    List<commentDTO> getAllComments(commentDTO dto);
 }

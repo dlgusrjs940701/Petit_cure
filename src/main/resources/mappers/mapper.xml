@@ -15,8 +15,8 @@
     </insert>
     <!--    // QA게시판 글 저장-->
     <insert id="insertQABoard" parameterType="curevengers.petit_cure.Dto.QABoardDTO">
-        insert into qaboard (id, title, cate, content)
-        values (#{id}, #{title}, #{cate}, #{content})
+        insert into qaboard (id, `limit`, title, cate, content)
+        values (#{id}, #{limit}, #{title}, #{cate}, #{content})
     </insert>
 
     <!-- 게시판 글 목록-->
@@ -82,5 +82,24 @@
         select count(*) from freeboard
     </select>
 
+    <select id="cntQABoard" resultType="int">
+        select count(*) from qaboard
+    </select>
+
+    <!-- 댓글 저장 -->
+    <insert id="insertComment" parameterType="curevengers.petit_cure.Dto.commentDTO">
+        insert into comment (id, content, qaboard_no)
+        values (#{id}, #{content}, #{qaboard_no})
+
+    </insert>
+
+    <select id="selectQAComment" parameterType="String" resultType="curevengers.petit_cure.Dto.commentDTO">
+        select id, content
+        from comment
+        where qaboard_no =#{no}
+    </select>
+<!--    <select id="findComment" parameterType="curevengers.petit_cure.Dto.commentDTO">-->
+<!--        select id, content from comment-->
+<!--    </select>-->
 
 </mapper>
