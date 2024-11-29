@@ -1,37 +1,43 @@
-@import url('https://fonts.googleapis.com/css2?family=Jua&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik+Wet+Paint&family=Yeon+Sung&display=swap');
 .jua-regular {
     font-family: "Jua", sans-serif;
     font-weight: 400;
     font-style: normal;
     font-size: large;
+
 }
+
 .funnel-sans-uniquifier {
     font-family: "Funnel Sans", sans-serif;
     font-optical-sizing: auto;
     font-weight: weight;
     font-style: normal;
 }
+
 .faculty-glyphic-regular {
     font-family: "Faculty Glyphic", sans-serif;
     font-weight: 400;
     font-style: normal;
 }
+
 .yeon-sung-regular {
     font-family: "Yeon Sung", system-ui;
     font-weight: 400;
     font-style: normal;
 }
+
 .roboto-regular {
     font-family: "Roboto", serif;
     font-weight: 400;
     font-style: normal;
 }
+
 body {
     width: 1920px;
     height: 1080px;
     /* background-color: rgb(240, 240, 180); */
 }
-header > div {
+
+header>div {
     height: 120px;
     text-align: center;
     margin-top: 30px;
@@ -39,11 +45,12 @@ header > div {
     margin-bottom: 15px;
 }
 
-nav  li {
+nav li {
     display: inline-block;
     margin-left: 100px;
 }
-nav  li > a{
+
+nav li>a {
     display: block;
     color: white;
     padding: 14px 16px;
@@ -51,8 +58,9 @@ nav  li > a{
     text-decoration: none;
     font-size: 25px;
 }
-nav > ul {
-    display:flex;
+
+nav>ul {
+    display: flex;
     position: initial;
     list-style-type: none;
     margin: 0;
@@ -62,49 +70,57 @@ nav > ul {
     background-color: #e24e4e;
     height: 65px;
 }
-nav > ul > li {
-    position:relative;
+
+nav>ul>li {
+    position: relative;
 
 }
-li > a:hover {
+
+li>a:hover {
     /* background-color: #ee8787; */
     background-color: #cc4a4a;
     color: white;
 }
+
 #nav>ul>li>ul {
     list-style-type: none;
-    position:absolute;
+    position: absolute;
     left: 0;
     top: 50px;
     background-color: #f5a8a8;
     width: 300px;
-    display:none;
+    display: none;
     z-index: 2;
 }
-#nav>ul>li>ul>li>a{
+
+#nav>ul>li>ul>li>a {
     padding: 5px;
     display: flexbox;
     transition: all 0.75s;
     width: 300px;
 }
+
 #nav>ul>li>ul>li>a:hover {
     padding-left: 0px;
     width: 300px;
     background-color: #e48d8d;
     color: white;
 }
+
 #nav>ul>li>ul>li {
     margin-left: 0px;
     padding-left: 0px;
     display: inline;
-    position:relative;
+    position: relative;
 }
+
 #section {
     height: 1200px;
     background-color: rgb(255, 255, 255);
     z-index: 1;
 }
-#section>div>div{
+
+#section>div>div {
     width: 1450px;
     border: 1px solid;
     height: 600px;
@@ -114,15 +130,25 @@ li > a:hover {
     display: inline-block;
     /* height: fit-content; */
 }
-.carousel-caption > div{
-    width: 550px; height: 150px; margin-left: 500px; border: 1px solid; background-color: aliceblue; color: black;
+
+.carousel-caption>div {
+    width: 550px;
+    height: 150px;
+    margin-left: 500px;
+    border: 1px solid;
+    background-color: aliceblue;
+    color: black;
 }
+
 .maincon {
-    background-color: #e24e4e; width: 1920px; height: 470px; margin-left: 0px;
+    background-color: #e24e4e;
+    width: 1920px;
+    height: 470px;
+    margin-left: 0px;
     margin-top: 50px;
 }
 
-.maincon > #info {
+.maincon>#info {
     display: inline-block;
     margin-top: 25px;
     margin-left: 40px;
@@ -130,21 +156,70 @@ li > a:hover {
     height: 390px;
     border: 1px solid;
     background-color: rgb(255, 255, 255);
-    border-style:ridge;
+    border-style: ridge;
     border-radius: 7.5%;
 }
+
 footer {
+    width: 100%;
     height: 330px;
     background-color: antiquewhite;
-    bottom: 0px;
+    /* border: 1px solid; */
+    /* position: fixed; */
+    margin-top: 50%;
+
 
 }
 
-nav .pagination{
+nav .pagination {
     background-color: white;
 }
 
-.btn-danger{
-    margin-top: 20px;
+aside {
+    width: 500px;
+    height: 700px;
+    margin-top: 130px;
+    margin-left: 150px;
+    border-radius: 40px;
+    border: 3px solid;
+    text-align: center;
+    float: left;
+    background-color: seashell;
+    /* padding-top: 15px; */
 }
 
+
+
+.main1 {
+    float: left;
+    width: 500px;
+    height: 700px;
+    margin-top: 130px;
+    margin-left: 50px;
+    border: 3px solid;
+    border-radius: 40px;
+    display: inline-block;
+    background-color: seashell;
+    box-sizing: border-box;
+    /* padding-top: 15px; */
+    text-align: center;
+    line-height: 50px;
+
+}
+
+aside>h1 {
+    padding-top: 15px;
+}
+
+.main1>h1 {
+    padding-top: 15px;
+}
+
+input {
+    width: 150px;
+    height: 50px;
+    border-radius: 40px;
+    background-color: tomato;
+    margin-left: 10px;
+    margin-top: 100px;
+}

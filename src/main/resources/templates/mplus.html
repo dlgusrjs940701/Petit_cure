@@ -24,7 +24,7 @@
         <div class="input-form-backgroud row">
             <div class="input-form col-md-12 mx-auto">
                 <h4 class="mb-5" style="font-size: 35px"> - 회원가입 - </h4>
-                <form class="validation-form" novalidate action="memplus" method="post">
+                <form class="validation-form" novalidate action="memplus" method="get">
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="name">이름</label>
@@ -273,7 +273,7 @@
         $("#mail_number").css("display","block");
         $.ajax({
             url: "/api/v1/email/send",
-            type: "post",
+            type: "get",
             dataType: "text",
             data: {"mail": $("#email").val()},
             beforeSend: function () {
@@ -293,7 +293,7 @@
         let number = $("#number").val();
         $.ajax({
             url: "/api/v1/email/verify",
-            type: "post",
+            type: "get",
             dataType: "text",
             data: {"mail": mail, "verifyCode": number},
             success: function (data, status, xhr) {

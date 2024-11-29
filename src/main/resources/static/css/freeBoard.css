@@ -13,7 +13,7 @@ body {
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     border-radius: 8px;
-    height: 700px;
+    height: 85%;
 }
 
 .title-container {
@@ -22,7 +22,7 @@ body {
     align-items: center;
     margin-bottom: 20px;
     text-align: center;
-
+    /*height: 700px;*/
 }
 
 .title-container h2 {
@@ -53,11 +53,13 @@ table {
     border-collapse: collapse;
     margin-top: 20px;
     border-radius: 10px;
+    /*height: 1000px;*/
 }
 table .tbody{
     border-radius: 10px;
     /*border: 1px solid;*/
     background-color: oldlace;
+    /*height: 1000px;*/
 }
 th, td {
     padding: 12px;

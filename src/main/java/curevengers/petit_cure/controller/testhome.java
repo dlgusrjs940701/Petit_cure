@@ -16,11 +16,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
-
-import static org.thymeleaf.util.StringUtils.substring;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 public class testhome {
@@ -32,10 +42,10 @@ public class testhome {
     healthCheckService healthcheckservice;
 
 
-//    @GetMapping(value = "/")
-//    public String home(Model model) {
-//        return "main";
-//    }
+    @GetMapping(value = "/")
+    public String home() {
+        return "main";
+    }
 
     @GetMapping(value = "/aa")
     public String home(@ModelAttribute testDto dto) {
@@ -60,16 +70,24 @@ public class testhome {
 
     // 자유게시판
     @GetMapping(value = "/freeboard")
-    public String getFreeBoardList(Model model) {
-        List<freeBoardDTO> freeBoardList = testservice.getAllFreeBoards();
+    public String getFreeBoardList(Model model, @ModelAttribute pageDTO pagedto) {
+        if (pagedto.getPage() == null) {
+            pagedto.setPage(1);
+        }
+        pagedto.setTotalCount(testservice.totalCountBoard());
+        List<freeBoardDTO> freeBoardList = testservice.getAllFreeBoards(pagedto);
         model.addAttribute("list", freeBoardList);
         return "freeBoard";
     }
 
     // QA게시판
     @GetMapping(value = "/qanda")
-    public String getQABoardList(Model model) {
-        List<QABoardDTO> QABoardList = testservice.getAllQABoards();
+    public String getQABoardList(Model model, @ModelAttribute pageDTO pagedto) {
+        if (pagedto.getPage() == null) {
+            pagedto.setPage(1);
+        }
+        pagedto.setTotalCount(testservice.totalCountBoard());
+        List<QABoardDTO> QABoardList = testservice.getAllQABoards(pagedto);
         model.addAttribute("qalist", QABoardList);
         return "Q&A";
     }
@@ -128,9 +146,9 @@ public class testhome {
 //        Object nowId = session.getAttribute("id");
         // 임의값 설정
         Object nowId = "1";
-        dto.setId((String)nowId);
+        dto.setId((String) nowId);
         healthcheckservice.insert(dto);
-        healthCheckDTO result = healthcheckservice.selectOne((String)nowId, dto.getDate());
+        healthCheckDTO result = healthcheckservice.selectOne((String) nowId);
         model.addAttribute("dto", result);
         return "healthcheckresult";
     }
@@ -141,7 +159,7 @@ public class testhome {
 //        Object nowId = session.getAttribute("id");
         // 임의값 설정
         Object nowId = "1";
-        List<healthCheckDTO> list = healthcheckservice.selectAll((String)nowId);
+        List<healthCheckDTO> list = healthcheckservice.selectAll((String) nowId);
         model.addAttribute("list", list);
         return "healthcheckresultmore";
     }
@@ -179,7 +197,8 @@ public class testhome {
 
     // QA게시판 좋아요 기능
     @GetMapping(value = "/goodUp")
-    public String goodUp(@RequestParam("no") int no) {;
+    public String goodUp(@RequestParam("no") int no) {
+        ;
         testservice.updateGood((no));
 
         return "redirect:/qaview?no=" + no;
@@ -187,10 +206,17 @@ public class testhome {
 
     // QA게시판 좋아요 취소 기능
     @GetMapping(value = "/goodDown")
-    public String goodDown(@RequestParam("no") int no) {;
+    public String goodDown(@RequestParam("no") int no) {
+        ;
         testservice.updateGoodDown((no));
 
         return "redirect:/qaview?no=" + no;
     }
+
+    @GetMapping(value = "/company")
+    public String company() {
+        return "company";
+    }
+
 }
 

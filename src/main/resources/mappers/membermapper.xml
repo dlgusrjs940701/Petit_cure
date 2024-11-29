@@ -24,7 +24,7 @@
 
 
     <select id="getMemberByID">
-        select * from member where id=#{id};
+        select * from member where id=#{username};
     </select>
 
     <update id="updateMember">
