@@ -41,7 +41,7 @@ header > div {
 
 nav  li {
     display: inline-block;
-    margin-left: 100px;
+    margin-left: 80px;
 }
 nav  li > a{
     display: block;
@@ -53,7 +53,7 @@ nav  li > a{
 }
 nav > ul {
     display:flex;
-    position: initial;
+    position: relative;
     list-style-type: none;
     margin: 0;
     padding: 0;

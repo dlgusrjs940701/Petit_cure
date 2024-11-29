@@ -18,7 +18,8 @@
     margin-top: 100px;
     margin-bottom: 100px;
     width: 500px;
-    height: 480px;
+    max-height: 600px;
+    height: auto;
     text-align: center;
     background-color: #ffffff;
 }
@@ -57,5 +58,10 @@
 #inputBox button {
     padding: 3px 5px;
     font-size: larger;
-    margin-top: 10px;
+    margin-top: 5px;
+}
+
+#inputBox img {
+    margin-top: 5px;
+    /*height: 60px;*/
 }
