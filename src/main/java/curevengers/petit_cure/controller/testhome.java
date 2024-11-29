@@ -172,6 +172,14 @@ public class testhome {
         return "dpcheck";
     }
 
+    @GetMapping(value = "/depresult")
+    public String depresult() throws Exception {
+        return "ResultSheet";
+    }
+
+
+
+
     @GetMapping(value = "/searchTitle")
     public String searchBoard(@RequestParam("title") String title, Model model) {
         List<freeBoardDTO> board = testservice.getsearchFreeBoards(title);

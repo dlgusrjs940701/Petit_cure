@@ -5,8 +5,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <link rel="stylesheet" href="/css/main.css">
-  <link rel="stylesheet" href="/css/company.css">
+  <link rel="stylesheet" th:href="@{/css/main.css}">
+  <link rel="stylesheet" th:href="@{/css/company.css}">
+<!--  <link rel="stylesheet" href="/css/main.css">-->
+<!--  <link rel="stylesheet" href="/css/company.css">-->
 </head>
 
 <body>
@@ -27,36 +29,9 @@
 
 
 <body>
-<header class="roboto-regular">
-  <div>
-    <h1 style="font-weight: bold; font-size: 50px;">WELCOME TO PETIT CURE</h1>
-  </div>
-</header>
-<nav class="jua-regular" id="nav">
-  <ul>
-    <li class="dropdown">
-      <a href="자가셀프검진">자가셀프검진</a>
-      <ul class="submenu">
-        <li><a href="#">건강검진 check</a></li>
-        <li><a href="#">우울증 check</a></li>
-      </ul>
-    </li>
-    <li><a href="게시판">게시판</a></li>
-    <li><a href="검색">검색</a></li>
-    <li><a href="회사소개">회사소개</a></li>
-    <div style="display: inline;" id="login">
-      <li style="margin-left: 700px;"><a href="회원가입">회원가입</a></li>
-      <li style="margin-left: 5px;"><a href="#">/</a></li>
-      <li style="margin-left: 5px;"><a href="로그인">로그인</a></li>
-    </div>
-    <div style="display: inline;" id="logout" hidden>
-      <li style="margin-left: 700px;"><a href="마이페이지">마이페이지</a></li>
-      <li style="margin-left: 5px;"><a href="#">/</a></li>
-      <li style="margin-left: 5px;"><a href="로그아웃">로그아웃</a></li>
-    </div>
-  </ul>
-</nav>
-
+<!-- main화면 include 설정 -->
+<div th:include="main::header"></div>
+<div th:include="main::nav"></div>
 
 
 <section>
@@ -192,3 +167,20 @@
 </body>
 
 </html>
+<script>
+  const submenuList = document.querySelectorAll(".dropdown");
+
+  submenuList.forEach(li => {
+    li.addEventListener("mouseover", () => {
+      li.querySelectorAll("ul").forEach((el) => {
+        el.style.display = "block";
+      })
+    });
+    li.addEventListener("mouseout", () => {
+      li.querySelectorAll("ul").forEach((el) => {
+        el.style.display = "none";
+      })
+    });
+  });
+
+</script>

@@ -26,6 +26,10 @@
 <div th:fragment="nav">
     <nav class="jua-regular" id="nav">
         <ul>
+            <div style="width: 20px; height: 65px;">
+                <!--object-fit:cover는 가로세로 비율을 유지한 채로 사이즈가 조절되며, 비율이 맞지 않더라도 이미지를 확대해 컨테이너를 완전히 채움-->
+                <a href="/"><img src="https://www.emojiall.com/images/120/openmoji/12.3/1f469-1f3fb-200d-2695-fe0f.png" alt="home" style="height: 70px"></a>
+            </div>
             <li class="dropdown">
                 <a href="자가셀프검진">자가셀프검진</a>
                 <ul class="submenu">
@@ -49,9 +53,9 @@
                 <li style="margin-left: 5px;"><a href="login">로그인</a></li>
             </div>
             <div style="display: inline;" id="logout" th:if="${session.id != null}">
-                <li style="margin-left: 700px;"><a href="마이페이지">마이페이지</a></li>
+                <li style="margin-left: 700px;"><a href="/mypage">[[${session.id}]]님의 페이지</a></li>
                 <li style="margin-left: 5px;"><a href="#">/</a></li>
-                <li style="margin-left: 5px;"><a href="로그아웃">로그아웃</a></li>
+                <li style="margin-left: 5px;"><a href="/logout">로그아웃</a></li>
             </div>
         </ul>
     </nav>

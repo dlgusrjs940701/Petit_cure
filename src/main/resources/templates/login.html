@@ -25,13 +25,17 @@
       <div id="loginBoxTitle">PETIT CURE Login</div>
       <!-- 아이디, 비번, 버튼 박스 -->
       <div id="inputBox">
-        <form method="post" action="/logincon">
+        <form method="post" action="/api/authenticate">
           <div class="input-form-box"><span>아이디 </span><input type="text" name="username" class="form-control" style="height: 40px; font-size: 20px;"></div>
           <div class="input-form-box"><span>비밀번호 </span><input type="password" name="password" class="form-control" style="height: 40px; font-size: 20px;"></div>
           <div class="button-login-box" >
             <button type="submit" class="btn btn-primary btn-xs" style="width:100%">로그인</button>
-            <div style="text-align: center">또는</div>
+            <div style="text-align: center; margin-top: 5px">또는</div>
             <a href="mplus"><button type="button" class="btn btn-secondary btn-xs" style="width:100%">회원가입</button></a>
+            <div style="text-align: center; margin-top: 5px">또는</div>
+            <a href="https://kauth.kakao.com/oauth/authorize"
+               th:href="@{https://kauth.kakao.com/oauth/authorize(client_id=${KakaoapiKey}, redirect_uri=${redirectUrl}, response_type='code')}">
+              <img src="https://developers.kakao.com/tool/resource/static/img/button/login/full/ko/kakao_login_medium_wide.png" style="width:100%"></a>
           </div>
         </form>
       </div>
