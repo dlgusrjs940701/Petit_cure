@@ -49,7 +49,7 @@ public class JwtFilter extends GenericFilterBean {
     
     // 요청값에서 온 request에서 header부분에 저장되어있는 토큰을 가져옴 
     // -> 해당 토큰 값이 존재하고 Bearer로 시작한다면(토큰 타입이 Bearer이라면) 앞 7글자를 반환
-    private String resolveToken(HttpServletRequest request) {
+    public String resolveToken(HttpServletRequest request) {
         String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
 
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {

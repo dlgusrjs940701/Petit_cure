@@ -9,13 +9,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
-@RestController
+import java.util.Iterator;
+
+@Controller
 @RequestMapping("/api")
 @RequiredArgsConstructor
 public class AuthController {
@@ -23,7 +24,7 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
 
     @PostMapping("/authenticate")
-    public ResponseEntity<TokenDTO> authorize(@RequestBody String username, @RequestBody String password){
+    public ResponseEntity<TokenDTO> authorize(@RequestParam("username") String username, @RequestParam("password") String password){
 
         // 헤더정보를 토대로 UsernamePasswordAuthenticationToken을 생성함
         // 생성한 토큰을 담아서 AuthenticationManager에서 authenticate()를 호출함
@@ -42,7 +43,8 @@ public class AuthController {
         // 3. Token 기반 권한(인가)
         SecurityContextHolder.getContext().setAuthentication(authentication);
         // 4. JWT 생성
-        String jwt = tokenProvider.createToken(authentication);
+        Iterator<? extends GrantedAuthority> iterator = authentication.getAuthorities().iterator();
+        String jwt = tokenProvider.createToken(username,iterator.next().getAuthority());
         System.out.println("생성된 토큰은"+jwt);
         // 응답헤더에 jwt를 추가
         return ResponseEntity.ok()

@@ -1,8 +1,12 @@
 package curevengers.petit_cure.security;
 
+import curevengers.petit_cure.Service.UserServiceImpl;
 import curevengers.petit_cure.security.Provider.TokenProvider;
 import curevengers.petit_cure.security.handler.JwtAccessDeniedHandler;
+import curevengers.petit_cure.security.LogFilter;
 import jakarta.servlet.http.HttpSession;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -10,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -27,37 +32,35 @@ import java.util.Collections;
 @Configuration
 public class SecurityConfig {
 
-    private TokenProvider tokenProvider;
-    private final AuthenticationEntryPoint jwtAuthenticationEntryPoint;
-    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
+    private final TokenProvider tokenProvider;
     private final AuthenticationSuccessHandler successHandler;
     private final AuthenticationFailureHandler failureHandler;
-
+    private final AuthenticationConfiguration authenticationConfiguration;
 
     public static final String[] allowUrls = {
-            "/login","/","/mplus","/api/**",
+            "/login","/","/mplus","/api/**","/memplus","/idCheck",
             "/css**/**","/resources**/**","/freeboard","/qanda","company",
-            "/api/user/**","/login/oauth2/code/kakao"
+            "/api/user/**","/login/oauth2/code/kakao","/api/authenticate"
     };
 
 
 
 
     public SecurityConfig(AuthenticationSuccessHandler successHandler, AuthenticationFailureHandler failureHandler,
-                          TokenProvider tokenProvider,AuthenticationEntryPoint jwtAuthenticationEntryPoint,JwtAccessDeniedHandler jwtAccessDeniedHandler) {
+                          TokenProvider tokenProvider, AuthenticationConfiguration authenticationConfiguration) {
         this.successHandler = successHandler;
         this.failureHandler = failureHandler;
         this.tokenProvider = tokenProvider;
-        this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
-        this.jwtAccessDeniedHandler = jwtAccessDeniedHandler;
+        this.authenticationConfiguration = authenticationConfiguration;
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
         http    .csrf(csrf -> csrf.disable())
-                .addFilterBefore(new JwtFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class)
-                .sessionManagement(sessionManagement
-                        -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//                .sessionManagement(sessionManagement
+//                        -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//                .addFilterBefore(new JwtFilter(tokenProvider), LogFilter.class)
+//                .addFilterAt(new LogFilter(authenticationManager(authenticationConfiguration),tokenProvider),UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(allowUrls).permitAll()
                         .requestMatchers("/user/**").hasRole("USER")
@@ -74,7 +77,7 @@ public class SecurityConfig {
 //                        .loginProcessingUrl("/login"))
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
-                        .loginProcessingUrl("/api/authenticate")
+                        .loginProcessingUrl("/logincon")
 //                        .defaultSuccessUrl("/")
 //                        .failureUrl("/login?error")
                         .usernameParameter("username")
@@ -95,14 +98,19 @@ public class SecurityConfig {
         return http.build();
     }
 
-    @Bean
-    public AuthenticationManager authManager(AuthenticationProvider authenticationProvider) {
-        return new ProviderManager(Collections.singletonList(authenticationProvider));
-    }
 
     @Bean
-    public PasswordEncoder passwordencoder() {
+    public BCryptPasswordEncoder passwordencoder() {
         return new BCryptPasswordEncoder();
     }
 
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception{
+        return configuration.getAuthenticationManager();
+    }
+
+//    @Bean
+//    public AuthenticationSuccessHandler authenticationSuccessHandler(){
+//        return new JwtSuccessHandler();
+//    }
 }
