@@ -6,10 +6,16 @@
     <insert id="insert" parameterType="curevengers.petit_cure.Dto.healthCheckDTO">
         insert into healthcheckresult values (#{id},#{height},#{weight},#{AC},#{SBP},#{DBP},#{FBG},#{TC},#{HDL},#{TG},#{LDL},#{AST},#{ALT},default)
     </insert>
+    <select id="showOne" resultType="curevengers.petit_cure.Dto.healthCheckDTO">
+        select * from healthcheckresult where id = #{id} order by date desc limit 1
+    </select>
     <select id="selectOne" resultType="curevengers.petit_cure.Dto.healthCheckDTO">
         select * from healthcheckresult where id = #{id} and date = #{date} order by date desc limit 1
     </select>
     <select id="selectAll" resultType="curevengers.petit_cure.Dto.healthCheckDTO">
         select * from healthcheckresult where id = #{id} order by date desc
+    </select>
+    <select id="selectAllHospital" resultType="curevengers.petit_cure.Dto.hospitalDTO">
+        select h_name, h_lat, h_lng from hospital where h_type = #{h_type}
     </select>
 </mapper>
