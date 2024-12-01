@@ -24,7 +24,7 @@
         <div class="input-form-backgroud row">
             <div class="input-form col-md-12 mx-auto">
                 <h4 class="mb-5" style="font-size: 35px"> - 회원가입 - </h4>
-                <form class="validation-form" novalidate action="memplus" method="get">
+                <form class="validation-form" novalidate action="/memplus" method="post">
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="name">이름</label>
@@ -65,7 +65,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="c_pass">비밀번호 확인</label>
-                        <input type="password" class="form-control" id="c_pass" name="pass" placeholder="(?,*,!,@)중에 1개 이상 포함, 대문자 1개 이상 포함, 영문+숫자+특수문자의 형태(8자이상)" oninput="psDCheck()" required>
+                        <input type="password" class="form-control" id="c_pass" name="c_pass" placeholder="(?,*,!,@)중에 1개 이상 포함, 대문자 1개 이상 포함, 영문+숫자+특수문자의 형태(8자이상)" oninput="psDCheck()" required>
                         <div id="checkPassword2">
                         </div>
                         <div class="invalid-feedback">

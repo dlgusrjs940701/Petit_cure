@@ -50,9 +50,9 @@ public class KakaoApi {
             // 먼저, url의 헤더를 세팅
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
             conn.setDoOutput(true);         // 이는 outputstream으로 post 데이터를 넘겨주겠다는 뜻
-            // 여기서 outputstream은 바이트 단위 입출력을 위한 최상위 입출력 스트림 클래스이다.
             // URLConnection이 서버에 데이터를 보내는데 사용할 수 있는지 여부를 설정하는 것 -> true로 지정,,
 
+            // 여기서 outputstream은 바이트 단위 입출력을 위한 최상위 입출력 스트림 클래스이다.
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
 //            BufferedWriter, BufferedReader
 //                            -> 입력받은 데이터가 String으로 고정, 입력받은 데이터를 원하는 타입으로 가공하는 작업이 필요

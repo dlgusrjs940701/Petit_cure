@@ -13,7 +13,7 @@
     </insert>
 
 
-    <select id="selectID" resultType="curevengers.petit_cure.Dto.memberDTO">
+    <select id="selectID">
         select id from member where id=#{id};
     </select>
 

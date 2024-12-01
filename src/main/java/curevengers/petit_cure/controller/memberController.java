@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,8 @@ public class memberController {
 
     @Autowired
     private final KakaoApi kakaoApi;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     // 회원가입화면
     @GetMapping(value = "/mplus")
@@ -31,7 +34,7 @@ public class memberController {
     }
 
     // 회원가입버튼 - 정보 전달
-    @GetMapping(value = "/memplus")        
+    @PostMapping(value = "/memplus")
     public String memplus(@ModelAttribute memberDTO memberdto) {
         userservice.signup(memberdto);
         return "redirect:/login";
@@ -40,7 +43,8 @@ public class memberController {
     // 회원가입시 아이디 중복 체크
     @ResponseBody
     @GetMapping(value = "/idCheck")
-    public int idCheck(@RequestParam String id) {
+    public int idCheck(@RequestParam("id") String id) {
+        System.out.println("아이디 확인 중");
         return userservice.cofrmID(id);
     }
     
@@ -57,7 +61,6 @@ public class memberController {
     // 로그인 버튼
     @PostMapping("/logincon")
     public String logincon(@RequestParam("username") String username, @RequestParam("password") String password) {
-
         return "redirect:/";
     }
     

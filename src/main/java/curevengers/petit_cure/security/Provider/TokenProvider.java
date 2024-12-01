@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 @Component
 @Configuration
 public class TokenProvider implements InitializingBean {
-
+// 유저 정보를 기반으로 토큰 생성+만료시간 체크
 
     private final Logger logger = LoggerFactory.getLogger(TokenProvider.class);
 
@@ -64,17 +64,14 @@ public class TokenProvider implements InitializingBean {
 
 
     // 토큰을 생성
-    public String createToken(Authentication authentication) {
-        String authorities = authentication.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.joining(","));
+    public String createToken(String username, String role) {
 
         long now = new Date().getTime();
         Date validity = new Date(now+this.tokenValidityInSeconds);
 
         return Jwts.builder()
-                .setSubject(authentication.getName())
-                .claim(AUTHORITIES_KEY,authorities)
+                .claim("username",username)
+                .claim("role",role)
                 .signWith(key, SignatureAlgorithm.HS256)
                 .setExpiration(validity)
                 .compact();

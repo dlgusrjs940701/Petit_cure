@@ -22,11 +22,11 @@ public class userdetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
+        System.out.println(username+"(loadUserByname)");
         memberDTO memberdto = userService.getMemberById(username);
 
         UserDetails user = User.withUsername(memberdto.getId())
-                .password(passwordEncoder.encode(memberdto.getPass()))
+                .password(memberdto.getPass())
                 .authorities(memberdto.getAuth_name())
                 .build();
 
