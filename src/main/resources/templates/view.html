@@ -26,7 +26,7 @@
 
 
             <div class="meta-info mb-4">
-                <p><strong>작성자:</strong> <span th:text="${dto.member_id}"></span></p>
+                <p><strong>작성자:</strong> <span th:text="${dto.id}"></span></p>
                 <p><strong>카테고리:</strong> <span th:text="${dto.cate}"></span></p>
                 <p><strong>조회수:</strong> <span th:text="${dto.visit}"></span></p>
                 <p><strong>작성일:</strong> <span th:text="${dto.date}"></span></p>
@@ -37,6 +37,40 @@
                 <p th:text="${dto.content}"></p>
             </div>
 
+            <!-- 댓글 -->
+            <div id="comments-container">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>작성자</th>
+                        <th>작성내용</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="comment : ${commentFreeList}">
+                        <td th:text="${comment.id}"></td>
+                        <td th:text="${comment.content}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="comment-section mt-5">
+                <h4><strong>댓글쓰기</strong></h4>
+                <form action="freecomment" method="post" class="mb-4">
+                    <input type="hidden" name="id" th:value="${dto.id}" required>
+
+                    <div class="mb-3">
+                        <input type="text" placeholder="댓글을 입력하세요" class="form-control" name="content"
+                               required>
+                    </div>
+
+                    <input type="hidden" th:value="${dto.getNo()}" name="freeboard_no">
+
+                    <button type="submit" class="btn btn-primary">
+                        댓글 작성
+                    </button>
+                </form>
+            </div>
             <!-- 뒤로 가기 버튼은 알아두면 좋음-->
             <div class="mt-4">
                 <button class="btn btn-secondary" onclick="history.back()">뒤로 가기</button>

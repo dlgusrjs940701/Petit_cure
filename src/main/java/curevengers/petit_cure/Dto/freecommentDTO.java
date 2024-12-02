@@ -2,16 +2,14 @@ package curevengers.petit_cure.Dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Getter
 @Setter
-public class commentDTO {
-
+public class freecommentDTO {
 
 
     private String no;
     private String id;
     private String content;
-    private String qaboard_no;
+    private String freeboard_no;
 }

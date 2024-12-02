@@ -24,7 +24,7 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
 
     @PostMapping("/authenticate")
-    public ResponseEntity<TokenDTO> authorize(@RequestParam("username") String username, @RequestParam("password") String password){
+    public ResponseEntity<TokenDTO> authorize(@RequestParam("username") String username, @RequestParam("password") String password) {
 
         // 헤더정보를 토대로 UsernamePasswordAuthenticationToken을 생성함
         // 생성한 토큰을 담아서 AuthenticationManager에서 authenticate()를 호출함
@@ -36,7 +36,7 @@ public class AuthController {
         System.out.println(username+"이 토큰생성쪽으로 들어옴");
         
         // 1. usernamePasswordToken을 생성
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password, null);
         // 2. 토큰기반 authenticate() -> loadUserbyUsername()
         // 생선된 토큰을 넘겨서 권한을 생성
         Authentication authentication = authenticationManager.authenticate(authenticationToken);
