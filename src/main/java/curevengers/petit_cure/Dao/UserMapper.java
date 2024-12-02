@@ -41,9 +41,11 @@ public interface UserMapper {
 
     int cntQABoard();
 
-    void insertComment(commentDTO dto);
+    void insertComment(qacommentDTO dto);
 
-    List<commentDTO> selectQAComment(String no);
+    void insertFreeComment(freecommentDTO dto);
+    List<qacommentDTO> selectQAComment(String no);
 
-//    List<commentDTO> findComment(commentDTO dto);
+    List<freecommentDTO> selectFreeComment(String no);
+
 }

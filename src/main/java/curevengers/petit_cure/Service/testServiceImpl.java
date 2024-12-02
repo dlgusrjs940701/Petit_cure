@@ -102,13 +102,23 @@ public class testServiceImpl implements testService {
     }
 
     @Override
-    public void addComment(commentDTO dto) {
+    public void addComment(qacommentDTO dto) {
         userMapper.insertComment(dto);
     }
 
     @Override
-    public List<commentDTO> getComment(String no) {
+    public void addFreeComment(freecommentDTO dto) {
+        userMapper.insertFreeComment(dto);
+    }
+
+    @Override
+    public List<qacommentDTO> getqaComment(String no) {
         return userMapper.selectQAComment(no);
+    }
+
+    @Override
+    public List<freecommentDTO> getFreeComment(String no) {
+        return userMapper.selectFreeComment(no);
     }
 
 //    @Override

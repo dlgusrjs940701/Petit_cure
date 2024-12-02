@@ -40,6 +40,7 @@ public class UserServiceImpl implements userService{
         return memberMapper.getMemberByID(id);
     }
 
+
     @Override
     public void signup(memberDTO memberdto){
         String agejumin = memberdto.getJumin1();

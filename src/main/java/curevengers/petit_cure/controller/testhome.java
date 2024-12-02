@@ -1,5 +1,6 @@
 package curevengers.petit_cure.controller;
 
+import curevengers.petit_cure.Dao.MemberMapper;
 import curevengers.petit_cure.Dto.*;
 
 
@@ -10,6 +11,8 @@ import curevengers.petit_cure.Service.testService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,6 +44,9 @@ public class testhome {
     @Autowired
     healthCheckService healthcheckservice;
 
+    @Autowired
+    MemberMapper membermapper;
+
 
     @GetMapping(value = "/")
     public String home() {
@@ -55,9 +61,10 @@ public class testhome {
 
     // 자유게시판 글쓰기 저장
     @PostMapping(value = "/save")
-    public String save(@ModelAttribute freeBoardDTO dto) {
+    public String save(@ModelAttribute freeBoardDTO dto, Model model) {
         testservice.addFreeBoard(dto);
-        return "freeBoard";
+        model.addAttribute("freeBoardDTO", dto.getNo());
+        return "redirect:/freeboard";
     }
 
     // QA게시판 글쓰기 저장
@@ -78,6 +85,7 @@ public class testhome {
         pagedto.setTotalCount(testservice.totalCountBoard());
         List<freeBoardDTO> freeBoardList = testservice.getAllFreeBoards(pagedto);
         model.addAttribute("list", freeBoardList);
+        model.addAttribute("pageDTO", pagedto);
         return "freeBoard";
     }
 
@@ -96,24 +104,32 @@ public class testhome {
 
     // 자유게시판 글 자세히 보기
     @GetMapping(value = "/view")
-    public String boardView(@RequestParam("no") String no, Model model) {
+    public String boardView(@RequestParam("no") String no, Model model, @ModelAttribute freecommentDTO freecommendto) {
         freeBoardDTO board = testservice.getBoardNo(no);
         testservice.updateVisit(Integer.parseInt(no));
+        List<freecommentDTO> freecommentFreeList=testservice.getFreeComment(no);
 //        List<String> attachList=testservice.getAttach(no);
         model.addAttribute("dto", board);
+        model.addAttribute("commentFreeList", freecommentFreeList);
 //        model.addAttribute("attachList", attachList);
         return "view";
     }
 
     //    // Q&A게시판 글 자세히 보기
     @GetMapping(value = "/qaview")
-    public String QAboardView(@RequestParam("no") String no, Model model, @ModelAttribute commentDTO commentdto) {
+    public String QAboardView( @RequestParam("no") String no, Model model, @ModelAttribute qacommentDTO qacommentdto, @ModelAttribute memberDTO memberdto) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        memberDTO memberDTO = membermapper.getMemberByID(username);
+
         QABoardDTO board = testservice.getQABoardNo(no);
-        List<commentDTO> commentList = testservice.getComment(no);
-        System.out.println("QABoard: " + board); // Q&A 게시글 확인
-        System.out.println("Comment List: " + commentList);
+        List<qacommentDTO> qacommentList = testservice.getqaComment(no);
+        System.out.println("QABoard: " + board);
+        System.out.println("Comment List: " + qacommentList);
         model.addAttribute("dto", board);
-        model.addAttribute("commentList", commentList);
+        model.addAttribute("commentList", qacommentList);
+        model.addAttribute("member", memberDTO);
         return "qaview";
     }
 
@@ -219,12 +235,18 @@ public class testhome {
 
     // 댓글 기능
     @PostMapping(value = "/comment")
-    public String reply(@ModelAttribute commentDTO dto) {
+    public String reply(@ModelAttribute qacommentDTO dto) {
 
         testservice.addComment(dto);
 //        List<commentDTO> commentList = testservice.getAllComments(dto);
 //        model.addAttribute("commentList", commentList);
         return "redirect:/qanda";
+    }
+
+    @PostMapping(value = "/freecomment")
+    public String freecomment(@ModelAttribute freecommentDTO dto) {
+        testservice.addFreeComment(dto);
+        return "redirect:/freeboard";
     }
 }
 

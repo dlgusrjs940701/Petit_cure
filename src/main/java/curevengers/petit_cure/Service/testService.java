@@ -46,9 +46,14 @@ public interface testService {
 
     int totalQACountBoard();
 
-    void addComment(commentDTO dto);
+    void addComment(qacommentDTO dto);
 
-    List<commentDTO> getComment(String no);
+    void addFreeComment(freecommentDTO dto);
+
+    List<qacommentDTO> getqaComment(String no);
+
+    List<freecommentDTO> getFreeComment(String no);
+
 
 //    List<commentDTO> getAllComments(commentDTO dto);
 }
