@@ -23,6 +23,7 @@ public class ProductController {
 
         if(authentication != null) {
             username = authentication.getName();
+
             model.addAttribute("id", username);
             session.setAttribute("id", username);
         }else{

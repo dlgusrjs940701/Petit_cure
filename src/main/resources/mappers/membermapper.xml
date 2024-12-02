@@ -18,7 +18,7 @@
     </select>
 
 
-    <select id="getMemberList()">
+    <select id="getMemberList">
         select * from member;
     </select>
 
@@ -34,5 +34,6 @@
     <delete id="deleteMember">
         delete member where id=#{id};
     </delete>
+
 
 </mapper>
