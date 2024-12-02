@@ -25,6 +25,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import java.util.Collections;
 
@@ -33,33 +34,36 @@ import java.util.Collections;
 public class SecurityConfig {
 
     private final TokenProvider tokenProvider;
+//    private final AuthenticationProvider authenticationProvider;
     private final AuthenticationSuccessHandler successHandler;
     private final AuthenticationFailureHandler failureHandler;
     private final AuthenticationConfiguration authenticationConfiguration;
 
     public static final String[] allowUrls = {
-            "/login","/","/mplus","/api/**","/memplus","/idCheck",
+            "/login","/","/mplus","/api/**","/memplus","/idCheck","/loginsuc",
             "/css**/**","/resources**/**","/freeboard","/qanda","company",
             "/api/user/**","/login/oauth2/code/kakao","/api/authenticate"
     };
 
-
-
-
     public SecurityConfig(AuthenticationSuccessHandler successHandler, AuthenticationFailureHandler failureHandler,
-                          TokenProvider tokenProvider, AuthenticationConfiguration authenticationConfiguration) {
+                          TokenProvider tokenProvider, AuthenticationConfiguration authenticationConfiguration,
+                          JwtFilter jwtFilter) {
         this.successHandler = successHandler;
         this.failureHandler = failureHandler;
         this.tokenProvider = tokenProvider;
         this.authenticationConfiguration = authenticationConfiguration;
+//        this.authenticationProvider = authenticationProvider;
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
         http    .csrf(csrf -> csrf.disable())
+//                .formLogin(formLogin -> formLogin.disable())
+//                .httpBasic(httpBasic -> httpBasic.disable())
 //                .sessionManagement(sessionManagement
 //                        -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//                .addFilterBefore(new JwtFilter(tokenProvider), LogFilter.class)
+//                .authenticationProvider(authenticationProvider)
+//                .addFilterBefore(jwtFilter, BasicAuthenticationFilter.class)
 //                .addFilterAt(new LogFilter(authenticationManager(authenticationConfiguration),tokenProvider),UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(allowUrls).permitAll()
@@ -78,8 +82,6 @@ public class SecurityConfig {
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
                         .loginProcessingUrl("/logincon")
-//                        .defaultSuccessUrl("/")
-//                        .failureUrl("/login?error")
                         .usernameParameter("username")
                         .passwordParameter("password")
                         .successHandler(successHandler)

@@ -1,8 +1,11 @@
 package curevengers.petit_cure.controller;
 
+import curevengers.petit_cure.security.Provider.TokenProvider;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,19 +15,28 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.net.HttpCookie;
+
 @Controller
 public class ProductController {
 
+    TokenProvider tokenProvider;
+    AuthenticationProvider authenticationProvider;
+
+    public ProductController(TokenProvider tokenProvider) {
+        this.tokenProvider = tokenProvider;
+    }
+
     @GetMapping(value = "/loginsuc")
-    public String home(HttpSession session, HttpServletRequest request, HttpServletResponse response, Model model) {
+    public String home(HttpSession session,HttpServletRequest request, HttpServletResponse response, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        String username = null;
+        String username = authentication.getName();
 
-        if(authentication != null) {
-            username = authentication.getName();
+        if(authentication.getName() != null) {
             model.addAttribute("id", username);
             session.setAttribute("id", username);
+
         }else{
             new ExceptionInInitializerError().printStackTrace();
         }
