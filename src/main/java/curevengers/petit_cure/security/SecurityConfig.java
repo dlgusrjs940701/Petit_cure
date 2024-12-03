@@ -1,6 +1,8 @@
 package curevengers.petit_cure.security;
 
 import curevengers.petit_cure.Service.UserServiceImpl;
+import curevengers.petit_cure.kakaoapi.KakaoApi;
+import curevengers.petit_cure.kakaoapi.PrincipalOauth2UserService;
 import curevengers.petit_cure.security.Provider.TokenProvider;
 import curevengers.petit_cure.security.handler.JwtAccessDeniedHandler;
 import curevengers.petit_cure.security.LogFilter;
@@ -20,12 +22,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+
 
 import java.util.Collections;
 
@@ -38,6 +40,10 @@ public class SecurityConfig {
     private final AuthenticationSuccessHandler successHandler;
     private final AuthenticationFailureHandler failureHandler;
     private final AuthenticationConfiguration authenticationConfiguration;
+    @Autowired
+    private PrincipalOauth2UserService userService;
+
+
 
     public static final String[] allowUrls = {
             "/login","/","/mplus","/api/**","/memplus","/idCheck","/loginsuc",
@@ -76,9 +82,10 @@ public class SecurityConfig {
                         // 비회원은 자유게시판, Q&A 게시판의 글 목록만 볼 수 있으며
                         // 자세히 보기 및 글작성-댓글작성은 불가하다
                 )
-//                .oauth2Login(conf->conf
-//                        .authorizationEndpoint(end -> end.baseUri("/oauth2/login"))
-//                        .loginProcessingUrl("/login"))
+                .oauth2Login((oauth2) -> oauth2
+                        .loginPage("/oauth2/login")
+                        .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig.userService(userService))
+                        .defaultSuccessUrl("/", true))
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
                         .loginProcessingUrl("/logincon")

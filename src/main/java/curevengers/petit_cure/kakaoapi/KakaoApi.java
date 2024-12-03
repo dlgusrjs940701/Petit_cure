@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.apache.juli.logging.Log;
 import org.apache.tomcat.util.json.JSONParser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
@@ -24,11 +25,12 @@ import java.util.HashMap;
 public class KakaoApi {
 
     // kakao class 작성
-    @Value("${kakao.api_key}")
+    @Value("${spring.security.oauth2.client.registration.kakao.client-id}")
     private String kakaoapiKey;
 
-    @Value("${kakao.redirect_uri}")
+    @Value("${spring.security.oauth2.client.registration.kakao.redirect-uri}")
     private String kakaoredirectUri;
+
 
     // 사용자가 카카오 로그인을 성공하면 카카오측에서 인가 코드를 받아옴
     // 그 코드를 이용하여 accessToken을 반환
@@ -65,7 +67,7 @@ public class KakaoApi {
 //                                    (버퍼가 가득참 or 개행문자 나타남 의 경우)
             StringBuilder sb = new StringBuilder();
 
-            // 필수 쿼리 파라미터 세팅
+            // 필수 쿼리 파라미터 세팅(키+리다이렉트+인증코드)
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=").append(kakaoapiKey);
             sb.append("&redirect_uri=").append(kakaoredirectUri);
