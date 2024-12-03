@@ -33,6 +33,7 @@
 body {
     width: 1920px;
     height: 1080px;
+    max-height: 3000px;
     /* background-color: rgb(240, 240, 180); */
 }
 
@@ -208,7 +209,7 @@ footer {
     height: 330px;
     background-color: antiquewhite;
     margin-bottom: 0px;
-
+    margin-top: 100px;
 }
 
 .action {

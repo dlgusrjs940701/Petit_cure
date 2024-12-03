@@ -92,25 +92,26 @@
     border: 1px solid #ccc;
     border-radius: 10px;
     box-shadow: 3px 3px 10px #e6e6e6;
+    margin-right: 700px;
 }
-.card-write .admin{
-    /*margin-left: 10px;*/
-    width: 30%;
-    margin-top: 20px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 3px 3px 10px #e6e6e6;
-}
-.card-write .visibility{
-    /*margin-left: 10px;*/
-    width: 30%;
-    margin-top: 20px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-shadow: 3px 3px 10px #e6e6e6;
-}
+/*.card-write .admin{*/
+/*    !*margin-left: 10px;*!*/
+/*    width: 30%;*/
+/*    margin-top: 20px;*/
+/*    padding: 10px;*/
+/*    border: 1px solid #ccc;*/
+/*    border-radius: 10px;*/
+/*    box-shadow: 3px 3px 10px #e6e6e6;*/
+/*}*/
+/*.card-write .visibility{*/
+/*    !*margin-left: 10px;*!*/
+/*    width: 30%;*/
+/*    margin-top: 20px;*/
+/*    padding: 10px;*/
+/*    border: 1px solid #ccc;*/
+/*    border-radius: 10px;*/
+/*    box-shadow: 3px 3px 10px #e6e6e6;*/
+/*}*/
 .card-write .info-group{
     display: flex;
     justify-content: space-between;

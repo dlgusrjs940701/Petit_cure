@@ -5,13 +5,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class freeBoardDTO {
+public class freecommentDTO {
+
+
     private String no;
     private String id;
-    private String title;
-    private String cate;
     private String content;
-    private int visit;
-    private String date;
-    private String name;
+    private String freeboard_no;
 }

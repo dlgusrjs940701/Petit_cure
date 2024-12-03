@@ -3,9 +3,7 @@ package curevengers.petit_cure.Service;
 import curevengers.petit_cure.Dao.MemberMapper;
 import curevengers.petit_cure.Dto.AuthVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import curevengers.petit_cure.Dto.memberDTO;
@@ -25,6 +23,12 @@ public class UserServiceImpl implements userService{
     @Autowired
     MemberMapper memberMapper;
 
+    BCryptPasswordEncoder passwordEncoder;        // 생성자를 통해 주입할 것
+
+    public UserServiceImpl(BCryptPasswordEncoder passwordEncoder){
+        this.passwordEncoder = passwordEncoder;
+    }
+
 
     @Override
     public List<memberDTO> getMemberList(){
@@ -35,6 +39,7 @@ public class UserServiceImpl implements userService{
     public memberDTO getMemberById(String id){
         return memberMapper.getMemberByID(id);
     }
+
 
     @Override
     public void signup(memberDTO memberdto){
@@ -65,7 +70,11 @@ public class UserServiceImpl implements userService{
             }
         }
         // 비밀번호를 암호화해서 DB에 저장
-        passwordEncoder().encode(memberdto.getPass());
+//        System.out.println("비밀번호 암호화중");
+        System.out.println(memberdto.getPass()+"(암호화 전 비밀번호)");
+        String pass = passwordEncoder.encode(memberdto.getPass());
+        memberdto.setPass(pass);
+        System.out.println(pass+"(암호화 된 비밀번호)");
         memberMapper.insertMember(memberdto);
     }
 
@@ -86,7 +95,4 @@ public class UserServiceImpl implements userService{
         return memberMapper.selectID(id).size();
     }
 
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 }

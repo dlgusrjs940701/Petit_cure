@@ -13,12 +13,12 @@
     </insert>
 
 
-    <select id="selectID" resultType="curevengers.petit_cure.Dto.memberDTO">
+    <select id="selectID">
         select id from member where id=#{id};
     </select>
 
 
-    <select id="getMemberList()">
+    <select id="getMemberList">
         select * from member;
     </select>
 
@@ -34,5 +34,6 @@
     <delete id="deleteMember">
         delete member where id=#{id};
     </delete>
+
 
 </mapper>

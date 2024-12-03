@@ -180,17 +180,17 @@ p {
     border-radius: 100px;
 }
 
-.list-group {
-    size: 100%;
-    margin-top: 60px;
-    /* size: 100px; */
-    /* text-align: center; */
-    /* margin-left: 20px; */
-    /* max-width: 100%; */
-    margin-right: 60px;
-    height: 50%;
-    border-radius: 40px;
-}
+/*.list-group {*/
+/*    size: 100%;*/
+/*    margin-top: 60px;*/
+/*    !* size: 100px; *!*/
+/*    !* text-align: center; *!*/
+/*    !* margin-left: 20px; *!*/
+/*    !* max-width: 100%; *!*/
+/*    margin-right: 60px;*/
+/*    height: 50%;*/
+/*    border-radius: 40px;*/
+/*}*/
 
 .list-group-item {
     height: 600px;

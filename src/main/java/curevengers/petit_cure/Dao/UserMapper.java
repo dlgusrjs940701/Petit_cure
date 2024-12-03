@@ -1,9 +1,6 @@
 package curevengers.petit_cure.Dao;
 
-import curevengers.petit_cure.Dto.QABoardDTO;
-import curevengers.petit_cure.Dto.freeBoardDTO;
-import curevengers.petit_cure.Dto.pageDTO;
-import curevengers.petit_cure.Dto.testDto;
+import curevengers.petit_cure.Dto.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -41,4 +38,14 @@ public interface UserMapper {
 
 
     int cntBoard();
+
+    int cntQABoard();
+
+    void insertComment(qacommentDTO dto);
+
+    void insertFreeComment(freecommentDTO dto);
+    List<qacommentDTO> selectQAComment(String no);
+
+    List<freecommentDTO> selectFreeComment(String no);
+
 }

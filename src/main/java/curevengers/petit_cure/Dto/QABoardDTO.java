@@ -11,7 +11,7 @@ public class QABoardDTO {
     private String title;
     private String cate;
     private String content;
-    private String limited;
+    private String limit;
     private int good;
     private String date;
 }

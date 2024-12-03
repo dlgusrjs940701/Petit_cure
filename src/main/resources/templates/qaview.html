@@ -19,11 +19,8 @@
             <h2><strong>게시글 상세보기</strong></h2>
         </div>
 
-
         <div class="board-detail">
-
             <h3 th:text="${dto.title}" class="mb-3"></h3>
-
 
             <div class="meta-info mb-4">
                 <p><strong>작성자:</strong> <span th:text="${dto.id}"></span></p>
@@ -32,31 +29,72 @@
                 <p><strong>작성일:</strong> <span th:text="${dto.date}"></span></p>
             </div>
 
-
             <div class="content mb-4">
                 <p th:text="${dto.content}"></p>
             </div>
-
+            <!-- 댓글 -->
+            <div id="comments-container">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>작성자</th>
+                        <th>작성내용</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="comment : ${commentList}">
+                        <td th:text="${comment.id}"></td>
+                        <td th:text="${comment.content}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
             <div>
                 <form action="/goodUp" method="get">
                     <input type="hidden" name="no" th:value="${dto.no}"/>
-                    <button type="submit" class="btn btn-success" onclick="alert('추천 완료!');">
-                        추천
-                    </button>
+                    <button type="submit" class="btn btn-success" onclick="alert('추천 완료!');">추천</button>
                 </form>
                 <form action="/goodDown" method="get">
                     <input type="hidden" name="no" th:value="${dto.no}"/>
-                    <button type="submit" class="btn btn-danger"  onclick="alert('추천 취소!');">
-                        추천 취소
-                    </button>
+                    <button type="submit" class="btn btn-danger" onclick="alert('추천 취소!');">추천 취소</button>
                 </form>
             </div>
 
-            <!-- 뒤로 가기 버튼은 알아두면 좋음-->
             <div class="mt-4">
                 <button class="btn btn-secondary" onclick="location.href='/qanda'">뒤로 가기</button>
             </div>
         </div>
+
+
+        <div class="comment-section mt-5">
+            <h4><strong>댓글쓰기</strong></h4>
+            <form action="comment" method="post" class="mb-4">
+                <input type="hidden" name="id" th:value="${dto.id}" required>
+
+                <div class="mb-3">
+                    <input type="text" placeholder="댓글을 입력하세요" class="form-control" name="content"
+                           th:disabled="${dto.limit.substring(0, 1) != '0' && dto.limit.substring(0, 1) != member.age.substring(0, 1)}"
+                           required>
+                    </input>
+                </div>
+
+                <input type="hidden" th:value="${dto.getNo()}" name="qaboard_no">
+
+                <button
+                        type="submit"
+                        class="btn btn-primary"
+                        th:disabled="${dto.limit.substring(0, 1) != '0' && dto.limit.substring(0, 1) != member.age.substring(0, 1)}">
+                    댓글 작성
+                </button>
+            </form>
+            <p
+                    th:if="${dto.limit.substring(0, 1) != '0' && dto.limit.substring(0, 1) != member.age.substring(0, 1)}"
+                    class="text-muted mt-3">
+                댓글 작성은 허용되지 않습니다.
+            </p>
+        </div>
+
+
     </div>
 </section>
 <div th:include="main::footer"></div>
@@ -77,6 +115,4 @@
             })
         });
     });
-
-
 </script>

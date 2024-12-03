@@ -16,6 +16,13 @@
 <!-- main화면 include 설정 -->
 <div th:include="main::header"></div>
 <div th:include="main::nav"></div>
+<div class="modal" style="display: none">
+  <div class="modal_popup">
+    <h3>Login결과</h3>
+    <p id="loginresult"></p>
+    <button type="button" class="close_btn">닫기</button>
+  </div>
+</div>
 <section class="jua-regular">
   <!--  html 전체 영역을 지정하는 container -->
   <div id="container">
@@ -26,12 +33,16 @@
       <!-- 아이디, 비번, 버튼 박스 -->
       <div id="inputBox">
         <form method="post" action="/logincon">
-          <div class="input-form-box"><span>아이디 </span><input type="text" name="username" class="form-control" style="height: 40px; font-size: 20px;"></div>
-          <div class="input-form-box"><span>비밀번호 </span><input type="password" name="password" class="form-control" style="height: 40px; font-size: 20px;"></div>
+          <div class="input-form-box"><span>아이디 </span><input type="text" name="username" id="username" class="form-control" style="height: 40px; font-size: 20px;"></div>
+          <div class="input-form-box"><span>비밀번호 </span><input type="password" name="password" id="password" class="form-control" style="height: 40px; font-size: 20px;"></div>
           <div class="button-login-box" >
             <button type="submit" class="btn btn-primary btn-xs" style="width:100%">로그인</button>
-            <div style="text-align: center">또는</div>
+            <div style="text-align: center; margin-top: 5px">또는</div>
             <a href="mplus"><button type="button" class="btn btn-secondary btn-xs" style="width:100%">회원가입</button></a>
+            <div style="text-align: center; margin-top: 5px">또는</div>
+            <a href="https://kauth.kakao.com/oauth/authorize"
+               th:href="@{https://kauth.kakao.com/oauth/authorize(client_id=${KakaoapiKey}, redirect_uri=${redirectUrl}, response_type='code')}">
+              <img src="https://developers.kakao.com/tool/resource/static/img/button/login/full/ko/kakao_login_medium_wide.png" style="width:100%"></a>
           </div>
         </form>
       </div>
@@ -57,28 +68,34 @@
     });
   });
 </script>
-<!--<script>-->
+<script>
+  const modal = document.querySelector('.modal');
 
-<!--  function logincon(){-->
-<!--    const id = document.getElementById("uid").value;-->
-<!--    const pw = document.getElementById("upw").value;-->
+    async function login(){
+      let response = await fetch("/api/authenticate",{
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body: JSON.stringify({
+          username: document.getElementById("username").value,
+          password: document.getElementById("password").value
+        })
+      })
 
-<!--    $.ajax({-->
-<!--      type: 'POST',-->
-<!--      url: "/logincon", //컨트롤러에 지정한 value값-->
-<!--      data: {id: id, pw: pw},-->
-<!--      success: function(data) {-->
-<!--        // console.log(data);-->
-<!--        if(data>0){-->
-<!--           alert(id+"님 환영합니다. 로그인이 완료되었습니다.");-->
-<!--        }else{-->
-<!--          alert("아이디 / 비밀번호가 일치하지 않습니다.");-->
-<!--        }-->
-<!--      },-->
-<!--      error: function (){-->
-<!--        alert("에러입니다.")-->
-<!--      }-->
-<!--    })-->
-<!--  }-->
+      if(response.ok){
+        let json = await response.json();
+        document.getElementById("loginresult").innerHTML = json.result;
+        localStorage.setItem("jwt",'Bearer ' + json.result.accessToken);
+        modal.style.display = block;
+      }else{
+        let json = await response.json();
+        document.getElementById("loginresult").innerHTML = json;
+        modal.style.display = block;
+      }
 
-<!--</script>-->
+
+
+
+    }
+</script>

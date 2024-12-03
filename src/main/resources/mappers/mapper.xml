@@ -4,10 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="curevengers.petit_cure.Dao.UserMapper">
 
-    <insert id="insert" parameterType="curevengers.petit_cure.Dto.testDto">
-        insert into test
-        values (#{id})
-    </insert>
     <!--    // 자유게시판 글 저장-->
     <insert id="insertFreeBoard" parameterType="curevengers.petit_cure.Dto.freeBoardDTO">
         insert into freeboard (id, title, cate, content)
@@ -15,8 +11,8 @@
     </insert>
     <!--    // QA게시판 글 저장-->
     <insert id="insertQABoard" parameterType="curevengers.petit_cure.Dto.QABoardDTO">
-        insert into qaboard (id, title, cate, content)
-        values (#{id}, #{title}, #{cate}, #{content})
+        insert into qaboard (id, `limit`, title, cate, content)
+        values (#{id}, #{limit}, #{title}, #{cate}, #{content})
     </insert>
 
     <!-- 게시판 글 목록-->
@@ -24,63 +20,93 @@
         SELECT *
         FROM freeboard
         ORDER BY date DESC
-            LIMIT #{perPageNum} OFFSET #{startNo}
+        LIMIT #{perPageNum} OFFSET #{startNo}
     </select>
     <select id="findQAAllBoards" resultType="curevengers.petit_cure.Dto.QABoardDTO">
         SELECT *
         FROM qaboard
         ORDER BY date DESC
-            LIMIT #{perPageNum} OFFSET #{startNo}
+        LIMIT #{perPageNum} OFFSET #{startNo}
     </select>
 
     <!-- 자유게시판 검색기능-->
     <select id="findSearchBoards" parameterType="String" resultType="curevengers.petit_cure.Dto.freeBoardDTO">
         select no, title, visit, date
         from freeboard
-        where title like CONCAT ('%', #{title}, '%')
+        where title like CONCAT('%', #{title}, '%')
     </select>
     <!--     QA게시판 검색기능-->
     <select id="findSearchQABoards" parameterType="String" resultType="curevengers.petit_cure.Dto.QABoardDTO">
         select no, title, good, date
         from qaboard
-        where title like CONCAT ('%', #{title}, '%')
+        where title like CONCAT('%', #{title}, '%')
     </select>
 
     <!-- 게시판 글 자세히보기-->
     <select id="selectOne" parameterType="String" resultType="curevengers.petit_cure.Dto.freeBoardDTO">
         select *
         from freeboard
-        where no =#{no}
+        where no = #{no}
     </select>
     <select id="selectQAOne" parameterType="String" resultType="curevengers.petit_cure.Dto.QABoardDTO">
         select *
         from qaboard
-        where no =#{no}
+        where no = #{no}
     </select>
 
     <!-- 조회수 구현 -->
     <update id="updateVisit" parameterType="int">
         update freeboard
         set visit=visit + 1
-        where no =#{no}
+        where no = #{no}
     </update>
     <!-- 좋아요 구현 -->
-    <update id="updateGood" parameterType="int" >
+    <update id="updateGood" parameterType="int">
         update qaboard
         set good=good + 1
-        where no =#{no}
+        where no = #{no}
     </update>
 
     <!-- 좋아요 취소 구현 -->
-    <update id="updateGoodDown" parameterType="int" >
+    <update id="updateGoodDown" parameterType="int">
         update qaboard
-        set good=good -1
-        where no =#{no}
+        set good=good - 1
+        where no = #{no}
     </update>
 
     <select id="cntBoard" resultType="int">
-        select count(*) from freeboard
+        select count(*)
+        from freeboard
     </select>
 
+    <select id="cntQABoard" resultType="int">
+        select count(*)
+        from qaboard
+    </select>
+
+    <!-- 댓글 저장 -->
+    <insert id="insertComment" parameterType="curevengers.petit_cure.Dto.qacommentDTO">
+        insert into qacomment (id, content, qaboard_no)
+        values (#{id}, #{content}, #{qaboard_no})
+
+    </insert>
+
+    <insert id="insertFreeComment" parameterType="curevengers.petit_cure.Dto.freecommentDTO">
+        insert into freecomment (id, content, freeboard_no)
+        values (#{id}, #{content}, #{freeboard_no})
+
+    </insert>
+
+    <select id="selectQAComment" parameterType="String" resultType="curevengers.petit_cure.Dto.qacommentDTO">
+        select id, content
+        from qacomment
+        where qaboard_no = #{no}
+    </select>
+
+    <select id="selectFreeComment" parameterType="String" resultType="curevengers.petit_cure.Dto.freecommentDTO">
+        select id, content
+        from freecomment
+        where freeboard_no = #{no}
+    </select>
 
 </mapper>

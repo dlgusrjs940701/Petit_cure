@@ -18,18 +18,20 @@
 
 <div class="card-write">
     <h2><strong>글쓰기</strong></h2>
-    <form action="save" method="post">
+    <form action="qasave" method="post">
         <div class="myinfo">
             <strong>이름</strong><input type="text" name="id" placeholder="이름 입력" required>
             <strong>비밀번호</strong><input type="password" name="password" placeholder="비번 입력" required>
         </div>
         <div class="info-group">
             <div style="display: inline-block; margin-top: 30px">
-                <strong>나이</strong>
+                <strong>제한사항</strong>
             </div>
             <div class="age">
-                <select name="age" required>
-                    <option value="" disabled selected>나이 선택</option>
+                <select name="limit" required>
+                    <option value="" disabled selected>제한사항 선택</option>
+                    <option value="ADM">관리자</option>
+                    <option value="00">모두공개</option>
                     <option value="10">10대</option>
                     <option value="20">20대</option>
                     <option value="30">30대</option>
@@ -39,24 +41,24 @@
                     <option value="70">70대</option>
                 </select>
             </div>
-            <div class="admin">
-                <label for="admin"><strong>관리자</strong></label>
-                <input type="checkbox" name="admin" id="admin">
-            </div>
-            <div class="visibility">
-                <label for="visibility"><strong>공개 여부</strong></label>
-                <input type="checkbox" name="visibility" id="visibility" checked> 공개
-            </div>
+<!--            <div class="admin">-->
+<!--                <label for="admin"><strong>관리자</strong></label>-->
+<!--                <input type="checkbox" name="admin" id="admin">-->
+<!--            </div>-->
+<!--            <div class="visibility">-->
+<!--                <label for="visibility"><strong>공개 여부</strong></label>-->
+<!--                <input type="checkbox" name="visibility" id="visibility" checked> 공개-->
+<!--            </div>-->
         </div>
         <div class="title-w">
             <strong>제목</strong><input type="text" name="title" placeholder="제목 입력">
         </div>
         <select class="form-select" name="cate" required>
             <option value="" disabled selected><strong>카테고리</strong></option>
-            <option value="1">추천해주세요</option>
-            <option value="2">아파요</option>
-            <option value="3">궁금해요</option>
-            <option value="4">건의해요</option>
+            <option value="추천해주세요">추천해주세요</option>
+            <option value="아파요">아파요</option>
+            <option value="궁금해요">궁금해요</option>
+            <option value="건의해요">건의해요</option>
         </select>
         <div class="msg">
             <strong>내용</strong><textarea name="content" placeholder="내용 입력" required></textarea>
