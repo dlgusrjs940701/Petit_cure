@@ -11,6 +11,7 @@ import curevengers.petit_cure.Service.dpCheckService;
 import curevengers.petit_cure.Service.healthCheckService;
 import curevengers.petit_cure.Service.testService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,14 +33,13 @@ public class testhome {
     healthCheckService healthcheckservice;
 
     @Autowired
+    MemberMapper membermapper;
+
+    @Autowired
     dpCheckService dpcheckservice;
 
     @Autowired
     dpBoardService dpboardservice;
-
-    @Autowired
-    MemberMapper membermapper;
-
 
     @GetMapping(value = "/")
     public String home() {
@@ -54,9 +54,10 @@ public class testhome {
 
     // 자유게시판 글쓰기 저장
     @PostMapping(value = "/save")
-    public String save(@ModelAttribute freeBoardDTO dto) {
+    public String save(@ModelAttribute freeBoardDTO dto, Model model) {
         testservice.addFreeBoard(dto);
-        return "freeBoard";
+        model.addAttribute("freeBoardDTO", dto.getNo());
+        return "redirect:/freeboard";
     }
 
     // QA게시판 글쓰기 저장
@@ -74,7 +75,6 @@ public class testhome {
         return "redirect:/depboard";
     }
 
-
     // 자유게시판
     @GetMapping(value = "/freeboard")
     public String getFreeBoardList(Model model, @ModelAttribute pageDTO pagedto) {
@@ -84,6 +84,7 @@ public class testhome {
         pagedto.setTotalCount(testservice.totalCountBoard());
         List<freeBoardDTO> freeBoardList = testservice.getAllFreeBoards(pagedto);
         model.addAttribute("list", freeBoardList);
+        model.addAttribute("pageDTO", pagedto);
         return "freeBoard";
     }
 
@@ -102,16 +103,17 @@ public class testhome {
 
     // 자유게시판 글 자세히 보기
     @GetMapping(value = "/view")
-    public String boardView(@RequestParam("no") String no, Model model) {
+    public String boardView(@RequestParam("no") String no, Model model, @ModelAttribute freecommentDTO freecommendto) {
         freeBoardDTO board = testservice.getBoardNo(no);
         testservice.updateVisit(Integer.parseInt(no));
+        List<freecommentDTO> freecommentFreeList=testservice.getFreeComment(no);
 //        List<String> attachList=testservice.getAttach(no);
         model.addAttribute("dto", board);
+        model.addAttribute("commentFreeList", freecommentFreeList);
 //        model.addAttribute("attachList", attachList);
         return "view";
     }
 
-    // Q&A게시판 글 자세히 보기
     //    // Q&A게시판 글 자세히 보기
     @GetMapping(value = "/qaview")
     public String QAboardView( @RequestParam("no") String no, Model model, @ModelAttribute qacommentDTO qacommentdto, @ModelAttribute memberDTO memberdto) {
@@ -119,6 +121,7 @@ public class testhome {
         String username = authentication.getName();
 
         memberDTO memberDTO = membermapper.getMemberByID(username);
+
         QABoardDTO board = testservice.getQABoardNo(no);
         List<qacommentDTO> qacommentList = testservice.getqaComment(no);
         System.out.println("QABoard: " + board);
@@ -141,7 +144,6 @@ public class testhome {
         return "dpBoard";
     }
 
-
     // 자유게시판 글쓰기
     @GetMapping(value = "/write")
     public String write() {
@@ -154,7 +156,7 @@ public class testhome {
         return "qawrite";
     }
 
-    // QA게시판 글쓰기
+    // 우울증게시판 글쓰기
     @GetMapping(value = "/dpWrite")
     public String dpWrite() {
         return "dpBoardWrite";
@@ -169,12 +171,13 @@ public class testhome {
     // 건강검진결과로
     @PostMapping(value = "/healthresult")
     public String healthresult(@ModelAttribute healthCheckDTO dto, Model model, HttpServletRequest request) throws Exception {
-        // id부분 수정필요
-        dto.setId("aaa");
+        HttpSession session = request.getSession();
+        Object nowId = session.getAttribute("id");
+        dto.setId((String) nowId);
         healthcheckservice.insert(dto);
         healthCheckDTO result = healthcheckservice.showOne(dto);
         model.addAttribute("dto", result);
-        return "healthcheckResult";
+        return "healthcheckresult";
     }
 
     // 지도에 매핑하기
@@ -189,8 +192,9 @@ public class testhome {
     // 건강검진결과 전체 리스트 보기
     @GetMapping(value = "/moreresult")
     public String moreresult(Model model, HttpServletRequest request) throws Exception {
-        // id부분 수정필요
-        List<healthCheckDTO> list = healthcheckservice.selectAll("aaa");
+        HttpSession session = request.getSession();
+        Object nowId = session.getAttribute("id");
+        List<healthCheckDTO> list = healthcheckservice.selectAll((String) nowId);
         model.addAttribute("list", list);
         return "healthcheckresultmore";
     }
@@ -198,10 +202,12 @@ public class testhome {
     // 건강검진결과 전체 리스트 중 하나 보기
     @PostMapping(value = "/healthresultone")
     public String healthresultOne(@RequestParam("date") String date, Model model, HttpServletRequest request) throws Exception {
-        // id부분 수정필요
-        healthCheckDTO result = healthcheckservice.selectOne("aaa", date);
+        System.out.println(date);
+        HttpSession session = request.getSession();
+        Object nowId = session.getAttribute("id");
+        healthCheckDTO result = healthcheckservice.selectOne((String)nowId, date);
         model.addAttribute("dto", result);
-        return "healthcheckResult";
+        return "healthcheckresult";
     }
 
     // 우울증 검사
