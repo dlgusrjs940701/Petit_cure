@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/ResultSheet.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Jua&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik+Wet+Paint&family=Yeon+Sung&display=swap');
+  </style>
+</head>
+
+<body>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>main</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Jua&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik+Wet+Paint&family=Yeon+Sung&display=swap');
+  </style>
+</head>
+
+
+
+<body>
+<!-- main화면 include 설정 -->
+<div th:include="main::header"></div>
+<div th:include="main::nav"></div>
+<nav>
+  <!-- <img src="data:image/png;base64,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"> -->
+</nav>
+
+
+
+
+<section>
+  <h1>마이페이지</h1>
+
+  <div class="list-group">
+    <button type="button" class="list-group-item list-group-item-action">자가검진결과확인 &nbsp;&nbsp;&nbsp;&nbsp;
+      ></button>
+    <button type="button" class="list-group-item list-group-item-action">게시판 글쓴이 확인?&nbsp;&nbsp;&nbsp;&nbsp;
+      ></button>
+    <button type="button" class="list-group-item list-group-item-action">회원정보수정&nbsp;&nbsp;&nbsp;&nbsp;
+      ></button>
+    <button type="button" class="list-group-item list-group-item-action">회원정보탈퇴&nbsp;&nbsp;&nbsp;&nbsp;
+      ></button>
+  </div>
+</section>
+<aside>
+  <h1>검진결과안내</h1>
+</aside>
+
+<aside class="action" style="padding-top: 100px;">
+  <h1 th:if="${dto.getResult()<=4}">우울증이 아닙니다.</h1>
+  <h1 th:if="${dto.getResult()<=9 && dto.getResult()>=5}">가벼운 우울증 입니다.</h1>
+  <h1 th:if="${dto.getResult()<=14 && dto.getResult()>=10}">중간 정도 우울증 입니다.</h1>
+  <h1 th:if="${dto.getResult()<=19 && dto.getResult()>=15}">중간 정도 우울증이나 심한 상태 입니다.</h1>
+  <h1 th:if="${dto.getResult()<=27 && dto.getResult()>=20}">심한 정도 우울증 입니다.</h1>
+</aside>
+
+<table>
+  <tr style="height: 50px; background-color:#f0eaea; font-size:25px;">
+    <th>0~4점</th>
+    <th>5~9점</th>
+    <th>10~14점</th>
+    <th>15~19점</th>
+    <th>20~27점</th>
+  </tr>
+  <tr>
+    <td>우울증 아님</td>
+    <td>가벼운 우울증</td>
+    <td>중간 정도 우울증</td>
+    <td>중간 정도 우울증 <br> (심함/치료요함)</td>
+    <td>심한 정도 우울증<br>(적극적인 치료가 필요함)</td>
+  </tr>
+
+</table>
+<aside style="border-bottom: none; margin-top: 0px; text-align: left;">
+  <div>※ PHQ-9는 10점 이상이면 중간 정도의 우울증이 있음을 나타내며, 총점이 높을수록 증상이 심각해짐으로써, 우울증이 얼마나 심한지를 알아볼 수 있는 평가도 가능합니다. 5~6일의 간격을 두고 재검사시에도 검사·재검사 신뢰도 0.89로 높아서 우울증에 대한 치료 반응의 평가에도 의미있게 사용됩니다. 임상적으로는 5점 이상의 변화가 나타날 때 유의미하다고 봅니다.</div>
+</aside>
+</div>
+<div>
+  <span style="font-size: 20px">
+    아래 버튼을 통하여 여러 사람들과 소통해보세요!
+    게시판은 관리자에 의하여 철저하게 관리되며, 실명인증 후 사용이 가능합니다.
+  </span>
+</div>
+<a href="/depboard"><button style="font-size: 20px">우울증 게시판으로 이동!</button></a>
+<div th:include="main::footer"></div>
+</body>
+<div th:include="main::footer"></div>
+</html>
+
+
+<script>
+  window.addEventListener('load', () => {
+    const forms = document.getElementsByClassName('validation-form');
+
+    Array.prototype.filter.call(forms, (form) => {
+      form.addEventListener('submit', function (event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+
+  const submenuList = document.querySelectorAll(".dropdown");
+
+  submenuList.forEach(li => {
+    li.addEventListener("mouseover", () => {
+      li.querySelectorAll("ul").forEach((el) => {
+        el.style.display = "block";
+      })
+    });
+    li.addEventListener("mouseout", () => {
+      li.querySelectorAll("ul").forEach((el) => {
+        el.style.display = "none";
+      })
+    });
+  });
+</script>
+
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="curevengers.petit_cure.Dao.dpCheckMapper">
+    <insert id="insert">
+        insert into dpcheckresult values (#{id},#{result},default)
+    </insert>
+    <select id="showOne">
+        select * from dpcheckresult where id = #{id} order by date desc limit 1
+    </select>
+    <select id="selectOne">
+        select * from dpcheckresult where id = #{id} and date = #{date} order by date desc limit 1
+    </select>
+    <select id="selectAll">
+        select * from dpcheckresult where id = #{id}
+    </select>
+</mapper>

@@ -197,10 +197,10 @@ table.board-table {
     border-radius: 5px;
     background-color: gray;
     color: white;
-    font: 12px 굴림;
+    font-size: 18px;
     font-weight: bold;
-    width: 60px;
-    height: 30px;
+    width: 70px;
+    height: 40px;
 }
 
 .button-black {
@@ -208,8 +208,8 @@ table.board-table {
     border-radius: 5px;
     background-color: rgb(46, 46, 46);
     color: white;
-    font: 12px 굴림;
+    font-size: 18px;
     font-weight: bold;
     width: 70px;
-    height: 30px;
+    height: 40px;
 }

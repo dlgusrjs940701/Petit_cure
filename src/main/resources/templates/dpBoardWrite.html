@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>글쓰기</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/freeBoard.css">
+    <link rel="stylesheet" href="/css/write.css">
+</head>
+
+<body>
+<!-- main화면 include 설정 -->
+<div th:include="main::header"></div>
+<div th:include="main::nav"></div>
+
+<div class="card-write">
+    <h2><strong>글쓰기</strong></h2>
+    <form action="/dpsave" method="post">
+        <div class="myinfo" >
+            <strong>ID </strong><input type="text" name="id" placeholder="이름 입력" required>
+            <strong>비밀번호</strong><input type="password" name="password" placeholder="비번 입력" required>
+        </div>
+        <div class="title-w">
+            <strong>제목</strong><input type="text" name="title" placeholder="제목 입력" required>
+        </div>
+        <div class="msg">
+            <strong>내용</strong><textarea name="content" placeholder="내용 입력" required></textarea>
+            <input type="file" name="file" >
+            <div class="button">
+                <button type="submit" class="btn">저장</button>
+            </div>
+        </div>
+    </form>
+    <div class="mt-4">
+        <button class="btn btn-secondary" onclick="history.back()">뒤로 가기</button>
+    </div>
+</div>
+<div th:include="main::footer"></div>
+</body>
+</html>
+<script>
+    const submenuList = document.querySelectorAll(".dropdown");
+
+    submenuList.forEach(li => {
+        li.addEventListener("mouseover", () => {
+            li.querySelectorAll("ul").forEach((el) => {
+                el.style.display = "block";
+            })
+        });
+        li.addEventListener("mouseout", () => {
+            li.querySelectorAll("ul").forEach((el) => {
+                el.style.display = "none";
+            })
+        });
+    });
+</script>
