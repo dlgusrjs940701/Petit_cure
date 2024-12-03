@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="curevengers.petit_cure.Dao.dpBoardMapper">
+    <select id="selectAll">
+        select * from dpboard
+    </select>
+    <select id="countAll">
+        select count(*) from dpboard
+    </select>
+    <insert id="insert">
+        insert into dpboard values (nextval(dpboardno),#{id},${password},#{title},#{content},default)
+    </insert>
+</mapper>
