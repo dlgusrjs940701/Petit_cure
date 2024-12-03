@@ -121,6 +121,8 @@ public class testServiceImpl implements testService {
         return userMapper.selectFreeComment(no);
     }
 
+
+
 //    @Override
 //    public List<commentDTO> getAllComments(commentDTO dto) {
 //        return userMapper.findComment(dto);
