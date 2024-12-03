@@ -54,7 +54,9 @@ public interface testService {
 
     List<freecommentDTO> getFreeComment(String no);
 
+    void updateReport(int no);
 
+    void updateQAReport(int no);
 
 
 //    List<commentDTO> getAllComments(commentDTO dto);

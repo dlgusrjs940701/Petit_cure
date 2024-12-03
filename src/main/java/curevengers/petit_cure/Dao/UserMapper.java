@@ -49,4 +49,8 @@ public interface UserMapper {
     List<freecommentDTO> selectFreeComment(String no);
 
     int cntdepBoard();
+
+    void updateReport(int no);
+
+    void updateQAReport(int no);
 }
