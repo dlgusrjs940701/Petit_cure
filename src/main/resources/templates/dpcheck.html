@@ -18,137 +18,138 @@
 <div th:include="main::header"></div>
 <div th:include="main::nav"></div>
 <section style="margin-left: 100px; padding-top: 40px;">    <!--nav에서 top의 길이 조정-->
-    <div id="aaa">
-        <label class="abc">1. 매사에 흥미가 없거나 즐거움을 느끼지 못함</label>
-        <div class="request">
-            <input type="radio" value="1" name="1">
-            <label>전혀 아님&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="radio" value="2" name="1">
-            <label>며칠동안&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="radio" value="3" name="1">
-            <label>1주일 이상&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="radio" value="4" name="1">
-            <label>한달 이상&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="radio" value="5" name="1">
-            <label>거의 매일&nbsp;&nbsp;&nbsp;&nbsp;</label>
+    <form action="/dpcheckresult" method="post">
+        <div id="aaa">
+            <label class="abc">1. 매사에 흥미가 없거나 즐거움을 느끼지 못함</label>
+            <div class="request">
+                <input type="radio" value="1" name="1">
+                <label>전혀 아님&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="radio" value="2" name="1">
+                <label>며칠동안&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="radio" value="3" name="1">
+                <label>1주일 이상&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="radio" value="4" name="1">
+                <label>한달 이상&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="radio" value="5" name="1">
+                <label>거의 매일&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            </div>
+            <br>
+            <label>2. 기분이 가라앉거나 우울하거나 희망이 없다고 느낌</label>
+            <div class="request">
+                <input type="radio" value="1" name="2">
+                <label>전혀 아님&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="radio" value="2" name="2">
+                <label>며칠동안&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="radio" value="3" name="2">
+                <label>1주일 이상&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="radio" value="4" name="2">
+                <label>한달 이상&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="radio" value="5" name="2">
+                <label>거의 매일&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            </div>
+            <br>
+            <label>3. 잠들기 어렵거나, 자주 깨어나거나, 너무 많이 잠</label>
+            <div class="request">
+                <input type="radio" value="1" name="3">
+                <label>전혀 아님&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="radio" value="2" name="3">
+                <label>며칠동안&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="radio" value="3" name="3">
+                <label>1주일 이상&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="radio" value="4" name="3">
+                <label>한달 이상&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="radio" value="5" name="3">
+                <label>거의 매일&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            </div>
+            <br>
+            <label>4. 피곤하거나 에너지가 거의 없음</label>
+            <div class="request">
+                <input type="radio" value="1" name="4">
+                <label>전혀 아님&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="radio" value="2" name="4">
+                <label>며칠동안&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="radio" value="3" name="4">
+                <label>1주일 이상&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="radio" value="4" name="4">
+                <label>한달 이상&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="radio" value="5" name="4">
+                <label>거의 매일&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            </div>
+            <br>
+            <label>5. 식욕이 없거나, 폭식을 함</label>
+            <div class="request">
+                <input type="radio" value="1" name="5">
+                <label>전혀 아님&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="radio" value="2" name="5">
+                <label>며칠동안&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="radio" value="3" name="5">
+                <label>1주일 이상&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="radio" value="4" name="5">
+                <label>한달 이상&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="radio" value="5" name="5">
+                <label>거의 매일&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            </div>
+            <br>
+            <label>6. 자신이 실패자라고 느끼거나 자신이나 가족을 실망시킴</label>
+            <div class="request">
+                <input type="radio" value="1" name="6">
+                <label>전혀 아님&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="radio" value="2" name="6">
+                <label>며칠동안&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="radio" value="3" name="6">
+                <label>1주일 이상&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="radio" value="4" name="6">
+                <label>한달 이상&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="radio" value="5" name="6">
+                <label>거의 매일&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            </div>
+            <br>
+            <label>7. 집중하기 어려움 (예: 신문 읽기, TV 시청)</label>
+            <div class="request">
+                <input type="radio" value="1" name="7">
+                <label>전혀 아님&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="radio" value="2" name="7">
+                <label>며칠동안&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="radio" value="3" name="7">
+                <label>1주일 이상&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="radio" value="4" name="7">
+                <label>한달 이상&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="radio" value="5" name="7">
+                <label>거의 매일&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            </div>
+            <br>
+            <label>8. 다른 사람이 알아챌 정도로 너무 느리게 움직이거나, 초조하고 안절부절못함</label>
+            <div class="request">
+                <input type="radio" value="1" name="8">
+                <label>전혀 아님&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="radio" value="2" name="8">
+                <label>며칠동안&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="radio" value="3" name="8">
+                <label>1주일 이상&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="radio" value="4" name="8">
+                <label>한달 이상&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="radio" value="5" name="8">
+                <label>거의 매일&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            </div>
+            <br>
+            <label>9. 스스로 해를 끼치거나 죽는 것을 생각함</label>
+            <div class="request">
+                <input type="radio" value="1" name="9">
+                <label>전혀 아님&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="radio" value="2" name="9">
+                <label>며칠동안&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="radio" value="3" name="9">
+                <label>1주일 이상&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="radio" value="4" name="9">
+                <label>한달 이상&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="radio" value="5" name="9">
+                <label>거의 매일&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            </div>
+            <input type="submit" value="제출하기" class="btn">
+            <br>
         </div>
-        <br>
-        <label>2. 기분이 가라앉거나 우울하거나 희망이 없다고 느낌</label>
-        <div class="request">
-            <input type="radio" value="1" name="1">
-            <label>전혀 아님&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="radio" value="2" name="1">
-            <label>며칠동안&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="radio" value="3" name="1">
-            <label>1주일 이상&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="radio" value="4" name="1">
-            <label>한달 이상&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="radio" value="5" name="1">
-            <label>거의 매일&nbsp;&nbsp;&nbsp;&nbsp;</label>
-        </div>
-        <br>
-        <label>3. 잠들기 어렵거나, 자주 깨어나거나, 너무 많이 잠</label>
-        <div class="request">
-            <input type="radio" value="1" name="1">
-            <label>전혀 아님&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="radio" value="2" name="1">
-            <label>며칠동안&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="radio" value="3" name="1">
-            <label>1주일 이상&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="radio" value="4" name="1">
-            <label>한달 이상&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="radio" value="5" name="1">
-            <label>거의 매일&nbsp;&nbsp;&nbsp;&nbsp;</label>
-        </div>
-        <br>
-        <label>4. 피곤하거나 에너지가 거의 없음</label>
-        <div class="request">
-            <input type="radio" value="1" name="1">
-            <label>전혀 아님&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="radio" value="2" name="1">
-            <label>며칠동안&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="radio" value="3" name="1">
-            <label>1주일 이상&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="radio" value="4" name="1">
-            <label>한달 이상&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="radio" value="5" name="1">
-            <label>거의 매일&nbsp;&nbsp;&nbsp;&nbsp;</label>
-        </div>
-        <br>
-        <label>5. 식욕이 없거나, 폭식을 함</label>
-        <div class="request">
-            <input type="radio" value="1" name="1">
-            <label>전혀 아님&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="radio" value="2" name="1">
-            <label>며칠동안&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="radio" value="3" name="1">
-            <label>1주일 이상&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="radio" value="4" name="1">
-            <label>한달 이상&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="radio" value="5" name="1">
-            <label>거의 매일&nbsp;&nbsp;&nbsp;&nbsp;</label>
-        </div>
-        <br>
-        <label>6. 자신이 실패자라고 느끼거나 자신이나 가족을 실망시킴</label>
-        <div class="request">
-            <input type="radio" value="1" name="1">
-            <label>전혀 아님&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="radio" value="2" name="1">
-            <label>며칠동안&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="radio" value="3" name="1">
-            <label>1주일 이상&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="radio" value="4" name="1">
-            <label>한달 이상&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="radio" value="5" name="1">
-            <label>거의 매일&nbsp;&nbsp;&nbsp;&nbsp;</label>
-        </div>
-        <br>
-        <label>7. 집중하기 어려움 (예: 신문 읽기, TV 시청)</label>
-        <div class="request">
-            <input type="radio" value="1" name="1">
-            <label>전혀 아님&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="radio" value="2" name="1">
-            <label>며칠동안&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="radio" value="3" name="1">
-            <label>1주일 이상&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="radio" value="4" name="1">
-            <label>한달 이상&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="radio" value="5" name="1">
-            <label>거의 매일&nbsp;&nbsp;&nbsp;&nbsp;</label>
-        </div>
-        <br>
-        <label>8. 다른 사람이 알아챌 정도로 너무 느리게 움직이거나, 초조하고 안절부절못함</label>
-        <div class="request">
-            <input type="radio" value="1" name="1">
-            <label>전혀 아님&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="radio" value="2" name="1">
-            <label>며칠동안&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="radio" value="3" name="1">
-            <label>1주일 이상&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="radio" value="4" name="1">
-            <label>한달 이상&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="radio" value="5" name="1">
-            <label>거의 매일&nbsp;&nbsp;&nbsp;&nbsp;</label>
-        </div>
-        <br>
-        <label>9. 스스로 해를 끼치거나 죽는 것을 생각함</label>
-        <div class="request">
-            <input type="radio" value="1" name="1">
-            <label>전혀 아님&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="radio" value="2" name="1">
-            <label>며칠동안&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="radio" value="3" name="1">
-            <label>1주일 이상&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="radio" value="4" name="1">
-            <label>한달 이상&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="radio" value="5" name="1">
-            <label>거의 매일&nbsp;&nbsp;&nbsp;&nbsp;</label>
-        </div>
-        <a href="/depresult"><input type="button" value="제출하기" onclick="test()" class="btn"></a>
-        <br>
+    </form>
 
-
-    </div>
 </section>
 </body>
 </html>

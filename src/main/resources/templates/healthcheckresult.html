@@ -8,6 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/freeBoard.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Jua&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik+Wet+Paint&family=Yeon+Sung&display=swap');
     </style>
@@ -36,7 +37,7 @@
             </th>
         </tr>
         <tr>
-            <td style="display: none;" id="BMI">
+            <td style="display: none;" id="BMI" onclick="showmap('비만')">
                 비만
                 <br>
                 <br>
@@ -48,7 +49,7 @@
             </td>
         </tr>
         <tr>
-            <td style="display: none;" id="mxAC">
+            <td style="display: none;" id="mxAC" onclick="showmap('내장지방')">
                 내장지방 증후군 / 복부비만
                 <br>
                 <br>
@@ -60,7 +61,7 @@
             </td>
         </tr>
         <tr>
-            <td style="display: none;" id="HBP">
+            <td style="display: none;" id="HBP" onclick="showmap('혈압')">
                 고혈압
                 <br>
                 <br>
@@ -71,7 +72,7 @@
             </td>
         </tr>
         <tr>
-            <td style="display: none;" id="LBP">
+            <td style="display: none;" id="LBP" onclick="showmap('혈압')">
                 저혈압
                 <br>
                 <br>
@@ -83,7 +84,7 @@
             </td>
         </tr>
         <tr>
-            <td style="display: none;" id="HFBG">
+            <td style="display: none;" id="HFBG" onclick="showmap('혈당')">
                 고혈당
                 <br>
                 <br>
@@ -94,7 +95,7 @@
             </td>
         </tr>
         <tr>
-            <td style="display: none;" id="LFBG">
+            <td style="display: none;" id="LFBG" onclick="showmap('혈당')">
                 저혈당
                 <br>
                 <br>
@@ -105,7 +106,7 @@
             </td>
         </tr>
         <tr>
-            <td style="display: none;" id="HTC">
+            <td style="display: none;" id="HTC" onclick="showmap('고콜레스테롤혈증')">
                 고콜레스테롤혈증
                 <br>
                 <br>
@@ -115,7 +116,7 @@
             </td>
         </tr>
         <tr>
-            <td style="display: none;" id="HDL">
+            <td style="display: none;" id="HDL" onclick="showmap('낮은HDL콜레스테롤')">
                 낮은HDL콜레스테롤
                 <br>
                 <br>
@@ -127,7 +128,7 @@
             </td>
         </tr>
         <tr>
-            <td style="display: none;" id="HTG">
+            <td style="display: none;" id="HTG" onclick="showmap('고중성지방혈증')">
                 고중성지방혈증
                 <br>
                 <br>
@@ -138,7 +139,7 @@
             </td>
         </tr>
         <tr>
-            <td style="display: none;" id="AST">
+            <td style="display: none;" id="AST" onclick="showmap('간장질환')">
                 AST 간장질환
                 <br>
                 <br>
@@ -149,7 +150,7 @@
             </td>
         </tr>
         <tr>
-            <td style="display: none;" id="ALT">
+            <td style="display: none;" id="ALT" onclick="showmap('간장질환')">
                 ALT 간장질환
                 <br>
                 <br>
@@ -160,15 +161,20 @@
             </td>
         </tr>
         <tr>
+            <td style="display: none;" id="Healthy">
+                아주 건강한 상태입니다.
+            </td>
+        </tr>
+        <tr>
             <td>
                 <a href="/moreresult"><input class="btn btn-primary fs-2" value="지난 결과보기"></a>
             </td>
         </tr>
     </table>
 </section>
+<div id="map" style="width:50%;height:500px; margin-right: auto; margin-left: auto; margin-bottom: 50px; margin-top: 40px"></div>
 <div th:include="main::footer"></div>
 </body>
-</html>
 <script>
     const submenuList = document.querySelectorAll(".dropdown");
 
@@ -186,9 +192,9 @@
     });
 </script>
 <script th:inline="javascript">
+    // 입력한 수치를 바탕으로 결과지 구현
     window.onload = () => {
         let dto = /*[[${dto}]]*/ {};
-        console.log(dto.ac);
         if (dto.weight/((dto.height/100)*(dto.height/100))>=25) {
             document.getElementById("BMI").style.display = "block";
         }
@@ -222,5 +228,72 @@
         if (dto.alt == "3") {
             document.getElementById("ALT").style.display = "block";
         }
+        if (document.getElementById("BMI").style.display == 'none' &&
+            document.getElementById("mxAC").style.display == 'none' &&
+            document.getElementById("HBP").style.display == 'none' &&
+            document.getElementById("LBP").style.display == 'none' &&
+            document.getElementById("HFBG").style.display == 'none' &&
+            document.getElementById("LFBG").style.display == 'none' &&
+            document.getElementById("HTC").style.display == 'none' &&
+            document.getElementById("HDL").style.display == 'none' &&
+            document.getElementById("HTG").style.display == 'none' &&
+            document.getElementById("AST").style.display == 'none' &&
+            document.getElementById("ALT").style.display == 'none'
+        ) {
+            document.getElementById("Healthy").style.display == 'block'
+        }
     }
 </script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=	1f161183968c02ef6a4262c0d00a5de3&libraries=services"></script>
+<script>
+    let positionObj
+
+    navigator.geolocation.getCurrentPosition((position) => {
+        positionObj = {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+        }
+    });
+
+    function showmap(disease) {
+        console.log(disease)
+        document.getElementById("map").scrollIntoView({behavior : 'smooth'})
+        // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
+        var infowindow = new kakao.maps.InfoWindow({zIndex:1});
+
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+            mapOption = {
+                center: new kakao.maps.LatLng(positionObj.latitude, positionObj.longitude), // 지도의 중심좌표
+                level: 10 // 지도의 확대 레벨
+            };
+
+        // 지도를 생성합니다
+        var map = new kakao.maps.Map(mapContainer, mapOption);
+        $.ajax({
+            type: 'post',
+            url: "/addmapper", //컨트롤러에 지정한 value값
+            data: {h_type: disease},
+            success: function(data) {
+                var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+                // 마커 이미지의 이미지 크기 입니다
+                var imageSize = new kakao.maps.Size(24, 35);
+
+                // 마커 이미지를 생성합니다
+                var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+                $(data).each(function (){
+                    console.log(this.h_lat+"/"+this.h_lng);
+                    var marker = new kakao.maps.Marker({
+                        map: map,
+                        title : this.h_name,
+                        position: new kakao.maps.LatLng(this.h_lat,this.h_lng),
+                        image : markerImage
+                    })
+                });
+            },
+            error: function (request,status,error){
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            }
+        })
+    }
+</script>
+</html>
