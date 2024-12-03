@@ -213,7 +213,7 @@ public class testhome {
     // 우울증 검사
     @GetMapping(value = "/dpcheck")
     public String dpcheck() {
-        return "dpCheck";
+        return "dpcheck";
     }
 
     // 우울증 검사 결과
@@ -230,7 +230,7 @@ public class testhome {
 
     // 우울증 검사 결과 전체 리스트 보기
     @GetMapping(value = "/dpmoreresult")
-    public String dpmoreresult(Model model, HttpServletRequest request) throws Exception {
+    public String dpmoreresult(Model model) throws Exception {
         // id부분 수정필요
         List<dpCheckDTO> list = dpcheckservice.selectAll("aaa");
         model.addAttribute("list", list);
@@ -239,7 +239,7 @@ public class testhome {
 
     // 우울증 검사 전체 리스트 중 하나 보기
     @PostMapping(value = "/dphresultone")
-    public String dpresultOne(@RequestParam("date") String date, Model model, HttpServletRequest request) throws Exception {
+    public String dpresultOne(@RequestParam("date") String date, Model model) throws Exception {
         // id부분 수정필요
         dpCheckDTO result = dpcheckservice.selectOne("aaa", date);
         model.addAttribute("dto", result);
@@ -263,7 +263,6 @@ public class testhome {
     // QA게시판 좋아요 기능
     @GetMapping(value = "/goodUp")
     public String goodUp(@RequestParam("no") int no) {
-        ;
         testservice.updateGood((no));
 
         return "redirect:/qaview?no=" + no;
@@ -272,7 +271,6 @@ public class testhome {
     // QA게시판 좋아요 취소 기능
     @GetMapping(value = "/goodDown")
     public String goodDown(@RequestParam("no") int no) {
-        ;
         testservice.updateGoodDown((no));
 
         return "redirect:/qaview?no=" + no;
