@@ -119,7 +119,7 @@ public class testhome {
     public String boardView(@RequestParam("no") String no, Model model, @ModelAttribute freecommentDTO freecommendto) {
         freeBoardDTO board = testservice.getBoardNo(no);
         testservice.updateVisit(Integer.parseInt(no));
-        List<freecommentDTO> freecommentFreeList=testservice.getFreeComment(no);
+        List<freecommentDTO> freecommentFreeList = testservice.getFreeComment(no);
 //        List<String> attachList=testservice.getAttach(no);
         model.addAttribute("dto", board);
         model.addAttribute("commentFreeList", freecommentFreeList);
@@ -200,7 +200,7 @@ public class testhome {
     @PostMapping(value = "/addmapper")
     public ArrayList<hospitalDTO> addMapper(@RequestParam("h_type") String h_type) throws Exception {
         ArrayList<hospitalDTO> list = healthcheckservice.mappingHospital(h_type);
-        System.out.println(list.get(0).getH_lat()+"/"+list.get(0).getH_lng());
+        System.out.println(list.get(0).getH_lat() + "/" + list.get(0).getH_lng());
         return list;
     }
 
@@ -218,7 +218,7 @@ public class testhome {
     public String healthresultOne(@RequestParam("date") String date, Model model, HttpServletRequest request) throws Exception {
         System.out.println(date);
         Object nowId = "aaa";
-        healthCheckDTO result = healthcheckservice.selectOne((String)nowId, date);
+        healthCheckDTO result = healthcheckservice.selectOne((String) nowId, date);
         model.addAttribute("dto", result);
         return "healthcheckresult";
     }
@@ -234,7 +234,7 @@ public class testhome {
     public String depresult(@ModelAttribute dpCheckDTO dto, Model m) throws Exception {
         // id부분 수정필요
         dto.setId("aaa");
-        dto.setResult(dto.getA()+dto.getB()+dto.getC()+dto.getD()+dto.getE()+dto.getF()+dto.getG()+dto.getH()+dto.getI());
+        dto.setResult(dto.getA() + dto.getB() + dto.getC() + dto.getD() + dto.getE() + dto.getF() + dto.getG() + dto.getH() + dto.getI());
         dpcheckservice.insert(dto);
         dpcheckservice.showOne(dto);
         m.addAttribute("dto", dto);
@@ -330,6 +330,7 @@ public class testhome {
     public String dpcomment(@ModelAttribute dpcommentDTO dto) throws Exception {
         dpboardservice.adddpComment(dto);
         return "redirect:/depboard";
+    }
 
     // 자유게시판 신고 기능
     @GetMapping(value = "/report")
