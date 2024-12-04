@@ -16,7 +16,7 @@ public interface healthCheckMapper {
 
     public healthCheckDTO showOne(healthCheckDTO dto) throws Exception;
 
-    public healthCheckDTO selectOne(String id, String date) throws Exception;
+    public healthCheckDTO selectOne(healthCheckDTO dto) throws Exception;
 
     public List<healthCheckDTO> selectAll(String id) throws Exception;
 

@@ -18,16 +18,17 @@
 
 <div class="card-write">
     <h2><strong>글쓰기</strong></h2>
-    <form action="/dpsave" method="post">
+    <form action="/updatedpBoard" method="post">
+        <input type="hidden" name="no" th:value="${dto.no}">
         <div class="myinfo">
-            <strong>&nbsp ID </strong><input type="text" name="id" required>
-            <strong>비밀번호</strong><input type="password" name="password" required>
+            <strong>&nbsp ID </strong><input type="text" name="id" th:value="${dto.id}" readonly>
+            <strong>비밀번호</strong><input type="password" name="password" placeholder="비번 입력" th:value="${dto.password}" required>
         </div>
         <div class="title-w">
-            <strong>제목</strong><input type="text" name="title" required>
+            <strong>제목</strong><input type="text" name="title" placeholder="제목 입력" th:value="${dto.title}" required>
         </div>
         <div class="msg">
-            <strong>내용</strong><textarea name="content" required></textarea>
+            <strong>내용</strong><textarea name="content" placeholder="내용 입력" th:text="${dto.content}" required></textarea>
             <input type="file" name="file" >
             <div class="button">
                 <button type="submit" class="btn">저장</button>

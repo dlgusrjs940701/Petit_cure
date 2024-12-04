@@ -48,7 +48,7 @@
             <input id="text" type="text" class="input-text" name="title" placeholder="검색어 입력">
             <input type="submit" value="검색" class="search">
         </form>
-        <button class="write-btn" onclick="location.href='/dpwrite'"><strong>글쓰기</strong></button>
+        <button class="write-btn" onclick="location.href='/write'"><strong>글쓰기</strong></button>
     </div>
 
     <table>
@@ -62,38 +62,18 @@
         </tr>
         </thead>
         <tbody class="tbody">
+
         <tr th:each="board : ${list}">
 
             <td th:text="${board.no}"></td>
-            <td><a th:href="@{/dpview(no=${board.no})}" th:text="${board.title}"></a></td>
+            <td><a th:href="@{/dpview(no=${board.no})}" th:text="${board.title}"></a>
+            </td>
             <td th:text="${board.id}"></td>
             <td th:text="${board.good}"></td>
             <td th:text="${board.date}"></td>
         </tr>
-        <tr>
-            <td colspan="5">
-                <!-- 이전 페이지 그룹 링크 -->
-                <span th:if="${pageDTO.prev}">
-
-                    <a th:href="@{/dpBoard(page=${pageDTO.startPage - 1})}">[이전페이지그룹]</a>
-                </span>
-
-                <!-- 페이지 번호 반복 -->
-
-                <span th:each="idx : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}">
-                    <span th:if="${pageDTO.page == idx}"></span>
-                    <a th:href="@{/dpBoard(page=${idx})}" th:text="${idx}"></a>
-                </span>
-
-                <!-- 다음 페이지 그룹 링크 -->
-                <span th:if="${pageDTO.next}">
-                    <a th:href="@{/dpBoard(page=${pageDTO.endPage + 1})}">[다음페이지그룹]</a>
-                </span>
-            </td>
-        </tr>
 
         </tbody>
-
     </table>
 </div>
 <div th:include="main::footer"></div>

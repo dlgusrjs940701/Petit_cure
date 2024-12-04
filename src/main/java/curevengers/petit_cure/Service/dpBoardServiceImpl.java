@@ -30,12 +30,12 @@ public class dpBoardServiceImpl implements dpBoardService {
     }
 
     @Override
-    public dpBoardDTO getdpBoardNo(String no) throws Exception {
+    public dpBoardDTO selectOne(int no) throws Exception {
         return dpboardmapper.selectOne(no);
     }
 
     @Override
-    public List<dpcommentDTO> getdpComment(String no) throws Exception {
+    public List<dpcommentDTO> getdpComment(int no) throws Exception {
         return dpboardmapper.selectdpComment(no);
     }
 
@@ -50,13 +50,23 @@ public class dpBoardServiceImpl implements dpBoardService {
     }
 
     @Override
-    public int totalCountBoard() throws Exception {
-        return 0;
+    public void adddpComment(dpcommentDTO dto) throws Exception {
+        dpboardmapper.adddpComment(dto);
     }
 
     @Override
-    public void adddpComment(dpcommentDTO dto) throws Exception {
-        dpboardmapper.adddpComment(dto);
+    public void updatedpBoard(dpBoardDTO dto) throws Exception {
+        dpboardmapper.updatedpBoard(dto);
+    }
+
+    @Override
+    public void deletedpBoard(int no) throws Exception {
+        dpboardmapper.deletedpBoard(no);
+    }
+
+    @Override
+    public List<dpBoardDTO> getsearchDPBoards(String title) throws Exception {
+        return dpboardmapper.search(title);
     }
 
 }

@@ -17,13 +17,19 @@ public interface dpBoardMapper {
 
     public void insert(dpBoardDTO dto) throws Exception;
 
-    public dpBoardDTO selectOne(String no) throws Exception;
+    public dpBoardDTO selectOne(int no) throws Exception;
 
-    public List<dpcommentDTO> selectdpComment(String no) throws Exception;
+    public List<dpcommentDTO> selectdpComment(int no) throws Exception;
 
     public void updateGoodUp(int no) throws Exception;
 
     public void updateGoodDown(int no) throws Exception;
 
     public void adddpComment(dpcommentDTO dto) throws Exception;
+
+    public void updatedpBoard(dpBoardDTO dto) throws Exception;
+
+    public void deletedpBoard(int no) throws Exception;
+
+    public List<dpBoardDTO> search(String title) throws Exception;
 }
