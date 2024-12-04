@@ -404,10 +404,10 @@ public class testhome {
 
         memberDTO memberDTO = membermapper.getMemberByID(username);
 
-        dpBoardDTO updatedto = dpboardservice.selectOne(dto.getNo());
-        List<dpcommentDTO> dpcommentList = dpboardservice.getdpComment(dto.getNo());
-        m.addAttribute("dto", updatedto);
-        m.addAttribute("commentList", dpcommentList);
+//        dpBoardDTO updatedto = dpboardservice.selectOne(dto.getNo());
+//        List<dpcommentDTO> dpcommentList = dpboardservice.getdpComment(dto.getNo());
+//        m.addAttribute("dto", updatedto);
+//        m.addAttribute("commentList", dpcommentList);
         m.addAttribute("member", memberDTO);
         return "view";
     }
@@ -421,10 +421,10 @@ public class testhome {
 
         memberDTO memberDTO = membermapper.getMemberByID(username);
 
-        dpBoardDTO updatedto = dpboardservice.selectOne(dto.getNo());
-        List<dpcommentDTO> dpcommentList = dpboardservice.getdpComment(dto.getNo());
-        m.addAttribute("dto", updatedto);
-        m.addAttribute("commentList", dpcommentList);
+//        dpBoardDTO updatedto = dpboardservice.selectOne(dto.getNo());
+//        List<dpcommentDTO> dpcommentList = dpboardservice.getdpComment(dto.getNo());
+//        m.addAttribute("dto", updatedto);
+//        m.addAttribute("commentList", dpcommentList);
         m.addAttribute("member", memberDTO);
         return "qaview";
     }
