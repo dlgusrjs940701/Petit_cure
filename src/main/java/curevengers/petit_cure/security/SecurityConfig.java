@@ -1,9 +1,13 @@
 package curevengers.petit_cure.security;
 
 import curevengers.petit_cure.Service.UserServiceImpl;
+import curevengers.petit_cure.kakaoapi.KakaoApi;
+import curevengers.petit_cure.kakaoapi.PrincipalOauth2UserService;
 import curevengers.petit_cure.security.Provider.TokenProvider;
+import curevengers.petit_cure.security.handler.CustomLogoutSuccessHandler;
 import curevengers.petit_cure.security.handler.JwtAccessDeniedHandler;
 import curevengers.petit_cure.security.LogFilter;
+import curevengers.petit_cure.security.handler.SecurityContextLogoutHandler;
 import jakarta.servlet.http.HttpSession;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -20,12 +24,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+
 
 import java.util.Collections;
 
@@ -33,40 +37,39 @@ import java.util.Collections;
 @Configuration
 public class SecurityConfig {
 
+
     private final TokenProvider tokenProvider;
 //    private final AuthenticationProvider authenticationProvider;
     private final AuthenticationSuccessHandler successHandler;
     private final AuthenticationFailureHandler failureHandler;
     private final AuthenticationConfiguration authenticationConfiguration;
+//    private final PrincipalOauth2UserService userService;
+    private final SecurityContextLogoutHandler securityContextLogoutHandler;
+
+
 
     public static final String[] allowUrls = {
-            "/login","/","/mplus","/api/**","/memplus","/idCheck","/loginsuc",
+            "/login","/","/mplus","/api/**","/memplus","/idCheck",
             "/css**/**","/resources**/**","/freeboard","/qanda","company",
-            "/api/user/**","/login/oauth2/code/kakao","/api/authenticate"
+            "/api/user/**","/api/authenticate","/kakaomplus"
     };
 
-    public SecurityConfig(AuthenticationSuccessHandler successHandler, AuthenticationFailureHandler failureHandler,
-                          TokenProvider tokenProvider, AuthenticationConfiguration authenticationConfiguration,
-                          JwtFilter jwtFilter) {
-        this.successHandler = successHandler;
+    public SecurityConfig(AuthenticationFailureHandler failureHandler,AuthenticationSuccessHandler successHandler,
+                          TokenProvider tokenProvider, SecurityContextLogoutHandler securityContextLogoutHandler,
+                          AuthenticationConfiguration authenticationConfiguration) {
         this.failureHandler = failureHandler;
         this.tokenProvider = tokenProvider;
         this.authenticationConfiguration = authenticationConfiguration;
-//        this.authenticationProvider = authenticationProvider;
+        this.successHandler = successHandler;
+        this.securityContextLogoutHandler = securityContextLogoutHandler;
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
         http    .csrf(csrf -> csrf.disable())
-//                .formLogin(formLogin -> formLogin.disable())
-//                .httpBasic(httpBasic -> httpBasic.disable())
-//                .sessionManagement(sessionManagement
-//                        -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//                .authenticationProvider(authenticationProvider)
-//                .addFilterBefore(jwtFilter, BasicAuthenticationFilter.class)
-//                .addFilterAt(new LogFilter(authenticationManager(authenticationConfiguration),tokenProvider),UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(allowUrls).permitAll()
+                        .requestMatchers("/oauth2/code/kakao").permitAll()
                         .requestMatchers("/user/**").hasRole("USER")
                         .anyRequest().authenticated() // 모든 요청 인증 필요
 
@@ -76,9 +79,12 @@ public class SecurityConfig {
                         // 비회원은 자유게시판, Q&A 게시판의 글 목록만 볼 수 있으며
                         // 자세히 보기 및 글작성-댓글작성은 불가하다
                 )
-//                .oauth2Login(conf->conf
-//                        .authorizationEndpoint(end -> end.baseUri("/oauth2/login"))
-//                        .loginProcessingUrl("/login"))
+                .oauth2Login(oauth2Login -> oauth2Login
+                        .loginPage("/login")
+                        .authorizationEndpoint(authorizationEndpointConfig ->
+                                authorizationEndpointConfig.baseUri("/oauth2/authorize")))
+//                        .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig.userService(new PrincipalOauth2UserService()))
+//                        .failureHandler(failureHandler))
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
                         .loginProcessingUrl("/logincon")
@@ -90,12 +96,7 @@ public class SecurityConfig {
 
                 .logout(formLogout -> formLogout
                 .logoutUrl("/logout")   // 로그아웃 처리 URL
-                .addLogoutHandler((request, response, authentication) -> {
-                    HttpSession session = request.getSession();
-                    if(session != null) {
-                        session.invalidate();           // logout시에 세션을 무효화
-                    }
-                })
+                .addLogoutHandler(securityContextLogoutHandler)
                 .logoutSuccessUrl("/"));
         return http.build();
     }
@@ -111,8 +112,4 @@ public class SecurityConfig {
         return configuration.getAuthenticationManager();
     }
 
-//    @Bean
-//    public AuthenticationSuccessHandler authenticationSuccessHandler(){
-//        return new JwtSuccessHandler();
-//    }
 }

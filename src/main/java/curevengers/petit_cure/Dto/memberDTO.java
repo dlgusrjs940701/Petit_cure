@@ -19,6 +19,7 @@ public class memberDTO {
     private String auth_name;
     private String jumin1;
     private String jumin2;
+    private String phone_num;
 
     private List<AuthVO> autoList;
 }

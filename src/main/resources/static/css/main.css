@@ -121,7 +121,6 @@ li > a:hover {
     background-color: #e24e4e; width: 1920px; height: 470px; margin-left: 0px;
     margin-top: 50px;
 }
-
 .maincon > #info {
     display: inline-block;
     margin-top: 25px;
@@ -139,7 +138,6 @@ footer {
     bottom: 0px;
 
 }
-
 nav .pagination{
     background-color: white;
 }

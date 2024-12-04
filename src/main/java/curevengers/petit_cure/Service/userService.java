@@ -10,6 +10,7 @@ import java.util.List;
 public interface userService {
     public List<memberDTO> getMemberList();
     public memberDTO getMemberById(String id);
+    public String getMemberByphone(String phonenumber);
     public void signup(memberDTO memberdto);
     public void edit(memberDTO memberdto);
     public void withdraw(String id);

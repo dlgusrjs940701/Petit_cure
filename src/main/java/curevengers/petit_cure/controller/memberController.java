@@ -3,14 +3,24 @@ package curevengers.petit_cure.controller;
 import curevengers.petit_cure.Dto.memberDTO;
 import curevengers.petit_cure.Service.UserServiceImpl;
 import curevengers.petit_cure.kakaoapi.KakaoApi;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 
 
 @RequiredArgsConstructor
@@ -27,10 +37,18 @@ public class memberController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    // 회원가입화면
+    // 일반 회원가입화면
     @GetMapping(value = "/mplus")
     public String mplus() {
         return "mplus";
+    }
+
+    // 카카오 회원가입화면
+    @PostMapping(value = "/kakaomplus")
+    public String kakaomplus(Model m, @ModelAttribute("member") memberDTO member) {
+        System.out.println(member.getPhone_num()+"/"+member.getName());
+        m.addAttribute("member",member);
+        return "kakaomplus";
     }
 
     // 회원가입버튼 - 정보 전달
@@ -54,7 +72,6 @@ public class memberController {
         model.addAttribute("KakaoapiKey",kakaoApi.getKakaoapiKey());
         model.addAttribute("redirectUrl",kakaoApi.getKakaoredirectUri());
         return "login";
-
     }
     
     
@@ -63,7 +80,7 @@ public class memberController {
     public String logincon(@RequestParam("username") String username, @RequestParam("password") String password) {
         return "redirect:/";
     }
-    
+
     // 마이페이지로 이동
     @GetMapping("/mypage")
     public String mypage() {
