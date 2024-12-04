@@ -24,7 +24,8 @@
     <select id="selectdpComment">
         select * from dpcomment where dpboard_no = #{no}
     </select>
-    <insert id="adddpComment">
-        insert into dpcomment values (#{id}, #{content}, #{dpboard_no})
+    <insert id="adddpComment" parameterType="curevengers.petit_cure.Dto.dpcommentDTO">
+        insert into dpcomment (id, content, dpboard_no)
+        values (#{id}, #{content}, #{dpboard_no})
     </insert>
 </mapper>
