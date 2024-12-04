@@ -3,6 +3,7 @@ package curevengers.petit_cure.Service;
 import curevengers.petit_cure.Dao.MemberMapper;
 import curevengers.petit_cure.Dto.AuthVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ import java.util.List;
 import static org.thymeleaf.util.StringUtils.concat;
 import static org.thymeleaf.util.StringUtils.substring;
 
-
+@Configuration
 @Service
 public class UserServiceImpl implements userService{
 
@@ -26,6 +27,7 @@ public class UserServiceImpl implements userService{
     BCryptPasswordEncoder passwordEncoder;        // 생성자를 통해 주입할 것
 
     public UserServiceImpl(BCryptPasswordEncoder passwordEncoder){
+
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -40,6 +42,12 @@ public class UserServiceImpl implements userService{
         return memberMapper.getMemberByID(id);
     }
 
+    @Override
+    public String getMemberByphone(String phonenumber) {
+        String existid = memberMapper.selectphonenum(phonenumber);
+        return existid;
+    }
+
 
     @Override
     public void signup(memberDTO memberdto){
@@ -48,33 +56,37 @@ public class UserServiceImpl implements userService{
         int age;
 //        System.out.println(agejumin);
 //        System.out.println(genderjumin);
-        if(genderjumin.equals("1")||genderjumin.equals("2")){
-            age = Integer.valueOf(concat("19",(agejumin.substring(0,2))));
+        if(genderjumin!=null){
+            if(genderjumin.equals("1")||genderjumin.equals("2")){
+                age = Integer.valueOf(concat("19",(agejumin.substring(0,2))));
 //            System.out.println(age);
-            age = now.getYear() - age + 1;
-            memberdto.setAge(String.valueOf(age));
-            if(genderjumin.equals("1")){
-                memberdto.setGender("남");
-            } else if (genderjumin.equals("2")) {
-                memberdto.setGender("여");
-            }
-        }else{
-            age = Integer.valueOf(concat("20",(substring(agejumin,0,2))));
+                age = now.getYear() - age + 1;
+                memberdto.setAge(String.valueOf(age));
+                if(genderjumin.equals("1")){
+                    memberdto.setGender("남");
+                } else if (genderjumin.equals("2")) {
+                    memberdto.setGender("여");
+                }
+            }else{
+                age = Integer.valueOf(concat("20",(substring(agejumin,0,2))));
 //            System.out.println(age);
-            age = now.getYear() - age + 1;
-            memberdto.setAge(String.valueOf(age));
-            if(genderjumin.equals("3")){
-                memberdto.setGender("남");
-            } else if (genderjumin.equals("4")) {
-                memberdto.setGender("여");
+                age = now.getYear() - age + 1;
+                memberdto.setAge(String.valueOf(age));
+                if(genderjumin.equals("3")){
+                    memberdto.setGender("남");
+                } else if (genderjumin.equals("4")) {
+                    memberdto.setGender("여");
+                }
             }
         }
         // 비밀번호를 암호화해서 DB에 저장
 //        System.out.println("비밀번호 암호화중");
-        System.out.println(memberdto.getPass()+"(암호화 전 비밀번호)");
-        String pass = passwordEncoder.encode(memberdto.getPass());
-        memberdto.setPass(pass);
-        System.out.println(pass+"(암호화 된 비밀번호)");
+        if(memberdto.getPass()!=null){
+            System.out.println(memberdto.getPass()+"(암호화 전 비밀번호)");
+            String pass = passwordEncoder.encode(memberdto.getPass());
+            memberdto.setPass(pass);
+            System.out.println(pass+"(암호화 된 비밀번호)");
+        }
         memberMapper.insertMember(memberdto);
     }
 

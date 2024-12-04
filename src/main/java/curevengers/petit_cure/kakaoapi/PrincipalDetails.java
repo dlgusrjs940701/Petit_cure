@@ -15,6 +15,8 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
 
     private memberDTO memberdto;
     private Map<String, Object> attributes;
+    private String role;
+    private OAuth2UserInfo userInfo;
 
     // 일반 로그인
     public PrincipalDetails(memberDTO memberdto){
@@ -22,14 +24,14 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
     }
 
     // oauth 로그인
-    public PrincipalDetails(memberDTO memberdto, Map<String,Object> attributes){
-        this.memberdto = memberdto;
-        this.attributes = attributes;
+    public PrincipalDetails(String role, OAuth2UserInfo userInfo) {
+        this.role = role;
+        this.userInfo = userInfo;
     }
 
     @Override
     public String getName() {
-        return "";
+        return userInfo.phone();
     }
 
     @Override
