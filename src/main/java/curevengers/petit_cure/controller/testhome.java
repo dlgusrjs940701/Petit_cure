@@ -296,4 +296,20 @@ public class testhome {
         testservice.addFreeComment(dto);
         return "redirect:/freeboard";
     }
+
+    // 자유게시판 신고 기능
+    @GetMapping(value = "/report")
+    public String report(@RequestParam("no") int no) {
+        testservice.updateReport((no));
+
+        return "redirect:/view?no=" + no;
+    }
+
+    // QA게시판 신고 기능
+    @GetMapping(value = "/qareport")
+    public String qareport(@RequestParam("no") int no) {
+        testservice.updateQAReport((no));
+
+        return "redirect:/qaview?no=" + no;
+    }
 }

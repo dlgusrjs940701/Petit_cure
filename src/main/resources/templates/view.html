@@ -70,10 +70,17 @@
                         댓글 작성
                     </button>
                 </form>
+
             </div>
             <!-- 뒤로 가기 버튼은 알아두면 좋음-->
             <div class="mt-4">
-                <button class="btn btn-secondary" onclick="history.back()">뒤로 가기</button>
+                <button class="btn btn-secondary" onclick="location.href='/freeboard'">뒤로 가기</button>
+            </div>
+            <div style="margin-top: 15px">
+                <form action="/report" method="get">
+                    <input type="hidden" name="no" th:value="${dto.no}"/>
+                    <button type="submit" class="btn btn-warning" onclick="alert('신고 완료');">신고</button>
+                </form>
             </div>
         </div>
     </div>
