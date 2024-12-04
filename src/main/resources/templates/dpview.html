@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,8 +27,7 @@
 
             <div class="meta-info mb-4">
                 <p><strong>작성자:</strong> <span th:text="${dto.id}"></span></p>
-                <p><strong>카테고리:</strong> <span th:text="${dto.cate}"></span></p>
-                <p><strong>조회수:</strong> <span th:text="${dto.visit}"></span></p>
+                <p><strong>추천수:</strong> <span th:text="${dto.good}"></span></p>
                 <p><strong>작성일:</strong> <span th:text="${dto.date}"></span></p>
             </div>
 
@@ -36,7 +35,16 @@
             <div class="content mb-4">
                 <p th:text="${dto.content}"></p>
             </div>
-
+            <div>
+                <form action="/dpGoodUp" method="get">
+                    <input type="hidden" name="no" th:value="${dto.no}"/>
+                    <button type="submit" class="btn btn-success" onclick="alert('추천 완료!');">추천</button>
+                </form>
+                <form action="/dpGoodDown" method="get">
+                    <input type="hidden" name="no" th:value="${dto.no}"/>
+                    <button type="submit" class="btn btn-danger" onclick="alert('추천 취소!');">추천 취소</button>
+                </form>
+            </div>
             <!-- 댓글 -->
             <div id="comments-container">
                 <table class="table">
@@ -56,7 +64,7 @@
             </div>
             <div class="comment-section mt-5">
                 <h4><strong>댓글쓰기</strong></h4>
-                <form action="freecomment" method="post" class="mb-4">
+                <form action="/dpcomment" method="post" class="mb-4">
                     <input type="hidden" name="id" th:value="${dto.id}" required>
 
                     <div class="mb-3">
@@ -70,17 +78,10 @@
                         댓글 작성
                     </button>
                 </form>
-
             </div>
             <!-- 뒤로 가기 버튼은 알아두면 좋음-->
             <div class="mt-4">
-                <button class="btn btn-secondary" onclick="location.href='/freeboard'">뒤로 가기</button>
-            </div>
-            <div style="margin-top: 15px">
-                <form action="/report" method="get">
-                    <input type="hidden" name="no" th:value="${dto.no}"/>
-                    <button type="submit" class="btn btn-warning" onclick="alert('신고 완료');">신고</button>
-                </form>
+                <button class="btn btn-secondary" onclick="history.back()">뒤로 가기</button>
             </div>
         </div>
     </div>
