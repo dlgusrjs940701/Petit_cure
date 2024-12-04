@@ -1,6 +1,5 @@
 package curevengers.petit_cure.Dto;
 
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -8,13 +7,9 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class dpBoardDTO {
+public class dpcommentDTO {
     private String no;
     private String id;
-    private String title;
     private String content;
-    private String date;
-    private String good;
-    private String password;
-
+    private String dpboard_no;
 }
