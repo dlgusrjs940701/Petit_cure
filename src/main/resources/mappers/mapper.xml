@@ -84,6 +84,8 @@
         from qaboard
     </select>
 
+
+
     <!-- 댓글 저장 -->
     <insert id="insertComment" parameterType="curevengers.petit_cure.Dto.qacommentDTO">
         insert into qacomment (id, content, qaboard_no)
@@ -109,4 +111,16 @@
         where freeboard_no = #{no}
     </select>
 
+    <!-- 신고하기 -->
+    <update id="updateReport" parameterType="int">
+        update freeboard
+        set report=report + 1
+        where no = #{no}
+    </update>
+
+    <update id="updateQAReport" parameterType="int">
+        update qaboard
+        set report=report + 1
+        where no = #{no}
+    </update>
 </mapper>

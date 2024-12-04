@@ -324,10 +324,27 @@ public class testhome {
         return "redirect:/freeboard";
     }
 
+
     // 우울증게시판 댓글 기능
     @PostMapping(value = "/dpcomment")
     public String dpcomment(@ModelAttribute dpcommentDTO dto) throws Exception {
         dpboardservice.adddpComment(dto);
         return "redirect:/depboard";
+
+    // 자유게시판 신고 기능
+    @GetMapping(value = "/report")
+    public String report(@RequestParam("no") int no) {
+        testservice.updateReport((no));
+
+        return "redirect:/view?no=" + no;
+    }
+
+    // QA게시판 신고 기능
+    @GetMapping(value = "/qareport")
+    public String qareport(@RequestParam("no") int no) {
+        testservice.updateQAReport((no));
+
+        return "redirect:/qaview?no=" + no;
+
     }
 }
