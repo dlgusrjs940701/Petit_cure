@@ -42,6 +42,7 @@ public class ProductController {
         String age = member.getAge();
 
         if(authentication != null && phone == null) {
+
             model.addAttribute("id", username);
             session.setAttribute("id", username);
 

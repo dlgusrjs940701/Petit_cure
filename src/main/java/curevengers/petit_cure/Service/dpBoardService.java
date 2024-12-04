@@ -14,16 +14,19 @@ public interface dpBoardService {
 
     public void insert(dpBoardDTO dto) throws Exception;
 
-    public dpBoardDTO getdpBoardNo(String no) throws Exception;
+    public dpBoardDTO selectOne(int no) throws Exception;
 
-    public List<dpcommentDTO> getdpComment(String no) throws Exception;
+    public List<dpcommentDTO> getdpComment(int no) throws Exception;
 
     public void updateGoodUP(int no) throws Exception;
 
     public void updateGoodDown(int no) throws Exception;
 
-    public int totalCountBoard() throws Exception;
-
     public void adddpComment(dpcommentDTO dto) throws Exception;
 
+    public void updatedpBoard(dpBoardDTO dto) throws Exception;
+
+    public void deletedpBoard(int no) throws Exception;
+
+    public List<dpBoardDTO> getsearchDPBoards(String title) throws Exception;
 }

@@ -9,12 +9,12 @@ import lombok.ToString;
 @Setter
 @ToString
 public class dpBoardDTO {
-    private String no;
+    private int no;
     private String id;
     private String title;
     private String content;
     private String date;
-    private String good;
+    private int good;
     private String password;
 
 }

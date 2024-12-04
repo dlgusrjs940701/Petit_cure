@@ -123,4 +123,12 @@
         set report=report + 1
         where no = #{no}
     </update>
+
+    <update id="updateBoard">
+        update freeboard set
+    </update>
+
+    <update id="updateQABoard">
+        update qaboard set
+    </update>
 </mapper>

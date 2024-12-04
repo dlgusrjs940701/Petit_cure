@@ -7,13 +7,13 @@
         select * from dpboard where no = #{no}
     </select>
     <select id="selectAll">
-        select * from dpboard
+        select * from dpboard order by date desc limit 10
     </select>
     <select id="countAll">
         select count(*) from dpboard
     </select>
     <insert id="insert">
-        insert into dpboard values (nextval(dpboardno),#{id},${password},#{title},#{content},default)
+        insert into dpboard values (nextval(dpboardno),#{id},#{password},#{title},#{content},default,default)
     </insert>
     <update id="updateGoodUp">
         update dpboard set good=good + 1 where no = #{no}
@@ -28,4 +28,13 @@
         insert into dpcomment (id, content, dpboard_no)
         values (#{id}, #{content}, #{dpboard_no})
     </insert>
+    <update id="updatedpBoard">
+        update dpboard set password = #{password}, title = #{title}, content = #{content} where no = #{no}
+    </update>
+    <delete id="deletedpBoard">
+        delete from dpboard where no = #{no}
+    </delete>
+    <select id="search">
+        select * from dpboard where title like CONCAT('%', #{title}, '%') order by date desc
+    </select>
 </mapper>

@@ -147,13 +147,13 @@ public class testhome {
 
     // 우울증게시판 글 자세히 보기
     @GetMapping(value = "/dpview")
-    public String dpview(@RequestParam("no") String no, Model model, @ModelAttribute qacommentDTO qacommentdto, @ModelAttribute memberDTO memberdto) throws Exception {
+    public String dpview(@RequestParam("no") int no, Model model) throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
 
         memberDTO memberDTO = membermapper.getMemberByID(username);
 
-        dpBoardDTO dto = dpboardservice.getdpBoardNo(no);
+        dpBoardDTO dto = dpboardservice.selectOne(no);
         List<dpcommentDTO> dpcommentList = dpboardservice.getdpComment(no);
         model.addAttribute("dto", dto);
         model.addAttribute("commentList", dpcommentList);
@@ -188,7 +188,9 @@ public class testhome {
     // 건강검진결과로
     @PostMapping(value = "/healthresult")
     public String healthresult(@ModelAttribute healthCheckDTO dto, Model model, HttpServletRequest request) throws Exception {
-        dto.setId("aaa");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String nowId = authentication.getName();
+        dto.setId(nowId);
         healthcheckservice.insert(dto);
         healthCheckDTO result = healthcheckservice.showOne(dto);
         model.addAttribute("dto", result);
@@ -207,18 +209,22 @@ public class testhome {
     // 건강검진결과 전체 리스트 보기
     @GetMapping(value = "/moreresult")
     public String moreresult(Model model, HttpServletRequest request) throws Exception {
-        Object nowId = "aaa";
-        List<healthCheckDTO> list = healthcheckservice.selectAll((String) nowId);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String nowId = authentication.getName();
+        List<healthCheckDTO> list = healthcheckservice.selectAll(nowId);
         model.addAttribute("list", list);
         return "healthcheckresultmore";
     }
 
     // 건강검진결과 전체 리스트 중 하나 보기
     @PostMapping(value = "/healthresultone")
-    public String healthresultOne(@RequestParam("date") String date, Model model, HttpServletRequest request) throws Exception {
-        System.out.println(date);
-        Object nowId = "aaa";
-        healthCheckDTO result = healthcheckservice.selectOne((String) nowId, date);
+    public String healthresultOne(@RequestParam("date") String date, Model model) throws Exception {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String nowId = authentication.getName();
+        healthCheckDTO dto = new healthCheckDTO();
+        dto.setId(nowId);
+        dto.setDate(date);
+        healthCheckDTO result = healthcheckservice.selectOne(dto);
         model.addAttribute("dto", result);
         return "healthcheckresult";
     }
@@ -232,8 +238,9 @@ public class testhome {
     // 우울증 검사 결과
     @PostMapping(value = "/dpcheckresult")
     public String depresult(@ModelAttribute dpCheckDTO dto, Model m) throws Exception {
-        // id부분 수정필요
-        dto.setId("aaa");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String nowId = authentication.getName();
+        dto.setId(nowId);
         dto.setResult(dto.getA() + dto.getB() + dto.getC() + dto.getD() + dto.getE() + dto.getF() + dto.getG() + dto.getH() + dto.getI());
         dpcheckservice.insert(dto);
         dpcheckservice.showOne(dto);
@@ -244,8 +251,9 @@ public class testhome {
     // 우울증 검사 결과 전체 리스트 보기
     @GetMapping(value = "/dpmoreresult")
     public String dpmoreresult(Model model) throws Exception {
-        // id부분 수정필요
-        List<dpCheckDTO> list = dpcheckservice.selectAll("aaa");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String nowId = authentication.getName();
+        List<dpCheckDTO> list = dpcheckservice.selectAll(nowId);
         model.addAttribute("list", list);
         return "dpCheckResultMore";
     }
@@ -253,12 +261,17 @@ public class testhome {
     // 우울증 검사 전체 리스트 중 하나 보기
     @PostMapping(value = "/dphresultone")
     public String dpresultOne(@RequestParam("date") String date, Model model) throws Exception {
-        // id부분 수정필요
-        dpCheckDTO result = dpcheckservice.selectOne("aaa", date);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String nowId = authentication.getName();
+        dpCheckDTO dto = new dpCheckDTO();
+        dto.setId(nowId);
+        dto.setDate(date);
+        dpCheckDTO result = dpcheckservice.selectOne(dto);
         model.addAttribute("dto", result);
         return "dpCheckResult";
     }
 
+    // 자유게시판 검색 기능
     @GetMapping(value = "/searchTitle")
     public String searchBoard(@RequestParam("title") String title, Model model) {
         List<freeBoardDTO> board = testservice.getsearchFreeBoards(title);
@@ -266,11 +279,20 @@ public class testhome {
         return "searchfreeBoard";
     }
 
+    // Q&A게시판 검색 기능
     @GetMapping(value = "/searchQATitle")
     public String searchQABoard(@RequestParam("title") String title, Model model) {
         List<QABoardDTO> board = testservice.getsearchQABoards(title);
         model.addAttribute("list", board);
         return "searchQABoard";
+    }
+
+    // 우울증게시판 검색 기능
+    @GetMapping(value = "/searchDPTitle")
+    public String searchDPTitle(@RequestParam("title") String title, Model model) throws Exception{
+        List<dpBoardDTO> board = dpboardservice.getsearchDPBoards(title);
+        model.addAttribute("list", board);
+        return "searchDPBoard";
     }
 
     // QA게시판 좋아요 기능
@@ -347,5 +369,101 @@ public class testhome {
 
         return "redirect:/qaview?no=" + no;
 
+    }
+
+    // 자유게시판 글 수정창
+    @GetMapping(value = "/updateBoardView")
+    public String updateBoardView(@RequestParam("no") int no, Model m) throws Exception {
+        dpBoardDTO dto = dpboardservice.selectOne(no);
+        m.addAttribute("dto", dto);
+        return "overWrite";
+    }
+
+    // Q&A게시판 글 수정창
+    @GetMapping(value = "/updateqaBoardView")
+    public String updateqaBoardView(@RequestParam("no") int no, Model m) throws Exception {
+        dpBoardDTO dto = dpboardservice.selectOne(no);
+        m.addAttribute("dto", dto);
+        return "qaOverWrite";
+    }
+
+    // 우울증게시판 글 수정창
+    @GetMapping(value = "/updatedpBoardView")
+    public String updatedpBoard(@RequestParam("no") int no, Model m) throws Exception {
+        dpBoardDTO dto = dpboardservice.selectOne(no);
+        m.addAttribute("dto", dto);
+        return "dpBoardOverWrite";
+    }
+
+    // 자유게시판 수정 저장  * 미완
+    @PostMapping(value = "/updateBoard")
+    public String updateBoard(@ModelAttribute freeBoardDTO dto, Model m) throws Exception {
+        testservice.updateBoard(dto);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        memberDTO memberDTO = membermapper.getMemberByID(username);
+
+        dpBoardDTO updatedto = dpboardservice.selectOne(dto.getNo());
+        List<dpcommentDTO> dpcommentList = dpboardservice.getdpComment(dto.getNo());
+        m.addAttribute("dto", updatedto);
+        m.addAttribute("commentList", dpcommentList);
+        m.addAttribute("member", memberDTO);
+        return "view";
+    }
+
+    // Q&A게시판 수정 저장  * 미완
+    @PostMapping(value = "/updateqaBoard")
+    public String updateqaBoard(@ModelAttribute QABoardDTO dto, Model m) throws Exception {
+        testservice.updateQABoard(dto);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        memberDTO memberDTO = membermapper.getMemberByID(username);
+
+        dpBoardDTO updatedto = dpboardservice.selectOne(dto.getNo());
+        List<dpcommentDTO> dpcommentList = dpboardservice.getdpComment(dto.getNo());
+        m.addAttribute("dto", updatedto);
+        m.addAttribute("commentList", dpcommentList);
+        m.addAttribute("member", memberDTO);
+        return "qaview";
+    }
+
+    // 우울증게시판 수정 저장
+    @PostMapping(value = "/updatedpBoard")
+    public String updatedpBoard(@ModelAttribute dpBoardDTO dto, Model m) throws Exception {
+        dpboardservice.updatedpBoard(dto);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        memberDTO memberDTO = membermapper.getMemberByID(username);
+
+        dpBoardDTO updatedto = dpboardservice.selectOne(dto.getNo());
+        List<dpcommentDTO> dpcommentList = dpboardservice.getdpComment(dto.getNo());
+        m.addAttribute("dto", updatedto);
+        m.addAttribute("commentList", dpcommentList);
+        m.addAttribute("member", memberDTO);
+        return "dpview";
+    }
+
+    // 자유게시판 글 삭제기능  * 미완
+    @GetMapping(value = "/deleteBoard")
+    public String deleteBoard(@RequestParam("no") int no) throws Exception {
+
+        return "redirect:/freeboard";
+    }
+
+    // Q&A게시판 글 삭제기능  * 미완
+    @GetMapping(value = "/deleteqaBoard")
+    public String deleteqaBoard(@RequestParam("no") int no) throws Exception {
+
+        return "redirect:/qanda";
+    }
+
+    // 우울증게시판 글 삭제기능
+    @GetMapping(value = "/deletedpBoard")
+    public String deletedpBoard(@RequestParam("no") int no) throws Exception {
+        dpboardservice.deletedpBoard(no);
+        return "redirect:/depboard";
     }
 }
