@@ -330,7 +330,8 @@ public class testhome {
     public String dpcomment(@ModelAttribute dpcommentDTO dto) throws Exception {
         dpboardservice.adddpComment(dto);
         return "redirect:/depboard";
-
+    }
+        
     // 자유게시판 신고 기능
     @GetMapping(value = "/report")
     public String report(@RequestParam("no") int no) {
