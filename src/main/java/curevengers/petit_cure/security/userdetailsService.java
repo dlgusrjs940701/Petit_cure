@@ -17,18 +17,23 @@ public class userdetailsService implements UserDetailsService {
 
     @Autowired
     UserServiceImpl userService;
-    @Autowired
-    PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         System.out.println(username+"(loadUserByname)");
         memberDTO memberdto = userService.getMemberById(username);
-
-        UserDetails user = User.withUsername(memberdto.getId())
-                .password(memberdto.getPass())
-                .authorities(memberdto.getAuth_name())
-                .build();
+        UserDetails user = null;
+        if(memberdto.getPass()!=null){
+            user = User.withUsername(memberdto.getId())
+                    .password(memberdto.getPass())
+                    .authorities(memberdto.getAuth_name())
+                    .build();
+        }else{
+            user = User.withUsername(memberdto.getId())
+                    .password(memberdto.getEmail())
+                    .authorities(memberdto.getAuth_name())
+                    .build();
+        }
 
         if(user == null){
             throw new UsernameNotFoundException("User not found");

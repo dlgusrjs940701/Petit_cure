@@ -5,13 +5,16 @@
 <mapper namespace="curevengers.petit_cure.Dao.MemberMapper">
 
     <insert id="insertMember" parameterType="curevengers.petit_cure.Dto.memberDTO">
-        insert into member values (#{id},#{pass},#{name},#{email},#{addr},#{gender},#{age},default)
+        insert into member values (#{id},#{pass},#{name},#{email},#{addr},#{gender},#{age},default,#{phone_num})
     </insert>
 
     <insert id="insertAuth" parameterType="String">
         insert into tb_auths values (#{id});
     </insert>
 
+    <select id="selectphonenum">
+        select id from member where phone_num=#{phonenumber};
+    </select>
 
     <select id="selectID">
         select id from member where id=#{id};
