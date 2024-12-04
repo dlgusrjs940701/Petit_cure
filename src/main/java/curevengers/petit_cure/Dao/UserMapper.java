@@ -48,4 +48,5 @@ public interface UserMapper {
 
     List<freecommentDTO> selectFreeComment(String no);
 
+    int cntdepBoard();
 }
