@@ -13,7 +13,7 @@ public interface dpCheckMapper {
 
     public dpCheckDTO showOne(dpCheckDTO dto);
 
-    public dpCheckDTO selectOne(String id, String date);
+    public dpCheckDTO selectOne(dpCheckDTO dto);
 
     public List<dpCheckDTO> selectAll(String id);
 

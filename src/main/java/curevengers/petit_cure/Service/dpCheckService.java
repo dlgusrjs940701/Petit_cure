@@ -10,7 +10,7 @@ public interface dpCheckService {
 
     public dpCheckDTO showOne(dpCheckDTO dto) throws Exception;
 
-    public dpCheckDTO selectOne(String id, String date) throws Exception;
+    public dpCheckDTO selectOne(dpCheckDTO dto) throws Exception;
 
     public List<dpCheckDTO> selectAll(String id) throws Exception;
 }

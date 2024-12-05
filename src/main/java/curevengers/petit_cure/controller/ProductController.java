@@ -1,5 +1,7 @@
 package curevengers.petit_cure.controller;
 
+import curevengers.petit_cure.Dto.memberDTO;
+import curevengers.petit_cure.Service.UserServiceImpl;
 import curevengers.petit_cure.security.Provider.TokenProvider;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,27 +23,33 @@ import java.net.HttpCookie;
 public class ProductController {
 
     TokenProvider tokenProvider;
-    AuthenticationProvider authenticationProvider;
+    UserServiceImpl userService;
 
-    public ProductController(TokenProvider tokenProvider) {
+    public ProductController(TokenProvider tokenProvider, UserServiceImpl userService) {
         this.tokenProvider = tokenProvider;
+        this.userService = userService;
     }
 
     @GetMapping(value = "/loginsuc")
     public String home(HttpSession session,HttpServletRequest request, HttpServletResponse response, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
+        System.out.println(request.getCookies().toString()+"요청값에서 온 쿠키값**********************");
+        System.out.println(authentication.getPrincipal()+"요청값에서온 principal값");
+        System.out.println(request.getSession().getAttribute("kakaoToken")+"요청 값의 토큰값");
         String username = authentication.getName();
+        memberDTO member = userService.getMemberById(username);
+        String phone = member.getPhone_num();
+        String age = member.getAge();
 
-
-        if(authentication != null) {
-            username = authentication.getName();
-
+        if(authentication != null && phone == null) {
 
             model.addAttribute("id", username);
             session.setAttribute("id", username);
 
-        }else{
+        }else if(authentication != null&&phone!=null) {
+            session.setAttribute("id", username);
+            session.setAttribute("age",age);
+        } else{
             new ExceptionInInitializerError().printStackTrace();
         }
 
@@ -67,6 +75,5 @@ public class ProductController {
     // Access Token, Refresh Token 사용할 것
     // Access Token은 리소스에 접근하기 위한 토큰으로, 짧은 유효기간을 가지며 사용자가 주로 사용하는 토큰
     // Refresh Token은 Access Token 대비 긴 시간을 가지며 사용자 정보를 확인하여 Access Token을 재발급하기위한 토큰
-
 
 }

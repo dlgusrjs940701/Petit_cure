@@ -25,8 +25,8 @@ public class dpCheckServiceImpl implements dpCheckService {
     }
 
     @Override
-    public dpCheckDTO selectOne(String id, String date) throws Exception {
-        return mapper.selectOne(id, date);
+    public dpCheckDTO selectOne(dpCheckDTO dto) throws Exception {
+        return mapper.selectOne(dto);
     }
 
     @Override

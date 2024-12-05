@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.apache.juli.logging.Log;
 import org.apache.tomcat.util.json.JSONParser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
@@ -24,11 +25,12 @@ import java.util.HashMap;
 public class KakaoApi {
 
     // kakao class 작성
-    @Value("${kakao.api_key}")
+    @Value("${spring.security.oauth2.client.registration.kakao.client-id}")
     private String kakaoapiKey;
 
-    @Value("${kakao.redirect_uri}")
+    @Value("${spring.security.oauth2.client.registration.kakao.redirect-uri}")
     private String kakaoredirectUri;
+
 
     // 사용자가 카카오 로그인을 성공하면 카카오측에서 인가 코드를 받아옴
     // 그 코드를 이용하여 accessToken을 반환
@@ -65,7 +67,7 @@ public class KakaoApi {
 //                                    (버퍼가 가득참 or 개행문자 나타남 의 경우)
             StringBuilder sb = new StringBuilder();
 
-            // 필수 쿼리 파라미터 세팅
+            // 필수 쿼리 파라미터 세팅(키+리다이렉트+인증코드)
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=").append(kakaoapiKey);
             sb.append("&redirect_uri=").append(kakaoredirectUri);
@@ -155,13 +157,23 @@ public class KakaoApi {
             JsonParser jsonParser = new JsonParser();
             JsonElement element = jsonParser.parse(result);
 
-            JsonObject propertis = element.getAsJsonObject().getAsJsonObject("properties").getAsJsonObject();
+//            JsonObject userid = element.getAsJsonObject().getAsJsonObject("id").getAsJsonObject();
+//            JsonObject propertis = element.getAsJsonObject().getAsJsonObject("properties").getAsJsonObject();
             JsonObject kakaoAccount = element.getAsJsonObject().getAsJsonObject("kakao_account").getAsJsonObject();
 
-            String id = propertis.getAsJsonObject().get("nickname").getAsString();
-//            String email = kakaoAccount.getAsJsonObject().get("email").getAsString();
+//            String id = userid.toString();
+//            String name = propertis.getAsJsonObject().get("nickname").getAsString();
+            String name = kakaoAccount.getAsJsonObject().get("name").getAsString();
+            String email = kakaoAccount.getAsJsonObject().get("email").getAsString();
+            String phone_number = kakaoAccount.getAsJsonObject().get("phone_number").getAsString();
+            String age_range = kakaoAccount.getAsJsonObject().get("age_range").getAsString();
+            String gender = kakaoAccount.getAsJsonObject().get("gender").getAsString();
 
-            userInfo.put("id", id);
+            userInfo.put("name", name);
+            userInfo.put("email",email);
+            userInfo.put("phone_number",phone_number);
+            userInfo.put("age_range",age_range);
+            userInfo.put("gender",gender);
             // 이 id를 이용하여 기존에 회원가입이 된 회원인지를 비교하여
             // 이미 회원가입이 된 회원이라면, 로그인을(client에게 jwt를 제공),
             // 회원가입이 되지 않은 회원이라면 회원가입을 요청하게 구현할 것
@@ -169,7 +181,7 @@ public class KakaoApi {
 
 //            userInfo.put("email", email);
 
-            System.out.println(id+" / ***********");
+            System.out.println(name+" / "+email+" / "+phone_number+" / "+age_range+" / "+gender+" 카카오로부터 받아서 userinfo에 저장함");
 
             br.close();
 
@@ -184,14 +196,15 @@ public class KakaoApi {
 
     // accessToken을 받아서 로그아웃 시키는 메서드
     public void kakaoLogout(String accessToken){
-        String reqUrl = "https://kapi.kakao.com/v1/logout";         // 확인필요
-        
+        String reqUrl = "https://kapi.kakao.com/v1/user/unlink";         // 확인필요
+        System.out.println(accessToken+"카카오로그아웃으로 요청하는 토큰값******************");
         try{
             URL url = new URL(reqUrl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            System.out.println(conn +"/ 카카오 로그아웃 요청 1");
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Authorization", "Bearer " + accessToken);
-            
+            System.out.println(conn.getHeaderField("Authorization") +"/ 카카오 로그아웃 요청 url 확인");
             int responseCode = conn.getResponseCode();
             System.out.println(responseCode+" / 카카오 로그아웃 응답코드");
             

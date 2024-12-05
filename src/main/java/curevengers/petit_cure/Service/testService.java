@@ -58,11 +58,6 @@ public interface testService {
 
     void updateQAReport(int no);
 
-    void insertAttach(freeboard_attachDTO attachDTO);
-
-    List<String> getAttach(String no);
-
-//    void insertFreeAttach(freeboard_attachDTO dto);
 
 
 //    List<commentDTO> getAllComments(commentDTO dto);
