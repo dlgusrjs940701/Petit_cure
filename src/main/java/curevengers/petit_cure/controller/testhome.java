@@ -10,6 +10,7 @@ import curevengers.petit_cure.Service.dpBoardService;
 import curevengers.petit_cure.Service.dpCheckService;
 import curevengers.petit_cure.Service.healthCheckService;
 import curevengers.petit_cure.Service.testService;
+import curevengers.petit_cure.common.util.FileDataUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +19,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -41,6 +46,9 @@ public class testhome {
     @Autowired
     dpBoardService dpboardservice;
 
+    @Autowired
+    FileDataUtil filedatautil;
+
     @GetMapping(value = "/")
     public String home() {
         return "main";
@@ -54,9 +62,29 @@ public class testhome {
 
     // 자유게시판 글쓰기 저장
     @PostMapping(value = "/save")
-    public String save(@ModelAttribute freeBoardDTO dto, Model model) {
+    public String save(@ModelAttribute freeBoardDTO dto, MultipartFile[] file, Model model, freeboard_attachDTO attachDTO) throws IOException {
+//        System.out.println(file.length);
+        String[] newFileName= filedatautil.fileUpload(file);
+//        System.out.println(newFileName+"kkkkkkkk");
+        dto.setNewFileName(newFileName);
+//        String[] filename= dto.getNewFileName();
+//        for (int i = 0; i < file.length; i++) {
+//            System.out.println(file[i].getOriginalFilename());
+//            if(file[i]!=null){
+//                attachDTO.setFilename(filename[i]);
+//                testservice.insertAttach(attachDTO);
+//            }
+//        }
+        for(int i=0; i<file.length; i++){
+            if(file[i].isEmpty()){
+                break;
+            } else {
+                testservice.insertAttach(attachDTO);
+            }
+        }
         testservice.addFreeBoard(dto);
         model.addAttribute("freeBoardDTO", dto.getNo());
+//        model.addAttribute("dto", dto);
         return "redirect:/freeboard";
     }
 
@@ -116,14 +144,15 @@ public class testhome {
 
     // 자유게시판 글 자세히 보기
     @GetMapping(value = "/view")
-    public String boardView(@RequestParam("no") String no, Model model, @ModelAttribute freecommentDTO freecommendto) {
+    public String boardView(@RequestParam("no") String no, Model model, @ModelAttribute freecommentDTO freecommendto, freeboard_attachDTO attachdto) {
         freeBoardDTO board = testservice.getBoardNo(no);
         testservice.updateVisit(Integer.parseInt(no));
         List<freecommentDTO> freecommentFreeList = testservice.getFreeComment(no);
-//        List<String> attachList=testservice.getAttach(no);
+        List<String> attachList=testservice.getAttach(no);
         model.addAttribute("dto", board);
         model.addAttribute("commentFreeList", freecommentFreeList);
-//        model.addAttribute("attachList", attachList);
+        model.addAttribute("attachList", attachList);
+        model.addAttribute("attachDTO", attachdto);
         return "view";
     }
 
@@ -371,99 +400,5 @@ public class testhome {
 
     }
 
-    // 자유게시판 글 수정창
-    @GetMapping(value = "/updateBoardView")
-    public String updateBoardView(@RequestParam("no") int no, Model m) throws Exception {
-        dpBoardDTO dto = dpboardservice.selectOne(no);
-        m.addAttribute("dto", dto);
-        return "overWrite";
-    }
 
-    // Q&A게시판 글 수정창
-    @GetMapping(value = "/updateqaBoardView")
-    public String updateqaBoardView(@RequestParam("no") int no, Model m) throws Exception {
-        dpBoardDTO dto = dpboardservice.selectOne(no);
-        m.addAttribute("dto", dto);
-        return "qaOverWrite";
-    }
-
-    // 우울증게시판 글 수정창
-    @GetMapping(value = "/updatedpBoardView")
-    public String updatedpBoard(@RequestParam("no") int no, Model m) throws Exception {
-        dpBoardDTO dto = dpboardservice.selectOne(no);
-        m.addAttribute("dto", dto);
-        return "dpBoardOverWrite";
-    }
-
-    // 자유게시판 수정 저장  * 미완
-    @PostMapping(value = "/updateBoard")
-    public String updateBoard(@ModelAttribute freeBoardDTO dto, Model m) throws Exception {
-        testservice.updateBoard(dto);
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-
-        memberDTO memberDTO = membermapper.getMemberByID(username);
-
-//        dpBoardDTO updatedto = dpboardservice.selectOne(dto.getNo());
-//        List<dpcommentDTO> dpcommentList = dpboardservice.getdpComment(dto.getNo());
-//        m.addAttribute("dto", updatedto);
-//        m.addAttribute("commentList", dpcommentList);
-        m.addAttribute("member", memberDTO);
-        return "view";
-    }
-
-    // Q&A게시판 수정 저장  * 미완
-    @PostMapping(value = "/updateqaBoard")
-    public String updateqaBoard(@ModelAttribute QABoardDTO dto, Model m) throws Exception {
-        testservice.updateQABoard(dto);
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-
-        memberDTO memberDTO = membermapper.getMemberByID(username);
-
-//        dpBoardDTO updatedto = dpboardservice.selectOne(dto.getNo());
-//        List<dpcommentDTO> dpcommentList = dpboardservice.getdpComment(dto.getNo());
-//        m.addAttribute("dto", updatedto);
-//        m.addAttribute("commentList", dpcommentList);
-        m.addAttribute("member", memberDTO);
-        return "qaview";
-    }
-
-    // 우울증게시판 수정 저장
-    @PostMapping(value = "/updatedpBoard")
-    public String updatedpBoard(@ModelAttribute dpBoardDTO dto, Model m) throws Exception {
-        dpboardservice.updatedpBoard(dto);
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-
-        memberDTO memberDTO = membermapper.getMemberByID(username);
-
-        dpBoardDTO updatedto = dpboardservice.selectOne(dto.getNo());
-        List<dpcommentDTO> dpcommentList = dpboardservice.getdpComment(dto.getNo());
-        m.addAttribute("dto", updatedto);
-        m.addAttribute("commentList", dpcommentList);
-        m.addAttribute("member", memberDTO);
-        return "dpview";
-    }
-
-    // 자유게시판 글 삭제기능  * 미완
-    @GetMapping(value = "/deleteBoard")
-    public String deleteBoard(@RequestParam("no") int no) throws Exception {
-
-        return "redirect:/freeboard";
-    }
-
-    // Q&A게시판 글 삭제기능  * 미완
-    @GetMapping(value = "/deleteqaBoard")
-    public String deleteqaBoard(@RequestParam("no") int no) throws Exception {
-
-        return "redirect:/qanda";
-    }
-
-    // 우울증게시판 글 삭제기능
-    @GetMapping(value = "/deletedpBoard")
-    public String deletedpBoard(@RequestParam("no") int no) throws Exception {
-        dpboardservice.deletedpBoard(no);
-        return "redirect:/depboard";
-    }
 }

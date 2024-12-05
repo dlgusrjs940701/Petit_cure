@@ -58,7 +58,14 @@ public class testServiceImpl implements testService {
 
     @Override
     public void addFreeBoard(freeBoardDTO dto) {
+
         userMapper.insertFreeBoard(dto);
+//        String[] filename = dto.getNewFileName();
+//        for(int i=0;i<filename.length;i++) {
+//            if(filename!=null){
+//                userMapper.insertAttach(filename[i]);
+//            }
+//        }
     }
 
     @Override
@@ -131,16 +138,7 @@ public class testServiceImpl implements testService {
         userMapper.updateQAReport(no);
     }
 
-    @Override
-    public void updateBoard(freeBoardDTO dto) {
-        userMapper.updateBoard(dto);
-    }
-
-    @Override
-    public void updateQABoard(QABoardDTO dto) {
-        userMapper.updateQABoard(dto);
-    }
-
+ 
 
 //    @Override
 //    public List<commentDTO> getAllComments(commentDTO dto) {
