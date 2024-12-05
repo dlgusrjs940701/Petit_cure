@@ -1,22 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="/css/main.css">
-  <link rel="stylesheet" href="/css/MyPage.css">
-</head>
-
-<body>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>main</title>
+  <title>My Page</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://kit.fontawesome.com/f3750f8cf5" crossorigin="anonymous"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -24,6 +11,8 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Jua&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik+Wet+Paint&family=Yeon+Sung&display=swap');
   </style>
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="stylesheet" href="/css/MyPage.css">
 </head>
 
 
@@ -38,40 +27,45 @@
     <hr>
     <div><i class="fa-solid fa-circle-user fa-10x" style="margin-top: 45px;"></i></div>
     <a href="#"><span class="badge bg-secondary" style="margin-top: 20px;">수정</span></a>
-    <ul style="margin-top: 30px; margin-right: 30px; font-size: 25px;">
-      <i class="fa-solid fa-user">&nbsp;&nbsp;</i>윤율<br>
-      <i class="fa-solid fa-phone">&nbsp;&nbsp;</i>010-0000-0000<br>
-      <i class="fa-solid fa-envelope">&nbsp;&nbsp;</i>yunyul841@gmail.com<br>
-      <i class="fa-solid fa-location-dot">&nbsp;&nbsp;</i>주소 : 경기도 수원시 000<br>
-      <i class="fa fa-birthday-cake">&nbsp;&nbsp;</i>2000.09.16<br>
+    <div style="margin-top: 30px; margin-right: auto; margin-left: auto; font-size: 25px;">
+      <i class="fa-solid fa-user">&nbsp;&nbsp;</i><span th:text="${dto.name}"></span><br>
+      <i class="fa-solid fa-phone">&nbsp;&nbsp;</i><span th:text="${dto.phone_num}"></span><br>
+      <i class="fa-solid fa-envelope">&nbsp;&nbsp;</i><span th:text="${dto.email}"></span><br>
+      <i class="fa-solid fa-location-dot">&nbsp;&nbsp;</i><span th:text="${dto.addr}"></span><br>
+      <i class="fa fa-birthday-cake">&nbsp;&nbsp;</i><br>
       <input type="button" value="회원수정" style="margin-top: 40px;">
       <input type="button" value="회원탈퇴" style="margin-top: 15px;">
-    </ul>
+    </div>
   </aside>
 
 
   <article class="main1">
     <h1 style="font-size: 30px;"><strong>내 활동</strong></h1>
     <hr>
-    <ul style="text-align: left; font-size: 25px; margin-top: 160px;">
+    <div style="text-align: center; font-size: 25px; margin-top: 160px;">
       <a href="/moreresult" style="color: black"><i class="fa-solid fa-notes-medical">&nbsp;&nbsp;</i>건강검진 결과 리스트</a><br>
       <a href="/dpmoreresult" style="color: black"><i class="fa-regular fa-face-frown">&nbsp;&nbsp;</i>우울증검진 결과 리스트</a><br>
       <a href="/freeboard" style="color: black"><i class="fa-solid fa-tablet-screen-button">&nbsp;&nbsp;</i>자유게시판</a><br>
       <a href="/qanda" style="color: black"><i class="fa-solid fa-tablet-screen-button">&nbsp;&nbsp;</i>Q&A게시판</a><br>
       <a href="/depboard" style="color: black"><i class="fa-solid fa-tablet-screen-button">&nbsp;&nbsp;</i>우울증전용게시판</a>
-    </ul>
+    </div>
   </article>
 
   <section class="main1">
     <h1 style="font-size: 30px;"><strong>내 활동 내역</strong></h1>
     <hr>
-
+    <table style="margin-left: auto; margin-right: auto; margin-top: 40px">
+      <tr th:each="list:${list}">
+        <td th:text="${list.id}"></td>
+        <td th:text="${list.title}"></td>
+        <td th:text="${list.date}"></td>
+      </tr>
+    </table>
   </section>
 
 </section>
 <div th:include="main::footer"></div>
 </body>
-
 
 
 </html>
@@ -95,5 +89,4 @@
       })
     });
   });
-
 </script>

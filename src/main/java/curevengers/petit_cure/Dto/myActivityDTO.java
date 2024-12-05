@@ -2,15 +2,14 @@ package curevengers.petit_cure.Dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
-public class qacommentDTO {
-
-
-    private String no;
+@ToString
+public class myActivityDTO {
     private String id;
-    private String content;
-    private String qaboard_no;
+    private String title;
     private String date;
+    private String content;
 }

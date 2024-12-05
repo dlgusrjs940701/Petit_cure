@@ -6,13 +6,13 @@
 
     <!--    // 자유게시판 글 저장-->
     <insert id="insertFreeBoard" parameterType="curevengers.petit_cure.Dto.freeBoardDTO">
-        insert into freeboard (id, title, cate, content)
-        values (#{id}, #{title}, #{cate}, #{content})
+        insert into freeboard (id, password, title, cate, content)
+        values (#{id}, #{password} #{title}, #{cate}, #{content})
     </insert>
     <!--    // QA게시판 글 저장-->
     <insert id="insertQABoard" parameterType="curevengers.petit_cure.Dto.QABoardDTO">
-        insert into qaboard (id, `limit`, title, cate, content)
-        values (#{id}, #{limit}, #{title}, #{cate}, #{content})
+        insert into qaboard (id, password, `limit`, title, cate, content)
+        values (#{id}, #{password}, #{limit}, #{title}, #{cate}, #{content})
     </insert>
 
     <!-- 게시판 글 목록-->

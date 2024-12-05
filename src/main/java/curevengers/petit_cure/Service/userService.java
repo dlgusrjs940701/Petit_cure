@@ -3,6 +3,7 @@ package curevengers.petit_cure.Service;
 
 import curevengers.petit_cure.Dto.AuthVO;
 import curevengers.petit_cure.Dto.memberDTO;
+import curevengers.petit_cure.Dto.myActivityDTO;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
@@ -15,4 +16,5 @@ public interface userService {
     public void edit(memberDTO memberdto);
     public void withdraw(String id);
     public int cofrmID(String id);
+    public List<myActivityDTO> getMyActivity(String id);
 }

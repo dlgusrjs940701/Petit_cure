@@ -53,12 +53,13 @@
         <div class="title-w">
             <strong>제목</strong><input type="text" name="title" placeholder="제목 입력">
         </div>
+        <input type="hidden" id="category" th:value="${dto.cate}"/>
         <select class="form-select" name="cate" required>
             <option value="" disabled selected><strong>카테고리</strong></option>
-            <option value="추천해주세요">추천해주세요</option>
-            <option value="아파요">아파요</option>
-            <option value="궁금해요">궁금해요</option>
-            <option value="건의해요">건의해요</option>
+            <option value="추천해주세요" id="추천해요">추천해주세요</option>
+            <option value="아파요" id="아파요">아파요</option>
+            <option value="궁금해요" id="궁금해요">궁금해요</option>
+            <option value="건의해요" id="건의해요">건의해요</option>
         </select>
         <div class="msg">
             <strong>내용</strong><textarea name="content" placeholder="내용 입력" required></textarea>
@@ -90,4 +91,15 @@
             })
         });
     });
+</script>
+<script>
+    if (document.getElementById("category").value == "추천해주세요") {
+        document.getElementById("추천해주세요").value = selected;
+    } else if (document.getElementById("category").value == "아파요") {
+
+    } else if (document.getElementById("category").value == "궁금해요") {
+
+    } else if (document.getElementById("category").value == "건의해요") {
+
+    }
 </script>
