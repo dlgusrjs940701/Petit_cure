@@ -10,6 +10,7 @@ import curevengers.petit_cure.Service.dpBoardService;
 import curevengers.petit_cure.Service.dpCheckService;
 import curevengers.petit_cure.Service.healthCheckService;
 import curevengers.petit_cure.Service.testService;
+import curevengers.petit_cure.common.util.FileDataUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +19,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -41,6 +46,9 @@ public class testhome {
     @Autowired
     dpBoardService dpboardservice;
 
+    @Autowired
+    FileDataUtil filedatautil;
+
     @GetMapping(value = "/")
     public String home() {
         return "main";
@@ -54,9 +62,29 @@ public class testhome {
 
     // 자유게시판 글쓰기 저장
     @PostMapping(value = "/save")
-    public String save(@ModelAttribute freeBoardDTO dto, Model model) {
+    public String save(@ModelAttribute freeBoardDTO dto, MultipartFile[] file, Model model, freeboard_attachDTO attachDTO) throws IOException {
+//        System.out.println(file.length);
+        String[] newFileName= filedatautil.fileUpload(file);
+//        System.out.println(newFileName+"kkkkkkkk");
+        dto.setNewFileName(newFileName);
+//        String[] filename= dto.getNewFileName();
+//        for (int i = 0; i < file.length; i++) {
+//            System.out.println(file[i].getOriginalFilename());
+//            if(file[i]!=null){
+//                attachDTO.setFilename(filename[i]);
+//                testservice.insertAttach(attachDTO);
+//            }
+//        }
+        for(int i=0; i<file.length; i++){
+            if(file[i].isEmpty()){
+                break;
+            } else {
+                testservice.insertAttach(attachDTO);
+            }
+        }
         testservice.addFreeBoard(dto);
         model.addAttribute("freeBoardDTO", dto.getNo());
+//        model.addAttribute("dto", dto);
         return "redirect:/freeboard";
     }
 
@@ -116,14 +144,15 @@ public class testhome {
 
     // 자유게시판 글 자세히 보기
     @GetMapping(value = "/view")
-    public String boardView(@RequestParam("no") String no, Model model, @ModelAttribute freecommentDTO freecommendto) {
+    public String boardView(@RequestParam("no") String no, Model model, @ModelAttribute freecommentDTO freecommendto, freeboard_attachDTO attachdto) {
         freeBoardDTO board = testservice.getBoardNo(no);
         testservice.updateVisit(Integer.parseInt(no));
         List<freecommentDTO> freecommentFreeList = testservice.getFreeComment(no);
-//        List<String> attachList=testservice.getAttach(no);
+        List<String> attachList=testservice.getAttach(no);
         model.addAttribute("dto", board);
         model.addAttribute("commentFreeList", freecommentFreeList);
-//        model.addAttribute("attachList", attachList);
+        model.addAttribute("attachList", attachList);
+        model.addAttribute("attachDTO", attachdto);
         return "view";
     }
 
@@ -348,4 +377,5 @@ public class testhome {
         return "redirect:/qaview?no=" + no;
 
     }
+
 }

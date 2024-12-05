@@ -123,4 +123,14 @@
         set report=report + 1
         where no = #{no}
     </update>
+
+    <insert id="insertAttach"  parameterType="curevengers.petit_cure.Dto.freeboard_attachDTO">
+        insert into freeboard_attach (filename, freeboard_no)
+        values (#{filename}, #{freeboard_no})
+    </insert>
+
+    <select id="selectAttachList" resultType="String">
+        select filename from
+        freeboard_attach where no=#{no}
+    </select>
 </mapper>
