@@ -54,4 +54,11 @@ public interface UserMapper {
 
     void updateQAReport(int no);
 
+    void insertAttach(freeboard_attachDTO attachDTO);
+
+    void insertQAAttach(qaboard_attachDTO qaattachDTO);
+
+    List<freeboard_attachDTO> selectAttach(String no);
+
+    List<qaboard_attachDTO> selectQAAttach(String no);
 }
