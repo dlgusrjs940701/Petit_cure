@@ -124,6 +124,24 @@
         where no = #{no}
     </update>
 
+<!--    자유게시판 글 수정 -->
+    <update id="updateBoard">
+        update freeboard set
+    </update>
+
+<!--    Q&A게시판 글 수정 -->
+    <update id="updateQABoard">
+        update qaboard set
+    </update>
+
+<!--    자유게시판 글 삭제 -->
+    <delete id="deleteBoard">
+        delete from freeboard where id = #{id}
+    </delete>
+<!--    Q&A게시판 글 삭제 -->
+    <delete id="deleteQABoard">
+        delete from qaboard where id = #{id}
+    </delete>
     <!-- 첨부파일 저장 -->
     <insert id="insertAttach" parameterType="curevengers.petit_cure.Dto.freeboard_attachDTO">
         insert into freeboard_attach (filename, freeboard_no)

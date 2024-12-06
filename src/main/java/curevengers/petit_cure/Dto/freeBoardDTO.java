@@ -16,5 +16,9 @@ public class freeBoardDTO {
     private int visit;
     private String date;
     private String name;
+
+    private String password;
+
     private String[] newFileName;
+
 }

@@ -2,6 +2,7 @@ package curevengers.petit_cure.Service;
 
 import curevengers.petit_cure.Dao.MemberMapper;
 import curevengers.petit_cure.Dto.AuthVO;
+import curevengers.petit_cure.Dto.myActivityDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -105,6 +106,11 @@ public class UserServiceImpl implements userService{
     @Override
     public int cofrmID(String id) {
         return memberMapper.selectID(id).size();
+    }
+
+    @Override
+    public List<myActivityDTO> getMyActivity(String id) {
+        return memberMapper.getMyActivity(id);
     }
 
 }

@@ -158,6 +158,16 @@ public class testServiceImpl implements testService {
         return userMapper.selectQAAttach(no);
     }
 
+    @Override
+    public void deleteBoard(String no) {
+        userMapper.deleteBoard(no);
+    }
+
+    @Override
+    public void deleteQABoard(String no) {
+        userMapper.deleteQABoard(no);
+    }
+
 
 //    @Override
 //    public List<commentDTO> getAllComments(commentDTO dto) {

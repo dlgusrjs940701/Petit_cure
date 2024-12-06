@@ -408,5 +408,100 @@ public class testhome {
 
     }
 
+    // 자유게시판 글 수정창
+    @GetMapping(value = "/updateBoardView")
+    public String updateBoardView(@RequestParam("no") String no, Model m) throws Exception {
+        freeBoardDTO dto = testservice.getBoardNo(no);
+        m.addAttribute("dto", dto);
+        return "overWrite";
+    }
+
+    // Q&A게시판 글 수정창
+    @GetMapping(value = "/updateqaBoardView")
+    public String updateqaBoardView(@RequestParam("no") String no, Model m) throws Exception {
+        QABoardDTO dto = testservice.getQABoardNo(no);
+        m.addAttribute("dto", dto);
+        return "qaOverWrite";
+    }
+
+    // 우울증게시판 글 수정창
+    @GetMapping(value = "/updatedpBoardView")
+    public String updatedpBoard(@RequestParam("no") int no, Model m) throws Exception {
+        dpBoardDTO dto = dpboardservice.selectOne(no);
+        m.addAttribute("dto", dto);
+        return "dpBoardOverWrite";
+    }
+
+    // 자유게시판 수정 저장
+    @PostMapping(value = "/updateBoard")
+    public String updateBoard(@ModelAttribute freeBoardDTO dto, Model m){
+        testservice.updateBoard(dto);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        memberDTO memberDTO = membermapper.getMemberByID(username);
+
+        freeBoardDTO updatedto = testservice.getBoardNo(dto.getNo());
+        List<freecommentDTO> dpcommentList = testservice.getFreeComment(dto.getNo());
+        m.addAttribute("dto", updatedto);
+        m.addAttribute("commentList", dpcommentList);
+        m.addAttribute("member", memberDTO);
+        return "view";
+    }
+
+    // Q&A게시판 수정 저장
+    @PostMapping(value = "/updateqaBoard")
+    public String updateqaBoard(@ModelAttribute QABoardDTO dto, Model m){
+        testservice.updateQABoard(dto);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        memberDTO memberDTO = membermapper.getMemberByID(username);
+
+        QABoardDTO updatedto = testservice.getQABoardNo(dto.getNo());
+        List<qacommentDTO> dpcommentList = testservice.getqaComment(dto.getNo());
+        m.addAttribute("dto", updatedto);
+        m.addAttribute("commentList", dpcommentList);
+        m.addAttribute("member", memberDTO);
+        return "qaview";
+    }
+
+    // 우울증게시판 수정 저장
+    @PostMapping(value = "/updatedpBoard")
+    public String updatedpBoard(@ModelAttribute dpBoardDTO dto, Model m) throws Exception {
+        dpboardservice.updatedpBoard(dto);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        memberDTO memberDTO = membermapper.getMemberByID(username);
+
+        dpBoardDTO updatedto = dpboardservice.selectOne(dto.getNo());
+        List<dpcommentDTO> dpcommentList = dpboardservice.getdpComment(dto.getNo());
+        m.addAttribute("dto", updatedto);
+        m.addAttribute("commentList", dpcommentList);
+        m.addAttribute("member", memberDTO);
+        return "dpview";
+    }
+
+    // 자유게시판 글 삭제기능
+    @GetMapping(value = "/deleteBoard")
+    public String deleteBoard(@RequestParam("no") String no) throws Exception {
+        testservice.deleteBoard(no);
+        return "redirect:/freeboard";
+    }
+
+    // Q&A게시판 글 삭제기능
+    @GetMapping(value = "/deleteqaBoard")
+    public String deleteqaBoard(@RequestParam("no") String no) throws Exception {
+        testservice.deleteQABoard(no);
+        return "redirect:/qanda";
+    }
+
+    // 우울증게시판 글 삭제기능
+    @GetMapping(value = "/deletedpBoard")
+    public String deletedpBoard(@RequestParam("no") int no) throws Exception {
+        dpboardservice.deletedpBoard(no);
+        return "redirect:/depboard";
+    }
 
 }

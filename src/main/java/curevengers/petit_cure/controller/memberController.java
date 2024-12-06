@@ -1,6 +1,7 @@
 package curevengers.petit_cure.controller;
 
 import curevengers.petit_cure.Dto.memberDTO;
+import curevengers.petit_cure.Dto.myActivityDTO;
 import curevengers.petit_cure.Service.UserServiceImpl;
 import curevengers.petit_cure.kakaoapi.KakaoApi;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.List;
 
 
 @RequiredArgsConstructor
@@ -83,7 +85,13 @@ public class memberController {
 
     // 마이페이지로 이동
     @GetMapping("/mypage")
-    public String mypage() {
+    public String mypage(Model m) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String nowId = authentication.getName();
+        memberDTO dto = userservice.getMemberById(nowId);
+        List<myActivityDTO> list = userservice.getMyActivity(nowId);
+        m.addAttribute("dto", dto);
+        m.addAttribute("list", list);
         return "MyPage";
     }
 

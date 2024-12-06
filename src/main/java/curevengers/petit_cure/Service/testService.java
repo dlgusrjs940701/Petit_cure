@@ -66,6 +66,11 @@ public interface testService {
 
     List<qaboard_attachDTO> getQAAttach(String no);
 
+    // 자유게시판 글 삭제
+    void deleteBoard(String no);
+
+    // Q&A게시판 글 삭제
+    void deleteQABoard(String no);
 
 //    List<commentDTO> getAllComments(commentDTO dto);
 }

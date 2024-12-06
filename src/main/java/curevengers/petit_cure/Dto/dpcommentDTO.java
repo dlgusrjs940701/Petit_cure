@@ -12,4 +12,5 @@ public class dpcommentDTO {
     private String id;
     private String content;
     private String dpboard_no;
+    private String date;
 }

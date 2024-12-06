@@ -12,4 +12,5 @@ public class freecommentDTO {
     private String id;
     private String content;
     private String freeboard_no;
+    private String date;
 }

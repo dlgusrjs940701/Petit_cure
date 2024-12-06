@@ -56,9 +56,21 @@ public interface UserMapper {
 
     void insertAttach(freeboard_attachDTO attachDTO);
 
+
+    // Q&A게시판 글 수정
+    void updateQABoard(QABoardDTO dto);
+
+    // 자유게시판 글 삭제
+    void deleteBoard(String no);
+
+    // Q&A게시판 글 삭제
+    void deleteQABoard(String no);
+
+
     void insertQAAttach(qaboard_attachDTO qaattachDTO);
 
     List<freeboard_attachDTO> selectAttach(String no);
 
     List<qaboard_attachDTO> selectQAAttach(String no);
+
 }
