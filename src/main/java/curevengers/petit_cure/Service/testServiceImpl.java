@@ -168,6 +168,16 @@ public class testServiceImpl implements testService {
         userMapper.deleteQABoard(no);
     }
 
+    @Override
+    public void updateBoard(freeBoardDTO dto) {
+        userMapper.updateBoard(dto);
+    }
+
+    @Override
+    public void updateQABoard(QABoardDTO dto) {
+        userMapper.updateQABoard(dto);
+    }
+
 
 //    @Override
 //    public List<commentDTO> getAllComments(commentDTO dto) {

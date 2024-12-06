@@ -66,6 +66,8 @@ public interface UserMapper {
     // Q&A게시판 글 삭제
     void deleteQABoard(String no);
 
+    // 자유게시판 글 수정
+    void updateBoard(freeBoardDTO dto);
 
     void insertQAAttach(qaboard_attachDTO qaattachDTO);
 
