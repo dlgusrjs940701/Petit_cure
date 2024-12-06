@@ -138,7 +138,26 @@ public class testServiceImpl implements testService {
         userMapper.updateQAReport(no);
     }
 
- 
+    @Override
+    public void insertAttach(freeboard_attachDTO attachDTO) {
+        userMapper.insertAttach(attachDTO);
+    }
+
+    @Override
+    public void insertQAAttach(qaboard_attachDTO qaattachDTO) {
+        userMapper.insertQAAttach(qaattachDTO);
+    }
+
+    @Override
+    public List<freeboard_attachDTO> getAttach(String no) {
+        return userMapper.selectAttach(no);
+    }
+
+    @Override
+    public List<qaboard_attachDTO> getQAAttach(String no) {
+        return userMapper.selectQAAttach(no);
+    }
+
 
 //    @Override
 //    public List<commentDTO> getAllComments(commentDTO dto) {

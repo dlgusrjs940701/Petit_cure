@@ -79,19 +79,19 @@
             <td colspan="5">
                 <!-- 이전 페이지 그룹 링크 -->
                 <span th:if="${pageDTO.prev}"></span>
-                <a th:href="@{/freeBoard(page=${pageDTO.startPage - 1})}"><i
+                <a th:href="@{/freeboard(page=${pageDTO.startPage - 1})}"><i
                         class="fa-solid fa-circle-chevron-left"></i></a>
 
                 <!-- 페이지 번호 반복 -->
 
                 <span th:each="idx : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}">
                     <span th:if="${pageDTO.page == idx}"></span>
-                    <a th:href="@{/freeBoard(page=${idx})}" th:text="${idx}"></a>
+                    <a th:href="@{/freeboard(page=${idx})}" th:text="${idx}"></a>
                 </span>
 
                 <!-- 다음 페이지 그룹 링크 -->
                 <span th:if="${pageDTO.next}"></span>
-                <a th:href="@{/freeBoard(page=${pageDTO.endPage + 1})}"><i class="fa-solid fa-circle-chevron-right"></i></a>
+                <a th:href="@{/freeboard(page=${pageDTO.endPage + 1})}"><i class="fa-solid fa-circle-chevron-right"></i></a>
             </td>
         </tr>
 
