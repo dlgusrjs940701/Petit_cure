@@ -5,6 +5,12 @@
     font-style: normal;
     font-size: large;
 }
+#jua-regular {
+    font-family: "Jua", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: large;
+}
 .funnel-sans-uniquifier {
     font-family: "Funnel Sans", sans-serif;
     font-optical-sizing: auto;
