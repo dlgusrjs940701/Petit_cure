@@ -66,7 +66,8 @@
 <!--</section>-->
 <section>
 
-    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel" style="width: 70%; margin: auto; margin-top: 35px">
+    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel"
+         style="width: 70%; margin: auto; margin-top: 45px; margin-bottom: 45px; border-style: outset;">
         <!-- Indicators -->
         <div class="carousel-indicators"></div>
 
@@ -142,9 +143,8 @@
     // const newList = document.querySelector('.news-lists');질병관리
     const news = document.querySelector('.carousel-inner'); // Carousel의 내부 컨테이너
     const indicators = document.querySelector('.carousel-indicators'); // Indicators 컨테이너
-    const topic = ["코로나19","disease","비만"];
+    const topic = ["코로나19","흡연","비만"];
     const apiKey = "9b9cc0aa70394bc4950b08fb1faca2f7";
-    // let url = `https://newsapi.org/v2/everything?q=${topic[num]}&from=2024-11-30&to=2024-12-05&apiKey=${apiKey}`;
     const temp = [0,1,2];
     let res = new Array(3);
     (async function(){
