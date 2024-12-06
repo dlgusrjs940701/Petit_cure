@@ -37,4 +37,6 @@
     <select id="search">
         select * from dpboard where title like CONCAT('%', #{title}, '%') order by date desc
     </select>
+
+
 </mapper>

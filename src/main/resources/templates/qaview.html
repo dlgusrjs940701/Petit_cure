@@ -27,6 +27,13 @@
                 <p><strong>카테고리:</strong> <span th:text="${dto.cate}"></span></p>
                 <p><strong>추천수:</strong> <span th:text="${dto.good}"></span></p>
                 <p><strong>작성일:</strong> <span th:text="${dto.date}"></span></p>
+                <p><strong>파일:</strong></p>
+                <ul>
+                    <li th:each="filename : ${qaattachList}">
+                        <a th:href="@{'/download?filename=' + ${filename.filename}}" th:text="${filename.filename}"></a>
+                    </li>
+
+                </ul>
             </div>
 
             <div class="content mb-4">
