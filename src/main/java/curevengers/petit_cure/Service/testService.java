@@ -64,6 +64,11 @@ public interface testService {
     // Q&A게시판 글 수정
     void updateQABoard(QABoardDTO dto);
 
+    // 자유게시판 글 삭제
+    void deleteBoard(String no);
+
+    // Q&A게시판 글 삭제
+    void deleteQABoard(String no);
 
 //    List<commentDTO> getAllComments(commentDTO dto);
 }

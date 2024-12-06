@@ -446,17 +446,17 @@ public class testhome {
         return "dpview";
     }
 
-    // 자유게시판 글 삭제기능  * 미완
+    // 자유게시판 글 삭제기능
     @GetMapping(value = "/deleteBoard")
-    public String deleteBoard(@RequestParam("no") int no) throws Exception {
-
+    public String deleteBoard(@RequestParam("no") String no) throws Exception {
+        testservice.deleteBoard(no);
         return "redirect:/freeboard";
     }
 
-    // Q&A게시판 글 삭제기능  * 미완
+    // Q&A게시판 글 삭제기능
     @GetMapping(value = "/deleteqaBoard")
-    public String deleteqaBoard(@RequestParam("no") int no) throws Exception {
-
+    public String deleteqaBoard(@RequestParam("no") String no) throws Exception {
+        testservice.deleteQABoard(no);
         return "redirect:/qanda";
     }
 
