@@ -1,9 +1,6 @@
 package curevengers.petit_cure.Service;
 
-import curevengers.petit_cure.Dto.dpBoardDTO;
-import curevengers.petit_cure.Dto.dpcommentDTO;
-import curevengers.petit_cure.Dto.freecommentDTO;
-import curevengers.petit_cure.Dto.qacommentDTO;
+import curevengers.petit_cure.Dto.*;
 
 import java.util.List;
 
@@ -29,4 +26,5 @@ public interface dpBoardService {
     public void deletedpBoard(int no) throws Exception;
 
     public List<dpBoardDTO> getsearchDPBoards(String title) throws Exception;
+
 }

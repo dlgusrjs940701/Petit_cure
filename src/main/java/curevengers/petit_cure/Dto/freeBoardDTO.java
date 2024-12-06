@@ -2,9 +2,11 @@ package curevengers.petit_cure.Dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString
 public class freeBoardDTO {
     private String no;
     private String id;
@@ -14,5 +16,9 @@ public class freeBoardDTO {
     private int visit;
     private String date;
     private String name;
+
     private String password;
+
+    private String[] newFileName;
+
 }

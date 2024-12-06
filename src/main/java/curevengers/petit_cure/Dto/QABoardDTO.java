@@ -14,5 +14,9 @@ public class QABoardDTO {
     private String limit;
     private int good;
     private String date;
+
     private String password;
+
+    private String[] newFileName;
+
 }

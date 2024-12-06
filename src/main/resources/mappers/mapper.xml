@@ -5,27 +5,27 @@
 <mapper namespace="curevengers.petit_cure.Dao.UserMapper">
 
     <!--    // 자유게시판 글 저장-->
-    <insert id="insertFreeBoard" parameterType="curevengers.petit_cure.Dto.freeBoardDTO">
-        insert into freeboard (id, password, title, cate, content)
-        values (#{id}, #{password} #{title}, #{cate}, #{content})
+    <insert id="insertFreeBoard" parameterType="curevengers.petit_cure.Dto.freeBoardDTO" useGeneratedKeys="true" keyProperty="no">
+        insert into freeboard (id, title, cate, content)
+        values (#{id}, #{title}, #{cate}, #{content})
     </insert>
     <!--    // QA게시판 글 저장-->
-    <insert id="insertQABoard" parameterType="curevengers.petit_cure.Dto.QABoardDTO">
-        insert into qaboard (id, password, `limit`, title, cate, content)
-        values (#{id}, #{password}, #{limit}, #{title}, #{cate}, #{content})
+    <insert id="insertQABoard" parameterType="curevengers.petit_cure.Dto.QABoardDTO" useGeneratedKeys="true" keyProperty="no">
+        insert into qaboard (id, `limit`, title, cate, content)
+        values (#{id}, #{limit}, #{title}, #{cate}, #{content})
     </insert>
 
     <!-- 게시판 글 목록-->
     <select id="findAllBoards" resultType="curevengers.petit_cure.Dto.freeBoardDTO">
         SELECT *
         FROM freeboard
-        ORDER BY date DESC
+        ORDER BY date DESC, no DESC
         LIMIT #{perPageNum} OFFSET #{startNo}
     </select>
     <select id="findQAAllBoards" resultType="curevengers.petit_cure.Dto.QABoardDTO">
         SELECT *
         FROM qaboard
-        ORDER BY date DESC
+        ORDER BY date DESC, no DESC
         LIMIT #{perPageNum} OFFSET #{startNo}
     </select>
 
@@ -142,4 +142,27 @@
     <delete id="deleteQABoard">
         delete from qaboard where id = #{id}
     </delete>
+    <!-- 첨부파일 저장 -->
+    <insert id="insertAttach" parameterType="curevengers.petit_cure.Dto.freeboard_attachDTO">
+        insert into freeboard_attach (filename, freeboard_no)
+        values (#{filename}, #{freeboard_no})
+    </insert>
+
+    <insert id="insertQAAttach" parameterType="curevengers.petit_cure.Dto.qaboard_attachDTO">
+        insert into qaboard_attach (filename, qaboard_no)
+        values (#{filename}, #{qaboard_no})
+    </insert>
+
+    <!-- 첨부파일 불러오기 -->
+    <select id="selectAttach" parameterType="String" resultType="curevengers.petit_cure.Dto.freeboard_attachDTO">
+        select filename, freeboard_no
+        from freeboard_attach
+        where freeboard_no=#{no}
+    </select>
+
+    <select id="selectQAAttach" parameterType="String" resultType="curevengers.petit_cure.Dto.freeboard_attachDTO">
+        select filename, qaboard_no
+        from qaboard_attach
+        where qaboard_no=#{no}
+    </select>
 </mapper>

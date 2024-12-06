@@ -16,5 +16,5 @@ public class dpBoardDTO {
     private String date;
     private int good;
     private String password;
-
+    private String[] newFileName;
 }
