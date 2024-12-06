@@ -58,11 +58,6 @@ public interface testService {
 
     void updateQAReport(int no);
 
-    // 자유게시판 글 수정
-    void updateBoard(freeBoardDTO dto);
-
-    // Q&A게시판 글 수정
-    void updateQABoard(QABoardDTO dto);
 
 
 //    List<commentDTO> getAllComments(commentDTO dto);
