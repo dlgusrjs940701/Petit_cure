@@ -28,14 +28,16 @@
         </div>
         <select class="form-select" name="cate" required>
             <option value="" disabled selected><strong>카테고리</strong></option>
-            <option value="1">함께 공유해요</option>
-            <option value="2">나 진지해요</option>
-            <option value="3">우리 잡담해요</option>
+            <option value="함께 공유해요">함께 공유해요</option>
+            <option value="나 진지해요">나 진지해요</option>
+            <option value="우리 잡담해요">우리 잡담해요</option>
         </select>
         <div class="msg">
             <strong>내용</strong><textarea name="content" placeholder="내용 입력" required></textarea>
-
-            <input type="file" name="file" id="formfile" multiple>
+            <div style="display: block">
+                <input type="file" name="file" multiple>
+                <input type="file" name="file" multiple>
+            </div>
             <div class="button">
                 <button type="submit" class="btn">저장</button>
             </div>

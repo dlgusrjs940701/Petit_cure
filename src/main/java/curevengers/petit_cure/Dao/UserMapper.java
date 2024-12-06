@@ -54,6 +54,8 @@ public interface UserMapper {
 
     void updateQAReport(int no);
 
+    void updateDPReport(int no);
+
     void insertAttach(freeboard_attachDTO attachDTO);
 
 

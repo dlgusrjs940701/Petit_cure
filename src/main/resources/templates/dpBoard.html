@@ -73,22 +73,20 @@
         <tr>
             <td colspan="5">
                 <!-- 이전 페이지 그룹 링크 -->
-                <span th:if="${pageDTO.prev}">
-
-                    <a th:href="@{/dpBoard(page=${pageDTO.startPage - 1})}">[이전페이지그룹]</a>
-                </span>
+                <span th:if="${pageDTO.prev}"></span>
+                <a th:href="@{/depboard(page=${pageDTO.startPage - 1})}"><i
+                        class="fa-solid fa-circle-chevron-left"></i></a>
 
                 <!-- 페이지 번호 반복 -->
 
                 <span th:each="idx : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}">
                     <span th:if="${pageDTO.page == idx}"></span>
-                    <a th:href="@{/dpBoard(page=${idx})}" th:text="${idx}"></a>
+                    <a th:href="@{/depboard(page=${idx})}" th:text="${idx}"></a>
                 </span>
 
                 <!-- 다음 페이지 그룹 링크 -->
-                <span th:if="${pageDTO.next}">
-                    <a th:href="@{/dpBoard(page=${pageDTO.endPage + 1})}">[다음페이지그룹]</a>
-                </span>
+                <span th:if="${pageDTO.next}"></span>
+                <a th:href="@{/depboard(page=${pageDTO.endPage + 1})}"><i class="fa-solid fa-circle-chevron-right"></i></a>
             </td>
         </tr>
 

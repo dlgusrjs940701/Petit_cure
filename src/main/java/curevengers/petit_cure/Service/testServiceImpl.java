@@ -139,6 +139,11 @@ public class testServiceImpl implements testService {
     }
 
     @Override
+    public void updateDPReport(int no) {
+        userMapper.updateDPReport(no);
+    }
+
+    @Override
     public void insertAttach(freeboard_attachDTO attachDTO) {
         userMapper.insertAttach(attachDTO);
     }

@@ -2,6 +2,7 @@ package curevengers.petit_cure.common.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -12,10 +13,7 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
@@ -27,6 +25,10 @@ public class FileDataUtil {
             add("gif");
             add("jpg");
             add("png");
+            add("jpeg");
+            add("bmp");
+            add("ico");
+            add("jfif");
         }
     };     //<-- 현재 코드는 활용하지는 않는다.. 얘는 선언이지 기능이 동작하지는 않는다. 절대 미리 예측 금지..
 
@@ -51,6 +53,21 @@ public class FileDataUtil {
         File file = new File(uploadPath + "/" + fileName);
         response.setContentType("application/download; utf-8");
         response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
+        return new FileSystemResource(file);
+    }
+
+    @RequestMapping(value = "/uploads/{filename}", method = RequestMethod.GET)
+    @ResponseBody
+    public FileSystemResource serveImage(@PathVariable("filename") String filename, HttpServletResponse response) throws IOException {
+        File file = new File(uploadPath + "/" + filename);
+
+        if (!file.exists()) {
+            throw new IOException("파일이 존재하지 않습니다: " + filename);
+        }
+
+        String contentType = Files.probeContentType(file.toPath());
+        response.setContentType(contentType);
+
         return new FileSystemResource(file);
     }
 

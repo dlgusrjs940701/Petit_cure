@@ -74,11 +74,10 @@
                 <p><strong>추천수:</strong> <span th:text="${dto.good}"></span></p>
                 <p><strong>작성일:</strong> <span th:text="${dto.date}"></span></p>
                 <p><strong>파일:</strong></p>
-                <ul>
-                    <li th:each="filename : ${qaattachList}">
-                        <a th:href="@{'/download?filename=' + ${filename.filename}}" th:text="${filename.filename}"></a>
+                <ul id="fileList">
+                    <li th:each="file : ${qaattachList}">
+                        <a th:href="@{'/download?filename=' + ${file.filename}}" th:text="${file.filename}"></a>
                     </li>
-
                 </ul>
             </div>
 
@@ -223,4 +222,25 @@
             document.getElementById("password2").value = null;
         }
     }
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const fileList = document.querySelectorAll('#fileList li');
+
+        fileList.forEach(fileItem => {
+            const anchor = fileItem.querySelector('a');
+            const filename = anchor.textContent;
+            const fileExtension = filename.split('.').pop().toLowerCase();
+
+            if (['jpg', 'jpeg', 'png', 'gif', 'jfif'].includes(fileExtension)) {
+                const img = document.createElement('img');
+                img.src = `/uploads/${filename}`;
+                img.alt = "첨부 이미지";
+                img.style.maxWidth = "800px";
+                img.style.maxHeight = "800px";
+
+                fileItem.appendChild(img);
+            }
+        });
+    });
 </script>
