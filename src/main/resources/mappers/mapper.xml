@@ -6,8 +6,8 @@
 
     <!--    // 자유게시판 글 저장-->
     <insert id="insertFreeBoard" parameterType="curevengers.petit_cure.Dto.freeBoardDTO" useGeneratedKeys="true" keyProperty="no">
-        insert into freeboard (id, title, cate, content)
-        values (#{id}, #{title}, #{cate}, #{content})
+        insert into freeboard (id, title, cate, content, password)
+        values (#{id}, #{title}, #{cate}, #{content},#{password})
     </insert>
     <!--    // QA게시판 글 저장-->
     <insert id="insertQABoard" parameterType="curevengers.petit_cure.Dto.QABoardDTO" useGeneratedKeys="true" keyProperty="no">
@@ -126,7 +126,7 @@
 
 <!--    자유게시판 글 수정 -->
     <update id="updateBoard">
-        update freeboard set
+        update freeboard set title=#{title}, cate=#{cate}, content=#{content}, visit=0, date=default, report=0 where no=#{no}
     </update>
 
 <!--    Q&A게시판 글 수정 -->
@@ -136,7 +136,7 @@
 
 <!--    자유게시판 글 삭제 -->
     <delete id="deleteBoard">
-        delete from freeboard where id = #{id}
+        delete from freeboard where no = #{no}
     </delete>
 <!--    Q&A게시판 글 삭제 -->
     <delete id="deleteQABoard">

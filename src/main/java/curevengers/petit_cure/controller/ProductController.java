@@ -33,9 +33,9 @@ public class ProductController {
     @GetMapping(value = "/loginsuc")
     public String home(HttpSession session,HttpServletRequest request, HttpServletResponse response, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println(request.getCookies().toString()+"요청값에서 온 쿠키값**********************");
-        System.out.println(authentication.getPrincipal()+"요청값에서온 principal값");
-        System.out.println(request.getSession().getAttribute("kakaoToken")+"요청 값의 토큰값");
+//        System.out.println(request.getCookies().toString()+"요청값에서 온 쿠키값**********************");
+//        System.out.println(authentication.getPrincipal()+"요청값에서온 principal값");
+//        System.out.println(request.getSession().getAttribute("kakaoToken")+"요청 값의 토큰값");
         String username = authentication.getName();
         memberDTO member = userService.getMemberById(username);
         String phone = member.getPhone_num();
