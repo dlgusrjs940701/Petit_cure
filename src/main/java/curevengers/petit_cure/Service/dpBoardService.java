@@ -5,7 +5,7 @@ import curevengers.petit_cure.Dto.*;
 import java.util.List;
 
 public interface dpBoardService {
-    public List<dpBoardDTO> selectAll() throws Exception;
+    public List<dpBoardDTO> selectAll(pageDTO pagedto) throws Exception;
 
     public int countAll() throws Exception;
 
@@ -27,4 +27,7 @@ public interface dpBoardService {
 
     public List<dpBoardDTO> getsearchDPBoards(String title) throws Exception;
 
+    void insertDPAttach(dpboard_attachDTO dpattachDTO);
+
+    List<dpboard_attachDTO> getDPAttach(int no);
 }

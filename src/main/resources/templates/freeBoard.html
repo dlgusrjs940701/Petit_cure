@@ -68,7 +68,9 @@
         <tr th:each="board : ${list}">
 
             <td th:text="${board.no}"></td>
-            <td><a th:href="@{/view(no=${board.no})}" th:text="${board.title}"></a>
+            <td><a th:href="@{/view(no=${board.no})}" th:text="${board.title}">
+            </a>
+                <i class="fa-solid fa-file"></i>
             </td>
 
             <td th:text="${board.id}"></td>
@@ -78,9 +80,9 @@
         <tr>
             <td colspan="5">
                 <!-- 이전 페이지 그룹 링크 -->
-                <span th:if="${pageDTO.prev}"></span>
-                <a th:href="@{/freeboard(page=${pageDTO.startPage - 1})}"><i
-                        class="fa-solid fa-circle-chevron-left"></i></a>
+<!--                <span th:if="${pageDTO.prev}"></span>-->
+<!--                <a th:href="@{/freeboard(page=${pageDTO.startPage - 1})}"><i-->
+<!--                        class="fa-solid fa-circle-chevron-left"></i></a>-->
 
                 <!-- 페이지 번호 반복 -->
 
@@ -90,8 +92,8 @@
                 </span>
 
                 <!-- 다음 페이지 그룹 링크 -->
-                <span th:if="${pageDTO.next}"></span>
-                <a th:href="@{/freeboard(page=${pageDTO.endPage + 1})}"><i class="fa-solid fa-circle-chevron-right"></i></a>
+<!--                <span th:if="${pageDTO.next}"></span>-->
+<!--                <a th:href="@{/freeboard(page=${pageDTO.endPage + 1})}"><i class="fa-solid fa-circle-chevron-right"></i></a>-->
             </td>
         </tr>
 
@@ -140,4 +142,7 @@
             })
         });
     });
+</script>
+<script>
+
 </script>

@@ -7,13 +7,13 @@
         select * from dpboard where no = #{no}
     </select>
     <select id="selectAll">
-        select * from dpboard order by date desc limit 10
+        select * from dpboard order by good desc LIMIT #{perPageNum} OFFSET #{startNo}
     </select>
     <select id="countAll">
         select count(*) from dpboard
     </select>
-    <insert id="insert">
-        insert into dpboard values (nextval(dpboardno),#{id},#{password},#{title},#{content},default,default)
+    <insert id="insert" useGeneratedKeys="true" keyProperty="no">
+        insert into dpboard values (nextval(dpboardno),#{id},#{password},#{title},#{content},default,default,default)
     </insert>
     <update id="updateGoodUp">
         update dpboard set good=good + 1 where no = #{no}
@@ -37,6 +37,13 @@
     <select id="search">
         select * from dpboard where title like CONCAT('%', #{title}, '%') order by date desc
     </select>
-
-
+    <insert id="insertDPAttach" parameterType="curevengers.petit_cure.Dto.dpboard_attachDTO">
+        insert into dpboard_attach (filename, dpboard_no)
+        values (#{filename}, #{dpboard_no})
+    </insert>
+    <select id="selectdpattach" parameterType="int" resultType="curevengers.petit_cure.Dto.dpboard_attachDTO">
+        select filename, dpboard_no
+        from dpboard_attach
+        where dpboard_no=#{no}
+    </select>
 </mapper>

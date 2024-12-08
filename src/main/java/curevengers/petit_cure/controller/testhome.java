@@ -133,13 +133,25 @@ public class testhome {
     // 우울증 게시판 글쓰기 저장
     @PostMapping(value = "/dpsave")
     public String dpsave(@ModelAttribute dpBoardDTO dto, MultipartFile[] file, Model model, dpboard_attachDTO dpattachDTO) throws Exception {
+        String[] newFileName = filedatautil.fileUpload(file);
+        dto.setNewFileName(newFileName);
         dpboardservice.insert(dto);
+        int dpboard_no=dto.getNo();
+        for (int i = 0; i < file.length; i++) {
+            if (!file[i].isEmpty()) {
+                dpattachDTO = new dpboard_attachDTO();
+                dpattachDTO.setDpboard_no(String.valueOf(dpboard_no));
+                dpattachDTO.setFilename(newFileName[i]);
+                dpboardservice.insertDPAttach(dpattachDTO);
+            }
+        }
+        model.addAttribute("dpboard", dto.getNo());
         return "redirect:/depboard";
     }
 
     // 자유게시판
     @GetMapping(value = "/freeboard")
-    public String getFreeBoardList(Model model, @ModelAttribute pageDTO pagedto) {
+    public String getFreeBoardList(Model model, @ModelAttribute pageDTO pagedto, @ModelAttribute freeboard_attachDTO attachDTO) {
         if (pagedto.getPage() == null) {
             pagedto.setPage(1);
         }
@@ -147,6 +159,7 @@ public class testhome {
         List<freeBoardDTO> freeBoardList = testservice.getAllFreeBoards(pagedto);
         model.addAttribute("list", freeBoardList);
         model.addAttribute("pageDTO", pagedto);
+        model.addAttribute("attachDTO", attachDTO);
         return "freeBoard";
     }
 
@@ -170,9 +183,9 @@ public class testhome {
             pagedto.setPage(1);
         }
         pagedto.setTotalCount(dpboardservice.countAll());
-        List<dpBoardDTO> dpBoardList = dpboardservice.selectAll();
-        model.addAttribute("pageDTO", pagedto);
+        List<dpBoardDTO> dpBoardList = dpboardservice.selectAll(pagedto);
         model.addAttribute("list", dpBoardList);
+        model.addAttribute("pageDTO", pagedto);
         return "dpBoard";
     }
 
@@ -212,16 +225,16 @@ public class testhome {
 
     // 우울증게시판 글 자세히 보기
     @GetMapping(value = "/dpview")
-    public String dpview(@RequestParam("no") int no, Model model) throws Exception {
+    public String dpview(@RequestParam("no") int no, Model model, @ModelAttribute dpboard_attachDTO dpattachDTO) throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-
         memberDTO memberDTO = membermapper.getMemberByID(username);
-
         dpBoardDTO dto = dpboardservice.selectOne(no);
         List<dpcommentDTO> dpcommentList = dpboardservice.getdpComment(no);
+        List<dpboard_attachDTO> dpattachList = dpboardservice.getDPAttach(no);
         model.addAttribute("dto", dto);
         model.addAttribute("commentList", dpcommentList);
+        model.addAttribute("dpattachList", dpattachList);
         model.addAttribute("member", memberDTO);
         return "dpview";
     }
@@ -433,6 +446,15 @@ public class testhome {
         testservice.updateQAReport((no));
 
         return "redirect:/qaview?no=" + no;
+
+    }
+
+    // 우울증게시판 신고 기능
+    @GetMapping(value = "/dpreport")
+    public String dpreport(@RequestParam("no") int no) {
+        testservice.updateDPReport((no));
+
+        return "redirect:/dpview?no=" + no;
 
     }
 

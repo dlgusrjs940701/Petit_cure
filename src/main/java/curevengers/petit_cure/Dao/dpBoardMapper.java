@@ -1,7 +1,9 @@
 package curevengers.petit_cure.Dao;
 
 import curevengers.petit_cure.Dto.dpBoardDTO;
+import curevengers.petit_cure.Dto.dpboard_attachDTO;
 import curevengers.petit_cure.Dto.dpcommentDTO;
+import curevengers.petit_cure.Dto.pageDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -11,7 +13,7 @@ import java.util.List;
 @Mapper
 @Repository
 public interface dpBoardMapper {
-    public List<dpBoardDTO> selectAll() throws Exception;
+    public List<dpBoardDTO> selectAll(pageDTO pagedto) throws Exception;
 
     public int countAll() throws Exception;
 
@@ -32,4 +34,8 @@ public interface dpBoardMapper {
     public void deletedpBoard(int no) throws Exception;
 
     public List<dpBoardDTO> search(String title) throws Exception;
+
+    void insertDPAttach(dpboard_attachDTO dpattachDTO);
+
+    List<dpboard_attachDTO> selectdpattach(int no);
 }

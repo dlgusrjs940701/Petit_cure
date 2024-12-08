@@ -73,6 +73,12 @@
                     <input type="hidden" id="checkpass" th:value="${dto.password}"/>
                     <p><strong>추천수:</strong> <span th:text="${dto.good}"></span></p>
                     <p><strong>작성일:</strong> <span th:text="${dto.date}"></span></p>
+                    <p><strong>파일:</strong></p>
+                    <ul id="fileList">
+                        <li th:each="file : ${dpattachList}">
+                            <a th:href="@{'/download?filename=' + ${file.filename}}" th:text="${file.filename}"></a>
+                        </li>
+                    </ul>
                 </div>
                 <hr>
                 <div class="content mb-4">
@@ -125,6 +131,12 @@
                 <!-- 뒤로 가기 버튼은 알아두면 좋음-->
                 <div class="mt-4">
                     <button class="btn btn-secondary" onclick="history.back()">뒤로 가기</button>
+                </div>
+                <div style="margin-top: 15px">
+                    <form action="/dpreport" method="get">
+                        <input type="hidden" name="no" th:value="${dto.no}"/>
+                        <button type="submit" class="btn btn-warning" onclick="alert('신고 완료');">신고</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -196,4 +208,25 @@
             document.getElementById("password2").value = null;
         }
     }
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const fileList = document.querySelectorAll('#fileList li');
+
+        fileList.forEach(fileItem => {
+            const anchor = fileItem.querySelector('a');
+            const filename = anchor.textContent;
+            const fileExtension = filename.split('.').pop().toLowerCase();
+
+            if (['jpg', 'jpeg', 'png', 'gif', 'jfif'].includes(fileExtension)) {
+                const img = document.createElement('img');
+                img.src = `/uploads/${filename}`;
+                img.alt = "첨부 이미지";
+                img.style.maxWidth = "800px";
+                img.style.maxHeight = "800px";
+
+                fileItem.appendChild(img);
+            }
+        });
+    });
 </script>

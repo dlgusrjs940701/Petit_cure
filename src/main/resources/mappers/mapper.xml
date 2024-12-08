@@ -19,13 +19,13 @@
     <select id="findAllBoards" resultType="curevengers.petit_cure.Dto.freeBoardDTO">
         SELECT *
         FROM freeboard
-        ORDER BY date DESC, no DESC
+        ORDER BY visit DESC
         LIMIT #{perPageNum} OFFSET #{startNo}
     </select>
     <select id="findQAAllBoards" resultType="curevengers.petit_cure.Dto.QABoardDTO">
         SELECT *
         FROM qaboard
-        ORDER BY date DESC, no DESC
+        ORDER BY good DESC
         LIMIT #{perPageNum} OFFSET #{startNo}
     </select>
 
@@ -124,6 +124,12 @@
         where no = #{no}
     </update>
 
+    <update id="updateDPReport" parameterType="int">
+        update dpboard
+        set report=report + 1
+        where no = #{no}
+    </update>
+
 <!--    자유게시판 글 수정 -->
     <update id="updateBoard">
         update freeboard set title=#{title}, cate=#{cate}, content=#{content}, visit=0, date=default, report=0 where no=#{no}
@@ -160,7 +166,7 @@
         where freeboard_no=#{no}
     </select>
 
-    <select id="selectQAAttach" parameterType="String" resultType="curevengers.petit_cure.Dto.freeboard_attachDTO">
+    <select id="selectQAAttach" parameterType="String" resultType="curevengers.petit_cure.Dto.qaboard_attachDTO">
         select filename, qaboard_no
         from qaboard_attach
         where qaboard_no=#{no}

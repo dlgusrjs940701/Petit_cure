@@ -58,6 +58,8 @@ public interface testService {
 
     void updateQAReport(int no);
 
+    void updateDPReport(int no);
+
     void insertAttach(freeboard_attachDTO attachDTO);
 
     void insertQAAttach(qaboard_attachDTO qaattachDTO);
@@ -77,6 +79,7 @@ public interface testService {
 
     // Q&A게시판 글 수정
     void updateQABoard(QABoardDTO dto);
+
 
 //    List<commentDTO> getAllComments(commentDTO dto);
 }
