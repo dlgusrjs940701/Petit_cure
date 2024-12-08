@@ -17,29 +17,29 @@
 <div th:include="main::nav"></div>
 
 <div class="card-write">
-    <h2><strong>글쓰기</strong></h2>
-    <form action="save" method="post">
+    <h2><strong>글 수정하기</strong></h2>
+<!--    <form action="/updateBoard" method="post">-->
+    <input type="text" name="no" th:value="${dto.no}" hidden="true">
     <div class="myinfo" >
-        <strong>이름</strong><input type="text" name="id" placeholder="이름 입력" required>
-        <strong>비밀번호</strong><input type="password" name="password" placeholder="비번 입력" required>
+        <strong>닉네임</strong><input type="text" name="id" th:value="${dto.id}" readonly>
     </div>
     <div class="title-w">
-        <strong>제목</strong><input type="text" name="title" placeholder="제목 입력" required>
+        <strong>제목</strong><input type="text" name="title" th:value="${dto.title}" required>
     </div>
     <select class="form-select" name="cate" required>
         <option value="" disabled selected><strong>카테고리</strong></option>
-        <option value="1">함께 공유해요</option>
-        <option value="2">나 진지해요</option>
-        <option value="3">우리 잡담해요</option>
+        <option value="1" th:if="${dto.cate=='1'}" selected>함께 공유해요</option>
+        <option value="2" th:if="${dto.cate=='2'}" selected>나 진지해요</option>
+        <option value="3" th:if="${dto.cate=='3'}" selected>우리 잡담해요</option>
     </select>
     <div class="msg">
-        <strong>내용</strong><textarea name="content" placeholder="내용 입력" required></textarea>
+        <strong>내용</strong><textarea name="content" th:text="${dto.content}" required></textarea>
         <input type="file" name="file" >
         <div class="button">
-            <button type="submit" class="btn">저장</button>
+            <button type="submit" class="btn" onclick="updateBoard()">저장</button>
         </div>
     </div>
-    </form>
+<!--    </form>-->
     <div class="mt-4">
         <button class="btn btn-secondary" onclick="history.back()">뒤로 가기</button>
     </div>
@@ -62,4 +62,45 @@
             })
         });
     });
+</script>
+<script>
+    function updateBoard(){
+        let no = document.getElementsByName('no')[0].value
+        let id = document.getElementsByName('id')[0].value
+        let title = document.getElementsByName('title')[0].value
+        let cate = document.getElementsByName('cate')[0].value
+        let content = document.getElementsByName('content')[0].value
+
+        if(confirm("수정 내용을 저장하시겠습니까?")){        // 수정 확인 받고 넘기기
+            let form = document.createElement('form');  // 폼 태그 생성
+            form.action = "/updateBoard";
+            form.method = "post";
+
+            let data1 = document.createElement('input');
+            data1.setAttribute('name', 'no');
+            data1.setAttribute('value', no);
+            let data2 = document.createElement('input');
+            data2.setAttribute('name', 'id');
+            data2.setAttribute('value', id);
+            let data3 = document.createElement('input');
+            data3.setAttribute('name', 'title');
+            data3.setAttribute('value', title);
+            let data4 = document.createElement('input');
+            data4.setAttribute('name', 'cate');
+            data4.setAttribute('value', cate);
+            let data5 = document.createElement('input');
+            data5.setAttribute('name', 'content');
+            data5.setAttribute('value', content);
+
+            form.appendChild(data1);
+            form.appendChild(data2);
+            form.appendChild(data3);
+            form.appendChild(data4);
+            form.appendChild(data5);
+            document.body.appendChild(form);
+            form.submit();
+
+            alert("수정이 완료되었습니다.")
+        }
+    }
 </script>
