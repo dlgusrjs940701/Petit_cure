@@ -116,14 +116,14 @@ li>a:hover {
 
 }
 
-section {
-    float: left;
-    width: 400px;
-    height: 1000px;
-    /* border: 1px solid; */
-    margin-top: 50px;
-    margin-left: 50px;
-}
+/*section {*/
+/*    float: left;*/
+/*    width: 400px;*/
+/*    height: 1000px;*/
+/*    !* border: 1px solid; *!*/
+/*    margin-top: 50px;*/
+/*    margin-left: 50px;*/
+/*}*/
 
 aside {
     display: inline-block;
@@ -132,7 +132,7 @@ aside {
     margin-top: 50px;
     text-align: center;
     border-bottom: 3px solid gray;
-
+    margin-left: 25%;
     /* border: 1px solid; */
 }
 
@@ -149,7 +149,7 @@ aside>h6 {
     width: 950px;
     height: 700px;
     font-size: 20px;
-    margin-left: 450px;
+    /*margin-left: 450px;*/
     padding-top: 50px;
     text-align: center;
 }
@@ -218,6 +218,7 @@ footer {
     height: 250px;
     border: 5px solid;
     border-radius: 40px;
+    margin-left: 25%;
     /* background-color: #e48d8d; */
 }
 
@@ -237,9 +238,11 @@ table {
     margin-top: 50px;
     margin-bottom: 50px;
     table-layout: fixed;
-
-
+    margin-left: 25%;
 }
+/*#section{*/
+/*    margin-left: 25%;*/
+/*}*/
 
 /* table>thead>tr>th {
     border: 1px solid;
@@ -254,4 +257,10 @@ table>tbody>tr>td, th {
 
 .board-table {
     width: 50%;
+}
+span{
+    display: inline-block;
+    font-size: 20px;
+    margin-left: 25%;
+    margin-bottom: 10px;
 }
