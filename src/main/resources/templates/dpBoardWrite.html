@@ -18,7 +18,7 @@
 
 <div class="card-write">
     <h2><strong>글쓰기</strong></h2>
-    <form action="/dpsave" method="post">
+    <form action="/dpsave" method="post" enctype="multipart/form-data">
         <div class="myinfo">
             <strong>&nbsp ID </strong><input type="text" name="id" required>
             <strong>비밀번호</strong><input type="password" name="password" required>
@@ -28,6 +28,7 @@
         </div>
         <div class="msg">
             <strong>내용</strong><textarea name="content" required></textarea>
+            <input type="file" name="file" >
             <input type="file" name="file" >
             <div class="button">
                 <button type="submit" class="btn">저장</button>

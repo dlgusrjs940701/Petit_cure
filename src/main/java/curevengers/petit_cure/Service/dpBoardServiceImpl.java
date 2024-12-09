@@ -4,6 +4,7 @@ import curevengers.petit_cure.Dao.dpBoardMapper;
 import curevengers.petit_cure.Dto.dpBoardDTO;
 import curevengers.petit_cure.Dto.dpboard_attachDTO;
 import curevengers.petit_cure.Dto.dpcommentDTO;
+import curevengers.petit_cure.Dto.pageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +17,8 @@ public class dpBoardServiceImpl implements dpBoardService {
     dpBoardMapper dpboardmapper;
 
     @Override
-    public List<dpBoardDTO> selectAll() throws Exception {
-        return dpboardmapper.selectAll();
+    public List<dpBoardDTO> selectAll(pageDTO pagedto) throws Exception {
+        return dpboardmapper.selectAll(pagedto);
     }
 
     @Override
@@ -73,6 +74,15 @@ public class dpBoardServiceImpl implements dpBoardService {
     @Override
     public void updatedpComment(int commentNo, String content) throws Exception {
         dpboardmapper.updatedpComment(commentNo, content);
+      
+    @Override
+    public void insertDPAttach(dpboard_attachDTO dpattachDTO) {
+        dpboardmapper.insertDPAttach(dpattachDTO);
+    }
+
+    @Override
+    public List<dpboard_attachDTO> getDPAttach(int no) {
+        return dpboardmapper.selectdpattach(no);
     }
 
 

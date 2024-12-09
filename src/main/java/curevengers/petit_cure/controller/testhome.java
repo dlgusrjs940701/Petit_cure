@@ -6,10 +6,7 @@ import curevengers.petit_cure.Dto.*;
 
 import curevengers.petit_cure.Dto.testDto;
 
-import curevengers.petit_cure.Service.dpBoardService;
-import curevengers.petit_cure.Service.dpCheckService;
-import curevengers.petit_cure.Service.healthCheckService;
-import curevengers.petit_cure.Service.testService;
+import curevengers.petit_cure.Service.*;
 import curevengers.petit_cure.common.util.FileDataUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -17,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.UrlResource;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -50,6 +48,13 @@ public class testhome {
     @Autowired
     FileDataUtil filedatautil;
 
+    @Autowired
+    UserServiceImpl userService;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
+
     @GetMapping(value = "/")
     public String home() {
         return "main";
@@ -63,8 +68,16 @@ public class testhome {
 
     // 자유게시판 글쓰기 저장
     @PostMapping(value = "/save")
-    public String save(@ModelAttribute freeBoardDTO dto, MultipartFile[] file, Model model, freeboard_attachDTO attachDTO) throws IOException {
+    public String save(@ModelAttribute freeBoardDTO dto, MultipartFile[] file, Model model,
+                       freeboard_attachDTO attachDTO) throws IOException {
 //        System.out.println(file.length);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        memberDTO member = userService.getMemberById(username);     
+        // 현재 로그인을 한 회원정보를 이용하여 게시글의 아이디와 비밀번호 값을 추가
+        dto.setId(username);
+        dto.setPassword(member.getPass());
+//        System.out.println(member.getPass()+"----사용자의 비밀번호 확인");
         String[] newFileName = filedatautil.fileUpload(file);
 //        System.out.println(newFileName + "kkkkkkkk");
         dto.setNewFileName(newFileName);
@@ -82,6 +95,20 @@ public class testhome {
         model.addAttribute("attachDTO", attachDTO);
 //        model.addAttribute("dto", dto);
         return "redirect:/freeboard";
+    }
+
+
+    // 게시글 수정, 삭제시에 입력값이 암호화된 회원 비밀번호와 일치하는지 확인
+    @ResponseBody
+    @PostMapping(value="/confirmpassword")
+    public boolean confirmpassword(@RequestParam String password, @RequestParam String id) {
+        memberDTO member = userService.getMemberById(id);
+        if(passwordEncoder.matches(password,member.getPass())){
+            System.out.println("비밀번호 일치함");
+            return true;
+        }else {
+            return false;
+        }
     }
 
     // QA게시판 글쓰기 저장
@@ -107,13 +134,25 @@ public class testhome {
     // 우울증 게시판 글쓰기 저장
     @PostMapping(value = "/dpsave")
     public String dpsave(@ModelAttribute dpBoardDTO dto, MultipartFile[] file, Model model, dpboard_attachDTO dpattachDTO) throws Exception {
+        String[] newFileName = filedatautil.fileUpload(file);
+        dto.setNewFileName(newFileName);
         dpboardservice.insert(dto);
+        int dpboard_no=dto.getNo();
+        for (int i = 0; i < file.length; i++) {
+            if (!file[i].isEmpty()) {
+                dpattachDTO = new dpboard_attachDTO();
+                dpattachDTO.setDpboard_no(String.valueOf(dpboard_no));
+                dpattachDTO.setFilename(newFileName[i]);
+                dpboardservice.insertDPAttach(dpattachDTO);
+            }
+        }
+        model.addAttribute("dpboard", dto.getNo());
         return "redirect:/depboard";
     }
 
     // 자유게시판
     @GetMapping(value = "/freeboard")
-    public String getFreeBoardList(Model model, @ModelAttribute pageDTO pagedto) {
+    public String getFreeBoardList(Model model, @ModelAttribute pageDTO pagedto, @ModelAttribute freeboard_attachDTO attachDTO) {
         if (pagedto.getPage() == null) {
             pagedto.setPage(1);
         }
@@ -121,6 +160,7 @@ public class testhome {
         List<freeBoardDTO> freeBoardList = testservice.getAllFreeBoards(pagedto);
         model.addAttribute("list", freeBoardList);
         model.addAttribute("pageDTO", pagedto);
+        model.addAttribute("attachDTO", attachDTO);
         return "freeBoard";
     }
 
@@ -144,9 +184,9 @@ public class testhome {
             pagedto.setPage(1);
         }
         pagedto.setTotalCount(dpboardservice.countAll());
-        List<dpBoardDTO> dpBoardList = dpboardservice.selectAll();
-        model.addAttribute("pageDTO", pagedto);
+        List<dpBoardDTO> dpBoardList = dpboardservice.selectAll(pagedto);
         model.addAttribute("list", dpBoardList);
+        model.addAttribute("pageDTO", pagedto);
         return "dpBoard";
     }
 
@@ -154,10 +194,11 @@ public class testhome {
     @GetMapping(value = "/view")
     public String boardView(@RequestParam("no") String no, Model model, @ModelAttribute freecommentDTO freecommendto, freeboard_attachDTO attachdto) {
         freeBoardDTO board = testservice.getBoardNo(no);
+        System.out.println(board.getPassword());
         testservice.updateVisit(Integer.parseInt(no));
         List<freecommentDTO> freecommentFreeList = testservice.getFreeComment(no);
         List<freeboard_attachDTO> attachList = testservice.getAttach(no);
-        System.out.println("kkkkkk " + attachList);
+//        System.out.println("kkkkkk " + attachList);
         model.addAttribute("dto", board);
         model.addAttribute("commentFreeList", freecommentFreeList);
         model.addAttribute("attachList", attachList);
@@ -185,14 +226,16 @@ public class testhome {
 
     // 우울증게시판 글 자세히 보기
     @GetMapping(value = "/dpview")
-    public String dpview(@RequestParam("no") int no, Model model, HttpSession session) throws Exception {
+    public String dpview(@RequestParam("no") int no, Model model, @ModelAttribute dpboard_attachDTO dpattachDTO, HttpSession session) throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         memberDTO memberDTO = membermapper.getMemberByID(username);
         dpBoardDTO dto = dpboardservice.selectOne(no);
         List<dpcommentDTO> dpcommentList = dpboardservice.getdpComment(no);
+        List<dpboard_attachDTO> dpattachList = dpboardservice.getDPAttach(no);
         model.addAttribute("dto", dto);
         model.addAttribute("commentList", dpcommentList);
+        model.addAttribute("dpattachList", dpattachList);
         model.addAttribute("member", memberDTO);
         session.setAttribute("id",username);
         return "dpview";
@@ -408,10 +451,26 @@ public class testhome {
 
     }
 
+    // 우울증게시판 신고 기능
+    @GetMapping(value = "/dpreport")
+    public String dpreport(@RequestParam("no") int no) {
+        testservice.updateDPReport((no));
+
+        return "redirect:/dpview?no=" + no;
+
+    }
+
     // 자유게시판 글 수정창
     @GetMapping(value = "/updateBoardView")
     public String updateBoardView(@RequestParam("no") String no, Model m) throws Exception {
         freeBoardDTO dto = testservice.getBoardNo(no);
+        if(dto.getCate().equals("함께 공유해요")){
+            dto.setCate("1");
+        } else if (dto.getCate().equals("나 진지해요")) {
+            dto.setCate("2");
+        }else{
+            dto.setCate("3");
+        }
         m.addAttribute("dto", dto);
         return "overWrite";
     }
@@ -435,12 +494,12 @@ public class testhome {
     // 자유게시판 수정 저장
     @PostMapping(value = "/updateBoard")
     public String updateBoard(@ModelAttribute freeBoardDTO dto, Model m){
+        System.out.println(dto.getNo()+" / 수정하러 온 no");
         testservice.updateBoard(dto);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
 
         memberDTO memberDTO = membermapper.getMemberByID(username);
-
         freeBoardDTO updatedto = testservice.getBoardNo(dto.getNo());
         List<freecommentDTO> dpcommentList = testservice.getFreeComment(dto.getNo());
         m.addAttribute("dto", updatedto);
@@ -504,6 +563,7 @@ public class testhome {
     // 자유게시판 글 삭제기능
     @GetMapping(value = "/deleteBoard")
     public String deleteBoard(@RequestParam("no") String no) throws Exception {
+        System.out.println("삭제하러 들어온 게시글 번호 / "+no);
         testservice.deleteBoard(no);
         return "redirect:/freeboard";
     }

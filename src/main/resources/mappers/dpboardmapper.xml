@@ -8,7 +8,7 @@
     </select>
 
     <select id="selectAll">
-        select * from dpboard order by date desc limit 10
+        select * from dpboard order by good desc LIMIT #{perPageNum} OFFSET #{startNo}
     </select>
 
     <select id="countAll">
@@ -51,5 +51,16 @@
     <update id="updatedpComment">
         update dpcomment set content = #{content} where no = #{commentNo}
     </update>
+
+    <insert id="insertDPAttach" parameterType="curevengers.petit_cure.Dto.dpboard_attachDTO">
+        insert into dpboard_attach (filename, dpboard_no)
+        values (#{filename}, #{dpboard_no})
+    </insert>
+  
+    <select id="selectdpattach" parameterType="int" resultType="curevengers.petit_cure.Dto.dpboard_attachDTO">
+        select filename, dpboard_no
+        from dpboard_attach
+        where dpboard_no=#{no}
+    </select>
 
 </mapper>
