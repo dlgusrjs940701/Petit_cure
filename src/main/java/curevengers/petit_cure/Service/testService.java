@@ -80,6 +80,14 @@ public interface testService {
     // Q&A게시판 글 수정
     void updateQABoard(QABoardDTO dto);
 
+    List<freeBoardDTO> visitList(pageDTO pagedto);
+
+    List<freeBoardDTO> dateList(pageDTO pagedto);
+
+    List<QABoardDTO> goodQAList(pageDTO pagedto);
+
+    List<QABoardDTO> dateQAList(pageDTO pagedto);
+
 
 //    List<commentDTO> getAllComments(commentDTO dto);
 }

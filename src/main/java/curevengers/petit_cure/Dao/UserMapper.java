@@ -77,4 +77,12 @@ public interface UserMapper {
 
     List<qaboard_attachDTO> selectQAAttach(String no);
 
+
+    List<freeBoardDTO> visitList(pageDTO pagedto);
+
+    List<freeBoardDTO> dateList(pageDTO pagedto);
+
+    List<QABoardDTO> goodQAList(pageDTO pagedto);
+
+    List<QABoardDTO> dateQAList(pageDTO pagedto);
 }

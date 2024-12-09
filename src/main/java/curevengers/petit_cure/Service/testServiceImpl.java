@@ -183,6 +183,26 @@ public class testServiceImpl implements testService {
         userMapper.updateQABoard(dto);
     }
 
+    @Override
+    public List<freeBoardDTO> visitList(pageDTO pagedto) {
+        return userMapper.visitList(pagedto);
+    }
+
+    @Override
+    public List<freeBoardDTO> dateList(pageDTO pagedto) {
+        return userMapper.dateList(pagedto);
+    }
+
+    @Override
+    public List<QABoardDTO> goodQAList(pageDTO pagedto) {
+        return userMapper.goodQAList(pagedto);
+    }
+
+    @Override
+    public List<QABoardDTO> dateQAList(pageDTO pagedto) {
+        return userMapper.dateQAList(pagedto);
+    }
+
 
 //    @Override
 //    public List<commentDTO> getAllComments(commentDTO dto) {

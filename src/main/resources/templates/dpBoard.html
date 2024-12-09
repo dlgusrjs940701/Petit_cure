@@ -74,7 +74,7 @@
             <td colspan="5">
                 <!-- 이전 페이지 그룹 링크 -->
                 <span th:if="${pageDTO.prev}"></span>
-                <a th:href="@{/depboard(page=${pageDTO.startPage - 1})}"><i
+                <a th:href="@{/depboard(page=${pageDTO.startPage})}"><i
                         class="fa-solid fa-circle-chevron-left"></i></a>
 
                 <!-- 페이지 번호 반복 -->
@@ -86,7 +86,7 @@
 
                 <!-- 다음 페이지 그룹 링크 -->
                 <span th:if="${pageDTO.next}"></span>
-                <a th:href="@{/depboard(page=${pageDTO.endPage + 1})}"><i class="fa-solid fa-circle-chevron-right"></i></a>
+                <a th:href="@{/depboard(page=${pageDTO.endPage})}"><i class="fa-solid fa-circle-chevron-right"></i></a>
             </td>
         </tr>
 

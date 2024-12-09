@@ -11,7 +11,6 @@ import curevengers.petit_cure.common.util.FileDataUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.UrlResource;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,8 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -582,4 +579,51 @@ public class testhome {
         return "redirect:/depboard";
     }
 
+    // 조회수 나열
+    @PostMapping(value = "/visitList")
+    public String visitList(Model model, @ModelAttribute pageDTO pagedto) {
+        if (pagedto.getPage() == null) {
+            pagedto.setPage(1);
+        }
+        pagedto.setTotalCount(testservice.totalCountBoard());
+        List<freeBoardDTO> visitList = testservice.visitList(pagedto);
+        model.addAttribute("list", visitList);
+        return "freeBoard";
+    }
+
+    // 최신순 나열
+    @PostMapping(value = "/dateList")
+    public String dateList(Model model, @ModelAttribute pageDTO pagedto) {
+        if (pagedto.getPage() == null) {
+            pagedto.setPage(1);
+        }
+        pagedto.setTotalCount(testservice.totalCountBoard());
+        List<freeBoardDTO> dateList = testservice.dateList(pagedto);
+        model.addAttribute("list", dateList);
+        return "freeBoard";
+    }
+
+    // 추천순 나열
+    @PostMapping(value = "/goodQAList")
+    public String goodQAList(Model model, @ModelAttribute pageDTO pagedto) {
+        if (pagedto.getPage() == null) {
+            pagedto.setPage(1);
+        }
+        pagedto.setTotalCount(testservice.totalQACountBoard());
+        List<QABoardDTO> goodQAList = testservice.goodQAList(pagedto);
+        model.addAttribute("qalist", goodQAList);
+        return "Q&A";
+    }
+
+    // 최신순 나열
+    @PostMapping(value = "/dateQAList")
+    public String dateQAList(Model model, @ModelAttribute pageDTO pagedto) {
+        if (pagedto.getPage() == null) {
+            pagedto.setPage(1);
+        }
+        pagedto.setTotalCount(testservice.totalQACountBoard());
+        List<QABoardDTO> dateQAList = testservice.dateQAList(pagedto);
+        model.addAttribute("qalist", dateQAList);
+        return "Q&A";
+    }
 }
