@@ -72,6 +72,10 @@ public class dpBoardServiceImpl implements dpBoardService {
     }
 
     @Override
+    public void updatedpComment(int commentNo, String content) throws Exception {
+        dpboardmapper.updatedpComment(commentNo, content);
+      
+    @Override
     public void insertDPAttach(dpboard_attachDTO dpattachDTO) {
         dpboardmapper.insertDPAttach(dpattachDTO);
     }

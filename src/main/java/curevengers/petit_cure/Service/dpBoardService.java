@@ -27,7 +27,10 @@ public interface dpBoardService {
 
     public List<dpBoardDTO> getsearchDPBoards(String title) throws Exception;
 
+    public void updatedpComment(int commentNo, String content) throws Exception;
+
     void insertDPAttach(dpboard_attachDTO dpattachDTO);
 
     List<dpboard_attachDTO> getDPAttach(int no);
+
 }
