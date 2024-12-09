@@ -70,6 +70,10 @@ public class dpBoardServiceImpl implements dpBoardService {
         return dpboardmapper.search(title);
     }
 
+    @Override
+    public void updatedpComment(int commentNo, String content) throws Exception {
+        dpboardmapper.updatedpComment(commentNo, content);
+    }
 
 
 }

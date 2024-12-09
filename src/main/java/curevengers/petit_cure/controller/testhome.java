@@ -12,6 +12,7 @@ import curevengers.petit_cure.Service.healthCheckService;
 import curevengers.petit_cure.Service.testService;
 import curevengers.petit_cure.common.util.FileDataUtil;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.UrlResource;
 import org.springframework.security.core.Authentication;
@@ -184,17 +185,16 @@ public class testhome {
 
     // 우울증게시판 글 자세히 보기
     @GetMapping(value = "/dpview")
-    public String dpview(@RequestParam("no") int no, Model model) throws Exception {
+    public String dpview(@RequestParam("no") int no, Model model, HttpSession session) throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-
         memberDTO memberDTO = membermapper.getMemberByID(username);
-
         dpBoardDTO dto = dpboardservice.selectOne(no);
         List<dpcommentDTO> dpcommentList = dpboardservice.getdpComment(no);
         model.addAttribute("dto", dto);
         model.addAttribute("commentList", dpcommentList);
         model.addAttribute("member", memberDTO);
+        session.setAttribute("id",username);
         return "dpview";
     }
 
@@ -479,6 +479,24 @@ public class testhome {
         List<dpcommentDTO> dpcommentList = dpboardservice.getdpComment(dto.getNo());
         m.addAttribute("dto", updatedto);
         m.addAttribute("commentList", dpcommentList);
+        m.addAttribute("member", memberDTO);
+        return "dpview";
+    }
+
+    // 우울증게시판 댓글 수정
+    @PostMapping(value = "/updatedpComment")
+    public String updatedpComment(@RequestParam("commentNo") int commentNo, @RequestParam("content") String content, @RequestParam("boardNo") int boardNo, Model m) throws Exception {
+        dpboardservice.updatedpComment(commentNo, content);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        memberDTO memberDTO = membermapper.getMemberByID(username);
+
+        dpBoardDTO dpdto = dpboardservice.selectOne(boardNo);
+        System.out.println(dpboardservice.selectOne(boardNo));
+        List<dpcommentDTO> updatedpCommentList = dpboardservice.getdpComment(boardNo);
+        m.addAttribute("dto", dpdto);
+        m.addAttribute("commentList", updatedpCommentList);
         m.addAttribute("member", memberDTO);
         return "dpview";
     }

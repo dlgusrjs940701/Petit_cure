@@ -32,4 +32,6 @@ public interface dpBoardMapper {
     public void deletedpBoard(int no) throws Exception;
 
     public List<dpBoardDTO> search(String title) throws Exception;
+
+    public void updatedpComment(int commentNo, String content) throws Exception;
 }

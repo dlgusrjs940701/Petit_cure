@@ -6,37 +6,50 @@
     <select id="selectOne">
         select * from dpboard where no = #{no}
     </select>
+
     <select id="selectAll">
         select * from dpboard order by date desc limit 10
     </select>
+
     <select id="countAll">
         select count(*) from dpboard
     </select>
-    <insert id="insert">
-        insert into dpboard values (nextval(dpboardno),#{id},#{password},#{title},#{content},default,default)
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="no">
+        insert into dpboard values (nextval(dpboardno),#{id},#{password},#{title},#{content},default,default,default)
     </insert>
+
     <update id="updateGoodUp">
         update dpboard set good=good + 1 where no = #{no}
     </update>
+
     <update id="updateGoodDown">
         update dpboard set good=good - 1 where no = #{no}
     </update>
+
     <select id="selectdpComment">
         select * from dpcomment where dpboard_no = #{no}
     </select>
+
     <insert id="adddpComment" parameterType="curevengers.petit_cure.Dto.dpcommentDTO">
         insert into dpcomment (id, content, dpboard_no)
         values (#{id}, #{content}, #{dpboard_no})
     </insert>
+
     <update id="updatedpBoard">
         update dpboard set password = #{password}, title = #{title}, content = #{content} where no = #{no}
     </update>
+
     <delete id="deletedpBoard">
         delete from dpboard where no = #{no}
     </delete>
+
     <select id="search">
         select * from dpboard where title like CONCAT('%', #{title}, '%') order by date desc
     </select>
 
+    <update id="updatedpComment">
+        update dpcomment set content = #{content} where no = #{commentNo}
+    </update>
 
 </mapper>
