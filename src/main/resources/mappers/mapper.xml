@@ -19,13 +19,13 @@
     <select id="findAllBoards" resultType="curevengers.petit_cure.Dto.freeBoardDTO">
         SELECT *
         FROM freeboard
-        ORDER BY visit DESC
+        ORDER BY title DESC
         LIMIT #{perPageNum} OFFSET #{startNo}
     </select>
     <select id="findQAAllBoards" resultType="curevengers.petit_cure.Dto.QABoardDTO">
         SELECT *
         FROM qaboard
-        ORDER BY good DESC
+        ORDER BY title DESC
         LIMIT #{perPageNum} OFFSET #{startNo}
     </select>
 
@@ -170,5 +170,33 @@
         select filename, qaboard_no
         from qaboard_attach
         where qaboard_no=#{no}
+    </select>
+
+    <select id="visitList" resultType="curevengers.petit_cure.Dto.freeBoardDTO">
+        SELECT *
+        FROM freeboard
+        ORDER BY visit DESC
+        LIMIT #{perPageNum} OFFSET #{startNo}
+    </select>
+
+    <select id="dateList" resultType="curevengers.petit_cure.Dto.freeBoardDTO">
+        SELECT *
+        FROM freeboard
+        ORDER BY date DESC
+        LIMIT #{perPageNum} OFFSET #{startNo}
+    </select>
+
+    <select id="goodQAList" resultType="curevengers.petit_cure.Dto.QABoardDTO">
+        SELECT *
+        FROM qaboard
+        ORDER BY good DESC
+        LIMIT #{perPageNum} OFFSET #{startNo}
+    </select>
+
+    <select id="dateQAList" resultType="curevengers.petit_cure.Dto.QABoardDTO">
+        SELECT *
+        FROM qaboard
+        ORDER BY date DESC
+        LIMIT #{perPageNum} OFFSET #{startNo}
     </select>
 </mapper>
