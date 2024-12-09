@@ -5,7 +5,7 @@
 <mapper namespace="curevengers.petit_cure.Dao.MemberMapper">
 
     <insert id="insertMember" parameterType="curevengers.petit_cure.Dto.memberDTO">
-        insert into member values (#{id},#{pass},#{name},#{email},#{addr},#{gender},#{age},default,#{phone_num})
+        insert into member values (#{id},#{pass},#{name},#{email},#{addr},#{gender},#{age},#{auth_name},#{phone_num})
     </insert>
 
     <insert id="insertAuth" parameterType="String">

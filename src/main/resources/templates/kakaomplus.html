@@ -58,6 +58,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
+                            <input type="hidden" class="form-control" id="auth_name" name="auth_name" th:value="${member.auth_name}" readonly>
                             <label for="name">이름</label>
                             <input type="text" class="form-control" id="name" name="name" th:value="${member.name}" readonly>
                         </div>
