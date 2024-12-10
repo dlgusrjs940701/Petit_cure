@@ -31,16 +31,26 @@ public interface UserMapper {
 
     void updateVisit(int no);
 
+    // 자유게시판 좋아요
+    int freeupdateGood(int no);     // update는 성공시에 1을 반환, 실패시에는 0을 반환함
+    void freeaddLike(freeboardLikeDTO freeboardLikeDTO);
 
-    int updateGood(int no);     // update는 성공시에 1을 반환, 실패시에는 0을 반환함
-    void addLike(boardLikeDTO boardLikeDTO);
+
+    int freeupdateGoodDown(int no); // update는 성공시에 1을 반환, 실패시에는 0을 반환함;
+    void freedeleteLike(freeboardLikeDTO freeboardLikeDTO);
+
+    freeboardLikeDTO freeselectLike(freeboardLikeDTO freeboardLikeDTO);
+
+    // qa좋아요
+    int qaupdateGood(int no);     // update는 성공시에 1을 반환, 실패시에는 0을 반환함
+    void qaaddLike(qaboardLikeDTO qaboardLikeDTO);
 
 
-    int updateGoodDown(int no); // update는 성공시에 1을 반환, 실패시에는 0을 반환함;
-    void deleteLike(boardLikeDTO boardLikeDTO);
+    int qaupdateGoodDown(int no); // update는 성공시에 1을 반환, 실패시에는 0을 반환함;
+    void qadeleteLike(qaboardLikeDTO qaboardLikeDTO);
     
     // 좋아요 조회
-    boardLikeDTO selectLike(boardLikeDTO boardLikeDTO);
+    qaboardLikeDTO qaselectLike(qaboardLikeDTO qaboardLikeDTO);
 
     int cntBoard();
 
@@ -57,7 +67,12 @@ public interface UserMapper {
 
     void updateReport(int no);
 
+    void updateFreeReport(int no);
+
+    int alertFreeBoard(alertDTO dto);
+
     void updateQAReport(int no);
+
     int alertQAboard(alertDTO alertDTO);
 
 

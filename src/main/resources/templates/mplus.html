@@ -86,7 +86,9 @@
                     </div>
                     <div id="mail_number" style="display: none">
                         <input type="text"  id="number" placeholder="인증번호 입력" >
-                        <input type="button" id="confirmBtn" value="인증번호 확인" onclick="confirmNumber()" >
+                        <input type="button" id="confirmBtn" value="인증번호 확인" onclick="confirmNumber(); Timer()" >
+                        <label for="Timer">남은 시간:</label>
+                        <input id="Timer" type="text" value="" readonly>
                     </div>
                     <div id="comment">
                     </div>
@@ -312,6 +314,7 @@
                 // console.log(status);
             }
         });
+
     }
 
     function confirm(){
@@ -381,5 +384,30 @@
             }
         }).open();
 
+    }
+</script>
+<script>
+    let timer = document.getElementById('Timer');
+    let time = 600000;
+    let min = 10;
+    let sec = 60;
+
+    timer.value = min + ":" + '00';
+
+
+    function Timer(){
+        playtime = setInterval(function (){
+            time = time - 1000;
+            min = time / (60 * 1000);
+
+            if (sec > 0) {
+                sec = sec - 1;
+                timer.value = Math.floor(min) + ':' + sec;
+            }
+            if (sec === 0) {
+                sec = 60;
+                timer.value = Math.floor(min) + ':' + '00';
+            }
+        }, 1000);
     }
 </script>

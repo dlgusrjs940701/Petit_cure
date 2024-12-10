@@ -7,12 +7,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class alertDTO {
-    int alertno;
-    int no;
+public class qaboardLikeDTO {
     String id;
-    String comment;
+    String qaboard_no;
     String date;
-    String alert_cate;
-    String write_id;
 }

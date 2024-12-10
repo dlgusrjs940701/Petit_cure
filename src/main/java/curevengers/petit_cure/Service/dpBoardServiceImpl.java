@@ -1,10 +1,8 @@
 package curevengers.petit_cure.Service;
 
 import curevengers.petit_cure.Dao.dpBoardMapper;
-import curevengers.petit_cure.Dto.dpBoardDTO;
-import curevengers.petit_cure.Dto.dpboard_attachDTO;
-import curevengers.petit_cure.Dto.dpcommentDTO;
-import curevengers.petit_cure.Dto.pageDTO;
+import curevengers.petit_cure.Dto.*;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,13 +40,25 @@ public class dpBoardServiceImpl implements dpBoardService {
     }
 
     @Override
-    public void updateGoodUP(int no) throws Exception {
-        dpboardmapper.updateGoodUp(no);
+    @Transactional
+    public int updateGoodUP(int no) {
+        return dpboardmapper.updateGoodUp(no);
     }
 
     @Override
-    public void updateGoodDown(int no) throws Exception {
-        dpboardmapper.updateGoodDown(no);
+    public void addLike(dpboardLikeDTO dpboardLikeDTO) {
+        dpboardmapper.addLike(dpboardLikeDTO);
+    }
+
+    @Override
+    @Transactional
+    public int updateGoodDown(int no) {
+        return dpboardmapper.updateGoodDown(no);
+    }
+
+    @Override
+    public void deleteLike(dpboardLikeDTO dpboardLikeDTO) {
+        dpboardmapper.deleteLike(dpboardLikeDTO);
     }
 
     @Override
@@ -92,5 +102,24 @@ public class dpBoardServiceImpl implements dpBoardService {
         dpboardmapper.deletedpBoardComment(dto);
     }
 
+    @Override
+    public List<dpBoardDTO> gooddpList(pageDTO pagedto) throws Exception{
+        return dpboardmapper.gooddpList(pagedto);
+    }
 
+    @Override
+    public List<dpBoardDTO> datedpList(pageDTO pagedto) throws Exception{
+        return dpboardmapper.datedpList(pagedto);
+    }
+
+    @Override
+    public int alertdpReport(alertDTO alertDTO){
+        dpboardmapper.updatedpReport(alertDTO.getNo());
+        return dpboardmapper.alertdpBoard(alertDTO);
+    }
+
+    @Override       //  좋아요 조회
+    public dpboardLikeDTO dpgetBoardLike(dpboardLikeDTO dpboardLikeDTO) {
+        return dpboardmapper.dpselectLike(dpboardLikeDTO);
+    }
 }

@@ -15,9 +15,9 @@ public interface dpBoardService {
 
     public List<dpcommentDTO> getdpComment(int no) throws Exception;
 
-    public void updateGoodUP(int no) throws Exception;
+    public int updateGoodUP(int no);
 
-    public void updateGoodDown(int no) throws Exception;
+    public int updateGoodDown(int no);
 
     public void adddpComment(dpcommentDTO dto) throws Exception;
 
@@ -34,4 +34,16 @@ public interface dpBoardService {
     List<dpboard_attachDTO> getDPAttach(int no);
 
     public void deletedpBoardComment(dpcommentDTO dto) throws Exception;
+
+    List<dpBoardDTO> gooddpList(pageDTO pagedto) throws Exception;
+
+    List<dpBoardDTO> datedpList(pageDTO pagedto) throws Exception;
+
+    int alertdpReport(alertDTO alertDTO);
+
+    void addLike(dpboardLikeDTO dpboardLikeDTO);
+
+    void deleteLike(dpboardLikeDTO dpboardLikeDTO);
+
+    dpboardLikeDTO dpgetBoardLike(dpboardLikeDTO dpboardLikeDTO);
 }

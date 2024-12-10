@@ -89,31 +89,60 @@ public class testServiceImpl implements testService {
         userMapper.updateVisit(no);
     }
 
+
+    // 좋아요 구현
     @Override
     @Transactional
-    public int updateGood(int no) {
-        return userMapper.updateGood(no);
+    public int freeupdateGood(int no) {
+        return userMapper.freeupdateGood(no);
     }
 
     @Override
-    public void addLike(boardLikeDTO boardLikeDTO) {
-        userMapper.addLike(boardLikeDTO);
+    public void freeaddLike(freeboardLikeDTO freeboardLikeDTO) {
+        userMapper.freeaddLike(freeboardLikeDTO);
     }
 
     @Override
     @Transactional
-    public int updateGoodDown(int no) {
-        return userMapper.updateGoodDown(no);
+    public int freeupdateGoodDown(int no) {
+        return userMapper.freeupdateGoodDown(no);
     }
 
     @Override
-    public void deleteLike(boardLikeDTO boardLikeDTO) {
-        userMapper.deleteLike(boardLikeDTO);
+    public void freedeleteLike(freeboardLikeDTO freeboardLikeDTO) {
+        userMapper.freedeleteLike(freeboardLikeDTO);
     }
 
     @Override       //  좋아요 조회
-    public boardLikeDTO getBoardLike(boardLikeDTO boardLikeDTO) {
-        return userMapper.selectLike(boardLikeDTO);
+    public freeboardLikeDTO freegetBoardLike(freeboardLikeDTO freeboardLikeDTO) {
+        return userMapper.freeselectLike(freeboardLikeDTO);
+    }
+
+    @Override
+    @Transactional
+    public int qaupdateGood(int no) {
+        return userMapper.qaupdateGood(no);
+    }
+
+    @Override
+    public void qaaddLike(qaboardLikeDTO qaboardLikeDTO) {
+        userMapper.qaaddLike(qaboardLikeDTO);
+    }
+
+    @Override
+    @Transactional
+    public int qaupdateGoodDown(int no) {
+        return userMapper.qaupdateGoodDown(no);
+    }
+
+    @Override
+    public void qadeleteLike(qaboardLikeDTO qaboardLikeDTO) {
+        userMapper.qadeleteLike(qaboardLikeDTO);
+    }
+
+    @Override       //  좋아요 조회
+    public qaboardLikeDTO qagetBoardLike(qaboardLikeDTO qaboardLikeDTO) {
+        return userMapper.qaselectLike(qaboardLikeDTO);
     }
 
     @Override
@@ -147,19 +176,15 @@ public class testServiceImpl implements testService {
     }
 
     @Override
-    public void updateReport(int no) {
-        userMapper.updateReport(no);
+    public int alertFreeReport(alertDTO dto) {
+        userMapper.updateFreeReport(dto.getNo());
+        return userMapper.alertFreeBoard(dto);
     }
 
     @Override           // Q&A 게시판 신고기능
     public int alertQAReport(alertDTO alertDTO) {
         userMapper.updateQAReport(alertDTO.getNo());
         return userMapper.alertQAboard(alertDTO);
-    }
-
-    @Override
-    public void updateDPReport(int no) {
-        userMapper.updateDPReport(no);
     }
 
     @Override
