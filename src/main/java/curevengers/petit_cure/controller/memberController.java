@@ -56,6 +56,9 @@ public class memberController {
     // 회원가입버튼 - 정보 전달
     @PostMapping(value = "/memplus")
     public String memplus(@ModelAttribute memberDTO memberdto) {
+        if(memberdto.getAuth_name()==null) {
+            memberdto.setAuth_name("USER");
+        }
         userservice.signup(memberdto);
         return "redirect:/login";
     }

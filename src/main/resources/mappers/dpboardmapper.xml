@@ -19,13 +19,27 @@
         insert into dpboard values (nextval(dpboardno),#{id},#{password},#{title},#{content},default,default,default)
     </insert>
 
+<!--    우울증게시판 좋아요 구현 -->
     <update id="updateGoodUp">
         update dpboard set good=good + 1 where no = #{no}
     </update>
 
+    <insert id="addLike">
+        insert into dplike values (#{id}, #{dpboard_no}, default)
+    </insert>
+
     <update id="updateGoodDown">
         update dpboard set good=good - 1 where no = #{no}
     </update>
+
+    <delete id="deleteLike">
+        delete from dplike where id=#{id} and dpboard_no=#{dpboard_no}
+    </delete>
+
+    <select id="dpselectLike">
+        select * from dplike where id=#{id} and dpboard_no=#{dpboard_no}
+    </select>
+<!--    좋아요 구현 끝 -->
 
     <select id="selectdpComment">
         select * from dpcomment where dpboard_no = #{no}
@@ -66,5 +80,30 @@
     <delete id="deletedpBoardComment">
         delete from dpcomment where no = #{no} and dpboard_no = #{dpboard_no}
     </delete>
+
+    <select id="gooddpList">
+        SELECT *
+        FROM dpboard
+        ORDER BY good DESC
+        LIMIT #{perPageNum} OFFSET #{startNo}
+    </select>
+
+    <select id="datedpList">
+        SELECT *
+        FROM dpboard
+        ORDER BY date DESC
+        LIMIT #{perPageNum} OFFSET #{startNo}
+    </select>
+
+    <insert id="alertdpBoard">
+        insert into alertboard (alertno, no, alert_cate, id, comment, date, write_id)
+        values (nextval(alert_no),#{no},#{alert_cate},#{id},#{comment},default,#{write_id})
+    </insert>
+
+    <update id="updatedpReport" parameterType="int">
+        update dpboard
+        set report=report + 1
+        where no = #{no}
+    </update>
 
 </mapper>

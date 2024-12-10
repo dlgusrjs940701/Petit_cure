@@ -7,8 +7,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class boardLikeDTO {
+public class dpboardLikeDTO {
     String id;
-    String qaboard_no;
+    String dpboard_no;
     String date;
 }
