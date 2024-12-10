@@ -98,5 +98,18 @@ public class memberController {
         return "MyPage";
     }
 
+    // 회원수정/탈퇴 할 떄 다시 한번 확인하는 창
+    @GetMapping(value = "/usermodify")
+    public String usermodify() {
+        return "memberupdate";
+    }
+
+    @GetMapping(value = "/usermod")
+    public String usermod(Model m) {
+
+        return "member";
+    }
+
+
 }
 
