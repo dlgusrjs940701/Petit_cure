@@ -36,13 +36,22 @@ public interface testService {
     public void updateVisit(int no);
 
     // 좋아요 구현
-    int updateGood(int no);
-    void addLike(boardLikeDTO boardLikeDTO);
+    int freeupdateGood(int no);
+    void freeaddLike(freeboardLikeDTO freeboardLikeDTO);
     // 좋아요 취소 구현
-    int updateGoodDown(int no);
-    void deleteLike(boardLikeDTO boardLikeDTO);
+    int freeupdateGoodDown(int no);
+    void freedeleteLike(freeboardLikeDTO freeboardLikeDTO);
     // 좋아요 조회
-    boardLikeDTO getBoardLike(boardLikeDTO boardLikeDTO);
+    freeboardLikeDTO freegetBoardLike(freeboardLikeDTO freeboardLikeDTO);
+
+    // 좋아요 구현
+    int qaupdateGood(int no);
+    void qaaddLike(qaboardLikeDTO qaboardLikeDTO);
+    // 좋아요 취소 구현
+    int qaupdateGoodDown(int no);
+    void qadeleteLike(qaboardLikeDTO qaboardLikeDTO);
+    // 좋아요 조회
+    qaboardLikeDTO qagetBoardLike(qaboardLikeDTO qaboardLikeDTO);
 
 
     int totalCountBoard();
@@ -57,11 +66,9 @@ public interface testService {
 
     List<freecommentDTO> getFreeComment(String no);
 
-    void updateReport(int no);      // 자유게시판 신고
+    int alertFreeReport(alertDTO dto);
 
     int alertQAReport(alertDTO alertDTO);       // Q&A 게시판 신고
-
-    void updateDPReport(int no);        // 우울증 게시판 신고
 
     void insertAttach(freeboard_attachDTO attachDTO);
 

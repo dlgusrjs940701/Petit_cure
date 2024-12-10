@@ -60,29 +60,55 @@
         set visit=visit + 1
         where no = #{no}
     </update>
-    <!-- 좋아요 구현 -->
-    <update id="updateGood" parameterType="int">
+
+    <!-- 자유게시판 좋아요 구현 -->
+    <update id="freeupdateGood" parameterType="int">
+        update freeboard
+        set good=good + 1
+        where no = #{no}
+    </update>
+    <insert id="freeaddLike">
+        insert into freelike values (#{id}, #{freeboard_no}, default)
+    </insert>
+
+    <!-- 자유게시판 좋아요 취소 구현 -->
+    <update id="freeupdateGoodDown" parameterType="int">
+        update freeboard
+        set good=good - 1
+        where no = #{no}
+    </update>
+    <delete id="freedeleteLike">
+        delete from freelike where id=#{id} and freeboard_no=#{freeboard_no}
+    </delete>
+
+    <!-- 자유게시판 좋아요 조회 -->
+    <select id="freeselectLike">
+        select * from freelike where id=#{id} and freeboard_no=#{freeboard_no}
+    </select>
+
+    <!-- Q&A게시판 좋아요 구현 -->
+    <update id="qaupdateGood" parameterType="int">
         update qaboard
         set good=good + 1
         where no = #{no}
     </update>
-    <insert id="addLike">
+    <insert id="qaaddLike">
         insert into qalike values (#{id}, #{qaboard_no}, default)
     </insert>
 
 
-    <!-- 좋아요 취소 구현 -->
-    <update id="updateGoodDown" parameterType="int">
+    <!-- Q&A게시판 좋아요 취소 구현 -->
+    <update id="qaupdateGoodDown" parameterType="int">
         update qaboard
         set good=good - 1
         where no = #{no}
     </update>
-    <delete id="deleteLike">
+    <delete id="qadeleteLike">
         delete from qalike where id=#{id} and qaboard_no=#{qaboard_no}
     </delete>
 
-    <!-- 좋아요 조회 -->
-    <select id="selectLike">
+    <!-- Q&A게시판 좋아요 조회 -->
+    <select id="qaselectLike">
         select * from qalike where id=#{id} and qaboard_no=#{qaboard_no}
     </select>
 
@@ -125,11 +151,16 @@
     </select>
 
     <!-- 신고하기 -->
-    <update id="updateReport" parameterType="int">
+    <update id="updateFreeReport" parameterType="int">
         update freeboard
         set report=report + 1
         where no = #{no}
     </update>
+
+    <insert id="alertFreeBoard">
+        insert into alertboard (alertno, no, alert_cate, id, comment, date, write_id)
+        values (nextval(alert_no),#{no},#{alert_cate},#{id},#{comment},default,#{write_id})
+    </insert>
 
     <update id="updateQAReport" parameterType="int">
         update qaboard

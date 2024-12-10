@@ -56,6 +56,9 @@ public class memberController {
     // 회원가입버튼 - 정보 전달
     @PostMapping(value = "/memplus")
     public String memplus(@ModelAttribute memberDTO memberdto) {
+        if(memberdto.getAuth_name()==null) {
+            memberdto.setAuth_name("USER");
+        }
         userservice.signup(memberdto);
         return "redirect:/login";
     }
@@ -123,6 +126,25 @@ public class memberController {
     }
 
 
+    // 메인화면세어 자유게시판 최고조회글에 있는 버튼을 누르면 자유게시판으로 ㄱㄱ
+    @GetMapping(value = "/freeBO")
+    public String freeBO(Model m) {
+
+        return "redirect:/freeboard";
+    }
+
+    // 메인화면세어 Q&A게시판 최고조회글에 있는 버튼을 누르면 자유게시판으로 ㄱㄱ
+    @GetMapping(value = "/Q&ABO")
+    public String QABO(Model m) {
+        return "redirect:/qanda";
+    }
+
+    // 메인화면세어 우울증게시판 최고조회글에 있는 버튼을 누르면 자유게시판으로 ㄱㄱ
+    @GetMapping(value = "/dpBO")
+    public String dpBO(Model m) {
+
+        return "redirect:/depboard";
+    }
 
 }
 
