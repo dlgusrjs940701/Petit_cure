@@ -1,5 +1,6 @@
 package curevengers.petit_cure.security.Provider;
 
+import curevengers.petit_cure.security.userdetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -14,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import javax.management.relation.Role;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +23,7 @@ import java.util.List;
 public class authenticationProvider implements AuthenticationProvider {
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private userdetailsService userDetailsService;
 
     private BCryptPasswordEncoder passwordEncoder;
 
@@ -44,14 +46,19 @@ public class authenticationProvider implements AuthenticationProvider {
             throw new BadCredentialsException("Bad credentials");
         }
 
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("USER"));
+        System.out.println(userDetails.getAuthorities()+"/ user생성 단계에서 저장된 authorities값");
 
-        System.out.println(authorities.toString());
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        if(userDetailsService.confirmPhone(username)!=null){
+            authorities.add(new SimpleGrantedAuthority("MEMBER"));
+        }else if(userDetailsService.confirmPhone(username)==null){
+            authorities.add(new SimpleGrantedAuthority("USER"));
+        }
+        System.out.println(authorities.toString()+"/ ----------권한 확인용");
+
 
 //        return new UsernamePasswordAuthenticationToken(userDetails.getUsername(),userDetails.getPassword(),userDetails.getAuthorities());
         return new UsernamePasswordAuthenticationToken(userDetails,authentication.getCredentials(),authorities);
-
     }
 
     @Override

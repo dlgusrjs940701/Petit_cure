@@ -23,23 +23,24 @@ public class userdetailsService implements UserDetailsService {
         System.out.println(username+"(loadUserByname)");
         memberDTO memberdto = userService.getMemberById(username);
         UserDetails user = null;
-        if(memberdto.getPass()!=null){
-            user = User.withUsername(memberdto.getId())
-                    .password(memberdto.getPass())
-                    .authorities(memberdto.getAuth_name())
-                    .build();
-        }else{
-            user = User.withUsername(memberdto.getId())
-                    .password(memberdto.getEmail())
-                    .authorities(memberdto.getAuth_name())
-                    .build();
-        }
+
+        user = User.withUsername(memberdto.getId())
+                .password(memberdto.getPass())
+                .authorities(memberdto.getAuth_name())
+                .build();
 
         if(user == null){
             throw new UsernameNotFoundException("User not found");
         }
 
         return user;
+    }
+
+
+    public String confirmPhone(String username) throws UsernameNotFoundException {
+        System.out.println(username+"(confirmPhone)");
+        String phone = userService.getMemberById(username).getPhone_num();
+        return phone;
     }
 
 

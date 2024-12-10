@@ -72,6 +72,11 @@ public class dpBoardServiceImpl implements dpBoardService {
     }
 
     @Override
+    public void updatedpComment(int commentNo, String content) throws Exception {
+        dpboardmapper.updatedpComment(commentNo, content);
+    }
+
+    @Override
     public void insertDPAttach(dpboard_attachDTO dpattachDTO) {
         dpboardmapper.insertDPAttach(dpattachDTO);
     }
@@ -79,6 +84,12 @@ public class dpBoardServiceImpl implements dpBoardService {
     @Override
     public List<dpboard_attachDTO> getDPAttach(int no) {
         return dpboardmapper.selectdpattach(no);
+    }
+
+    @Override
+    public void deletedpBoardComment(dpcommentDTO dto) throws Exception {
+        System.out.println(dto.toString());
+        dpboardmapper.deletedpBoardComment(dto);
     }
 
 

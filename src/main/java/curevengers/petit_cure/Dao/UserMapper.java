@@ -32,10 +32,15 @@ public interface UserMapper {
     void updateVisit(int no);
 
 
-    void updateGood(int no);
+    int updateGood(int no);     // update는 성공시에 1을 반환, 실패시에는 0을 반환함
+    void addLike(boardLikeDTO boardLikeDTO);
 
-    void updateGoodDown(int no);
 
+    int updateGoodDown(int no); // update는 성공시에 1을 반환, 실패시에는 0을 반환함;
+    void deleteLike(boardLikeDTO boardLikeDTO);
+    
+    // 좋아요 조회
+    boardLikeDTO selectLike(boardLikeDTO boardLikeDTO);
 
     int cntBoard();
 
@@ -53,11 +58,16 @@ public interface UserMapper {
     void updateReport(int no);
 
     void updateQAReport(int no);
+    int alertQAboard(alertDTO alertDTO);
+
 
     void updateDPReport(int no);
 
     void insertAttach(freeboard_attachDTO attachDTO);
 
+
+    // 자유게시판 글 수정
+    void updateBoard(freeBoardDTO dto);
 
     // Q&A게시판 글 수정
     void updateQABoard(QABoardDTO dto);
@@ -68,13 +78,25 @@ public interface UserMapper {
     // Q&A게시판 글 삭제
     void deleteQABoard(String no);
 
-    // 자유게시판 글 수정
-    void updateBoard(freeBoardDTO dto);
-
     void insertQAAttach(qaboard_attachDTO qaattachDTO);
 
     List<freeboard_attachDTO> selectAttach(String no);
 
     List<qaboard_attachDTO> selectQAAttach(String no);
 
+    void updateComment(freecommentDTO dto);
+
+    void updateqaComment(qacommentDTO dto);
+
+    void deleteComment(freecommentDTO dto);
+
+    void deleteqaComment(qacommentDTO dto);
+
+    List<freeBoardDTO> visitList(pageDTO pagedto);
+
+    List<freeBoardDTO> dateList(pageDTO pagedto);
+
+    List<QABoardDTO> goodQAList(pageDTO pagedto);
+
+    List<QABoardDTO> dateQAList(pageDTO pagedto);
 }

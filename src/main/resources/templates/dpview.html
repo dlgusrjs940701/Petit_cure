@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,8 +12,8 @@
 </head>
 <body>
     <!-- main화면 include 설정 -->
-    <div th:include="main::header"></div>
-    <div th:include="main::nav"></div>
+    <div th:include="~{main::header}"></div>
+    <div th:include="~{main::nav}"></div>
     <section>
         <div class="container mt-4">
             <div class="title-container mb-4">
@@ -28,12 +28,12 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title">수정</h4>
+                            <h4 class="modal-title">게시글 수정</h4>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
                         <div class="modal-body">
-                            <label for="password1">게시글 비밀번호</label>
-                            <input type="text" id="password1" placeholder="게시글 비밀번호를 입력해주세요." class="form-control" name="password" required>
+                            <label for="password1">비밀번호</label>
+                            <input type="text" id="password1" placeholder="비밀번호를 입력해주세요." class="form-control" name="password" required>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="checkPasswordUpdate()">확인</button>
@@ -51,8 +51,8 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
                         <div class="modal-body">
-                            <label for="password2">게시글 비밀번호</label>
-                            <input type="text" id="password2" placeholder="게시글 비밀번호를 입력해주세요." class="form-control" name="password" required>
+                            <label for="password2">비밀번호</label>
+                            <input type="text" id="password2" placeholder="비밀번호를 입력해주세요." class="form-control" name="password" required>
                         </div>
                         <div class="modal-footer" style="float: right">
                             <button type="submit" class="btn btn-success" onclick="checkPasswordDelete()" data-bs-dismiss="modal">확인</button>
@@ -101,15 +101,60 @@
                         <tr>
                             <th>작성자</th>
                             <th>작성내용</th>
+                            <th>수정 / 삭제</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="comment : ${commentList}">
-                            <td th:text="${comment.id}"></td>
-                            <td th:text="${comment.content}"></td>
+                            <td th:text="${comment.id}" style="width: 20%"></td>
+                            <td th:text="${comment.content}" style="width: 60%"></td>
+                            <td style="width: 20%" th:if="${comment.id} == ${session.id}">
+                                <button type="submit" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#updateComment" onclick="tossno(this.value)" th:value="${comment.no}">수정</button>
+                                <button type="submit" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#deleteComment" onclick="tossno(this.value)" th:value="${comment.no}">삭제</button>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
+                </div>
+                <div class="modal" id="updateComment">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">댓글 수정</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <label for="id3">작성자 ID</label>
+                                <input type="text" id="id3" placeholder="ID를 입력해주세요." class="form-control" name="id" readonly required>
+                                <label for="password3">비밀번호</label>
+                                <input type="password" id="password3" placeholder="비밀번호를 입력해주세요." class="form-control" name="password" required>
+                                <label for="content3">작성내용</label>
+                                <input type="text" id="content3" placeholder="작성내용을 입력해주세요." class="form-control" name="content" required>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="checkCommentPasswordUpdate()">확인</button>
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" style="margin-top: 4px">취소</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal" id="deleteComment">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">삭제</h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <label for="password4">비밀번호</label>
+                                <input type="text" id="password4" placeholder="비밀번호를 입력해주세요." class="form-control" name="password" required>
+                            </div>
+                            <div class="modal-footer" style="float: right">
+                                <button type="submit" class="btn btn-success" onclick="checkCommentPasswordDelete()" data-bs-dismiss="modal">확인</button>
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" style="margin-top: 4px">취소</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="comment-section mt-5">
                     <h4><strong>댓글쓰기</strong></h4>
@@ -206,6 +251,86 @@
         } else {
             alert("비밀번호가 틀렸습니다.")
             document.getElementById("password2").value = null;
+        }
+    }
+
+</script>
+<script th:inline="javascript">
+    let commentNo;
+    let boardNo;
+    function tossno(num) {
+        let commentList = /*[[${commentList}]]*/ {};
+        for (let i = 0; i<commentList.length; i++) {
+            if (commentList[i].no === num) {
+                document.getElementsByName("id")[0].value = commentList[i].id;
+                document.getElementsByName("content")[0].value = commentList[i].content;
+                commentNo = num;
+                boardNo = commentList[i].dpboard_no;
+                break;
+            }
+        }
+    }
+    function checkCommentPasswordUpdate() {
+        if (document.getElementById("checkpass").value == document.getElementById("password3").value) {
+            let form = document.createElement('form');
+            form.setAttribute('action', '/updatedpComment');
+            form.setAttribute('method', 'post');
+
+            let data1 = document.createElement('input');
+            let data2 = document.createElement('input');
+            let data3 = document.createElement('input');
+
+            data1.setAttribute('name', 'commentNo');
+            data1.setAttribute('value', commentNo);
+
+            data2.setAttribute('name', 'content');
+            data2.setAttribute('value', document.getElementsByName("content")[0].value);
+
+            data3.setAttribute('name', 'boardNo');
+            data3.setAttribute('value', boardNo);
+
+            form.appendChild(data1);
+            form.appendChild(data2);
+            form.appendChild(data3);
+
+            document.body.appendChild(form);
+
+            form.submit();
+
+            alert("수정되었습니다.")
+        } else {
+            alert("비밀번호가 틀렸습니다.")
+            document.getElementById("password3").value = null;
+        }
+    }
+    function checkCommentPasswordDelete() {
+        if (document.getElementById("checkpass").value == document.getElementById("password4").value) {
+            let form = document.createElement('form');
+            form.setAttribute('action', '/deletedpBoardComment');
+            form.setAttribute('method', 'post');
+
+            let data1 = document.createElement('input');
+            let data2 = document.createElement('input');
+
+            data1.setAttribute('name', 'boardNo');
+            data1.setAttribute('value', boardNo);
+
+            data2.setAttribute('name', 'commentNo');
+            data2.setAttribute('value', commentNo);
+
+            form.appendChild(data1);
+            form.appendChild(data2);
+
+            document.body.appendChild(form);
+
+            console.log(boardNo+"/"+commentNo)
+
+            form.submit();
+
+            alert("삭제되었습니다.")
+        } else {
+            alert("비밀번호가 틀렸습니다.")
+            document.getElementById("password4").value = null;
         }
     }
 </script>

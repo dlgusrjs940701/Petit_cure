@@ -9,8 +9,8 @@ import curevengers.petit_cure.Dto.testDto;
 import curevengers.petit_cure.Service.*;
 import curevengers.petit_cure.common.util.FileDataUtil;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.UrlResource;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -21,8 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -197,7 +195,6 @@ public class testhome {
         testservice.updateVisit(Integer.parseInt(no));
         List<freecommentDTO> freecommentFreeList = testservice.getFreeComment(no);
         List<freeboard_attachDTO> attachList = testservice.getAttach(no);
-//        System.out.println("kkkkkk " + attachList);
         model.addAttribute("dto", board);
         model.addAttribute("commentFreeList", freecommentFreeList);
         model.addAttribute("attachList", attachList);
@@ -216,6 +213,16 @@ public class testhome {
         List<qaboard_attachDTO> qaattachList = testservice.getQAAttach(no);
 //        System.out.println("QABoard: " + board);
 //        System.out.println("Comment List: " + qacommentList);
+        boardLikeDTO boardlike = new boardLikeDTO();
+        boardlike.setQaboard_no(no);
+        boardlike.setId(username);
+        boardlike = testservice.getBoardLike(boardlike);
+        System.out.println(boardlike);
+        if(boardlike != null) {
+            model.addAttribute("boardLike", boardlike);
+        }else{
+            model.addAttribute("boardLike", null);
+        }
         model.addAttribute("dto", board);
         model.addAttribute("commentList", qacommentList);
         model.addAttribute("qaattachList", qaattachList);
@@ -225,7 +232,7 @@ public class testhome {
 
     // 우울증게시판 글 자세히 보기
     @GetMapping(value = "/dpview")
-    public String dpview(@RequestParam("no") int no, Model model, @ModelAttribute dpboard_attachDTO dpattachDTO) throws Exception {
+    public String dpview(@RequestParam("no") int no, Model model, @ModelAttribute dpboard_attachDTO dpattachDTO, HttpSession session) throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         memberDTO memberDTO = membermapper.getMemberByID(username);
@@ -236,6 +243,7 @@ public class testhome {
         model.addAttribute("commentList", dpcommentList);
         model.addAttribute("dpattachList", dpattachList);
         model.addAttribute("member", memberDTO);
+        session.setAttribute("id",username);
         return "dpview";
     }
 
@@ -320,6 +328,7 @@ public class testhome {
         String nowId = authentication.getName();
         dto.setId(nowId);
         dto.setResult(dto.getA() + dto.getB() + dto.getC() + dto.getD() + dto.getE() + dto.getF() + dto.getG() + dto.getH() + dto.getI());
+        System.out.println(dto.getResult());
         dpcheckservice.insert(dto);
         dpcheckservice.showOne(dto);
         m.addAttribute("dto", dto);
@@ -374,19 +383,25 @@ public class testhome {
     }
 
     // QA게시판 좋아요 기능
+    @ResponseBody
     @GetMapping(value = "/goodUp")
-    public String goodUp(@RequestParam("no") int no) {
-        testservice.updateGood((no));
-
-        return "redirect:/qaview?no=" + no;
+    public int goodUp(@RequestParam("no") int no, @RequestParam("id") String id) {
+        boardLikeDTO boardLikeDTO = new boardLikeDTO();
+        boardLikeDTO.setId(id);
+        boardLikeDTO.setQaboard_no(String.valueOf(no));
+        testservice.addLike(boardLikeDTO);
+        return testservice.updateGood((no));
     }
 
     // QA게시판 좋아요 취소 기능
+    @ResponseBody
     @GetMapping(value = "/goodDown")
-    public String goodDown(@RequestParam("no") int no) {
-        testservice.updateGoodDown((no));
-
-        return "redirect:/qaview?no=" + no;
+    public int goodDown(@RequestParam("no") int no, @RequestParam("id") String id) {
+        boardLikeDTO boardLikeDTO = new boardLikeDTO();
+        boardLikeDTO.setId(id);
+        boardLikeDTO.setQaboard_no(String.valueOf(no));
+        testservice.deleteLike(boardLikeDTO);
+        return testservice.updateGoodDown((no));
     }
 
     // 우울증게시판 좋아요 기능
@@ -408,20 +423,21 @@ public class testhome {
         return "company";
     }
 
-    // 댓글 기능
+    // 자유게시판 댓글기능
+    @PostMapping(value = "/freecomment")
+    public String freecomment(@ModelAttribute freecommentDTO dto) {
+        testservice.addFreeComment(dto);
+        return "redirect:/freeboard?no=" + dto.getFreeboard_no();
+    }
+
+    // Q&A댓글 기능
     @PostMapping(value = "/comment")
     public String reply(@ModelAttribute qacommentDTO dto) {
 
         testservice.addComment(dto);
 //        List<commentDTO> commentList = testservice.getAllComments(dto);
 //        model.addAttribute("commentList", commentList);
-        return "redirect:/qanda";
-    }
-
-    @PostMapping(value = "/freecomment")
-    public String freecomment(@ModelAttribute freecommentDTO dto) {
-        testservice.addFreeComment(dto);
-        return "redirect:/freeboard";
+        return "redirect:/qaview?no=" + dto.getQaboard_no();
     }
 
 
@@ -429,7 +445,7 @@ public class testhome {
     @PostMapping(value = "/dpcomment")
     public String dpcomment(@ModelAttribute dpcommentDTO dto) throws Exception {
         dpboardservice.adddpComment(dto);
-        return "redirect:/depboard";
+        return "redirect:/dpview?no="+dto.getDpboard_no();
     }
 
     // 자유게시판 신고 기능
@@ -441,12 +457,11 @@ public class testhome {
     }
 
     // QA게시판 신고 기능
-    @GetMapping(value = "/qareport")
-    public String qareport(@RequestParam("no") int no) {
-        testservice.updateQAReport((no));
-
-        return "redirect:/qaview?no=" + no;
-
+    @ResponseBody
+    @PostMapping(value = "/qareport")
+    public int qareport(@ModelAttribute alertDTO alertDTO) {
+        alertDTO.setAlert_cate("Q&A게시판");
+        return testservice.alertQAReport((alertDTO));
     }
 
     // 우울증게시판 신고 기능
@@ -529,13 +544,73 @@ public class testhome {
         dpboardservice.updatedpBoard(dto);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-
+        memberDTO member = userService.getMemberById(username);
+        String pass = member.getPass();
         memberDTO memberDTO = membermapper.getMemberByID(username);
 
         dpBoardDTO updatedto = dpboardservice.selectOne(dto.getNo());
         List<dpcommentDTO> dpcommentList = dpboardservice.getdpComment(dto.getNo());
         m.addAttribute("dto", updatedto);
         m.addAttribute("commentList", dpcommentList);
+        m.addAttribute("member", memberDTO);
+        return "dpview";
+    }
+
+    // 자유게시판 댓글 수정
+    @PostMapping(value = "/updatefreeComment")
+    public String updatefreeComment(@RequestParam("commentNo") int commentNo, @RequestParam("content") String content, @RequestParam("boardNo") int boardNo, Model m) throws Exception {
+        System.out.println(commentNo+"댓글번호"+content+"댓글내용");
+        freecommentDTO commentdto = new freecommentDTO();
+        commentdto.setNo(String.valueOf(commentNo));
+        commentdto.setContent(content);
+        testservice.updateComment(commentdto);
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        String username = authentication.getName();
+//
+//        memberDTO memberDTO = membermapper.getMemberByID(username);
+//
+//        freeBoardDTO dto = testservice.getBoardNo(String.valueOf(boardNo));
+//        List<freecommentDTO> updateCommentList = testservice.getFreeComment(String.valueOf(boardNo));
+//        m.addAttribute("dto", dto);
+//        m.addAttribute("commentList", updateCommentList);
+//        m.addAttribute("member", memberDTO);
+        return "redirect:/view?no="+boardNo;
+    }
+
+    // Q&A게시판 댓글 수정
+    @PostMapping(value = "/updateqaComment")
+    public String updateqaComment(@RequestParam("commentNo") int commentNo, @RequestParam("content") String content, @RequestParam("boardNo") int boardNo, Model m) throws Exception {
+        qacommentDTO qacommentdto = new qacommentDTO();
+        qacommentdto.setNo(String.valueOf(commentNo));
+        qacommentdto.setContent(content);
+        testservice.updateqaComment(qacommentdto);
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        String username = authentication.getName();
+//
+//        memberDTO memberDTO = membermapper.getMemberByID(username);
+//
+//        QABoardDTO dto = testservice.getQABoardNo(String.valueOf(boardNo));
+//        List<qacommentDTO> updateCommentList = testservice.getqaComment(String.valueOf(boardNo));
+//        m.addAttribute("dto", dto);
+//        m.addAttribute("commentList", updateCommentList);
+//        m.addAttribute("member", memberDTO);
+        return "redirect:/qaview?no="+boardNo;
+    }
+
+    // 우울증게시판 댓글 수정
+    @PostMapping(value = "/updatedpComment")
+    public String updatedpComment(@RequestParam("commentNo") int commentNo, @RequestParam("content") String content, @RequestParam("boardNo") int boardNo, Model m) throws Exception {
+        dpboardservice.updatedpComment(commentNo, content);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        memberDTO memberDTO = membermapper.getMemberByID(username);
+
+        dpBoardDTO dpdto = dpboardservice.selectOne(boardNo);
+        System.out.println(dpboardservice.selectOne(boardNo));
+        List<dpcommentDTO> updatedpCommentList = dpboardservice.getdpComment(boardNo);
+        m.addAttribute("dto", dpdto);
+        m.addAttribute("commentList", updatedpCommentList);
         m.addAttribute("member", memberDTO);
         return "dpview";
     }
@@ -562,4 +637,86 @@ public class testhome {
         return "redirect:/depboard";
     }
 
+    // 자유게시판 댓글 삭제기능
+    @PostMapping(value = "/deletefreeBoardComment")
+    public String deletefreeBoardComment(@RequestParam("boardNo") int boardNo, @RequestParam("commentNo") String commentNo) throws Exception {
+        System.out.println(boardNo+"/"+commentNo);
+        freecommentDTO dto = new freecommentDTO();
+        dto.setFreeboard_no(String.valueOf(boardNo));
+        dto.setNo(commentNo);
+        testservice.deletefreeBoardComment(dto);
+        return "redirect:/view?no="+boardNo;
+    }
+
+    // Q&A게시판 댓글 삭제기능
+    @PostMapping(value = "/deleteqaBoardComment")
+    public String deleteqaBoardComment(@RequestParam("boardNo") int boardNo, @RequestParam("commentNo") String commentNo) throws Exception {
+        System.out.println(boardNo+"/"+commentNo);
+        qacommentDTO dto = new qacommentDTO();
+        dto.setQaboard_no(String.valueOf(boardNo));
+        dto.setNo(commentNo);
+        System.out.println(dto.toString());
+        testservice.deleteqaBoardComment(dto);
+        return "redirect:/qaview?no="+boardNo;
+    }
+
+    // 우울증게시판 댓글 삭제기능
+    @PostMapping(value = "/deletedpBoardComment")
+    public String deletedpBoardComment(@RequestParam("boardNo") int boardNo, @RequestParam("commentNo") String commentNo) throws Exception {
+        System.out.println(boardNo+"/"+commentNo);
+        dpcommentDTO dto = new dpcommentDTO();
+        dto.setDpboard_no(boardNo);
+        dto.setNo(commentNo);
+        System.out.println(dto.toString());
+        dpboardservice.deletedpBoardComment(dto);
+        return "redirect:/dpview?no="+boardNo;
+    }
+
+    // 조회수 나열
+    @PostMapping(value = "/visitList")
+    public String visitList(Model model, @ModelAttribute pageDTO pagedto) {
+        if (pagedto.getPage() == null) {
+            pagedto.setPage(1);
+        }
+        pagedto.setTotalCount(testservice.totalCountBoard());
+        List<freeBoardDTO> visitList = testservice.visitList(pagedto);
+        model.addAttribute("list", visitList);
+        return "freeBoard";
+    }
+
+    // 최신순 나열
+    @PostMapping(value = "/dateList")
+    public String dateList(Model model, @ModelAttribute pageDTO pagedto) {
+        if (pagedto.getPage() == null) {
+            pagedto.setPage(1);
+        }
+        pagedto.setTotalCount(testservice.totalCountBoard());
+        List<freeBoardDTO> dateList = testservice.dateList(pagedto);
+        model.addAttribute("list", dateList);
+        return "freeBoard";
+    }
+
+    // 추천순 나열
+    @PostMapping(value = "/goodQAList")
+    public String goodQAList(Model model, @ModelAttribute pageDTO pagedto) {
+        if (pagedto.getPage() == null) {
+            pagedto.setPage(1);
+        }
+        pagedto.setTotalCount(testservice.totalQACountBoard());
+        List<QABoardDTO> goodQAList = testservice.goodQAList(pagedto);
+        model.addAttribute("qalist", goodQAList);
+        return "Q&A";
+    }
+
+    // 최신순 나열
+    @PostMapping(value = "/dateQAList")
+    public String dateQAList(Model model, @ModelAttribute pageDTO pagedto) {
+        if (pagedto.getPage() == null) {
+            pagedto.setPage(1);
+        }
+        pagedto.setTotalCount(testservice.totalQACountBoard());
+        List<QABoardDTO> dateQAList = testservice.dateQAList(pagedto);
+        model.addAttribute("qalist", dateQAList);
+        return "Q&A";
+    }
 }

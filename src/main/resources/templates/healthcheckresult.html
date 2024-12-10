@@ -113,7 +113,7 @@
             </td>
         </tr>
         <tr>
-            <td style="display: none;" id="HTC" onclick="showmap('고콜레스테롤혈증')">
+            <td style="display: none;" id="HTC" onclick="showmap('콜레스테롤')">
                 고콜레스테롤혈증
                 <br>
                 <br>
@@ -125,7 +125,7 @@
             </td>
         </tr>
         <tr>
-            <td style="display: none;" id="HDL" onclick="showmap('낮은HDL콜레스테롤')">
+            <td style="display: none;" id="HDL" onclick="showmap('콜레스테롤')">
                 낮은HDL콜레스테롤
                 <br>
                 <br>
@@ -137,7 +137,7 @@
             </td>
         </tr>
         <tr>
-            <td style="display: none;" id="HTG" onclick="showmap('고중성지방혈증')">
+            <td style="display: none;" id="HTG" onclick="showmap('중성지방')">
                 고중성지방혈증
                 <br>
                 <br>
@@ -187,15 +187,14 @@
             </td>
         </tr>
     </table>
-    <input type="button" value="O" onclick="nowposition()">
 </section>
 
 <div id="map"
      style="width:50%;height:500px; margin-right: auto; margin-left: auto; margin-bottom: 50px; margin-top: 40px; z-index: 2">
     <div id="maplist" class="map_wrap"
          style="position:relative; top: 0; left: 0; bottom: 0; width: 250px;height: 460px; margin: 10px 0 30px 10px; padding: 5px; overflow-y: auto; background: rgba(255,255,255,0.7); z-index: 2; font-size: 12px; border-radius: 10px; display: none">
-        <div id="showPosition"></div>
-
+        <div id="showPosition" style="font-size: 25px">
+        </div>
     </div>
 </div>
 
@@ -269,22 +268,12 @@
         ) {
             document.getElementById("Healthy").style.display == 'block'
         }
-        mapContainer = document.getElementById('map') // 지도를 표시할 div
-        mapOption = {
-            center: new kakao.maps.LatLng(positionObj.latitude, positionObj.longitude), // 지도의 중심좌표
-            level: 10 // 지도의 확대 레벨
-        };
-        map = new kakao.maps.Map(mapContainer, mapOption);
-        // 중심 좌표가 변경될 때마다 새로운 중심 좌표를 콘솔에 출력
-
     }
 </script>
 <script type="text/javascript"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1f161183968c02ef6a4262c0d00a5de3&libraries=services"></script>
 <script>
-
     let positionObj
-    let position1
     navigator.geolocation.getCurrentPosition((position) => {
         positionObj = {
             latitude: position.coords.latitude,
@@ -295,9 +284,22 @@
     var map
 
 
+    let resultDiv = document.getElementById('showPosition'+'');
+
+    let arr = [];
+
+    let iwContent = '<div style="padding:5px;"></div>'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+
+    // 인포윈도우를 생성합니다
+    let infowindow = new kakao.maps.InfoWindow({
+        content : iwContent
+    });
+
+    // let table = document.getElementById('mapinfo');
 
     function showmap(disease) {
-
+        arr = [];
+        resultDiv.innerHTML = '';
         console.log(disease)
         document.getElementById("maplist").style.display = 'block'
         document.getElementById("map").scrollIntoView({behavior: 'smooth'})
@@ -310,12 +312,12 @@
 
         var infowindow = new kakao.maps.InfoWindow({zIndex: 1});
 
-        mapContainer = document.getElementById('map'), // 지도를 표시할 div
-            mapOption = {
-                center: new kakao.maps.LatLng(positionObj.latitude, positionObj.longitude), // 지도의 중심좌표
-                level: 3 // 지도의 확대 레벨
+        mapContainer = document.getElementById('map') // 지도를 표시할 div
+        mapOption = {
+            center: new kakao.maps.LatLng(positionObj.latitude, positionObj.longitude), // 지도의 중심좌표
+            level: 6 // 지도의 확대 레벨
 
-            };
+        };
         map = new kakao.maps.Map(mapContainer, mapOption);
         // 지도를 클릭한 위치에 표출할 마커입니다
         var marker = new kakao.maps.Marker({
@@ -324,21 +326,83 @@
         });
         marker.setMap(map);
 
-        kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
+        let iwContent
 
-            // 클릭한 위도, 경도 정보를 가져옵니다
-            var latlng = mouseEvent.latLng;
+        // kakao.maps.event.addListener(map, 'mousedown', function (mouseEvent) {
+        //
+        //     // 클릭한 위도, 경도 정보를 가져옵니다
+        //     var latlng = mouseEvent.latLng;
+        //
+        //
+        //     // 마커 위치를 클릭한 위치로 옮깁니다
+        //     marker.setPosition(latlng);
+        //
+        //     var message = '<p>중심 좌표는 위도 ' + latlng.getLat() + ', 경도 ' + latlng.getLng() + '입니다</p>';
+        //
+        //     var resultDiv = document.getElementById('showPosition' +
+        //         '');
+        //     resultDiv.innerHTML = message;
+        // })
+        $.ajax({
+            type: 'post',
+            url: "/addmapper", //컨트롤러에 지정한 value값
+            data: {h_type: disease},
+            success: function(data) {
+                var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+                // 마커 이미지의 이미지 크기 입니다
+                var imageSize = new kakao.maps.Size(24, 35);
+                // 마커 이미지를 생성합니다
+                var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+                $(data).each(function (){
+                    arr.push({name : this.h_name, lat : this.h_lat, lng : this.h_lng ,length : Math.sqrt((Math.abs(positionObj.latitude-this.h_lat)*Math.abs(positionObj.latitude-this.h_lat))+((positionObj.longitude-this.h_lng)*(positionObj.longitude-this.h_lng)))})
+                    var marker = new kakao.maps.Marker({
+                        map: map,
+                        title : this.h_name,
+                        position: new kakao.maps.LatLng(this.h_lat,this.h_lng),
+                        image : markerImage,
+                        content : "<div style=\"padding:5px;\">" + this.h_name + "</div>"
+                    })
+                });
+                arr.sort(function(a, b)  {
+                    return a.length - b.length;
+                });
 
-
-            // 마커 위치를 클릭한 위치로 옮깁니다
-            marker.setPosition(latlng);
-
-            var message = '<p>중심 좌표는 위도 ' + latlng.getLat() + ', 경도 ' + latlng.getLng() + '입니다</p>';
-
-            var resultDiv = document.getElementById('showPosition' +
-                '');
-            resultDiv.innerHTML = message;
+                for (let i = 0; i < arr.length; i++) {
+                    var message = arr[i].name;
+                    console.log(message+" 메세지")
+                    let div = document.createElement("div");
+                    div.setAttribute('name',message);
+                    div.setAttribute('lat',arr[i].lat);
+                    div.setAttribute('lng',arr[i].lng);
+                    let textNode = document.createTextNode(message);
+                    div.appendChild(textNode);
+                    div.addEventListener('click', () => centerchange(arr[i].lat, arr[i].lng));
+                    document.getElementById('showPosition').appendChild(div);
+                }
+                console.log(arr[0].name + "/" + arr[0].length +" 0번째 / "+arr[1].name + "/" + arr[1].length +" 1번째");
+            },
+            error: function (request,status,error){
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            }
         })
     }
+</script>
+<script>
+    function centerchange(lat, lng) {
+        console.log(lat+"/"+lng)
+        map.setCenter(new kakao.maps.LatLng(lat, lng));
+        map.setLevel(4);
+    }
+    // 마커에 마우스오버 이벤트를 등록합니다
+    kakao.maps.event.addListener(marker, 'mouseover', function() {
+        // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
+        infowindow.open(map, marker);
+    });
+
+    // 마커에 마우스아웃 이벤트를 등록합니다
+    kakao.maps.event.addListener(marker, 'mouseout', function() {
+        // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
+        infowindow.close();
+    });
 </script>
 </html>

@@ -35,7 +35,13 @@ public interface dpBoardMapper {
 
     public List<dpBoardDTO> search(String title) throws Exception;
 
+
+    public void updatedpComment(int commentNo, String content) throws Exception;
+
     void insertDPAttach(dpboard_attachDTO dpattachDTO);
 
     List<dpboard_attachDTO> selectdpattach(int no);
+
+    public void deletedpBoardComment(dpcommentDTO dto) throws Exception;
+
 }
