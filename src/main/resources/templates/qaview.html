@@ -88,12 +88,16 @@
             <input type="hidden" name="boardlikenum" id="boardlikenum" th:value="${boardLike}"/>
             <div style="margin-left: 75%">
                 <input type="hidden" name="no" id="nowno1" th:value="${dto.no}"/>
+
                 <div style="display: none" id="recommend" th:style="${boardLike == null ? 'display:inline-block' : 'display:none'}">
+
                     <i class="fa-regular fa-thumbs-up fa-3x" type="submit" onclick="good()"></i>
                     <span>추천하기</span>
                 </div>
                 <input type="hidden" name="no" id="nowno2" th:value="${dto.no}"/>
+
                 <div style="display: none" id="unrecommend" th:style="${boardLike != null ? 'display:inline-block' : 'display:none'}">
+
                     <i class="fa-solid fa-thumbs-up fa-3x" type="submit" onclick="good()"></i>
                     <span>추천취소</span>
                 </div>
@@ -273,6 +277,7 @@
     let nowid = document.getElementById('nowid').value;
     let boardlikenum = document.getElementById('boardlikenum').value;
     let no1, no2, goodnum;
+
     let recommend = document.getElementById('recommend');
     let unrecommend = document.getElementById('unrecommend');
     // window.onload = () => {
@@ -288,11 +293,14 @@
     function good(){
 
         console.log(boardlikenum)
+
         goodnum = document.getElementById('goodnum').innerText;
         no1 = document.getElementById('nowno1').value;
         no2 = document.getElementById('nowno2').value;
 
+
         if(recommend.style.display == 'inline-block' && unrecommend.style.display == 'none'){
+
             $.ajax({
                 type: 'GET',
                 url: "/goodUp",
@@ -300,8 +308,10 @@
                     id: nowid},
                 success: function (data){
                     if(data>0) {
+
                         recommend.style.display = 'none';
                         unrecommend.style.display = 'inline-block';
+
                         document.getElementById('goodnum').innerHTML= parseInt(goodnum)+1;
                         alert('추천 완료!');
                     }else{
@@ -320,8 +330,10 @@
                     id: nowid},
                 success: function (data){
                     if(data>0) {
+
                         recommend.style.display = 'inline-block';
                         unrecommend.style.display = 'none';
+
                         document.getElementById('goodnum').innerHTML = parseInt(goodnum)-1;
                         alert('추천 취소!');
                     }else{

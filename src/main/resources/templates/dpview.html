@@ -306,17 +306,24 @@
     function checkCommentPasswordDelete() {
         if (document.getElementById("checkpass").value == document.getElementById("password4").value) {
             let form = document.createElement('form');
-            form.setAttribute('action', '/deletedpComment');
+            form.setAttribute('action', '/deletedpBoardComment');
             form.setAttribute('method', 'post');
 
-            let data = document.createElement('input');
+            let data1 = document.createElement('input');
+            let data2 = document.createElement('input');
 
-            data.setAttribute('name', 'no');
-            data.setAttribute('value', no);
+            data1.setAttribute('name', 'boardNo');
+            data1.setAttribute('value', boardNo);
 
-            form.appendChild(data);
+            data2.setAttribute('name', 'commentNo');
+            data2.setAttribute('value', commentNo);
+
+            form.appendChild(data1);
+            form.appendChild(data2);
 
             document.body.appendChild(form);
+
+            console.log(boardNo+"/"+commentNo)
 
             form.submit();
 

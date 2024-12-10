@@ -33,4 +33,5 @@ public interface dpBoardService {
 
     List<dpboard_attachDTO> getDPAttach(int no);
 
+    public void deletedpBoardComment(dpcommentDTO dto) throws Exception;
 }

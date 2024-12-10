@@ -203,6 +203,26 @@ public class testServiceImpl implements testService {
     }
 
     @Override
+    public void updateComment(freecommentDTO freecommentdto) {
+        userMapper.updateComment(freecommentdto);
+    }
+
+    @Override
+    public void updateqaComment(qacommentDTO qacommentdto) {
+        userMapper.updateqaComment(qacommentdto);
+
+    }
+
+    @Override
+    public void deletefreeBoardComment(freecommentDTO freecommentdto) {
+        userMapper.deleteComment(freecommentdto);
+    }
+
+    @Override
+    public void deleteqaBoardComment(qacommentDTO qacommentdto) {
+        userMapper.deleteqaComment(qacommentdto);
+    
+    @Override
     public List<freeBoardDTO> visitList(pageDTO pagedto) {
         return userMapper.visitList(pagedto);
     }

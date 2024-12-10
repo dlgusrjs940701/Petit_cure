@@ -86,5 +86,11 @@ public class dpBoardServiceImpl implements dpBoardService {
         return dpboardmapper.selectdpattach(no);
     }
 
+    @Override
+    public void deletedpBoardComment(dpcommentDTO dto) throws Exception {
+        System.out.println(dto.toString());
+        dpboardmapper.deletedpBoardComment(dto);
+    }
+
 
 }
