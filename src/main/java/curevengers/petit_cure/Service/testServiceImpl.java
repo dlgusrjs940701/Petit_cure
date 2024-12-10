@@ -243,6 +243,11 @@ public class testServiceImpl implements testService {
         return userMapper.dateQAList(pagedto);
     }
 
+    @Override
+    public List<QABoardDTO> getAgeQABoards(String ageGroup, pageDTO pagedto) {
+        return userMapper.AgeQAList(ageGroup, pagedto);
+    }
+
 
 //    @Override
 //    public List<commentDTO> getAllComments(commentDTO dto) {

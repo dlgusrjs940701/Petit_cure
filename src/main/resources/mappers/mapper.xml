@@ -234,4 +234,12 @@
         LIMIT #{perPageNum} OFFSET #{startNo}
     </select>
 
+    <select id="AgeQAList" parameterType="String" resultType="curevengers.petit_cure.Dto.QABoardDTO">
+        select *
+        from qaboard
+        where `limit` = #{ageGroup}
+    </select>
+
+
+
 </mapper>

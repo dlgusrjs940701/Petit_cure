@@ -99,4 +99,6 @@ public interface UserMapper {
     List<QABoardDTO> goodQAList(pageDTO pagedto);
 
     List<QABoardDTO> dateQAList(pageDTO pagedto);
+
+    List<QABoardDTO> AgeQAList(String ageGroup, pageDTO pagedto);
 }

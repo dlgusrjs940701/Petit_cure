@@ -103,6 +103,8 @@ public interface testService {
 
     List<QABoardDTO> dateQAList(pageDTO pagedto);
 
+    List<QABoardDTO> getAgeQABoards(String ageGroup, pageDTO pagedto);
+
 
 //    List<commentDTO> getAllComments(commentDTO dto);
 }
