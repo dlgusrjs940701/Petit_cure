@@ -32,16 +32,13 @@ public class userdetailsService implements UserDetailsService {
         if(user == null){
             throw new UsernameNotFoundException("User not found");
         }
-
         return user;
     }
 
-
-    public String confirmPhone(String username) throws UsernameNotFoundException {
+    public String confirmMember(String username) throws UsernameNotFoundException {
         System.out.println(username+"(confirmPhone)");
-        String phone = userService.getMemberById(username).getPhone_num();
-        return phone;
+        String auth = userService.getMemberById(username).getAuth_name();
+        return auth;
     }
-
 
 }
