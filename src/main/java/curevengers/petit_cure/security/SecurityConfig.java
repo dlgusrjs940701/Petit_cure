@@ -51,7 +51,7 @@ public class SecurityConfig {
     public static final String[] allowUrls = {
             "/login","/","/mplus","/api/**","/memplus","/idCheck",
             "/css**/**","/resources**/**","/freeboard*","/qanda*","company",
-            "/api/user/**","/api/authenticate","/kakaomplus"
+            "/api/user/**","/api/authenticate","/kakaomplus","/qaboardVisitList","/freeboardVisitList"
     };
 
     public SecurityConfig(AuthenticationFailureHandler failureHandler,AuthenticationSuccessHandler successHandler,
