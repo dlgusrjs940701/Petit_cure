@@ -63,4 +63,8 @@
         where dpboard_no=#{no}
     </select>
 
+    <delete id="deletedpBoardComment">
+        delete from dpcomment where no = #{no} and dpboard_no = #{dpboard_no}
+    </delete>
+
 </mapper>

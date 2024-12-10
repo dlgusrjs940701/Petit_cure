@@ -100,13 +100,13 @@
     </insert>
 
     <select id="selectQAComment" parameterType="String" resultType="curevengers.petit_cure.Dto.qacommentDTO">
-        select id, content
+        select *
         from qacomment
         where qaboard_no = #{no}
     </select>
 
     <select id="selectFreeComment" parameterType="String" resultType="curevengers.petit_cure.Dto.freecommentDTO">
-        select id, content
+        select *
         from freecomment
         where freeboard_no = #{no}
     </select>
@@ -137,7 +137,7 @@
 
 <!--    Q&A게시판 글 수정 -->
     <update id="updateQABoard">
-        update qaboard set
+        update qaboard set  title=#{title}, cate=#{cate}, content=#{content}, visit=0, date=default, report=0 where no=#{no}
     </update>
 
 <!--    자유게시판 글 삭제 -->
@@ -171,4 +171,20 @@
         from qaboard_attach
         where qaboard_no=#{no}
     </select>
+
+    <update id="updateComment">
+        update freecomment set content = #{content} where no = #{no}
+    </update>
+
+    <update id="updateqaComment">
+        update qacomment set content = #{content} where no = #{no}
+    </update>
+
+    <delete id="deleteComment">
+        delete from freecomment where no = #{no}
+    </delete>
+
+    <delete id="deleteqaComment">
+        delete from qacomment where no = #{no}
+    </delete>
 </mapper>

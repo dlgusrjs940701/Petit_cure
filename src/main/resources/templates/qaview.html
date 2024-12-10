@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/freeBoard.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/20d076eb83.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
@@ -15,7 +16,7 @@
 <!-- main화면 include 설정 -->
 <div th:include="main::header"></div>
 <div th:include="main::nav"></div>
-<section>
+<section class="jua-regular">
     <div class="container mt-4">
         <div class="title-container mb-4">
             <h2><strong>게시글 상세보기</strong></h2>
@@ -67,11 +68,12 @@
         <div class="board-detail">
             <h3 th:text="${dto.title}" class="mb-3"></h3>
 
+            <input type="hidden" id="nowid" th:value="${session.id}">
             <div class="meta-info mb-4">
                 <p><strong>작성자:</strong> <span th:text="${dto.id}"></span></p>
                 <input type="hidden" id="checkpass" th:value="${dto.password}"/>
                 <p><strong>카테고리:</strong> <span th:text="${dto.cate}"></span></p>
-                <p><strong>추천수:</strong> <span th:text="${dto.good}"></span></p>
+                <p><strong>추천수:</strong> <span th:text="${dto.good}" th:value="${dto.good}" id="goodnum"></span></p>
                 <p><strong>작성일:</strong> <span th:text="${dto.date}"></span></p>
                 <p><strong>파일:</strong></p>
                 <ul id="fileList">
@@ -80,12 +82,50 @@
                     </li>
                 </ul>
             </div>
-
             <div class="content mb-4">
                 <p th:text="${dto.content}"></p>
             </div>
+            <input type="hidden" name="boardlikenum" id="boardlikenum" th:value="${boardLike}"/>
+            <div style="margin-left: 75%">
+                <input type="hidden" name="no" id="nowno1" th:value="${dto.no}"/>
+                <div style="display: none" id="recommend" >
+                    <i class="fa-regular fa-thumbs-up fa-3x" type="submit" onclick="good()"></i>
+                    <span>추천하기</span>
+                </div>
+                <input type="hidden" name="no" id="nowno2" th:value="${dto.no}"/>
+                <div style="display: none" id="unrecommend">
+                    <i class="fa-solid fa-thumbs-up fa-3x" type="submit" onclick="good()"></i>
+                    <span>추천취소</span>
+                </div>
+                <div id="alert" style="display: inline-block; margin-left: 50px" th:if="${session.id}!=${dto.id}">
+                    <input type="hidden" name="no" th:value="${dto.no}"/>
+                    <i class="fa-solid fa-triangle-exclamation fa-3x" type="submit" data-bs-toggle="modal"
+                       data-bs-target="#singo"></i>
+                    <span>신고하기</span>
+                </div>
+            </div>
+            <div class="modal" id="singo">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">신고하기</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <label for="alert_comment">신고 내용</label>
+                            <input type="text" id="alert_comment" placeholder="신고할 내용을 작성해주세요." class="form-control" name="comment" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="singo()">확인</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" style="margin-top: 4px">취소</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- 댓글 -->
             <div id="comments-container">
+                <h4 style="margin-left: 10px">- 댓글창 -</h4>
                 <table class="table">
                     <thead>
                     <tr>
@@ -101,26 +141,11 @@
                     </tbody>
                 </table>
             </div>
-            <div>
-                <form action="/goodUp" method="get">
-                    <input type="hidden" name="no" th:value="${dto.no}"/>
-                    <button type="submit" class="btn btn-success" onclick="alert('추천 완료!');">추천</button>
-                </form>
-                <form action="/goodDown" method="get">
-                    <input type="hidden" name="no" th:value="${dto.no}"/>
-                    <button type="submit" class="btn btn-danger" onclick="alert('추천 취소!');">추천 취소</button>
-                </form>
-            </div>
 
             <div class="mt-4">
                 <button class="btn btn-secondary" onclick="location.href='/qanda'">뒤로 가기</button>
             </div>
-            <div style="margin-top: 15px">
-                <form action="/qareport" method="get">
-                    <input type="hidden" name="no" th:value="${dto.no}"/>
-                    <button type="submit" class="btn btn-warning" onclick="alert('신고 완료');">신고</button>
-                </form>
-            </div>
+
         </div>
 
 
@@ -243,4 +268,98 @@
             }
         });
     });
+</script>
+<script>
+    let nowid = document.getElementById('nowid').value;
+    let boardlikenum = document.getElementById('boardlikenum').value;
+    let no1, no2, goodnum;
+    let recommend = document.getElementById('recommend')
+    let unrecommend = document.getElementById('unrecommend')
+
+
+    window.onload = () => {
+        console.log(boardlikenum)
+        if (boardlikenum == null){
+            recommend.style.display = 'inline-block';
+            unrecommend.style.display = 'none';
+        } else if (boardlikenum != null){
+            recommend.style.display = 'none';
+            unrecommend.style.display = 'inline-block';
+        }
+    }
+
+    function good(){
+        goodnum = document.getElementById('goodnum').innerText;
+        no1 = document.getElementById('nowno1').value;
+        no2 = document.getElementById('nowno2').value;
+
+        if(boardlikenum==null){
+            $.ajax({
+                type: 'GET',
+                url: "/goodUp",
+                data: {no: no1,
+                    id: nowid},
+                success: function (data){
+                    if(data>0) {
+                        document.getElementById('goodnum').innerHTML= parseInt(goodnum)+1;
+                        alert('추천 완료!');
+                    }else{
+                        alert('추천 실패')
+                    }
+                },
+                error: function (){
+                    alert("에러입니다.");
+                }
+            })
+        }else {
+            $.ajax({
+                type: 'GET',
+                url: "/goodDown",
+                data: {no: no2,
+                    id: nowid},
+                success: function (data){
+                    if(data>0) {
+                        document.getElementById('goodnum').innerHTML = parseInt(goodnum)-1;
+                        alert('추천 취소!');
+                    }else{
+                        alert('추천취소 실패')
+                    }
+                },
+                error: function (){
+                    alert("에러입니다.");
+                }
+            })
+        }
+    }
+</script>
+<script>
+    function singo(){
+        let comment = document.getElementById('alert_comment').value;
+        let id = document.getElementById('nowid').value;
+        let no = document.getElementById('no').value;
+        let alertbutton = document.getElementById('alert');
+
+        if(confirm("신고 내용을 저장하시겠습니까?")){
+            $.ajax({
+                type: 'POST',
+                url: "/qareport",
+                data: {comment: comment,
+                    id: id,
+                    no: no},
+                success: function (data){
+                    if(data > 0){
+                        alertbutton.readOnly = true;
+                        alert("신고가 완료되었습니다.")
+                    }else{
+                        alertbutton.readOnly = false;
+                        alert("신고에 실패하였습니다.")
+                    }
+                },error: function(){
+                    alert("에러입니다.");
+                }
+            })
+        }else{
+            alert("취소되었습니다.");
+        }
+    }
 </script>

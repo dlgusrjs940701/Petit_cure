@@ -42,4 +42,6 @@ public interface dpBoardMapper {
 
     List<dpboard_attachDTO> selectdpattach(int no);
 
+    public void deletedpBoardComment(dpcommentDTO dto) throws Exception;
+
 }

@@ -80,6 +80,17 @@ public interface testService {
     // Q&A게시판 글 수정
     void updateQABoard(QABoardDTO dto);
 
+    // 자유게시판 댓글 수정
+    void updateComment(freecommentDTO freecommentdto);
+
+    // Q&A게시판 댓글 수정
+    void updateqaComment(qacommentDTO qacommentdto);
+
+    // 자유게시판 댓글 삭제
+    void deletefreeBoardComment(freecommentDTO freecommentdto);
+
+    // Q&A게시판 댓글 삭제
+    void deleteqaBoardComment(qacommentDTO qacommentdto);
 
 //    List<commentDTO> getAllComments(commentDTO dto);
 }
