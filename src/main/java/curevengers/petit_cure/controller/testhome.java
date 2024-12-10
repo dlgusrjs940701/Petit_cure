@@ -820,6 +820,22 @@ public class testhome {
         return testservice.goodQAList(pagedto).get(0);
     }
 
+    // 댓글 제한 기능
+    @GetMapping(value = "/filterByAge")
+    public String ageQABoard(@RequestParam("ageGroup") String ageGroup, Model model, pageDTO pagedto) {
+//        memberDTO member = (memberDTO) session.getAttribute("member");
+//        String memberAgeGroup=member.getAge();
+        if (pagedto.getPage() == null) {
+            pagedto.setPage(1);
+        }
+        pagedto.setTotalCount(testservice.totalQACountBoard());
+        List<QABoardDTO> board = testservice.getAgeQABoards(ageGroup, pagedto);
+        model.addAttribute("qalist", board);
+        model.addAttribute("pagedto", pagedto);
+//        model.addAttribute("memberAgeGroup", memberAgeGroup);
+        return "Q&A";
+    }
+
 //    // 메인페이지 자유게시판 글 중 최고 조회수 글 조회
 //    @ResponseBody
 //    @PostMapping(value = "dpboardVisitList")
@@ -830,7 +846,6 @@ public class testhome {
 //
 //        return testservice.visitList(pagedto).get(0);
 //    }
-
 
 
 }

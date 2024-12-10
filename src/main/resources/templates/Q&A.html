@@ -46,6 +46,21 @@
 <div class="container">
     <div class="title-container">
         <h2><strong>Q&A게시판</strong></h2>
+        <form class="age-filter-form" action="filterByAge" method="get">
+            <label for="ageGroup">연령대 선택:</label>
+            <select id="ageGroup" name="ageGroup">
+                <option value="ADM">관리자</option>
+                <option value="00">모두공개</option>
+                <option value="10">10대</option>
+                <option value="20">20대</option>
+                <option th:if="${session.age == '30~39'}" value="30">30대</option>
+                <option th:if="${session.age == '40~49'}" value="40">40대</option>
+                <option th:if="${session.age == '50~59'}" value="50">50대</option>
+                <option th:if="${session.age == '60~69'}" value="60">60대</option>
+                <option th:if="${session.age == '70~79'}" value="70">70대</option>
+            </select>
+            <input type="submit" value="검색" class="search">
+        </form>
         <form class="search-box" action="searchQATitle" method="get">
             <input id="text" type="text" class="input-text" name="title" placeholder="제목으로 검색해주세요">
             <input type="submit" value="검색" class="search">
