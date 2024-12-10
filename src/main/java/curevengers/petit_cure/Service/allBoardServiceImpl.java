@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class testServiceImpl implements testService {
+public class allBoardServiceImpl implements allBoardService {
 
     @Autowired
     UserMapper userMapper;
@@ -44,6 +44,17 @@ public class testServiceImpl implements testService {
             // 예외 로그 출력
             e.printStackTrace();
             throw new RuntimeException("QA게시판 조회에 실패했습니다.");
+        }
+    }
+
+    @Override
+    public List<alertDTO> findalertAllBoards(pageDTO pagedto) {
+        try {
+            return userMapper.findalertAllBoards(pagedto);
+        } catch (Exception e) {
+            // 예외 로그 출력
+            e.printStackTrace();
+            throw new RuntimeException("신고글 조회에 실패했습니다.");
         }
     }
 
@@ -151,10 +162,22 @@ public class testServiceImpl implements testService {
         userMapper.updateReport(no);
     }
 
-    @Override           // Q&A 게시판 신고기능
+    // Q&A 게시판 신고기능
+    @Override           
     public int alertQAReport(alertDTO alertDTO) {
         userMapper.updateQAReport(alertDTO.getNo());
         return userMapper.alertQAboard(alertDTO);
+    }
+    // 게시판 신고관련 내용 조회
+    @Override  
+    public List<alertDTO> selectAlertcomment(alertDTO alertDTO) {
+        return userMapper.selectAlertcomment(alertDTO);
+    }
+    
+    // 게시글이 삭제되면 해당글 관련 신고글도 모두 삭제
+    @Override
+    public void deleteAlert(alertDTO alertDTO) {
+        userMapper.deleteAlert(alertDTO);
     }
 
     @Override
@@ -221,7 +244,8 @@ public class testServiceImpl implements testService {
     @Override
     public void deleteqaBoardComment(qacommentDTO qacommentdto) {
         userMapper.deleteqaComment(qacommentdto);
-    
+    }
+
     @Override
     public List<freeBoardDTO> visitList(pageDTO pagedto) {
         return userMapper.visitList(pagedto);
@@ -242,11 +266,17 @@ public class testServiceImpl implements testService {
         return userMapper.dateQAList(pagedto);
     }
 
+    // 관리자가 현재 신고내역을 조회
+    @Override
+    public List<alertDTO> alertList() {
+        return userMapper.selectAlert();
+    }
+
 
 //    @Override
 //    public List<commentDTO> getAllComments(commentDTO dto) {
 //        return userMapper.findComment(dto);
 //    }
 
-
 }
+

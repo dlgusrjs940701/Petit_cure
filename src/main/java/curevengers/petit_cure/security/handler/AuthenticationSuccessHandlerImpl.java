@@ -20,6 +20,11 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         logger.info("로그인에 성공하였습니다~!!!");
-        response.sendRedirect("/loginsuc");
+        System.out.println(authentication.getAuthorities().stream());
+        if(authentication.getAuthorities().stream().anyMatch(a -> "BLACKLIST".equals(a.getAuthority()))) {
+            response.sendRedirect("/login/error");
+        }else{
+            response.sendRedirect("/loginsuc");
+        }
     }
 }

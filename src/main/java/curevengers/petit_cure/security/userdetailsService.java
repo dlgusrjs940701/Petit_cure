@@ -24,12 +24,12 @@ public class userdetailsService implements UserDetailsService {
         memberDTO memberdto = userService.getMemberById(username);
         UserDetails user = null;
 
-        user = User.withUsername(memberdto.getId())
-                .password(memberdto.getPass())
-                .authorities(memberdto.getAuth_name())
-                .build();
-
-        if(user == null){
+        if(memberdto != null) {
+            user = User.withUsername(memberdto.getId())
+                    .password(memberdto.getPass())
+                    .authorities(memberdto.getAuth_name())
+                    .build();
+        }else{
             throw new UsernameNotFoundException("User not found");
         }
         return user;

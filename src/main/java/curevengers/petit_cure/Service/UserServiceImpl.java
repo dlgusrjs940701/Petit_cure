@@ -2,6 +2,7 @@ package curevengers.petit_cure.Service;
 
 import curevengers.petit_cure.Dao.MemberMapper;
 import curevengers.petit_cure.Dto.AuthVO;
+import curevengers.petit_cure.Dto.blackListDTO;
 import curevengers.petit_cure.Dto.myActivityDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -112,5 +113,20 @@ public class UserServiceImpl implements userService{
     public List<myActivityDTO> getMyActivity(String id) {
         return memberMapper.getMyActivity(id);
     }
+
+
+    // 블랙리스트 대상자 추가 및 정지
+    @Override
+    public int updateBlacklist(memberDTO memberdto) {
+        return memberMapper.updateBlacklist(memberdto);
+    }
+    // 블랙리스트 사유 저장
+    @Override
+    public void addBlacklist(blackListDTO blacklistdto) {
+        memberMapper.addBlacklist(blacklistdto);
+    }
+
+
+
 
 }

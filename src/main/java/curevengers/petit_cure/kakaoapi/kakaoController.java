@@ -113,7 +113,10 @@ public class kakaoController {
         if(member != null) {
             // 이미 존재하는 회원이면 로그인 처리로 넘길 것이다.
             UserDetails userDetails = userdetailsservice.loadUserByUsername(member.getId());
-            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+            // 카카오로 실명 인증을 통하여 회원가입을 한 회원은 MEMBER권한을 자동 부여할 것이다.
+            List<GrantedAuthority> authorities = new ArrayList<>();
+            authorities.add(new SimpleGrantedAuthority("MEMBER"));
+            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, authorities);
             System.out.println(userDetails.getAuthorities() +"---- 콜백자리에서 로그인 한 회원의 권한을 확인");
             //  userDetails.getAuthorities()하면 USER 권한을 확인할 수 있음
             authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

@@ -4,7 +4,7 @@ import curevengers.petit_cure.Dto.*;
 
 import java.util.List;
 
-public interface testService {
+public interface allBoardService {
 
 
 //    int totalCountBoard();
@@ -15,6 +15,8 @@ public interface testService {
     List<freeBoardDTO> getAllFreeBoards(pageDTO pagedto);
 
     List<QABoardDTO> getAllQABoards(pageDTO pagedto);
+
+    List<alertDTO> findalertAllBoards(pageDTO pagedto);
 
     // 게시판 글 자세히보기
     // 게시판 번호에 따름
@@ -60,7 +62,9 @@ public interface testService {
     void updateReport(int no);      // 자유게시판 신고
 
     int alertQAReport(alertDTO alertDTO);       // Q&A 게시판 신고
-
+    List<alertDTO> selectAlertcomment(alertDTO alertDTO);        // 게시판 신고 관련 조회
+    void deleteAlert(alertDTO alertDTO);       // 관리자가 Q&A신고글 삭제시 해당 신고내용도 삭제
+    
     void updateDPReport(int no);        // 우울증 게시판 신고
 
     void insertAttach(freeboard_attachDTO attachDTO);
@@ -103,6 +107,7 @@ public interface testService {
 
     List<QABoardDTO> dateQAList(pageDTO pagedto);
 
+    List<alertDTO> alertList();
 
 //    List<commentDTO> getAllComments(commentDTO dto);
 }

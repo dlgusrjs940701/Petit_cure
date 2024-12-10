@@ -71,6 +71,7 @@
             <input type="hidden" id="nowid" th:value="${session.id}">
             <div class="meta-info mb-4">
                 <p><strong>작성자:</strong> <span th:text="${dto.id}"></span></p>
+                <input type="hidden" th:value="${dto.id}" id="write_id"/>
                 <input type="hidden" id="checkpass" th:value="${dto.password}"/>
                 <p><strong>카테고리:</strong> <span th:text="${dto.cate}"></span></p>
                 <p><strong>추천수:</strong> <span th:text="${dto.good}" th:value="${dto.good}" id="goodnum"></span></p>
@@ -348,6 +349,7 @@
     }
 </script>
 <script>
+    let write_id = document.getElementById('write_id').value;
     function singo(){
         let comment = document.getElementById('alert_comment').value;
         let id = document.getElementById('nowid').value;
@@ -359,8 +361,9 @@
                 type: 'POST',
                 url: "/qareport",
                 data: {comment: comment,
-                    id: id,
-                    no: no},
+                        write_id : write_id,
+                        id: id,
+                        no: no},
                 success: function (data){
                     if(data > 0){
                         alertbutton.readOnly = true;

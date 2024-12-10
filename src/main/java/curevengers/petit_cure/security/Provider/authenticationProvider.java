@@ -53,8 +53,10 @@ public class authenticationProvider implements AuthenticationProvider {
             authorities.add(new SimpleGrantedAuthority("MEMBER"));
         }else if(userDetailsService.confirmMember(username).equals("USER")){
             authorities.add(new SimpleGrantedAuthority("USER"));
-        }else{
+        }else if(userDetailsService.confirmMember(username).equals("ADMIN")){
             authorities.add(new SimpleGrantedAuthority("ADMIN"));
+        }else{
+            authorities.add(new SimpleGrantedAuthority("BLACKLIST"));
         }
         System.out.println(authorities.toString()+"/ ----------권한 확인용");
 

@@ -28,6 +28,13 @@
         ORDER BY title DESC
         LIMIT #{perPageNum} OFFSET #{startNo}
     </select>
+    <select id="findalertAllBoards" resultType="curevengers.petit_cure.Dto.alertDTO">
+        select write_id, count(*) as num, alert_cate, no
+        from alertboard
+        group by alert_cate, no
+        order by count(*) desc
+        LIMIT #{perPageNum} OFFSET #{startNo}
+    </select>
 
     <!-- 자유게시판 검색기능-->
     <select id="findSearchBoards" parameterType="String" resultType="curevengers.petit_cure.Dto.freeBoardDTO">
@@ -138,8 +145,8 @@
     </update>
 
     <insert id="alertQAboard">
-        insert into alertboard (alertno, no, alert_cate, id, comment, date)
-        values (nextval(alert_no),#{no},#{alert_cate},#{id},#{comment},default)
+        insert into alertboard (alertno, no, alert_cate, id, comment, write_id, date)
+        values (nextval(alert_no),#{no},#{alert_cate},#{id},#{comment},#{write_id},default)
     </insert>
 
     <update id="updateDPReport" parameterType="int">
@@ -147,6 +154,25 @@
         set report=report + 1
         where no = #{no}
     </update>
+
+<!--    신고 내역 조회-->
+    <select id="selectAlert">
+        select write_id, count(*) as 신고횟수, alert_cate, no
+        from alertboard
+        group by alert_cate, no
+        order by count(*) desc;
+    </select>
+    <!-- 게시글 신고 내역들 조회 -->
+    <select id="selectAlertcomment">
+        select *
+        from alertboard
+        where alert_cate=#{alert_cate} and no=#{no}
+    </select>
+    <!-- 게시글 신고글 삭제 -->
+    <delete id="deleteAlert">
+        delete from alertboard
+        where alert_cate=#{alert_cate} and no=#{no}
+    </delete>
 
 <!--    자유게시판 글 수정 -->
     <update id="updateBoard">
@@ -164,7 +190,7 @@
     </delete>
 <!--    Q&A게시판 글 삭제 -->
     <delete id="deleteQABoard">
-        delete from qaboard where id = #{id}
+        delete from qaboard where no = #{no}
     </delete>
     <!-- 첨부파일 저장 -->
     <insert id="insertAttach" parameterType="curevengers.petit_cure.Dto.freeboard_attachDTO">
