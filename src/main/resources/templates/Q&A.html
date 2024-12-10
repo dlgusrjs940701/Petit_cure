@@ -6,6 +6,7 @@
 <!--jsp를 사용하는 html은 @{} 방식을 쓰지않음-->
 <link rel="stylesheet" href="/css/main.css">
 <link rel="stylesheet" href="/css/freeBoard.css">
+<link rel="stylesheet" href="/css/sticky.css">
 <style>
     .input-text {
         width: 348px;
@@ -41,6 +42,7 @@
 <!-- main화면 include 설정 -->
 <div th:include="main::header"></div>
 <div th:include="main::nav"></div>
+<div th:include="freeBoard::sticky" class="sticky"></div>
 <div class="container">
     <div class="title-container">
         <h2><strong>Q&A게시판</strong></h2>

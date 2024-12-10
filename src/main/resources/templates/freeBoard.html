@@ -8,6 +8,7 @@
 <!--jsp를 사용하는 html은 @{} 방식을 쓰지않음-->
 <link rel="stylesheet" href="/css/main.css">
 <link rel="stylesheet" href="/css/freeBoard.css">
+<link rel="stylesheet" href="/css/sticky.css">
 <style>
     .input-text {
         width: 348px;
@@ -44,6 +45,26 @@
 <!-- main화면 include 설정 -->
 <div th:include="main::header"></div>
 <div th:include="main::nav"></div>
+
+<div th:fragment="sticky" class="sticky">
+    <div class="list-group">
+        <button type="button" class="list-group-item list-group-item-action">자가검진결과확인 &nbsp;&nbsp;&nbsp;&nbsp;
+            >
+        </button>
+        <button type="button" class="list-group-item list-group-item-action">게시판 글쓴이 확인?&nbsp;&nbsp;&nbsp;&nbsp;
+            >
+        </button>
+        <button type="button" class="list-group-item list-group-item-action">회원정보수정&nbsp;&nbsp;&nbsp;&nbsp;
+            >
+        </button>
+        <button type="button" class="list-group-item list-group-item-action">회원정보탈퇴&nbsp;&nbsp;&nbsp;&nbsp;
+            >
+        </button>
+    </div>
+</div>
+
+
+
 <div class="container">
     <div class="title-container">
         <h2><strong>자유게시판</strong></h2>
@@ -129,6 +150,9 @@
 </div>
 <div th:include="main::footer"></div>
 </body>
+
+
+
 
 </html>
 <script>
