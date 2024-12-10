@@ -56,13 +56,10 @@ public class memberController {
     // 회원가입버튼 - 정보 전달
     @PostMapping(value = "/memplus")
     public String memplus(@ModelAttribute memberDTO memberdto) {
-        if(memberdto.getAuth_name() == null){
-            memberdto.setAuth_name("USER");
-        }
         userservice.signup(memberdto);
         return "redirect:/login";
     }
-    
+
     // 회원가입시 아이디 중복 체크
     @ResponseBody
     @GetMapping(value = "/idCheck")
@@ -70,7 +67,7 @@ public class memberController {
         System.out.println("아이디 확인 중");
         return userservice.cofrmID(id);
     }
-    
+
     // 로그인 화면
     @GetMapping("/login")
     public String loginPage(Model model) { // 로그인되지 않은 상태이면 로그인 페이지를, 로그인된 상태이면 main 페이지를 보여줌
@@ -78,8 +75,8 @@ public class memberController {
         model.addAttribute("redirectUrl",kakaoApi.getKakaoredirectUri());
         return "login";
     }
-    
-    
+
+
     // 로그인 버튼
     @PostMapping("/logincon")
     public String logincon(@RequestParam("username") String username, @RequestParam("password") String password) {
@@ -101,8 +98,17 @@ public class memberController {
     // 회원수정/탈퇴 할 떄 다시 한번 확인하는 창
     @GetMapping(value = "/usermodify")
     public String usermodify() {
+
         return "memberupdate";
     }
+
+    @GetMapping(value = "/userdelete")
+    public String userdelete() {
+
+        return "memberupdate1";
+    }
+
+
 
     @GetMapping(value = "/usermod")
     public String usermod(Model m) {
@@ -110,6 +116,17 @@ public class memberController {
         return "member";
     }
 
+    @GetMapping(value = "/userdel")
+    public String userdel(Model m) {
+
+        return "memberdelete";
+    }
+
+
 
 }
+
+
+
+
 
