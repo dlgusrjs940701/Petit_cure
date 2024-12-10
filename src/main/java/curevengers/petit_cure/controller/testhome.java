@@ -214,6 +214,16 @@ public class testhome {
         List<qaboard_attachDTO> qaattachList = testservice.getQAAttach(no);
 //        System.out.println("QABoard: " + board);
 //        System.out.println("Comment List: " + qacommentList);
+        boardLikeDTO boardlike = new boardLikeDTO();
+        boardlike.setQaboard_no(no);
+        boardlike.setId(username);
+        boardlike = testservice.getBoardLike(boardlike);
+        System.out.println(boardlike);
+        if(boardlike != null) {
+            model.addAttribute("boardLike", boardlike);
+        }else{
+            model.addAttribute("boardLike", null);
+        }
         model.addAttribute("dto", board);
         model.addAttribute("commentList", qacommentList);
         model.addAttribute("qaattachList", qaattachList);
@@ -373,19 +383,25 @@ public class testhome {
     }
 
     // QA게시판 좋아요 기능
+    @ResponseBody
     @GetMapping(value = "/goodUp")
-    public String goodUp(@RequestParam("no") int no) {
-        testservice.updateGood((no));
-
-        return "redirect:/qaview?no=" + no;
+    public int goodUp(@RequestParam("no") int no, @RequestParam("id") String id) {
+        boardLikeDTO boardLikeDTO = new boardLikeDTO();
+        boardLikeDTO.setId(id);
+        boardLikeDTO.setQaboard_no(String.valueOf(no));
+        testservice.addLike(boardLikeDTO);
+        return testservice.updateGood((no));
     }
 
     // QA게시판 좋아요 취소 기능
+    @ResponseBody
     @GetMapping(value = "/goodDown")
-    public String goodDown(@RequestParam("no") int no) {
-        testservice.updateGoodDown((no));
-
-        return "redirect:/qaview?no=" + no;
+    public int goodDown(@RequestParam("no") int no, @RequestParam("id") String id) {
+        boardLikeDTO boardLikeDTO = new boardLikeDTO();
+        boardLikeDTO.setId(id);
+        boardLikeDTO.setQaboard_no(String.valueOf(no));
+        testservice.deleteLike(boardLikeDTO);
+        return testservice.updateGoodDown((no));
     }
 
     // 우울증게시판 좋아요 기능
@@ -440,12 +456,11 @@ public class testhome {
     }
 
     // QA게시판 신고 기능
-    @GetMapping(value = "/qareport")
-    public String qareport(@RequestParam("no") int no) {
-        testservice.updateQAReport((no));
-
-        return "redirect:/qaview?no=" + no;
-
+    @ResponseBody
+    @PostMapping(value = "/qareport")
+    public int qareport(@ModelAttribute alertDTO alertDTO) {
+        alertDTO.setAlert_cate("Q&A게시판");
+        return testservice.alertQAReport((alertDTO));
     }
 
     // 우울증게시판 신고 기능

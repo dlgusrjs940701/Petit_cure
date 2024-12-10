@@ -137,6 +137,7 @@ public class kakaoController {
             mplus.setPhone_num(phone);
             mplus.setEmail(email);
             mplus.setAge(age);
+            mplus.setAuth_name("KAKAO");
             if(gender.equals("male")){
                 mplus.setGender("남");
             }else{
