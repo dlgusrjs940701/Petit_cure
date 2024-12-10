@@ -1,9 +1,6 @@
 package curevengers.petit_cure.Dao;
 
-import curevengers.petit_cure.Dto.dpBoardDTO;
-import curevengers.petit_cure.Dto.dpboard_attachDTO;
-import curevengers.petit_cure.Dto.dpcommentDTO;
-import curevengers.petit_cure.Dto.pageDTO;
+import curevengers.petit_cure.Dto.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -23,9 +20,9 @@ public interface dpBoardMapper {
 
     public List<dpcommentDTO> selectdpComment(int no) throws Exception;
 
-    public void updateGoodUp(int no) throws Exception;
+    public int updateGoodUp(int no);
 
-    public void updateGoodDown(int no) throws Exception;
+    public int updateGoodDown(int no);
 
     public void adddpComment(dpcommentDTO dto) throws Exception;
 
@@ -44,4 +41,17 @@ public interface dpBoardMapper {
 
     public void deletedpBoardComment(dpcommentDTO dto) throws Exception;
 
+    public List<dpBoardDTO> gooddpList(pageDTO pagedto) throws Exception;
+
+    public List<dpBoardDTO> datedpList(pageDTO pagedto) throws Exception;
+
+    void updatedpReport(int no);
+
+    int alertdpBoard(alertDTO dto);
+
+    void addLike(dpboardLikeDTO dpboardLikeDTO);
+
+    void deleteLike(dpboardLikeDTO dpboardLikeDTO);
+
+    dpboardLikeDTO dpselectLike(dpboardLikeDTO dpboardLikeDTO);
 }

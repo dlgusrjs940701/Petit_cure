@@ -16,6 +16,7 @@ public class freeBoardDTO {
     private String cate;
     private String content;
     private int visit;
+    private int good;
     private String date;
     private String name;
 

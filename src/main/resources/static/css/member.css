@@ -112,10 +112,11 @@ aside {
     display: inline-block;
     width: 50%;
     height: 100px;
-    margin-top: 50px;
-    text-align: left;
+    margin-top: 70px;
+    /*text-align: left;*/
     border-bottom: 3px solid gray;
     /* border: 1px solid; */
+    margin-left: 450px;
 }
 aside>h2 {
     padding-top: 20px;
@@ -129,7 +130,7 @@ aside>h6 {
     height: 700px;
     font-size: 20px;
     margin-left: 450px;
-    padding-top: 50px;
+    padding-top: 90px;
     text-align: center;
 }
 input {
@@ -175,3 +176,7 @@ p {
     text-align: left;
 
 }
+
+
+
+aaa

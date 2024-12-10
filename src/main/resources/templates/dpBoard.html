@@ -5,6 +5,7 @@
 <!--jsp를 사용하는 html은 @{} 방식을 쓰지않음-->
 <link rel="stylesheet" th:href="@{/css/main.css}">
 <link rel="stylesheet" th:href="@{/css/freeBoard.css}">
+<link rel="stylesheet" href="/css/sticky.css">
 <style>
     .input-text {
         width: 348px;
@@ -41,12 +42,19 @@
 <!-- main화면 include 설정 -->
 <div th:include="main::header"></div>
 <div th:include="main::nav"></div>
+<div th:include="freeBoard::sticky" class="sticky"></div>
 <div class="container">
     <div class="title-container">
         <h2><strong>우울증게시판</strong></h2>
         <form class="search-box" action="/searchDPTitle" method="get">
             <input id="text" type="text" class="input-text" name="title" placeholder="검색어 입력">
             <input type="submit" value="검색" class="search">
+        </form>
+        <form action="gooddpList" method="post">
+            <input type="submit" value="조회수" class="button11">
+        </form>
+        <form action="datedpList" method="post">
+            <input type="submit" value="최신순" class="button11">
         </form>
         <button class="write-btn" onclick="location.href='/dpwrite'"><strong>글쓰기</strong></button>
     </div>

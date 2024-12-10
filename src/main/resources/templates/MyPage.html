@@ -26,34 +26,34 @@
     <h1 style="font-size: 30px;"><strong>내 프로필</strong></h1>
     <hr>
     <div><i class="fa-solid fa-circle-user fa-10x" style="margin-top: 45px;"></i></div>
-<!--    <img src="/img/제하하하하.jfif" class="rounded-circle" style="width: 80%;">-->
-<!--    <a href="#"><span class="badge bg-secondary" style="margin-top: 20px;">수정</span></a>-->
+    <!--    <img src="/img/제하하하하.jfif" class="rounded-circle" style="width: 80%;">-->
+    <!--    <a href="#"><span class="badge bg-secondary" style="margin-top: 20px;">수정</span></a>-->
     <div style="margin-top: 30px; margin-right: auto; margin-left: auto; font-size: 25px;">
       <i class="fa-solid fa-user">&nbsp;&nbsp;</i><span th:text="${dto.name}"></span><br>
-<!--      <i class="fa-solid fa-phone">&nbsp;&nbsp;</i><span th:text="${dto.phone_num}"></span><br>-->
+      <!--      <i class="fa-solid fa-phone">&nbsp;&nbsp;</i><span th:text="${dto.phone_num}"></span><br>-->
       <i class="fa fa-birthday-cake">&nbsp;&nbsp;</i>2000.09.16<br>
       <i class="fa-solid fa-envelope">&nbsp;&nbsp;</i><span th:text="${dto.email}"></span><br>
       <i class="fa-solid fa-location-dot">&nbsp;&nbsp;</i><span th:text="${dto.addr}"></span><br>
-      <i class="fa-solid fa-notes-medical">&nbsp;&nbsp;</i>건강검진_Check<br>
       <i class="fa-regular fa-face-frown">&nbsp;&nbsp;</i>우울증_Check<br>
+      <i class="fa-solid fa-notes-medical">&nbsp;&nbsp;</i>건강검진_Check<br>
       <!--      <i class="fa fa-birthday-cake">&nbsp;&nbsp;</i><br>-->
       <a href="/usermodify"><input type="button" value="회원수정" style="margin-top: 40px;"></a>
-      <a href="/usermodify"><input type="button" value="회원탈퇴" style="margin-top: 15px;"></a>
+      <a href="/userdelete"><input type="button" value="회원탈퇴" style="margin-top: 15px;"></a>
     </div>
   </aside>
 
 
-<!--  <article class="main1">-->
-<!--    <h1 style="font-size: 30px;"><strong>내 활동</strong></h1>-->
-<!--    <hr>-->
-<!--    <div style="text-align: center; font-size: 25px; margin-top: 160px;">-->
-<!--      <a href="/moreresult" style="color: black"><i class="fa-solid fa-notes-medical">&nbsp;&nbsp;</i>건강검진 결과 리스트</a><br>-->
-<!--      <a href="/dpmoreresult" style="color: black"><i class="fa-regular fa-face-frown">&nbsp;&nbsp;</i>우울증검진 결과 리스트</a><br>-->
-<!--      <a href="/freeboard" style="color: black"><i class="fa-solid fa-tablet-screen-button">&nbsp;&nbsp;</i>자유게시판</a><br>-->
-<!--      <a href="/qanda" style="color: black"><i class="fa-solid fa-tablet-screen-button">&nbsp;&nbsp;</i>Q&A게시판</a><br>-->
-<!--      <a href="/depboard" style="color: black"><i class="fa-solid fa-tablet-screen-button">&nbsp;&nbsp;</i>우울증전용게시판</a>-->
-<!--    </div>-->
-<!--  </article>-->
+  <!--  <article class="main1">-->
+  <!--    <h1 style="font-size: 30px;"><strong>내 활동</strong></h1>-->
+  <!--    <hr>-->
+  <!--    <div style="text-align: center; font-size: 25px; margin-top: 160px;">-->
+  <!--      <a href="/moreresult" style="color: black"><i class="fa-solid fa-notes-medical">&nbsp;&nbsp;</i>건강검진 결과 리스트</a><br>-->
+  <!--      <a href="/dpmoreresult" style="color: black"><i class="fa-regular fa-face-frown">&nbsp;&nbsp;</i>우울증검진 결과 리스트</a><br>-->
+  <!--      <a href="/freeboard" style="color: black"><i class="fa-solid fa-tablet-screen-button">&nbsp;&nbsp;</i>자유게시판</a><br>-->
+  <!--      <a href="/qanda" style="color: black"><i class="fa-solid fa-tablet-screen-button">&nbsp;&nbsp;</i>Q&A게시판</a><br>-->
+  <!--      <a href="/depboard" style="color: black"><i class="fa-solid fa-tablet-screen-button">&nbsp;&nbsp;</i>우울증전용게시판</a>-->
+  <!--    </div>-->
+  <!--  </article>-->
 
   <section class="main2">
     <h1 style="font-size: 30px; margin-top: 16px;"><strong>내 활동 내역</strong></h1>
@@ -94,3 +94,6 @@
     });
   });
 </script>
+
+
+

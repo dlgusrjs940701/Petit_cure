@@ -100,31 +100,60 @@ public class allBoardServiceImpl implements allBoardService {
         userMapper.updateVisit(no);
     }
 
+
+    // 좋아요 구현
     @Override
     @Transactional
-    public int updateGood(int no) {
-        return userMapper.updateGood(no);
+    public int freeupdateGood(int no) {
+        return userMapper.freeupdateGood(no);
     }
 
     @Override
-    public void addLike(boardLikeDTO boardLikeDTO) {
-        userMapper.addLike(boardLikeDTO);
+    public void freeaddLike(freeboardLikeDTO freeboardLikeDTO) {
+        userMapper.freeaddLike(freeboardLikeDTO);
     }
 
     @Override
     @Transactional
-    public int updateGoodDown(int no) {
-        return userMapper.updateGoodDown(no);
+    public int freeupdateGoodDown(int no) {
+        return userMapper.freeupdateGoodDown(no);
     }
 
     @Override
-    public void deleteLike(boardLikeDTO boardLikeDTO) {
-        userMapper.deleteLike(boardLikeDTO);
+    public void freedeleteLike(freeboardLikeDTO freeboardLikeDTO) {
+        userMapper.freedeleteLike(freeboardLikeDTO);
     }
 
     @Override       //  좋아요 조회
-    public boardLikeDTO getBoardLike(boardLikeDTO boardLikeDTO) {
-        return userMapper.selectLike(boardLikeDTO);
+    public freeboardLikeDTO freegetBoardLike(freeboardLikeDTO freeboardLikeDTO) {
+        return userMapper.freeselectLike(freeboardLikeDTO);
+    }
+
+    @Override
+    @Transactional
+    public int qaupdateGood(int no) {
+        return userMapper.qaupdateGood(no);
+    }
+
+    @Override
+    public void qaaddLike(qaboardLikeDTO qaboardLikeDTO) {
+        userMapper.qaaddLike(qaboardLikeDTO);
+    }
+
+    @Override
+    @Transactional
+    public int qaupdateGoodDown(int no) {
+        return userMapper.qaupdateGoodDown(no);
+    }
+
+    @Override
+    public void qadeleteLike(qaboardLikeDTO qaboardLikeDTO) {
+        userMapper.qadeleteLike(qaboardLikeDTO);
+    }
+
+    @Override       //  좋아요 조회
+    public qaboardLikeDTO qagetBoardLike(qaboardLikeDTO qaboardLikeDTO) {
+        return userMapper.qaselectLike(qaboardLikeDTO);
     }
 
     @Override
@@ -158,31 +187,27 @@ public class allBoardServiceImpl implements allBoardService {
     }
 
     @Override
-    public void updateReport(int no) {
-        userMapper.updateReport(no);
+    public int alertFreeReport(alertDTO dto) {
+        userMapper.updateFreeReport(dto.getNo());
+        return userMapper.alertFreeBoard(dto);
     }
 
     // Q&A 게시판 신고기능
-    @Override           
+    @Override
     public int alertQAReport(alertDTO alertDTO) {
         userMapper.updateQAReport(alertDTO.getNo());
         return userMapper.alertQAboard(alertDTO);
     }
     // 게시판 신고관련 내용 조회
-    @Override  
+    @Override
     public List<alertDTO> selectAlertcomment(alertDTO alertDTO) {
         return userMapper.selectAlertcomment(alertDTO);
     }
-    
+
     // 게시글이 삭제되면 해당글 관련 신고글도 모두 삭제
     @Override
     public void deleteAlert(alertDTO alertDTO) {
         userMapper.deleteAlert(alertDTO);
-    }
-
-    @Override
-    public void updateDPReport(int no) {
-        userMapper.updateDPReport(no);
     }
 
     @Override
@@ -272,11 +297,17 @@ public class allBoardServiceImpl implements allBoardService {
         return userMapper.selectAlert();
     }
 
+    @Override
+    public List<QABoardDTO> getAgeQABoards(String ageGroup, pageDTO pagedto) {
+        return userMapper.AgeQAList(ageGroup, pagedto);
+    }
+
 
 //    @Override
 //    public List<commentDTO> getAllComments(commentDTO dto) {
 //        return userMapper.findComment(dto);
 //    }
+
 
 }
 

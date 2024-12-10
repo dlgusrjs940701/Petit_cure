@@ -11,9 +11,12 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <!--타임리프를 사용할 때는 @{} 형식-->
     <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/sticky.css}">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- fragment 설정을 해야 include 가능-->
 <div th:fragment="header">
     <header class="roboto-regular">
@@ -28,7 +31,8 @@
         <ul>
             <div style="width: 20px; height: 65px;">
                 <!--object-fit:cover는 가로세로 비율을 유지한 채로 사이즈가 조절되며, 비율이 맞지 않더라도 이미지를 확대해 컨테이너를 완전히 채움-->
-                <a href="/"><img src="https://www.emojiall.com/images/120/openmoji/12.3/1f469-1f3fb-200d-2695-fe0f.png" alt="home" style="height: 70px"></a>
+                <a href="/"><img src="https://www.emojiall.com/images/120/openmoji/12.3/1f469-1f3fb-200d-2695-fe0f.png"
+                                 alt="home" style="height: 70px"></a>
             </div>
             <li class="dropdown">
                 <a href="#">자가셀프검진</a>
@@ -62,6 +66,7 @@
         </ul>
     </nav>
 </div>
+
 <section id="section">
     <div>
         <div>
@@ -121,12 +126,154 @@
     </div>
     </div>
     <div class="maincon">
-        <div id="info"></div>
-        <div id="info"></div>
-        <div id="info"></div>
-        <div id="info"></div>
+        <div class="jua-regular" id="info">
+            <table>
+                <tr style="display: none;" id="freeboardnum">
+                </tr>
+                <tr>
+                    <td class="topboard" colspan="2">
+                        자유게시판 최고조회글
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 25%" class="boardoption">
+                        제목 :
+                    </td>
+                    <td id="freeboardtitle" class="boardoption">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 25%" class="boardoption">
+                        작성자 :
+                    </td>
+                    <td id="freeboarduser" class="boardoption">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 25%" class="boardoption">
+                        내용 :
+                    </td>
+                    <td id="freeboardcontent" class="boardoption">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="buttonDisplay, align-items, justify-content">
+                            <button type="button" class="button" onclick="location.href='/freeBO'"
+                                    style="position: absolute;top: 1330px;left: 165px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px">확인</button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+
+        <div class="jua-regular" id="info">
+            <table>
+                <tr style="display: none;" id="qaboardnum">
+                </tr>
+                <tr>
+                    <td class="topboard" colspan="2">
+                        Q&A게시판 최고추천글
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 25%" class="boardoption">
+                        제목 :
+                    </td>
+                    <td id="qaboardtitle" class="boardoption">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 25%" class="boardoption">
+                        작성자 :
+                    </td>
+                    <td id="qaboarduser" class="boardoption">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 25%" class="boardoption">
+                        내용 :
+                    </td>
+                    <td id="qaboardcontent" class="boardoption">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="buttonDisplay, align-items, justify-content">
+                            <button type="button" class="button" onclick="location.href='/Q&ABO'"
+                                    style="position: absolute;top: 1330px;left: 630px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px">확인</button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+
+
+        <div class="jua-regular" id="info">
+            <table>
+                <tr style="display: none;" id="dpboardnum">
+                </tr>
+                <tr>
+                    <td class="topboard" colspan="2">
+                        우울증게시판 최고추천글
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 25%" class="boardoption">
+                        제목 :
+                    </td>
+                    <td id="dpboardtitle" class="boardoption">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 25%" class="boardoption">
+                        작성자 :
+                    </td>
+                    <td id="dpboarduser" class="boardoption">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 25%" class="boardoption">
+                        내용 :
+                    </td>
+                    <td id="dpboardcontent" class="boardoption">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="buttonDisplay, align-items, justify-content">
+                            <button type="button" class="button" onclick="location.href='/dpBO'"
+                                    style="position: absolute;top: 1330px;left: 1095px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px">확인</button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="jua-regular" id="info">
+            <table>
+                <tr>
+                    <td class="topboard">
+                        베스트 글
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="buttonDisplay, align-items, justify-content">
+                            <button type="button" class="button"
+                                    style="position: absolute;top: 1330px;left: 1555px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px">확인</button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
 </section>
+
+
+
+
 <div th:fragment="footer">
     <footer class="jua-regular">
         <div style="float: left; height: 200px; margin-top: 30px; margin-left: 30px;">
@@ -137,7 +284,7 @@
                 CUREVENGERS
             </div>
             <div style="height: 20px; margin-left: 50px; font-size: 23px; font-weight: bold;">
-                팀장: 박연정    <br>팀원: 이현건, 최진석, 윤율
+                팀장: 박연정 <br>팀원: 이현건, 최진석, 윤율
             </div>
         </div>
         <div style="float: right; margin-right: 100px; margin-top: 20px;">
@@ -175,5 +322,69 @@
             })
         });
     });
-
+</script>
+<script>
+    window.onload = () => {
+        $.ajax({
+            type: 'post',
+            url: "freeboardVisitList", //컨트롤러에 지정한 value값
+            dataType: 'json',
+            success: function (data) {
+                let str1 = data.title;
+                let str2 = data.id;
+                let str3 = data.content;
+                document.getElementById("freeboardnum").innerText = data.no;
+                if (str1.length > 11) {
+                    document.getElementById("freeboardtitle").innerText = str1.substring(0, 12) + "...";
+                } else {
+                    document.getElementById("freeboardtitle").innerText = str1;
+                }
+                if (str2.length > 11) {
+                    document.getElementById("freeboarduser").innerText = str2.substring(0, 12) + "...";
+                } else {
+                    document.getElementById("freeboarduser").innerText = str2;
+                }
+                if (str3.length > 33) {
+                    document.getElementById("freeboardcontent").innerText = str3.substring(0, 34) + "...";
+                } else {
+                    document.getElementById("freeboardcontent").innerText = str3;
+                }
+            }
+        })
+        $.ajax({
+            type: 'post',
+            url: "qaboardVisitList", //컨트롤러에 지정한 value값
+            dataType: 'json',
+            success: function (data) {
+                let str1 = data.content;
+                let str2 = data.id;
+                let str3 = data.content;
+                document.getElementById("qaboardnum").innerText = data.no;
+                if (str1.length > 11) {
+                    document.getElementById("qaboardtitle").innerText = str1.substring(0, 12) + "...";
+                } else {
+                    document.getElementById("qaboardtitle").innerText = str1;
+                }
+                if (str2.length > 11) {
+                    document.getElementById("qaboarduser").innerText = str2.substring(0, 12) + "...";
+                } else {
+                    document.getElementById("qaboarduser").innerText = str2;
+                }
+                if (str3.length > 33) {
+                    document.getElementById("qaboardcontent").innerText = str3.substring(0, 34) + "...";
+                } else {
+                    document.getElementById("qaboardcontent").innerText = str3;
+                }
+            }
+        })
+        // $.ajax({
+        //     type: 'post',
+        //     url: "dpboardVisitList", //컨트롤러에 지정한 value값
+        //     dataType: 'json',
+        //     success: function(data) {
+        //         document.getElementById("dpboardtitle").innerText = data.title;
+        //         document.getElementById("dpboardcontent").innerText = data.content;
+        //     }
+        // })
+    }
 </script>
