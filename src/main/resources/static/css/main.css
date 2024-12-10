@@ -151,4 +151,14 @@ nav .pagination{
 .btn-danger{
     margin-top: 20px;
 }
+#info > table {
+    margin: auto;
+    text-align: center;
+}
+.boardoption {
+    font-size: 30px;
+}
+.topboard {
+    font-size: 40px;
+}
 

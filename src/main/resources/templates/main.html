@@ -114,15 +114,116 @@
                     <span class="glyphicon glyphicon-chevron-right"></span>
                     <span class="sr-only">Next</span>
                 </a>
+                </div>
             </div>
         </div>
     </div>
-    </div>
     <div class="maincon">
-        <div id="info"></div>
-        <div id="info"></div>
-        <div id="info"></div>
-        <div id="info"></div>
+        <div class="jua-regular" id="info">
+            <table style="border: 1px solid">
+                <tr style="display: none;" id="freeboardnum">
+                </tr>
+                <tr>
+                    <td class="topboard" colspan="2">
+                        자유게시판 최고조회글
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 25%" class="boardoption">
+                        제목 :
+                    </td>
+                    <td id="freeboardtitle" class="boardoption">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 25%" class="boardoption">
+                        작성자 :
+                    </td>
+                    <td id="freeboarduser" class="boardoption">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 25%" class="boardoption">
+                        내용 :
+                    </td>
+                    <td id="freeboardcontent" class="boardoption">
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="jua-regular" id="info">
+            <table>
+                <tr style="display: none;" id="qaboardnum">
+                </tr>
+                <tr>
+                    <td class="topboard" colspan="2">
+                        Q&A게시판 최고추천글
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 25%" class="boardoption">
+                        제목 :
+                    </td>
+                    <td id="qaboardtitle" class="boardoption">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 25%" class="boardoption">
+                        작성자 :
+                    </td>
+                    <td id="qaboarduser" class="boardoption">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 25%" class="boardoption">
+                        내용 :
+                    </td>
+                    <td id="qaboardcontent" class="boardoption">
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="jua-regular" id="info">
+            <table>
+                <tr style="display: none;" id="dpboardnum">
+                </tr>
+                <tr>
+                    <td class="topboard" colspan="2">
+                        우울증게시판 최고추천글
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 25%" class="boardoption">
+                        제목 :
+                    </td>
+                    <td id="dpboardtitle" class="boardoption">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 25%" class="boardoption">
+                        작성자 :
+                    </td>
+                    <td id="dpboarduser" class="boardoption">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 25%" class="boardoption">
+                        내용 :
+                    </td>
+                    <td id="dpboardcontent" class="boardoption">
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="jua-regular" id="info">
+            <table>
+                <tr>
+                    <td class="topboard">
+                        몰랑
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
 </section>
 <div th:fragment="footer">
@@ -172,5 +273,69 @@
             })
         });
     });
-
+</script>
+<script>
+    window.onload = () => {
+        $.ajax({
+            type: 'post',
+            url: "freeboardVisitList", //컨트롤러에 지정한 value값
+            dataType: 'json',
+            success: function(data) {
+                let str1 = data.title;
+                let str2 = data.id;
+                let str3 = data.content;
+                document.getElementById("freeboardnum").innerText = data.no;
+                if (str1.length > 11) {
+                    document.getElementById("freeboardtitle").innerText = str1.substring(0,12) + "...";
+                } else {
+                    document.getElementById("freeboardtitle").innerText = str1;
+                }
+                if (str2. length > 11) {
+                    document.getElementById("freeboarduser").innerText = str2.substring(0,12) + "...";
+                } else {
+                    document.getElementById("freeboarduser").innerText = str2;
+                }
+                if (str3.length > 33) {
+                    document.getElementById("freeboardcontent").innerText = str3.substring(0,34) + "...";
+                } else {
+                    document.getElementById("freeboardcontent").innerText = str3;
+                }
+            }
+        })
+        $.ajax({
+            type: 'post',
+            url: "qaboardVisitList", //컨트롤러에 지정한 value값
+            dataType: 'json',
+            success: function(data) {
+                let str1 = data.content;
+                let str2 = data.id;
+                let str3 = data.content;
+                document.getElementById("qaboardnum").innerText = data.no;
+                if (str1.length > 11) {
+                    document.getElementById("qaboardtitle").innerText = str1.substring(0,12) + "...";
+                } else {
+                    document.getElementById("qaboardtitle").innerText = str1;
+                }
+                if (str2. length > 11) {
+                    document.getElementById("qaboarduser").innerText = str2.substring(0,12) + "...";
+                } else {
+                    document.getElementById("qaboarduser").innerText = str2;
+                }
+                if (str3.length > 33) {
+                    document.getElementById("qaboardcontent").innerText = str3.substring(0,34) + "...";
+                } else {
+                    document.getElementById("qaboardcontent").innerText = str3;
+                }
+            }
+        })
+        // $.ajax({
+        //     type: 'post',
+        //     url: "dpboardVisitList", //컨트롤러에 지정한 value값
+        //     dataType: 'json',
+        //     success: function(data) {
+        //         document.getElementById("dpboardtitle").innerText = data.title;
+        //         document.getElementById("dpboardcontent").innerText = data.content;
+        //     }
+        // })
+    }
 </script>

@@ -719,4 +719,38 @@ public class testhome {
         model.addAttribute("qalist", dateQAList);
         return "Q&A";
     }
+
+    // 메인페이지 자유게시판 글 중 최고 조회수 글 조회
+    @ResponseBody
+    @PostMapping(value = "freeboardVisitList")
+    public freeBoardDTO freeboardVisitList() {
+        pageDTO pagedto = new pageDTO();
+        pagedto.setPage(1);
+        System.out.println(testservice.visitList(pagedto).get(0).getTitle());
+
+        return testservice.visitList(pagedto).get(0);
+    }
+
+    // 메인페이지 자유게시판 글 중 최고 조회수 글 조회
+    @ResponseBody
+    @PostMapping(value = "qaboardVisitList")
+    public QABoardDTO qaboardVisitList() {
+        pageDTO pagedto = new pageDTO();
+        pagedto.setPage(1);
+        System.out.println(testservice.goodQAList(pagedto).get(0).getTitle());
+
+        return testservice.goodQAList(pagedto).get(0);
+    }
+
+//    // 메인페이지 자유게시판 글 중 최고 조회수 글 조회
+//    @ResponseBody
+//    @PostMapping(value = "dpboardVisitList")
+//    public dpBoardDTO dpboardVisitList() {
+//        pageDTO pagedto = new pageDTO();
+//        pagedto.setPage(1);
+//        System.out.println(dpboardservice.visitList(pagedto).get(0).getTitle());
+//
+//        return testservice.visitList(pagedto).get(0);
+//    }
+
 }
