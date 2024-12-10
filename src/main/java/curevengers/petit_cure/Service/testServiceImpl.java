@@ -2,6 +2,7 @@ package curevengers.petit_cure.Service;
 
 import curevengers.petit_cure.Dao.UserMapper;
 import curevengers.petit_cure.Dto.*;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -89,13 +90,30 @@ public class testServiceImpl implements testService {
     }
 
     @Override
-    public void updateGood(int no) {
-        userMapper.updateGood(no);
+    @Transactional
+    public int updateGood(int no) {
+        return userMapper.updateGood(no);
     }
 
     @Override
-    public void updateGoodDown(int no) {
-        userMapper.updateGoodDown(no);
+    public void addLike(boardLikeDTO boardLikeDTO) {
+        userMapper.addLike(boardLikeDTO);
+    }
+
+    @Override
+    @Transactional
+    public int updateGoodDown(int no) {
+        return userMapper.updateGoodDown(no);
+    }
+
+    @Override
+    public void deleteLike(boardLikeDTO boardLikeDTO) {
+        userMapper.deleteLike(boardLikeDTO);
+    }
+
+    @Override       //  좋아요 조회
+    public boardLikeDTO getBoardLike(boardLikeDTO boardLikeDTO) {
+        return userMapper.selectLike(boardLikeDTO);
     }
 
     @Override
@@ -133,9 +151,10 @@ public class testServiceImpl implements testService {
         userMapper.updateReport(no);
     }
 
-    @Override
-    public void updateQAReport(int no) {
-        userMapper.updateQAReport(no);
+    @Override           // Q&A 게시판 신고기능
+    public int alertQAReport(alertDTO alertDTO) {
+        userMapper.updateQAReport(alertDTO.getNo());
+        return userMapper.alertQAboard(alertDTO);
     }
 
     @Override
@@ -202,6 +221,25 @@ public class testServiceImpl implements testService {
     @Override
     public void deleteqaBoardComment(qacommentDTO qacommentdto) {
         userMapper.deleteqaComment(qacommentdto);
+    
+    @Override
+    public List<freeBoardDTO> visitList(pageDTO pagedto) {
+        return userMapper.visitList(pagedto);
+    }
+
+    @Override
+    public List<freeBoardDTO> dateList(pageDTO pagedto) {
+        return userMapper.dateList(pagedto);
+    }
+
+    @Override
+    public List<QABoardDTO> goodQAList(pageDTO pagedto) {
+        return userMapper.goodQAList(pagedto);
+    }
+
+    @Override
+    public List<QABoardDTO> dateQAList(pageDTO pagedto) {
+        return userMapper.dateQAList(pagedto);
     }
 
 

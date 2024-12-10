@@ -70,7 +70,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(allowUrls).permitAll()
                         .requestMatchers("/oauth2/code/kakao").permitAll()
-                        .requestMatchers("/user/**").hasRole("USER")
+                        .requestMatchers("/user/**").hasAnyRole("USER","MEMBER")
+                        .requestMatchers("/member/depboard/**").hasRole("MEMBER")
                         .anyRequest().authenticated() // 모든 요청 인증 필요
 
                         // 기본적으로 메인화면, 로그인 화면, 회원가입 화면은 모두 이용가능하다

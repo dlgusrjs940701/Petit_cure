@@ -19,13 +19,13 @@
     <select id="findAllBoards" resultType="curevengers.petit_cure.Dto.freeBoardDTO">
         SELECT *
         FROM freeboard
-        ORDER BY visit DESC
+        ORDER BY title DESC
         LIMIT #{perPageNum} OFFSET #{startNo}
     </select>
     <select id="findQAAllBoards" resultType="curevengers.petit_cure.Dto.QABoardDTO">
         SELECT *
         FROM qaboard
-        ORDER BY good DESC
+        ORDER BY title DESC
         LIMIT #{perPageNum} OFFSET #{startNo}
     </select>
 
@@ -66,6 +66,10 @@
         set good=good + 1
         where no = #{no}
     </update>
+    <insert id="addLike">
+        insert into qalike values (#{id}, #{qaboard_no}, default)
+    </insert>
+
 
     <!-- 좋아요 취소 구현 -->
     <update id="updateGoodDown" parameterType="int">
@@ -73,6 +77,15 @@
         set good=good - 1
         where no = #{no}
     </update>
+    <delete id="deleteLike">
+        delete from qalike where id=#{id} and qaboard_no=#{qaboard_no}
+    </delete>
+
+    <!-- 좋아요 조회 -->
+    <select id="selectLike">
+        select * from qalike where id=#{id} and qaboard_no=#{qaboard_no}
+    </select>
+
 
     <select id="cntBoard" resultType="int">
         select count(*)
@@ -123,6 +136,11 @@
         set report=report + 1
         where no = #{no}
     </update>
+
+    <insert id="alertQAboard">
+        insert into alertboard (alertno, no, alert_cate, id, comment, date)
+        values (nextval(alert_no),#{no},#{alert_cate},#{id},#{comment},default)
+    </insert>
 
     <update id="updateDPReport" parameterType="int">
         update dpboard
@@ -187,4 +205,33 @@
     <delete id="deleteqaComment">
         delete from qacomment where no = #{no}
     </delete>
+
+    <select id="visitList" resultType="curevengers.petit_cure.Dto.freeBoardDTO">
+        SELECT *
+        FROM freeboard
+        ORDER BY visit DESC
+        LIMIT #{perPageNum} OFFSET #{startNo}
+    </select>
+
+    <select id="dateList" resultType="curevengers.petit_cure.Dto.freeBoardDTO">
+        SELECT *
+        FROM freeboard
+        ORDER BY date DESC
+        LIMIT #{perPageNum} OFFSET #{startNo}
+    </select>
+
+    <select id="goodQAList" resultType="curevengers.petit_cure.Dto.QABoardDTO">
+        SELECT *
+        FROM qaboard
+        ORDER BY good DESC
+        LIMIT #{perPageNum} OFFSET #{startNo}
+    </select>
+
+    <select id="dateQAList" resultType="curevengers.petit_cure.Dto.QABoardDTO">
+        SELECT *
+        FROM qaboard
+        ORDER BY date DESC
+        LIMIT #{perPageNum} OFFSET #{startNo}
+    </select>
+
 </mapper>

@@ -296,7 +296,7 @@
 
             if (['jpg', 'jpeg', 'png', 'gif', 'jfif'].includes(fileExtension)) {
                 const img = document.createElement('img');
-                img.src = `/uploads/${filename}`;
+                img.src = `/uploads/${filename}?t=${new Date().getTime()}`;
                 img.alt = "첨부 이미지";
                 img.style.maxWidth = "800px";
                 img.style.maxHeight = "800px";

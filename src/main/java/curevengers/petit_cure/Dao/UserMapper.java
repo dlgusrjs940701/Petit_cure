@@ -32,10 +32,15 @@ public interface UserMapper {
     void updateVisit(int no);
 
 
-    void updateGood(int no);
+    int updateGood(int no);     // update는 성공시에 1을 반환, 실패시에는 0을 반환함
+    void addLike(boardLikeDTO boardLikeDTO);
 
-    void updateGoodDown(int no);
 
+    int updateGoodDown(int no); // update는 성공시에 1을 반환, 실패시에는 0을 반환함;
+    void deleteLike(boardLikeDTO boardLikeDTO);
+    
+    // 좋아요 조회
+    boardLikeDTO selectLike(boardLikeDTO boardLikeDTO);
 
     int cntBoard();
 
@@ -53,6 +58,8 @@ public interface UserMapper {
     void updateReport(int no);
 
     void updateQAReport(int no);
+    int alertQAboard(alertDTO alertDTO);
+
 
     void updateDPReport(int no);
 
@@ -84,4 +91,12 @@ public interface UserMapper {
     void deleteComment(freecommentDTO dto);
 
     void deleteqaComment(qacommentDTO dto);
+
+    List<freeBoardDTO> visitList(pageDTO pagedto);
+
+    List<freeBoardDTO> dateList(pageDTO pagedto);
+
+    List<QABoardDTO> goodQAList(pageDTO pagedto);
+
+    List<QABoardDTO> dateQAList(pageDTO pagedto);
 }
