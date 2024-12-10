@@ -70,8 +70,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(allowUrls).permitAll()
                         .requestMatchers("/oauth2/code/kakao").permitAll()
-                        .requestMatchers("/user/**").hasAnyRole("USER","MEMBER")
-                        .requestMatchers("/member/depboard/**").hasRole("MEMBER")
+                        .requestMatchers("/user/**").hasAnyAuthority("USER","MEMBER","ADMIN")
+                        .requestMatchers("/depboard","/dpview").hasAnyAuthority("MEMBER","ADMIN")
                         .anyRequest().authenticated() // 모든 요청 인증 필요
 
                         // 기본적으로 메인화면, 로그인 화면, 회원가입 화면은 모두 이용가능하다
@@ -79,6 +79,9 @@ public class SecurityConfig {
                         // 비회원이 게시판의 글을 볼수는 있지만, 글작성-댓글작성은 불가능하게 하고자하는 컨셉
                         // 비회원은 자유게시판, Q&A 게시판의 글 목록만 볼 수 있으며
                         // 자세히 보기 및 글작성-댓글작성은 불가하다
+
+                        // 추가적으로 우울증게시판에 관련된사항은 카카오 로그인을 통하여
+                        // 실명인증을 한 사람만 접근가능하도록 설정
                 )
                 .oauth2Login(oauth2Login -> oauth2Login
                         .loginPage("/login")

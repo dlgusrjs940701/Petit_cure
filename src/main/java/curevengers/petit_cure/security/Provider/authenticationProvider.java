@@ -49,10 +49,12 @@ public class authenticationProvider implements AuthenticationProvider {
         System.out.println(userDetails.getAuthorities()+"/ user생성 단계에서 저장된 authorities값");
 
         List<GrantedAuthority> authorities = new ArrayList<>();
-        if(userDetailsService.confirmPhone(username)!=null){
+        if(userDetailsService.confirmMember(username).equals("KAKAO")){
             authorities.add(new SimpleGrantedAuthority("MEMBER"));
-        }else if(userDetailsService.confirmPhone(username)==null){
+        }else if(userDetailsService.confirmMember(username).equals("USER")){
             authorities.add(new SimpleGrantedAuthority("USER"));
+        }else{
+            authorities.add(new SimpleGrantedAuthority("ADMIN"));
         }
         System.out.println(authorities.toString()+"/ ----------권한 확인용");
 
