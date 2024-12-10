@@ -221,7 +221,8 @@ public class testServiceImpl implements testService {
     @Override
     public void deleteqaBoardComment(qacommentDTO qacommentdto) {
         userMapper.deleteqaComment(qacommentdto);
-    
+    }
+
     @Override
     public List<freeBoardDTO> visitList(pageDTO pagedto) {
         return userMapper.visitList(pagedto);
