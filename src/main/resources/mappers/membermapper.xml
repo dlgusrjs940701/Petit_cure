@@ -34,6 +34,14 @@
         update member set (pass=#{pass},name=#{name},email=#{email},addr=#{addr},gender=#{gender},age=#{age},auth_name=default) where id=#{id};
     </update>
 
+    <update id="updateBlacklist">
+        update member set auth_name=#{auth_name} where id=#{id};
+    </update>
+
+    <insert id="addBlacklist">
+        insert into blacklist values(#{id}, default, #{singoBoard}, #{comment}, #{singonum})
+    </insert>
+
     <delete id="deleteMember">
         delete member where id=#{id};
     </delete>

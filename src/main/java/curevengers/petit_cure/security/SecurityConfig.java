@@ -70,7 +70,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(allowUrls).permitAll()
                         .requestMatchers("/oauth2/code/kakao").permitAll()
-                        .requestMatchers("/user/**").hasAnyAuthority("USER","MEMBER","ADMIN")
+                        .requestMatchers("user/**").hasAnyAuthority("USER","MEMBER","ADMIN")
                         .requestMatchers("/depboard","/dpview").hasAnyAuthority("MEMBER","ADMIN")
                         .anyRequest().authenticated() // 모든 요청 인증 필요
 

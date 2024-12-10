@@ -41,11 +41,12 @@ public class ProductController {
         String phone = member.getPhone_num();
         String age = member.getAge();
 
+        if(member.getAuth_name().equals("ADMIN")){
+            session.setAttribute("auth", authentication.getAuthorities());
+        }
         if(authentication != null && phone == null) {
-
             model.addAttribute("id", username);
             session.setAttribute("id", username);
-
         }else if(authentication != null&&phone!=null) {
             session.setAttribute("id", username);
             session.setAttribute("age",age);
@@ -56,6 +57,14 @@ public class ProductController {
         System.out.println(username);
 
         return "main";
+    }
+
+    @GetMapping(value = "/login/error")
+    public String error(HttpSession session,HttpServletRequest request, HttpServletResponse response, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        model.addAttribute("black",username);
+        return "loginerror";
     }
 
     // passport-jwt & jsonwebtoken??

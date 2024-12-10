@@ -1,6 +1,7 @@
 package curevengers.petit_cure.Dao;
 
 import curevengers.petit_cure.Dto.AuthVO;
+import curevengers.petit_cure.Dto.blackListDTO;
 import curevengers.petit_cure.Dto.memberDTO;
 import curevengers.petit_cure.Dto.myActivityDTO;
 import org.apache.ibatis.annotations.Mapper;
@@ -23,4 +24,7 @@ public interface MemberMapper {
     public void deleteMember(String id);    // 회원 탈퇴
     public List<myActivityDTO> getMyActivity(String id);
 //    public int insertAuth(AuthVO autoVO);
+    int updateBlacklist(memberDTO memberdto);
+    public void addBlacklist(blackListDTO blacklistdto);
+
 }

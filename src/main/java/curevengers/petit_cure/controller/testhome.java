@@ -28,7 +28,7 @@ import java.util.List;
 public class testhome {
 
     @Autowired
-    testService testservice;
+    allBoardService testservice;
 
     @Autowired
     healthCheckService healthcheckservice;
@@ -514,6 +514,7 @@ public class testhome {
     @ResponseBody
     @PostMapping(value = "/qareport")
     public int qareport(@ModelAttribute alertDTO alertDTO) {
+        System.out.println(alertDTO.getWrite_id());
         alertDTO.setAlert_cate("Q&A게시판");
         return testservice.alertQAReport(alertDTO);
     }

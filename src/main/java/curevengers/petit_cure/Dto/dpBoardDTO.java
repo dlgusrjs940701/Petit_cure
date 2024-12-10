@@ -17,4 +17,5 @@ public class dpBoardDTO {
     private int good;
     private String password;
     private String[] newFileName;
+    private String cate;
 }

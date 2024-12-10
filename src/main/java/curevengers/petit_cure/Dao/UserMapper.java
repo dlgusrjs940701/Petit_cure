@@ -17,7 +17,9 @@ public interface UserMapper {
 
     List<QABoardDTO> findQAAllBoards(pageDTO pagedto);
 
-    freeBoardDTO selectOne(String no);
+    List<alertDTO> findalertAllBoards(pageDTO pagedto);
+
+    freeBoardDTO selectOne(String no);      // 자유게시판 하나 조회
 
     QABoardDTO selectQAOne(String no);
 
@@ -67,14 +69,15 @@ public interface UserMapper {
 
     void updateReport(int no);
 
+    // 자유게시판 신고관련
     void updateFreeReport(int no);
-
     int alertFreeBoard(alertDTO dto);
 
+    // QA게시판 신고 관련
     void updateQAReport(int no);
-
     int alertQAboard(alertDTO alertDTO);
-
+    List<alertDTO> selectAlertcomment(alertDTO alertDTO);
+    void deleteAlert(alertDTO alertDTO);
 
     void updateDPReport(int no);
 
@@ -114,6 +117,9 @@ public interface UserMapper {
     List<QABoardDTO> goodQAList(pageDTO pagedto);
 
     List<QABoardDTO> dateQAList(pageDTO pagedto);
+
+    // 관리자가 신고내역을 조회
+    List<alertDTO> selectAlert();
 
     List<QABoardDTO> AgeQAList(String ageGroup, pageDTO pagedto);
 }

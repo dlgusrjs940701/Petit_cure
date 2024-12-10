@@ -50,14 +50,16 @@
                 </ul>
             </li>
             <li><a href="company">회사소개</a></li>
-            <!--            <li class="dropdown"><a href="검색">검색</a></li>-->
+            <li class="dropdown" th:if="${session.auth}!=null"><a href="/alert">신고현황</a></li>
             <div style="display: inline;" id="login" th:if="${session.id == null}">
-                <li style="margin-left: 900px;"><a href="mplus">회원가입</a></li>
+                <li style="margin-left: 700px;" th:if="${session.auth != null}"><a href="mplus">회원가입</a></li>
+                <li style="margin-left: 900px;" th:if="${session.auth == null}"><a href="mplus">회원가입</a></li>
                 <li style="margin-left: 5px;"><a href="#">/</a></li>
                 <li style="margin-left: 5px;"><a href="login">로그인</a></li>
             </div>
             <div style="display: inline;" id="logout" th:if="${session.id != null}">
-                <li style="margin-left: 900px;"><a href="/mypage">[[${session.id}]]님의 페이지</a></li>
+                <li style="margin-left: 700px;" th:if="${session.auth != null}"><a href="/mypage">[[${session.id}]]님의 페이지</a></li>
+                <li style="margin-left: 850px;" th:if="${session.auth == null}"><a href="/mypage">[[${session.id}]]님의 페이지</a></li>
                 <li style="margin-left: 5px;"><a href="#">/</a></li>
                 <li style="margin-left: 5px;"><a href="/logout">로그아웃</a></li>
             </div>
@@ -304,6 +306,7 @@
 </div>
 </body>
 </html>
+
 <script>
     const submenuList = document.querySelectorAll(".dropdown");
 

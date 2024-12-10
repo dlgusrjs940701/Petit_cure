@@ -36,6 +36,9 @@
         <form method="post" action="/logincon">
           <div class="input-form-box"><span>아이디 </span><input type="text" name="username" id="username" class="form-control" style="height: 40px; font-size: 20px;"></div>
           <div class="input-form-box"><span>비밀번호 </span><input type="password" name="password" id="password" class="form-control" style="height: 40px; font-size: 20px;"></div>
+          <span th:if="${error}!=null">    <!-- 로그인 에러를 띄워줄 부분 -->
+              <p id="valid" class="alert alert-danger">[[${exception}]]</p>
+          </span>
           <div class="button-login-box" >
             <button type="submit" class="btn btn-primary btn-xs" style="width:100%">로그인</button>
             <div style="text-align: center; margin-top: 5px">또는</div>
@@ -73,7 +76,7 @@
   const modal = document.querySelector('.modal');
 
     async function login(){
-      let response = await fetch("/api/authenticate",{
+      let response = await fetch("/logincon",{
         method:"POST",
         headers:{
           "Content-Type":"application/json"
@@ -87,11 +90,11 @@
       if(response.ok){
         let json = await response.json();
         document.getElementById("loginresult").innerHTML = json.result;
-        localStorage.setItem("jwt",'Bearer ' + json.result.accessToken);
+        // localStorage.setItem("jwt",'Bearer ' + json.result.accessToken);
         modal.style.display = block;
       }else{
         let json = await response.json();
-        document.getElementById("loginresult").innerHTML = json;
+        // document.getElementById("loginresult").innerHTML = json;
         modal.style.display = block;
       }
     }

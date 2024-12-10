@@ -7,13 +7,10 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class alertDTO {
-    int alertno;
-    int no;
+public class blackListDTO {
     String id;
-    String comment;
     String date;
-    String alert_cate;
-    String write_id;
-    int num;
+    String singoBoard;
+    String comment;
+    String singonum;
 }
