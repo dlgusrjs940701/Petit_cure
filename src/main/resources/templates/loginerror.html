@@ -73,11 +73,12 @@
             background-color: #fff;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
             border-radius: 8px; width: 50%">
-        정지 계정 : [[${black}]]
+        정지 계정 : [[${black.id}]]
         <br><br>
-        <span style="color: darkred; font-style: italic">정지일자 : 2024.12.10</span><br>
-        <span style="color: darkred; font-style: italic">정지사유 : Q&A게시판 - 71번글(부적절한 내용)</span><br>
-        <span style="color: darkred; font-style: italic">신고횟수 : 10번</span><br>
+        <span style="color: darkred; font-style: italic">정지일자 : [[${black.date}]]</span><br>
+        <span style="color: darkred; font-style: italic">신고대상게시글 : [[${black.singoBoard}]]</span><br>
+        <span style="color: darkred; font-style: italic">정지사유 : [[${black.comment}]]</span><br>
+        <span style="color: darkred; font-style: italic">신고횟수 : [[${black.singonum}]]번</span><br>
         <br><br>
         관리자에 의해서 해당 계정은 정지되었습니다.
         <br><br>

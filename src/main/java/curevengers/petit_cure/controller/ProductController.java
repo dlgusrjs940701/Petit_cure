@@ -1,5 +1,6 @@
 package curevengers.petit_cure.controller;
 
+import curevengers.petit_cure.Dto.blackListDTO;
 import curevengers.petit_cure.Dto.memberDTO;
 import curevengers.petit_cure.Service.UserServiceImpl;
 import curevengers.petit_cure.security.Provider.TokenProvider;
@@ -65,8 +66,14 @@ public class ProductController {
     public String error(HttpSession session,HttpServletRequest request, HttpServletResponse response, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-        model.addAttribute("black",username);
+        blackListDTO black = userService.selectBlack(username);
+        model.addAttribute("black",black);
         return "loginerror";
+    }
+
+    @GetMapping(value="/access-denied")
+    public String showAccessDeniedPage(){
+        return "access-denied";
     }
 
     // passport-jwt & jsonwebtoken??

@@ -51,7 +51,7 @@ public class SecurityConfig {
     public static final String[] allowUrls = {
             "/login","/","/mplus","/api/**","/memplus","/idCheck",
             "/css**/**","/resources**/**","/freeboard*","/qanda*","company",
-            "/api/user/**","/api/authenticate","/kakaomplus","/qaboardVisitList","/freeboardVisitList"
+            "/api/user/**","/api/authenticate","/kakaomplus","/qaboardVisitList","/freeboardVisitList","/error"
     };
 
     public SecurityConfig(AuthenticationFailureHandler failureHandler,AuthenticationSuccessHandler successHandler,
@@ -72,6 +72,7 @@ public class SecurityConfig {
                         .requestMatchers("/oauth2/code/kakao").permitAll()
                         .requestMatchers("user/**").hasAnyAuthority("USER","MEMBER","ADMIN")
                         .requestMatchers("/depboard","/dpview").hasAnyAuthority("MEMBER","ADMIN")
+                        .requestMatchers("/withdraw","/alert","withdrawview","/alertview").hasAnyAuthority("ADMIN")
                         .anyRequest().authenticated() // 모든 요청 인증 필요
 
                         // 기본적으로 메인화면, 로그인 화면, 회원가입 화면은 모두 이용가능하다
@@ -101,7 +102,9 @@ public class SecurityConfig {
                 .logout(formLogout -> formLogout
                 .logoutUrl("/logout")   // 로그아웃 처리 URL
                 .addLogoutHandler(securityContextLogoutHandler)
-                .logoutSuccessUrl("/"));
+                .logoutSuccessUrl("/"))
+                .exceptionHandling(httpSecurityExceptionHandlingConfigurer -> httpSecurityExceptionHandlingConfigurer
+                        .accessDeniedPage("/access-denied"));
         return http.build();
     }
 
