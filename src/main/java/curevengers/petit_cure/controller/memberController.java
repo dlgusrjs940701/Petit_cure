@@ -135,6 +135,7 @@ public class memberController {
         myActivityDTO dto = new myActivityDTO();
         dto.setCate(cate);
         dto.setId(nowId);
+        System.out.println(userservice.getMyActivityList(dto).get(0).getId());
         return userservice.getMyActivityList(dto);
     }
 
