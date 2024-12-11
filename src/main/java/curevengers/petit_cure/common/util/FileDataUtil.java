@@ -83,7 +83,7 @@ public class FileDataUtil {
                 UUID uid = UUID.randomUUID();//랜덤문자 구하기 맘에안든다.
                 String saveName = uid + "." + originalName.split("\\.")[1];//한글 파일명 처리 때문에...
                 //
-//			String[] files = new String[] {saveName}; //형변환  files[0] 파일명이 들어 간다..
+//         String[] files = new String[] {saveName}; //형변환  files[0] 파일명이 들어 간다..
                 byte[] fileData = file[i].getBytes();
 
                 File target = new File(uploadPath, saveName);
