@@ -74,8 +74,6 @@ public interface allBoardService {
     List<alertDTO> selectAlertcomment(alertDTO alertDTO);        // 게시판 신고 관련 조회
     void deleteAlert(alertDTO alertDTO);       // 관리자가 Q&A신고글 삭제시 해당 신고내용도 삭제
 
-    void updateDPReport(int no);        // 우울증 게시판 신고
-
     void insertAttach(freeboard_attachDTO attachDTO);
 
     void insertQAAttach(qaboard_attachDTO qaattachDTO);
