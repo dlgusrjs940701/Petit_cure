@@ -55,6 +55,8 @@ public class ProductController {
         }
 
         System.out.println(username);
+        System.out.println(age);
+        System.out.println(authentication);
 
         return "main";
     }
