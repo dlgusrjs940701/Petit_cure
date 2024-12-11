@@ -165,7 +165,7 @@ li > a:hover {
 #section > div > div {
     /*z-index: -1;*/
     width: 1450px;
-    border: 1px solid;
+    /*border: 1px solid;*/
     height: 600px;
     margin-left: 235px;
     margin-top: 100px;
@@ -178,7 +178,7 @@ li > a:hover {
     width: 550px;
     height: 150px;
     margin-left: 500px;
-    border: 1px solid;
+    /*border: 1px solid;*/
     background-color: aliceblue;
     color: black;
 }
@@ -200,10 +200,11 @@ li > a:hover {
     margin-left: 40px;
     width: 420px;
     height: 390px;
-    border: 1px solid;
-    background-color: rgb(255, 255, 255);
-    border-style: ridge;
-    border-radius: 7.5%;
+    /*border: 1px solid;*/
+    /*background-color: rgb(255, 255, 255);*/
+    /*border-style: ridge;*/
+    /*border-radius: 7.5%;*/
+
 }
 
 footer {
