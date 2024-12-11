@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    .button11 {
+        padding: 10px 20px;
+        font-size: 20px;
+        background-color: #fee500;
+        color: #000000;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        width: 300px;
+        height: 50px;
+    }
+
+    .button11:hover {
+        background-color: #ebd400;
+    }
+
+    .button12 {
+        padding: 10px 20px;
+        font-size: 20px;
+        background-color: #638fff;
+        color: #000000;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        width: 300px;
+        height: 50px;
+    }
+
+    .button12:hover {
+        background-color: #376be7;
+    }
+
+</style>
+<body style="padding: 50px">
+    <h1>해당 게시글은 '카카오 회원가입'을 통해 <br>
+        '실명인증'을 진행한 회원만 이용 가능하오니, <br>
+        이용을 원하시는 회원께서는 <br>
+        "카카오 로그인 -> 회원가입"을 먼저 진행해주시길 바랍니다.<br></h1>
+    <hr>
+    <br>
+    <input type="submit" value="카카오 로그인 하러가기" class="button11" onclick="location.href='/login'">
+    <br><br>
+    <input type="submit" value="홈으로 돌아가기" class="button12" onclick="location.href='/'">
+</body>
+</html>

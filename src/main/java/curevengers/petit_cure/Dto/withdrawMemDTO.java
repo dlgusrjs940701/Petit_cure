@@ -7,10 +7,10 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class myActivityDTO {
+public class withdrawMemDTO {
     private String id;
-    private String title;
+    private String cause;
     private String date;
-    private String content;
-    private String cate;
+    private int num;
+    private String recent_date;
 }

@@ -155,28 +155,42 @@ public class testhome {
         }
         pagedto.setTotalCount(testservice.totalCountBoard());
         List<freeBoardDTO> freeBoardList = testservice.getAllFreeBoards(pagedto);
+        int totalnum = testservice.totalCountBoard();
         model.addAttribute("list", freeBoardList);
         model.addAttribute("pageDTO", pagedto);
         model.addAttribute("attachDTO", attachDTO);
+        model.addAttribute("totalnum", totalnum);
         return "freeBoard";
     }
 
     // QA게시판
     @GetMapping(value = "/qanda")
-    public String getQABoardList(Model model, @ModelAttribute pageDTO pagedto) {
+    public String getQABoardList(Model model, @ModelAttribute pageDTO pagedto,HttpSession session) {
         if (pagedto.getPage() == null) {
             pagedto.setPage(1);
         }
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        System.out.println(request.getCookies().toString()+"요청값에서 온 쿠키값**********************");
+//        System.out.println(authentication.getPrincipal()+"요청값에서온 principal값");
+//        System.out.println(request.getSession().getAttribute("kakaoToken")+"요청 값의 토큰값");
+        String username = authentication.getName();
+        memberDTO member = userService.getMemberById(username);
+//        String phone = member.getPhone_num();
+        String age = member.getAge();
+        session.setAttribute("age", age);
         pagedto.setTotalCount(testservice.totalQACountBoard());
         List<QABoardDTO> QABoardList = testservice.getAllQABoards(pagedto);
         model.addAttribute("qalist", QABoardList);
         model.addAttribute("pageDTO", pagedto);
+        System.out.println(age);
         return "Q&A";
     }
 
     // 우울증게시판
     @GetMapping(value = "/depboard")
-    public String depBoard(Model model, @ModelAttribute pageDTO pagedto) throws Exception {
+    public String depBoard(Model model, @ModelAttribute pageDTO pagedto, HttpSession httpSession) throws Exception {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String name=authentication.getName();
         if (pagedto.getPage() == null) {
             pagedto.setPage(1);
         }
@@ -184,6 +198,7 @@ public class testhome {
         List<dpBoardDTO> dpBoardList = dpboardservice.selectAll(pagedto);
         model.addAttribute("list", dpBoardList);
         model.addAttribute("pageDTO", pagedto);
+        System.out.println(authentication.getName());
         return "dpBoard";
     }
 
@@ -216,29 +231,24 @@ public class testhome {
 
     // Q&A게시판 글 자세히 보기
     @GetMapping(value = "/qaview")
-    public String QAboardView(@RequestParam("no") String no, Model model, @ModelAttribute qacommentDTO qacommentdto, qaboard_attachDTO qaattachdto, @ModelAttribute memberDTO memberdto) {
+    public String QAboardView(@RequestParam("no") String no, Model model, @ModelAttribute qacommentDTO qacommentdto, HttpSession session, @ModelAttribute memberDTO memberdto) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         memberDTO memberDTO = membermapper.getMemberByID(username);
         QABoardDTO board = testservice.getQABoardNo(no);
         List<qacommentDTO> qacommentList = testservice.getqaComment(no);
         List<qaboard_attachDTO> qaattachList = testservice.getQAAttach(no);
-//        System.out.println("QABoard: " + board);
-//        System.out.println("Comment List: " + qacommentList);
         qaboardLikeDTO qaboardlike = new qaboardLikeDTO();
         qaboardlike.setQaboard_no(no);
         qaboardlike.setId(username);
         qaboardlike = testservice.qagetBoardLike(qaboardlike);
         System.out.println(qaboardlike);
-        if(qaboardlike != null) {
-            model.addAttribute("boardLike", qaboardlike);
-        }else{
-            model.addAttribute("boardLike", null);
-        }
+        model.addAttribute("boardLike", qaboardlike);
         model.addAttribute("dto", board);
         model.addAttribute("commentList", qacommentList);
         model.addAttribute("qaattachList", qaattachList);
         model.addAttribute("member", memberDTO);
+        session.setAttribute("id",username);
         return "qaview";
     }
 
@@ -257,12 +267,7 @@ public class testhome {
         dpboardlike.setId(username);
         dpboardlike = dpboardservice.dpgetBoardLike(dpboardlike);
         System.out.println(dpboardlike);
-        if(dpboardlike != null) {
-            model.addAttribute("boardLike", dpboardlike);
-        }else{
-            model.addAttribute("boardLike", null);
-        }
-
+        model.addAttribute("boardLike", dpboardlike);
         model.addAttribute("dto", dto);
         model.addAttribute("commentList", dpcommentList);
         model.addAttribute("dpattachList", dpattachList);
@@ -318,7 +323,7 @@ public class testhome {
 
     // 건강검진결과 전체 리스트 보기
     @GetMapping(value = "/moreresult")
-    public String moreresult(Model model, HttpServletRequest request) throws Exception {
+    public String moreresult(Model model) throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String nowId = authentication.getName();
         List<healthCheckDTO> list = healthcheckservice.selectAll(nowId);
@@ -386,24 +391,39 @@ public class testhome {
     @GetMapping(value = "/searchTitle")
     public String searchBoard(@RequestParam("title") String title, Model model) {
         List<freeBoardDTO> board = testservice.getsearchFreeBoards(title);
+        pageDTO pagedto = new pageDTO();
+        pagedto.setPage(1);
+        pagedto.setTotalCount(board.size());
+        int totalnum = testservice.totalCountBoard();
         model.addAttribute("list", board);
-        return "searchfreeBoard";
+        model.addAttribute("pageDTO", pagedto);
+        model.addAttribute("totalnum", totalnum);
+        return "freeBoard";
     }
 
     // Q&A게시판 검색 기능
     @GetMapping(value = "/searchQATitle")
     public String searchQABoard(@RequestParam("title") String title, Model model) {
         List<QABoardDTO> board = testservice.getsearchQABoards(title);
-        model.addAttribute("list", board);
-        return "searchQABoard";
+        pageDTO pagedto = new pageDTO();
+        pagedto.setPage(1);
+        pagedto.setTotalCount(testservice.totalQACountBoard());
+        model.addAttribute("qalist", board);
+        model.addAttribute("pageDTO", pagedto);
+
+        return "Q&A";
     }
 
     // 우울증게시판 검색 기능
     @GetMapping(value = "/searchDPTitle")
     public String searchDPTitle(@RequestParam("title") String title, Model model) throws Exception {
         List<dpBoardDTO> board = dpboardservice.getsearchDPBoards(title);
+        pageDTO pagedto = new pageDTO();
+        pagedto.setPage(1);
+        pagedto.setTotalCount(dpboardservice.countAll());
         model.addAttribute("list", board);
-        return "searchDPBoard";
+        model.addAttribute("pageDTO", pagedto);
+        return "dpBoard";
     }
 
     // 자유게시판 좋아요 기능
@@ -810,15 +830,24 @@ public class testhome {
         return testservice.visitList(pagedto).get(0);
     }
 
-    // 메인페이지 자유게시판 글 중 최고 조회수 글 조회
+    // 메인페이지 Q&A게시판 글 중 최고 추천수 글 조회
     @ResponseBody
     @PostMapping(value = "qaboardVisitList")
     public QABoardDTO qaboardVisitList() {
         pageDTO pagedto = new pageDTO();
         pagedto.setPage(1);
-        System.out.println(testservice.goodQAList(pagedto).get(0).getTitle());
 
         return testservice.goodQAList(pagedto).get(0);
+    }
+
+    // 메인페이지 우울증게시판 글 중 최고 추천수 글 조회
+    @ResponseBody
+    @PostMapping(value = "dpboardVisitList")
+    public dpBoardDTO dpboardVisitList() throws Exception {
+        pageDTO pagedto = new pageDTO();
+        pagedto.setPage(1);
+
+        return dpboardservice.gooddpList(pagedto).get(0);
     }
 
     // 댓글 제한 기능

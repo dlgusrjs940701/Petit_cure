@@ -246,7 +246,7 @@ table {
 /* table tr td{
     text-align: center;
 } */
-#td1 {
+.td1 {
     width:  400px;
     height: 100px;
     font-size: 30px;

@@ -7,7 +7,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/freeBoard.css">
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/20d076eb83.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -17,9 +16,6 @@
 <!-- main화면 include 설정 -->
 <div th:include="main::header"></div>
 <div th:include="main::nav"></div>
-=
-
-
 <section>
     <div class="container mt-4">
         <div class="title-container mb-4">
@@ -98,9 +94,10 @@
                 <ul id="fileList">
                     <li th:each="file : ${attachList}">
                         <a th:href="@{'/download?filename=' + ${file.filename}}" th:text="${file.filename}"></a>
-                        <div th:if="${file.filename.endsWith('.jpg') || file.filename.endsWith('.png') || file.filename.endsWith('.gif')}">
-                            <img th:src="@{'/images/' + ${file.filename}}" alt="첨부 이미지">
-                        </div>
+
+                        <!--                        <div th:if="${file.filename.endsWith('.jpg') || file.filename.endsWith('.png') || file.filename.endsWith('.gif')}">-->
+<!--                        <img th:src="@{'/images/' + ${file.filename}}" alt="첨부 이미지">-->
+                        <!--                        </div>-->
                     </li>
                 </ul>
             </div>
@@ -182,6 +179,8 @@
                                     th:value="${comment.no}">삭제
                             </button>
                         </td>
+                        <td style="width: 20%" th:if="${comment.id} != ${session.id}">
+                        </td>
                     </tr>
                     </tbody>
                 </table>
@@ -241,7 +240,7 @@
             <div class="comment-section mt-5">
                 <h4><strong>댓글쓰기</strong></h4>
                 <form action="freecomment" method="post" class="mb-4">
-                    <input type="hidden" name="id" th:value="${dto.id}" required>
+                    <input type="hidden" name="id" th:value="${session.id}" required>
 
                     <div class="mb-3">
                         <input type="text" placeholder="댓글을 입력하세요" class="form-control" name="content"

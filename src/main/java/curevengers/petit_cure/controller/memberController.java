@@ -1,8 +1,16 @@
 package curevengers.petit_cure.controller;
 
+
+import curevengers.petit_cure.Dao.MemberMapper;
+import curevengers.petit_cure.Dto.*;
+
 import curevengers.petit_cure.Dto.memberDTO;
 import curevengers.petit_cure.Dto.myActivityDTO;
+import curevengers.petit_cure.Dto.withdrawMemDTO;
+
 import curevengers.petit_cure.Service.UserServiceImpl;
+import curevengers.petit_cure.Service.allBoardService;
+import curevengers.petit_cure.Service.dpBoardService;
 import curevengers.petit_cure.kakaoapi.KakaoApi;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -29,7 +37,14 @@ import java.util.List;
 @Controller
 public class memberController {
 
+    @Autowired
+    MemberMapper membermapper;
 
+    @Autowired
+    allBoardService testservice;
+
+    @Autowired
+    dpBoardService dpboardservice;
 
     @Autowired
     UserServiceImpl userservice;
@@ -71,6 +86,13 @@ public class memberController {
         return userservice.cofrmID(id);
     }
 
+    // 회원 비밀번호 변경 업데이트
+    @ResponseBody
+    @PostMapping(value = "/updateMember")
+    public int updateMember(@ModelAttribute memberDTO memberdto) {
+        return userservice.updateMember(memberdto);
+    }
+
     // 로그인 화면
     @GetMapping("/login")
     public String loginPage(@RequestParam(value = "error", required = false) String error,@RequestParam(value = "exception", required = false) String exception, Model model) { // 로그인되지 않은 상태이면 로그인 페이지를, 로그인된 상태이면 main 페이지를 보여줌
@@ -90,6 +112,7 @@ public class memberController {
         return "redirect:/";
     }
 
+
     // 마이페이지로 이동
     @GetMapping("/mypage")
     public String mypage(Model m) {
@@ -102,52 +125,155 @@ public class memberController {
         return "MyPage";
     }
 
-    // 회원수정/탈퇴 할 떄 다시 한번 확인하는 창
-    @GetMapping(value = "/usermodify")
-    public String usermodify() {
 
+    @ResponseBody
+    @GetMapping(value = "mypagelist")
+    public List<myActivityDTO> mypagelist(@RequestParam("cate") String cate) {
+        System.out.println(cate+"어떤보드인지 확인");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String nowId = authentication.getName();
+        myActivityDTO dto = new myActivityDTO();
+        dto.setCate(cate);
+        dto.setId(nowId);
+        return userservice.getMyActivityList(dto);
+    }
+
+    // 회원수정/탈퇴 할 떄 다시 한번 확인하는 창
+
+    @GetMapping(value = "/usermodify")
+    public String usermodify(HttpSession session) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String nowId = authentication.getName();
+        session.setAttribute("nowId",nowId);
         return "memberupdate";
     }
 
-    @GetMapping(value = "/userdelete")
-    public String userdelete() {
+    // 회원수정/탈퇴 할 때 아이디-비밀번호 확인
+    @ResponseBody
+    @PostMapping("/confirmMember")
+    public boolean confirmMember(@RequestParam("id") String id, @RequestParam("password") String password) {
+        memberDTO dto = userservice.getMemberById(id);
+        if(passwordEncoder.matches(password,dto.getPass())){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
-        return "memberupdate1";
+    // 회원수정/탈퇴 할 때 다시 한번 확인하는 창
+    @GetMapping(value = "/userdelete")
+    public String userdelete(HttpSession session) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String nowId = authentication.getName();
+        session.setAttribute("nowId",nowId);
+        return "memberupdate";
     }
 
 
-
+    // 회원 정보 수정 화면
     @GetMapping(value = "/usermod")
-    public String usermod(Model m) {
-
+    public String usermod(HttpSession session) {
+        session.setAttribute("nowId",session.getAttribute("nowId"));
         return "member";
     }
-
+    // 회원 탈퇴 화면
     @GetMapping(value = "/userdel")
-    public String userdel(Model m) {
-
+    public String userdel(HttpSession session) {
+        session.setAttribute("nowId",session.getAttribute("nowId"));
         return "memberdelete";
     }
 
-
-    // 메인화면세어 자유게시판 최고조회글에 있는 버튼을 누르면 자유게시판으로 ㄱㄱ
-    @GetMapping(value = "/freeBO")
-    public String freeBO(Model m) {
-
-        return "redirect:/freeboard";
+    // 회원 탈퇴
+    @ResponseBody
+    @PostMapping(value = "/withdrawMember")
+    public int withdrawMember(@ModelAttribute withdrawMemDTO withdrawmember) {
+        System.out.println("탈퇴로 들어옴 ----------------");
+        userservice.addWithdraw(withdrawmember);
+        return userservice.deleteMember(withdrawmember.getId());
     }
 
-    // 메인화면세어 Q&A게시판 최고조회글에 있는 버튼을 누르면 자유게시판으로 ㄱㄱ
+
+    // 메인화면에서 자유게시판 최고조회글에 있는 버튼을 누르면 자유게시판으로 ㄱㄱ
+    @GetMapping(value = "/freeBO")
+    public String freeBO(Model m) {
+        pageDTO pagedto = new pageDTO();
+        pagedto.setPage(1);
+        String freeno = testservice.visitList(pagedto).get(0).getNo();
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        memberDTO memberDTO = membermapper.getMemberByID(username);
+        freeBoardDTO board = testservice.getBoardNo(freeno);
+        testservice.updateVisit(Integer.parseInt(freeno));
+//        System.out.println(board.getPassword());
+        List<freecommentDTO> freecommentFreeList = testservice.getFreeComment(freeno);
+        List<freeboard_attachDTO> attachList = testservice.getAttach(freeno);
+        freeboardLikeDTO freeboardlike = new freeboardLikeDTO();
+        freeboardlike.setFreeboard_no(freeno);
+        freeboardlike.setId(username);
+        freeboardlike = testservice.freegetBoardLike(freeboardlike);
+        m.addAttribute("boardLike", freeboardlike);
+        m.addAttribute("dto", board);
+        m.addAttribute("commentFreeList", freecommentFreeList);
+        m.addAttribute("attachList", attachList);
+        m.addAttribute("member", memberDTO);
+
+        return "view";
+    }
+
+    // 메인화면에서 Q&A게시판 최고조회글에 있는 버튼을 누르면 자유게시판으로 ㄱㄱ
     @GetMapping(value = "/Q&ABO")
     public String QABO(Model m) {
-        return "redirect:/qanda";
+        pageDTO pagedto = new pageDTO();
+        pagedto.setPage(1);
+        String qano = testservice.goodQAList(pagedto).get(0).getNo();
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        memberDTO memberDTO = membermapper.getMemberByID(username);
+        QABoardDTO board = testservice.getQABoardNo(qano);
+        List<qacommentDTO> qacommentList = testservice.getqaComment(qano);
+        List<qaboard_attachDTO> qaattachList = testservice.getQAAttach(qano);
+        qaboardLikeDTO qaboardlike = new qaboardLikeDTO();
+        qaboardlike.setQaboard_no(qano);
+        qaboardlike.setId(username);
+        qaboardlike = testservice.qagetBoardLike(qaboardlike);
+        System.out.println(qaboardlike);
+        m.addAttribute("boardLike", qaboardlike);
+        m.addAttribute("dto", board);
+        m.addAttribute("commentList", qacommentList);
+        m.addAttribute("qaattachList", qaattachList);
+        m.addAttribute("member", memberDTO);
+
+        return "qaview";
     }
 
     // 메인화면세어 우울증게시판 최고조회글에 있는 버튼을 누르면 자유게시판으로 ㄱㄱ
     @GetMapping(value = "/dpBO")
-    public String dpBO(Model m) {
+    public String dpBO(Model m) throws Exception {
+        pageDTO pagedto = new pageDTO();
+        pagedto.setPage(1);
+        int dpno = dpboardservice.gooddpList(pagedto).get(0).getNo();
 
-        return "redirect:/depboard";
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        memberDTO memberDTO = membermapper.getMemberByID(username);
+        dpBoardDTO dto = dpboardservice.selectOne(dpno);
+        List<dpcommentDTO> dpcommentList = dpboardservice.getdpComment(dpno);
+        List<dpboard_attachDTO> dpattachList = dpboardservice.getDPAttach(dpno);
+
+        dpboardLikeDTO dpboardlike = new dpboardLikeDTO();
+        dpboardlike.setDpboard_no(String.valueOf(dpno));
+        dpboardlike.setId(username);
+        dpboardlike = dpboardservice.dpgetBoardLike(dpboardlike);
+        System.out.println(dpboardlike);
+        m.addAttribute("boardLike", dpboardlike);
+        m.addAttribute("dto", dto);
+        m.addAttribute("commentList", dpcommentList);
+        m.addAttribute("dpattachList", dpattachList);
+        m.addAttribute("member", memberDTO);
+
+        return "dpview";
     }
 
 }

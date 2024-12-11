@@ -19,13 +19,13 @@
     <select id="findAllBoards" resultType="curevengers.petit_cure.Dto.freeBoardDTO">
         SELECT *
         FROM freeboard
-        ORDER BY title DESC
+        ORDER BY date DESC
         LIMIT #{perPageNum} OFFSET #{startNo}
     </select>
     <select id="findQAAllBoards" resultType="curevengers.petit_cure.Dto.QABoardDTO">
         SELECT *
         FROM qaboard
-        ORDER BY title DESC
+        ORDER BY date DESC
         LIMIT #{perPageNum} OFFSET #{startNo}
     </select>
     <select id="findalertAllBoards" resultType="curevengers.petit_cure.Dto.alertDTO">
@@ -41,6 +41,7 @@
         select no, title, visit, date
         from freeboard
         where title like CONCAT('%', #{title}, '%')
+
     </select>
     <!--     QA게시판 검색기능-->
     <select id="findSearchQABoards" parameterType="String" resultType="curevengers.petit_cure.Dto.QABoardDTO">
