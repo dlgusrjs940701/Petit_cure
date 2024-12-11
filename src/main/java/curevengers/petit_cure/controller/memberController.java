@@ -125,15 +125,15 @@ public class memberController {
         return "MyPage";
     }
 
-
+    // 마이페이지 활동 리스트
     @ResponseBody
     @GetMapping(value = "mypagelist")
-    public List<myActivityDTO> mypagelist(@RequestParam("cate") String cate) {
-        System.out.println(cate+"어떤보드인지 확인");
+    public List<myActivityDTO> mypagelist(@RequestParam("board") String board) {
+        System.out.println(board+"어떤보드인지 확인");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String nowId = authentication.getName();
         myActivityDTO dto = new myActivityDTO();
-        dto.setCate(cate);
+        dto.setBoard(board);
         dto.setId(nowId);
         System.out.println(userservice.getMyActivityList(dto).get(0).getId());
         return userservice.getMyActivityList(dto);
@@ -275,6 +275,20 @@ public class memberController {
         m.addAttribute("member", memberDTO);
 
         return "dpview";
+    }
+
+    // 메인화면 게시판 별 탑3 리스트
+    @ResponseBody
+    @GetMapping(value = "mainpagelist")
+    public List<myActivityDTO> mainpagelist(@RequestParam("board") String board) {
+        System.out.println(board+"어떤보드인지 확인");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String nowId = authentication.getName();
+        myActivityDTO dto = new myActivityDTO();
+        dto.setBoard(board);
+        dto.setId(nowId);
+        System.out.println(userservice.getTopList(dto).get(0).getId());
+        return userservice.getTopList(dto);
     }
 
 }

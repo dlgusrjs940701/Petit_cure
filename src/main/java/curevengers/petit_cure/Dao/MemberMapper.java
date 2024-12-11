@@ -28,6 +28,9 @@ public interface MemberMapper {
     public List<myActivityDTO> getMyActivityListFree(myActivityDTO myActivityDTO);
     public List<myActivityDTO> getMyActivityListQA(myActivityDTO myActivityDTO);
     public List<myActivityDTO> getMyActivityListDP(myActivityDTO myActivityDTO);
+    public List<myActivityDTO> getFreeTopList(myActivityDTO myActivityDTO);
+    public List<myActivityDTO> getQATopList(myActivityDTO myActivityDTO);
+    public List<myActivityDTO> getDPTopList(myActivityDTO myActivityDTO);
 //    public int insertAuth(AuthVO autoVO);
     int updateBlacklist(memberDTO memberdto);
     public void addBlacklist(blackListDTO blacklistdto);

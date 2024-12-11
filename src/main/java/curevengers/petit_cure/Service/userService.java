@@ -21,6 +21,9 @@ public interface userService {
     public int cofrmID(String id);
     public List<myActivityDTO> getMyActivity(String id);
     public List<myActivityDTO> getMyActivityList(myActivityDTO myactivityDTO); // 마이페이지 리스트 업데이트
+
+    List<myActivityDTO> getTopList(myActivityDTO myactivityDTO);
+
     public int updateBlacklist(memberDTO memberdto);    // 해당 계정 정지
     public void addBlacklist(blackListDTO blacklistdto);  // 블랙리스트 사유 저장
     public blackListDTO selectBlack(String id);     // 블랙리스트멤버 사유 검색
