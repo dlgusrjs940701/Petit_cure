@@ -272,6 +272,7 @@
     // const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
     // const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
     function sendNumber(){
+        Timer();
         $("#mail_number").css("display","block");
         $.ajax({
             url: "/api/v1/email/send",
@@ -283,12 +284,12 @@
                 console.log("인증코드가 발송되었습니다.");
                 document.getElementById("comment").innerText="인증코드가 발송되었습니다.";
                 document.getElementById("comment").style.color="#ff0000";
+                document.getElementById("sendBtn").disabled = true;
             },
             error:function (){
                 alert("이메일이 올바르지 않아서 인증번호 전송에 실패했습니다.");
             }
         });
-
     }
     function confirmNumber() {
         let mail = $("#email").val();
@@ -314,7 +315,6 @@
                 // console.log(status);
             }
         });
-
     }
 
     function confirm(){
@@ -396,7 +396,7 @@
 
 
     function Timer(){
-        playtime = setInterval(function (){
+        setInterval(function (){
             time = time - 1000;
             min = time / (60 * 1000);
 
