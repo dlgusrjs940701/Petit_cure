@@ -22,8 +22,10 @@
             <h2><strong>게시글 상세보기</strong></h2>
             <div style="float: right">
                 <input type="hidden" id="no" th:value="${dto.no}"/>
-                <button type="submit" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#update">수정</button>
-                <button type="submit" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#delete">삭제</button>
+                <button type="submit" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#update">수정
+                </button>
+                <button type="submit" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#delete">삭제
+                </button>
             </div>
         </div>
         <div class="modal" id="update">
@@ -35,11 +37,16 @@
                     </div>
                     <div class="modal-body">
                         <label for="password1">비밀번호</label>
-                        <input type="password" id="password1" placeholder="비밀번호를 입력해주세요." class="form-control" name="password1" required>
+                        <input type="password" id="password1" placeholder="비밀번호를 입력해주세요." class="form-control"
+                               name="password1" required>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="checkPasswordUpdate()">확인</button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" style="margin-top: 4px">취소</button>
+                        <button type="button" class="btn btn-success" data-bs-dismiss="modal"
+                                onclick="checkPasswordUpdate()">확인
+                        </button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" style="margin-top: 4px">
+                            취소
+                        </button>
                     </div>
 
                 </div>
@@ -54,11 +61,16 @@
                     </div>
                     <div class="modal-body">
                         <label for="password2">비밀번호</label>
-                        <input type="password" id="password2" placeholder="비밀번호를 입력해주세요." class="form-control" name="password" required>
+                        <input type="password" id="password2" placeholder="비밀번호를 입력해주세요." class="form-control"
+                               name="password" required>
                     </div>
                     <div class="modal-footer" style="float: right">
-                        <button type="submit" class="btn btn-success" onclick="checkPasswordDelete()" data-bs-dismiss="modal">확인</button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" style="margin-top: 4px">취소</button>
+                        <button type="submit" class="btn btn-success" onclick="checkPasswordDelete()"
+                                data-bs-dismiss="modal">확인
+                        </button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" style="margin-top: 4px">
+                            취소
+                        </button>
                     </div>
 
                 </div>
@@ -75,13 +87,17 @@
                 <p><strong>작성자:</strong> <span th:text="${dto.id}"></span></p>
                 <input type="hidden" id="checkpass" th:value="${dto.password}"/>
                 <p><strong>카테고리:</strong> <span th:text="${dto.cate}"></span></p>
-<!--                <p><strong>조회수:</strong> <span th:text="${dto.visit}"></span></p>-->
+                <!--                <p><strong>조회수:</strong> <span th:text="${dto.visit}"></span></p>-->
                 <p><strong>추천수:</strong> <span th:text="${dto.good}" th:value="${dto.good}" id="goodnum"></span></p>
                 <p><strong>작성일:</strong> <span th:text="${dto.date}"></span></p>
                 <p><strong>파일:</strong></p>
                 <ul id="fileList">
                     <li th:each="file : ${attachList}">
                         <a th:href="@{'/download?filename=' + ${file.filename}}" th:text="${file.filename}"></a>
+
+                        <!--                        <div th:if="${file.filename.endsWith('.jpg') || file.filename.endsWith('.png') || file.filename.endsWith('.gif')}">-->
+<!--                        <img th:src="@{'/images/' + ${file.filename}}" alt="첨부 이미지">-->
+                        <!--                        </div>-->
                     </li>
                 </ul>
             </div>
@@ -96,14 +112,16 @@
             <div style="margin-left: 75%">
                 <input type="hidden" name="no" id="nowno1" th:value="${dto.no}"/>
 
-                <div style="display: none" id="recommend" th:style="${boardLike == null ? 'display:inline-block' : 'display:none'}">
+                <div style="display: none" id="recommend"
+                     th:style="${boardLike == null ? 'display:inline-block' : 'display:none'}">
 
                     <i class="fa-regular fa-thumbs-up fa-3x" type="submit" onclick="good()"></i>
                     <span>추천하기</span>
                 </div>
                 <input type="hidden" name="no" id="nowno2" th:value="${dto.no}"/>
 
-                <div style="display: none" id="unrecommend" th:style="${boardLike != null ? 'display:inline-block' : 'display:none'}">
+                <div style="display: none" id="unrecommend"
+                     th:style="${boardLike != null ? 'display:inline-block' : 'display:none'}">
 
                     <i class="fa-solid fa-thumbs-up fa-3x" type="submit" onclick="good()"></i>
                     <span>추천취소</span>
@@ -124,11 +142,15 @@
                         </div>
                         <div class="modal-body">
                             <label for="alert_comment">신고 내용</label>
-                            <input type="text" id="alert_comment" placeholder="신고할 내용을 작성해주세요." class="form-control" name="comment" required>
+                            <input type="text" id="alert_comment" placeholder="신고할 내용을 작성해주세요." class="form-control"
+                                   name="comment" required>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="singo()">확인</button>
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" style="margin-top: 4px">취소</button>
+                            <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="singo()">확인
+                            </button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                                    style="margin-top: 4px">취소
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -148,8 +170,14 @@
                         <td th:text="${comment.id}" style="width: 20%"></td>
                         <td th:text="${comment.content}" style="width: 60%"></td>
                         <td style="width: 20%" th:if="${comment.id} == ${session.id}">
-                            <button type="submit" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#updateComment" onclick="tossno(this.value)" th:value="${comment.no}">수정</button>
-                            <button type="submit" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#deleteComment" onclick="tossno(this.value)" th:value="${comment.no}">삭제</button>
+                            <button type="submit" class="btn btn-secondary" data-bs-toggle="modal"
+                                    data-bs-target="#updateComment" onclick="tossno(this.value)"
+                                    th:value="${comment.no}">수정
+                            </button>
+                            <button type="submit" class="btn btn-secondary" data-bs-toggle="modal"
+                                    data-bs-target="#deleteComment" onclick="tossno(this.value)"
+                                    th:value="${comment.no}">삭제
+                            </button>
                         </td>
                     </tr>
                     </tbody>
@@ -164,15 +192,22 @@
                         </div>
                         <div class="modal-body">
                             <label for="id3">작성자 ID</label>
-                            <input type="text" id="id3" placeholder="ID를 입력해주세요." class="form-control" name="id" readonly required>
+                            <input type="text" id="id3" placeholder="ID를 입력해주세요." class="form-control" name="id"
+                                   readonly required>
                             <label for="password3">비밀번호</label>
-                            <input type="password" id="password3" placeholder="비밀번호를 입력해주세요." class="form-control" name="password" required>
+                            <input type="password" id="password3" placeholder="비밀번호를 입력해주세요." class="form-control"
+                                   name="password" required>
                             <label for="content3">작성내용</label>
-                            <input type="text" id="content3" placeholder="작성내용을 입력해주세요." class="form-control" name="content" required>
+                            <input type="text" id="content3" placeholder="작성내용을 입력해주세요." class="form-control"
+                                   name="content" required>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="checkCommentPasswordUpdate()">확인</button>
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" style="margin-top: 4px">취소</button>
+                            <button type="button" class="btn btn-success" data-bs-dismiss="modal"
+                                    onclick="checkCommentPasswordUpdate()">확인
+                            </button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                                    style="margin-top: 4px">취소
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -186,11 +221,16 @@
                         </div>
                         <div class="modal-body">
                             <label for="password4">비밀번호</label>
-                            <input type="text" id="password4" placeholder="비밀번호를 입력해주세요." class="form-control" name="password" required>
+                            <input type="text" id="password4" placeholder="비밀번호를 입력해주세요." class="form-control"
+                                   name="password" required>
                         </div>
                         <div class="modal-footer" style="float: right">
-                            <button type="submit" class="btn btn-success" onclick="checkCommentPasswordDelete()" data-bs-dismiss="modal">확인</button>
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" style="margin-top: 4px">취소</button>
+                            <button type="submit" class="btn btn-success" onclick="checkCommentPasswordDelete()"
+                                    data-bs-dismiss="modal">확인
+                            </button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                                    style="margin-top: 4px">취소
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -248,20 +288,21 @@
 <script>
     let no = document.getElementById("no").value
     let id = document.getElementById("nowid").innerHTML
+
     function checkPasswordUpdate() {
         let password = document.getElementById("password1").value
-        console.log(id+"(아이디) / "+password+"(비밀번호)")
+        console.log(id + "(아이디) / " + password + "(비밀번호)")
         $.ajax({
-            type:"POST",
-            url:"/confirmpassword",
-            data:{
-                id : id,
-                password : password
+            type: "POST",
+            url: "/confirmpassword",
+            data: {
+                id: id,
+                password: password
             },
-            dataType : "json",
+            dataType: "json",
             cache: false,
-            success: function (data){
-                if(data){
+            success: function (data) {
+                if (data) {
                     let form = document.createElement('form');
                     form.setAttribute('action', '/updateBoardView');
                     form.setAttribute('method', 'get');
@@ -278,30 +319,31 @@
                     form.submit();
 
                     alert("인증되었습니다.")
-                }else{
+                } else {
                     alert("비밀번호가 틀렸습니다.")
                     document.getElementById("password1").value = null;
                 }
             },
-            error: function (){
+            error: function () {
                 alert("에러입니다.")
             }
         })
     }
+
     function checkPasswordDelete() {
         let password = document.getElementById("password2").value
-        console.log(id+"(아이디) / "+password+"(비밀번호)")
+        console.log(id + "(아이디) / " + password + "(비밀번호)")
         $.ajax({
-            type:"POST",
-            url:"/confirmpassword",
-            data:{
-                id : id,
-                password : password
+            type: "POST",
+            url: "/confirmpassword",
+            data: {
+                id: id,
+                password: password
             },
-            dataType : "json",
+            dataType: "json",
             cache: false,
-            success: function (data){
-                if(data){
+            success: function (data) {
+                if (data) {
                     let form = document.createElement('form');
                     form.setAttribute('action', '/deleteBoard');
                     form.setAttribute('method', 'get');
@@ -318,19 +360,19 @@
                     form.submit();
 
                     alert("삭제되었습니다.")
-                }else{
+                } else {
                     alert("비밀번호가 틀렸습니다.")
                     document.getElementById("password2").value = null;
                 }
             },
-            error: function (){
+            error: function () {
                 alert("에러입니다.")
             }
         })
     }
 </script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const fileList = document.querySelectorAll('#fileList li');
 
         fileList.forEach(fileItem => {
@@ -351,134 +393,139 @@
     });
 </script>
 <script>    // 글 수정삭제
-    let no = document.getElementById("no").value
-    function checkPasswordUpdate() {
-        if (document.getElementById("checkpass").value == document.getElementById("password1").value) {
-            let form = document.createElement('form');
-            form.setAttribute('action', '/updatedpBoardView');
-            form.setAttribute('method', 'get');
+let no = document.getElementById("no").value
 
-            let data = document.createElement('input');
+function checkPasswordUpdate() {
+    if (document.getElementById("checkpass").value == document.getElementById("password1").value) {
+        let form = document.createElement('form');
+        form.setAttribute('action', '/updatedpBoardView');
+        form.setAttribute('method', 'get');
 
-            data.setAttribute('name', 'no');
-            data.setAttribute('value', no);
+        let data = document.createElement('input');
 
-            form.appendChild(data);
+        data.setAttribute('name', 'no');
+        data.setAttribute('value', no);
 
-            document.body.appendChild(form);
+        form.appendChild(data);
 
-            form.submit();
+        document.body.appendChild(form);
 
-            alert("인증되었습니다.")
-        } else {
-            alert("비밀번호가 틀렸습니다.")
-            document.getElementById("password1").value = null;
-        }
+        form.submit();
+
+        alert("인증되었습니다.")
+    } else {
+        alert("비밀번호가 틀렸습니다.")
+        document.getElementById("password1").value = null;
     }
-    function checkPasswordDelete() {
-        if (document.getElementById("checkpass").value == document.getElementById("password2").value) {
-            let form = document.createElement('form');
-            form.setAttribute('action', '/deletedpBoard');
-            form.setAttribute('method', 'get');
+}
 
-            let data = document.createElement('input');
+function checkPasswordDelete() {
+    if (document.getElementById("checkpass").value == document.getElementById("password2").value) {
+        let form = document.createElement('form');
+        form.setAttribute('action', '/deletedpBoard');
+        form.setAttribute('method', 'get');
 
-            data.setAttribute('name', 'no');
-            data.setAttribute('value', no);
+        let data = document.createElement('input');
 
-            form.appendChild(data);
+        data.setAttribute('name', 'no');
+        data.setAttribute('value', no);
 
-            document.body.appendChild(form);
+        form.appendChild(data);
 
-            form.submit();
+        document.body.appendChild(form);
 
-            alert("삭제되었습니다.")
-        } else {
-            alert("비밀번호가 틀렸습니다.")
-            document.getElementById("password2").value = null;
-        }
+        form.submit();
+
+        alert("삭제되었습니다.")
+    } else {
+        alert("비밀번호가 틀렸습니다.")
+        document.getElementById("password2").value = null;
     }
+}
 
 </script>
 <script th:inline="javascript">     // 댓글 수정삭제
-    let commentNo;
-    let boardNo;
-    function tossno(num) {
-        let commentList = /*[[${commentFreeList}]]*/ {};
-        for (let i = 0; i<commentList.length; i++) {
-            if (commentList[i].no === num) {
-                console.log(commentList[0].no)
-                document.getElementsByName("id")[0].value = commentList[i].id;
-                document.getElementsByName("content")[0].value = commentList[i].content;
-                commentNo = num;
-                boardNo = commentList[i].freeboard_no;
-                break;
-            }
+let commentNo;
+let boardNo;
+
+function tossno(num) {
+    let commentList = /*[[${commentFreeList}]]*/ {};
+    for (let i = 0; i < commentList.length; i++) {
+        if (commentList[i].no === num) {
+            console.log(commentList[0].no)
+            document.getElementsByName("id")[0].value = commentList[i].id;
+            document.getElementsByName("content")[0].value = commentList[i].content;
+            commentNo = num;
+            boardNo = commentList[i].freeboard_no;
+            break;
         }
     }
-    function checkCommentPasswordUpdate() {
-        if (document.getElementById("checkpass").value == document.getElementById("password3").value) {
-            let form = document.createElement('form');
-            form.setAttribute('action', '/updatefreeComment');
-            form.setAttribute('method', 'post');
+}
 
-            let data1 = document.createElement('input');
-            let data2 = document.createElement('input');
-            let data3 = document.createElement('input');
+function checkCommentPasswordUpdate() {
+    if (document.getElementById("checkpass").value == document.getElementById("password3").value) {
+        let form = document.createElement('form');
+        form.setAttribute('action', '/updatefreeComment');
+        form.setAttribute('method', 'post');
 
-            data1.setAttribute('name', 'commentNo');
-            data1.setAttribute('value', commentNo);
+        let data1 = document.createElement('input');
+        let data2 = document.createElement('input');
+        let data3 = document.createElement('input');
 
-            data2.setAttribute('name', 'content');
-            data2.setAttribute('value', document.getElementsByName("content")[0].value);
+        data1.setAttribute('name', 'commentNo');
+        data1.setAttribute('value', commentNo);
 
-            data3.setAttribute('name', 'boardNo');
-            data3.setAttribute('value', boardNo);
+        data2.setAttribute('name', 'content');
+        data2.setAttribute('value', document.getElementsByName("content")[0].value);
 
-            form.appendChild(data1);
-            form.appendChild(data2);
-            form.appendChild(data3);
+        data3.setAttribute('name', 'boardNo');
+        data3.setAttribute('value', boardNo);
 
-            document.body.appendChild(form);
+        form.appendChild(data1);
+        form.appendChild(data2);
+        form.appendChild(data3);
 
-            form.submit();
+        document.body.appendChild(form);
 
-            alert("수정되었습니다.")
-        } else {
-            alert("비밀번호가 틀렸습니다.")
-            document.getElementById("password3").value = null;
-        }
+        form.submit();
+
+        alert("수정되었습니다.")
+    } else {
+        alert("비밀번호가 틀렸습니다.")
+        document.getElementById("password3").value = null;
     }
-    function checkCommentPasswordDelete() {
-        if (document.getElementById("checkpass").value == document.getElementById("password4").value) {
-            let form = document.createElement('form');
-            form.setAttribute('action', '/deletefreeBoardComment');
-            form.setAttribute('method', 'post');
+}
 
-            let data1 = document.createElement('input');
-            let data2 = document.createElement('input');
+function checkCommentPasswordDelete() {
+    if (document.getElementById("checkpass").value == document.getElementById("password4").value) {
+        let form = document.createElement('form');
+        form.setAttribute('action', '/deletefreeBoardComment');
+        form.setAttribute('method', 'post');
 
-            data1.setAttribute('name', 'boardNo');
-            data1.setAttribute('value', boardNo);
+        let data1 = document.createElement('input');
+        let data2 = document.createElement('input');
 
-            data2.setAttribute('name', 'commentNo');
-            data2.setAttribute('value', commentNo);
+        data1.setAttribute('name', 'boardNo');
+        data1.setAttribute('value', boardNo);
 
-            form.appendChild(data1);
-            form.appendChild(data2);
+        data2.setAttribute('name', 'commentNo');
+        data2.setAttribute('value', commentNo);
 
-            document.body.appendChild(form);
+        form.appendChild(data1);
+        form.appendChild(data2);
 
-            console.log(boardNo+"/"+commentNo)
+        document.body.appendChild(form);
 
-            form.submit();
+        console.log(boardNo + "/" + commentNo)
 
-            alert("삭제되었습니다.")
-        } else {
-            alert("비밀번호가 틀렸습니다.")
-            document.getElementById("password4").value = null;
-        }
+        form.submit();
+
+        alert("삭제되었습니다.")
+    } else {
+        alert("비밀번호가 틀렸습니다.")
+        document.getElementById("password4").value = null;
     }
+}
 </script>
 <script>
     let nowid = document.getElementById('nowid').value;
@@ -497,7 +544,7 @@
     //         unrecommend.style.display = 'inline-block';
     //     }
     // }
-    function good(){
+    function good() {
 
         console.log(boardlikenum)
 
@@ -506,48 +553,52 @@
         no2 = document.getElementById('nowno2').value;
 
 
-        if(recommend.style.display == 'inline-block' && unrecommend.style.display == 'none'){
+        if (recommend.style.display == 'inline-block' && unrecommend.style.display == 'none') {
 
             $.ajax({
                 type: 'GET',
                 url: "/freeGoodUp",
-                data: {no: no1,
-                    id: nowid},
-                success: function (data){
-                    if(data>0) {
+                data: {
+                    no: no1,
+                    id: nowid
+                },
+                success: function (data) {
+                    if (data > 0) {
 
                         recommend.style.display = 'none';
                         unrecommend.style.display = 'inline-block';
 
-                        document.getElementById('goodnum').innerHTML= parseInt(goodnum)+1;
+                        document.getElementById('goodnum').innerHTML = parseInt(goodnum) + 1;
                         alert('추천 완료!');
-                    }else{
+                    } else {
                         alert('추천 실패')
                     }
                 },
-                error: function (){
+                error: function () {
                     alert("에러입니다.");
                 }
             })
-        }else {
+        } else {
             $.ajax({
                 type: 'GET',
                 url: "/freeGoodDown",
-                data: {no: no2,
-                    id: nowid},
-                success: function (data){
-                    if(data>0) {
+                data: {
+                    no: no2,
+                    id: nowid
+                },
+                success: function (data) {
+                    if (data > 0) {
 
                         recommend.style.display = 'inline-block';
                         unrecommend.style.display = 'none';
 
-                        document.getElementById('goodnum').innerHTML = parseInt(goodnum)-1;
+                        document.getElementById('goodnum').innerHTML = parseInt(goodnum) - 1;
                         alert('추천 취소!');
-                    }else{
+                    } else {
                         alert('추천취소 실패')
                     }
                 },
-                error: function (){
+                error: function () {
                     alert("에러입니다.");
                 }
             })
@@ -555,34 +606,36 @@
     }
 </script>
 <script>
-    function singo(){
+    function singo() {
         let write_id = document.getElementById('write_id').value;
         let comment = document.getElementById('alert_comment').value;
         let id = document.getElementById('nowid').value;
         let no = document.getElementById('no').value;
         let alertbutton = document.getElementById('alert');
 
-        if(confirm("신고 내용을 저장하시겠습니까?")){
+        if (confirm("신고 내용을 저장하시겠습니까?")) {
             $.ajax({
                 type: 'POST',
                 url: "/report",
-                data: {comment: comment,
+                data: {
+                    comment: comment,
                     write_id: write_id,
                     id: id,
-                    no: no},
-                success: function (data){
-                    if(data > 0){
+                    no: no
+                },
+                success: function (data) {
+                    if (data > 0) {
                         alertbutton.readOnly = true;
                         alert("신고가 완료되었습니다.")
-                    }else{
+                    } else {
                         alertbutton.readOnly = false;
                         alert("신고에 실패하였습니다.")
                     }
-                },error: function(){
+                }, error: function () {
                     alert("에러입니다.");
                 }
             })
-        }else{
+        } else {
             alert("취소되었습니다.");
         }
     }

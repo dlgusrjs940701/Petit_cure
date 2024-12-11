@@ -163,20 +163,32 @@ public class testhome {
 
     // QA게시판
     @GetMapping(value = "/qanda")
-    public String getQABoardList(Model model, @ModelAttribute pageDTO pagedto) {
+    public String getQABoardList(Model model, @ModelAttribute pageDTO pagedto,HttpSession session) {
         if (pagedto.getPage() == null) {
             pagedto.setPage(1);
         }
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        System.out.println(request.getCookies().toString()+"요청값에서 온 쿠키값**********************");
+//        System.out.println(authentication.getPrincipal()+"요청값에서온 principal값");
+//        System.out.println(request.getSession().getAttribute("kakaoToken")+"요청 값의 토큰값");
+        String username = authentication.getName();
+        memberDTO member = userService.getMemberById(username);
+//        String phone = member.getPhone_num();
+        String age = member.getAge();
+        session.setAttribute("age", age);
         pagedto.setTotalCount(testservice.totalQACountBoard());
         List<QABoardDTO> QABoardList = testservice.getAllQABoards(pagedto);
         model.addAttribute("qalist", QABoardList);
         model.addAttribute("pageDTO", pagedto);
+        System.out.println(age);
         return "Q&A";
     }
 
     // 우울증게시판
     @GetMapping(value = "/depboard")
-    public String depBoard(Model model, @ModelAttribute pageDTO pagedto) throws Exception {
+    public String depBoard(Model model, @ModelAttribute pageDTO pagedto, HttpSession httpSession) throws Exception {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String name=authentication.getName();
         if (pagedto.getPage() == null) {
             pagedto.setPage(1);
         }
@@ -184,6 +196,7 @@ public class testhome {
         List<dpBoardDTO> dpBoardList = dpboardservice.selectAll(pagedto);
         model.addAttribute("list", dpBoardList);
         model.addAttribute("pageDTO", pagedto);
+        System.out.println(authentication.getName());
         return "dpBoard";
     }
 
