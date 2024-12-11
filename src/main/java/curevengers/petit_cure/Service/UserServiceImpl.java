@@ -149,6 +149,19 @@ public class UserServiceImpl implements userService{
         return memberMapper.getMyActivity(id);
     }
 
+    @Override
+    public List<myActivityDTO> getMyActivityList(myActivityDTO myactivityDTO) {
+        if (myactivityDTO.getCate().equals("freeboard")) {
+            return memberMapper.getMyActivityListFree(myactivityDTO);
+        } else if (myactivityDTO.getCate().equals("qaboard")) {
+            return memberMapper.getMyActivityListQA(myactivityDTO);
+        } else if (myactivityDTO.getCate().equals("dpboard")) {
+            return memberMapper.getMyActivityListDP(myactivityDTO);
+        } else {
+            return null;
+        }
+    }
+
 
     // 블랙리스트 대상자 추가 및 정지
     @Override

@@ -25,6 +25,9 @@ public interface MemberMapper {
     List<withdrawMemDTO> withdrawCause(String cause);       // 탈퇴 사유별 현황 조회
     public int deleteWithdraw(String cause);
     public List<myActivityDTO> getMyActivity(String id);
+    public List<myActivityDTO> getMyActivityListFree(myActivityDTO myActivityDTO);
+    public List<myActivityDTO> getMyActivityListQA(myActivityDTO myActivityDTO);
+    public List<myActivityDTO> getMyActivityListDP(myActivityDTO myActivityDTO);
 //    public int insertAuth(AuthVO autoVO);
     int updateBlacklist(memberDTO memberdto);
     public void addBlacklist(blackListDTO blacklistdto);

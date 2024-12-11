@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
       integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
       crossorigin="anonymous" referrerpolicy="no-referrer"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <!--jsp를 사용하는 html은 @{} 방식을 쓰지않음-->
 <link rel="stylesheet" href="/css/main.css">
 <link rel="stylesheet" href="/css/freeBoard.css">
@@ -48,16 +49,16 @@
 
 <div th:fragment="sticky" class="sticky">
     <div class="list-group">
-        <button type="button" class="list-group-item list-group-item-action">자가검진결과확인 &nbsp;&nbsp;&nbsp;&nbsp;
+        <button type="button" class="list-group-item list-group-item-action" onclick="healthcheck()">자가검진하러가기 &nbsp;&nbsp;&nbsp;&nbsp;
             >
         </button>
-        <button type="button" class="list-group-item list-group-item-action">게시판 글쓴이 확인?&nbsp;&nbsp;&nbsp;&nbsp;
+        <button type="button" class="list-group-item list-group-item-action" onclick="dpcheck()">우울증검진하러가기&nbsp;&nbsp;&nbsp;&nbsp;
             >
         </button>
-        <button type="button" class="list-group-item list-group-item-action">회원정보수정&nbsp;&nbsp;&nbsp;&nbsp;
+        <button type="button" class="list-group-item list-group-item-action" onclick="healthchecklist()">자가검진결과리스트&nbsp;&nbsp;&nbsp;&nbsp;
             >
         </button>
-        <button type="button" class="list-group-item list-group-item-action">회원정보탈퇴&nbsp;&nbsp;&nbsp;&nbsp;
+        <button type="button" class="list-group-item list-group-item-action" onclick="dpchecklist()">우울증검진결과리스트&nbsp;&nbsp;&nbsp;&nbsp;
             >
         </button>
     </div>
@@ -113,9 +114,13 @@
 
                 <!-- 페이지 번호 반복 -->
 
-                <span th:each="idx : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}">
+                <span th:each="idx : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}" th:if="${totalnum} == ${pageDTO.totalCount}">
                     <span th:if="${pageDTO.page == idx}"></span>
-                    <a th:href="@{/freeboard(page=${idx})}" th:text="${idx}"></a>
+                    <a th:href=" @{/freeboard(page=${idx})}" th:text="${idx}"></a>
+                </span>
+                <span th:each="idx : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}" th:if="${totalnum} != ${pageDTO.totalCount}">
+                    <span th:if="${pageDTO.page == idx}"></span>
+                    <a th:href=" @{/searchTitle(page=${idx})}" th:text="${idx}"></a>
                 </span>
 
                 <!--                 다음 페이지 그룹 링크-->
@@ -170,4 +175,42 @@
             })
         });
     });
+</script>
+<script>
+    function healthchecklist() {
+        let form = document.createElement('form');
+        form.setAttribute('action', '/moreresult');
+        form.setAttribute('method', 'get');
+
+        document.body.appendChild(form);
+
+        form.submit();
+    }
+    function dpchecklist() {
+        let form = document.createElement('form');
+        form.setAttribute('action', '/dpmoreresult');
+        form.setAttribute('method', 'get');
+
+        document.body.appendChild(form);
+
+        form.submit();
+    }
+    function healthcheck() {
+        let form = document.createElement('form');
+        form.setAttribute('action', '/health');
+        form.setAttribute('method', 'get');
+
+        document.body.appendChild(form);
+
+        form.submit();
+    }
+    function dpcheck() {
+        let form = document.createElement('form');
+        form.setAttribute('action', '/dpcheck');
+        form.setAttribute('method', 'get');
+
+        document.body.appendChild(form);
+
+        form.submit();
+    }
 </script>

@@ -11,7 +11,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <!--타임리프를 사용할 때는 @{} 형식-->
     <link rel="stylesheet" th:href="@{/css/main.css}">
-    <link rel="stylesheet" th:href="@{/css/sticky.css}">
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
@@ -125,6 +125,7 @@
             </div>
         </div>
     </div>
+
 <!--<section class="jua-regula">-->
 
 <!--    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel"-->
@@ -144,6 +145,7 @@
 <!--        </button>-->
 
 <!--    </div>-->
+
     <div class="maincon">
         <div class="jua-regular" id="info">
             <table>
@@ -270,23 +272,23 @@
                 </tr>
             </table>
         </div>
-        <div class="jua-regular" id="info">
-            <table>
-                <tr>
-                    <td class="topboard">
-                        베스트 글
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <div class="buttonDisplay, align-items, justify-content">
-                            <button type="button" class="button"
-                                    style="position: absolute;top: 1330px;left: 1555px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px">확인</button>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </div>
+<!--        <div class="jua-regular" id="info">-->
+<!--            <table>-->
+<!--                <tr>-->
+<!--                    <td class="topboard">-->
+<!--                        베스트 글-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td colspan="2">-->
+<!--                        <div class="buttonDisplay, align-items, justify-content">-->
+<!--                            <button type="button" class="button"-->
+<!--                                    style="position: absolute;top: 1330px;left: 1555px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px">확인</button>-->
+<!--                        </div>-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--            </table>-->
+<!--        </div>-->
     </div>
 </section>
 
@@ -454,7 +456,7 @@
             url: "qaboardVisitList", //컨트롤러에 지정한 value값
             dataType: 'json',
             success: function (data) {
-                let str1 = data.content;
+                let str1 = data.title;
                 let str2 = data.id;
                 let str3 = data.content;
                 document.getElementById("qaboardnum").innerText = data.no;
@@ -475,15 +477,32 @@
                 }
             }
         })
-        // $.ajax({
-        //     type: 'post',
-        //     url: "dpboardVisitList", //컨트롤러에 지정한 value값
-        //     dataType: 'json',
-        //     success: function(data) {
-        //         document.getElementById("dpboardtitle").innerText = data.title;
-        //         document.getElementById("dpboardcontent").innerText = data.content;
-        //     }
-        // })
+        $.ajax({
+            type: 'post',
+            url: "dpboardVisitList", //컨트롤러에 지정한 value값
+            dataType: 'json',
+            success: function (data) {
+                let str1 = data.title;
+                let str2 = data.id;
+                let str3 = data.content;
+                document.getElementById("dpboardnum").innerText = data.no;
+                if (str1.length > 11) {
+                    document.getElementById("dpboardtitle").innerText = str1.substring(0, 12) + "...";
+                } else {
+                    document.getElementById("dpboardtitle").innerText = str1;
+                }
+                if (str2.length > 11) {
+                    document.getElementById("dpboarduser").innerText = str2.substring(0, 12) + "...";
+                } else {
+                    document.getElementById("dpboarduser").innerText = str2;
+                }
+                if (str3.length > 33) {
+                    document.getElementById("dpboardcontent").innerText = str3.substring(0, 34) + "...";
+                } else {
+                    document.getElementById("dpboardcontent").innerText = str3;
+                }
+            }
+        })
     }
 </script>
 <!--<script>-->

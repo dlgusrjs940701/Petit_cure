@@ -95,4 +95,16 @@
         (select id, content , date from dpcomment where id = #{id} limit 10)
         order by date desc limit 10;
     </select>
+
+    <select id="getMyActivityListFree">
+        select id, title, date from freeboard where id = #{id} order by date desc limit 9
+    </select>
+
+    <select id="getMyActivityListQA">
+        select id, title, date from qaboard where id = #{id} order by date desc limit 9
+    </select>
+
+    <select id="getMyActivityListDP">
+        select id, title, date from dpboard where id = #{id} order by date desc limit 9
+    </select>
 </mapper>
