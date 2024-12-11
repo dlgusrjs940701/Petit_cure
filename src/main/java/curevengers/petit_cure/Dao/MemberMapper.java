@@ -23,6 +23,9 @@ public interface MemberMapper {
     public void updateMember(memberDTO memberdto);  // 회원 정보 수정
     public void deleteMember(String id);    // 회원 탈퇴
     public List<myActivityDTO> getMyActivity(String id);
+    public List<myActivityDTO> getMyActivityListFree(myActivityDTO myActivityDTO);
+    public List<myActivityDTO> getMyActivityListQA(myActivityDTO myActivityDTO);
+    public List<myActivityDTO> getMyActivityListDP(myActivityDTO myActivityDTO);
 //    public int insertAuth(AuthVO autoVO);
     int updateBlacklist(memberDTO memberdto);
     public void addBlacklist(blackListDTO blacklistdto);

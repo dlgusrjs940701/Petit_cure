@@ -215,11 +215,29 @@ aside>h1 {
     padding-top: 15px;
 }
 
-input {
-    width: 150px;
-    height: 50px;
-    border-radius: 40px;
-    background-color: tomato;
-    margin-left: 10px;
-    margin-top: 100px;
+/*input {*/
+/*    width: 150px;*/
+/*    height: 50px;*/
+/*    border-radius: 40px;*/
+/*    background-color: tomato;*/
+/*    margin-left: 10px;*/
+/*    margin-top: 100px;*/
+/*}*/
+.write-btn {
+    width: 300px;
+    /*height: 50px;*/
+    /*padding: 10px 0px;*/
+    font-size: 30px;
+    background-color: wheat;
+    color: black;
+    /*border: none;*/
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    /*padding-bottom: 100px;*/
+    border: 2px solid;
 }
+
+/*.write-btn:hover {*/
+/*    background-color: wheat;*/
+/*}*/

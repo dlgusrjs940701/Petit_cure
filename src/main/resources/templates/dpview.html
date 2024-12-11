@@ -147,6 +147,8 @@
                                 <button type="submit" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#updateComment" onclick="tossno(this.value)" th:value="${comment.no}">수정</button>
                                 <button type="submit" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#deleteComment" onclick="tossno(this.value)" th:value="${comment.no}">삭제</button>
                             </td>
+                            <td style="width: 20%" th:if="${comment.id} != ${session.id}">
+                            </td>
                         </tr>
                         </tbody>
                     </table>
@@ -194,7 +196,7 @@
                 <div class="comment-section mt-5">
                     <h4><strong>댓글쓰기</strong></h4>
                     <form action="/dpcomment" method="post" class="mb-4">
-                        <input type="hidden" name="id" th:value="${dto.id}" required>
+                        <input type="hidden" name="id" th:value="${session.id}" required>
 
                         <div class="mb-3">
                             <input type="text" placeholder="댓글을 입력하세요" class="form-control" name="content"

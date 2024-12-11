@@ -18,6 +18,7 @@ public interface userService {
     public void withdraw(String id);
     public int cofrmID(String id);
     public List<myActivityDTO> getMyActivity(String id);
+    public List<myActivityDTO> getMyActivityList(myActivityDTO myactivityDTO); // 마이페이지 리스트 업데이트
     public int updateBlacklist(memberDTO memberdto);    // 해당 계정 정지
     public void addBlacklist(blackListDTO blacklistdto);      // 블랙리스트 사유 저장
 }

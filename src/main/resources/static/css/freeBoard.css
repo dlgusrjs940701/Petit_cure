@@ -129,7 +129,7 @@ a:hover {
 .button {
     width: 160px;
     height: 80px;
-    background-color: #e24e4e;
+    /*background-color: #e24e4e;*/
     border: none;
     color: white;
     align-items: center;
