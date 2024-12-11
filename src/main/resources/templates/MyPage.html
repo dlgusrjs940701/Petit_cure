@@ -68,9 +68,53 @@
         <table style="margin-left: auto; margin-right: auto; margin-top: 5px" id="table">
             <tr>
                 <td>아이디</td>
-                <td>카테고리</td>
                 <td>제목</td>
                 <td>날짜</td>
+            </tr>
+            <tr>
+                <td class="boardid"></td>
+                <td class="boardtitle"></td>
+                <td class="boarddate"></td>
+            </tr>
+            <tr>
+                <td class="boardid"></td>
+                <td class="boardtitle"></td>
+                <td class="boarddate"></td>
+            </tr>
+            <tr>
+                <td class="boardid"></td>
+                <td class="boardtitle"></td>
+                <td class="boarddate"></td>
+            </tr>
+            <tr>
+                <td class="boardid"></td>
+                <td class="boardtitle"></td>
+                <td class="boarddate"></td>
+            </tr>
+            <tr>
+                <td class="boardid"></td>
+                <td class="boardtitle"></td>
+                <td class="boarddate"></td>
+            </tr>
+            <tr>
+                <td class="boardid"></td>
+                <td class="boardtitle"></td>
+                <td class="boarddate"></td>
+            </tr>
+            <tr>
+                <td class="boardid"></td>
+                <td class="boardtitle"></td>
+                <td class="boarddate"></td>
+            </tr>
+            <tr>
+                <td class="boardid"></td>
+                <td class="boardtitle"></td>
+                <td class="boarddate"></td>
+            </tr>
+            <tr>
+                <td class="boardid"></td>
+                <td class="boardtitle"></td>
+                <td class="boarddate"></td>
             </tr>
         </table>
     </section>
@@ -110,21 +154,10 @@
             data: {cate: cate},
             success: function (data) {
                 for (let i = 0; i < data.length; i++) {
-                    console.log(data.id)
-                    console.log(this.id)
-                    let table = document.getElementById("table");
+                    document.getElementsByClassName("boardid")[i].innerText = data[i].id;
+                    document.getElementsByClassName("boardtitle")[i].innerText = data[i].title;
+                    document.getElementsByClassName("boarddate")[i].innerText = data[i].date;
 
-                    let newRow = table.insertRow();
-
-                    let newCell1 = newRow.insertCell(0);
-                    let newCell2 = newRow.insertCell(1);
-                    let newCell3 = newRow.insertCell(2);
-                    let newCell4 = newRow.insertCell(3);
-
-                    newCell1.innerText = data.id;
-                    newCell2.innerText = data.cate;
-                    newCell3.innerText = data.title;
-                    newCell4.innerText = data.date;
                 }
             }
         })
