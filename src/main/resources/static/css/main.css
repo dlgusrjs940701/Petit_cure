@@ -1,9 +1,27 @@
-@import url('https://fonts.googleapis.com/css2?family=Jua&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik+Wet+Paint&family=Yeon+Sung&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@800&family=Jua&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik+Wet+Paint&family=Yeon+Sung&display=swap');
 @font-face {
     font-family: 'RiaSans-ExtraBold';
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/RiaSans-ExtraBold.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
+}
+@font-face {
+    font-family: 'TheJamsil5Bold';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2302_01@1.0/TheJamsil5Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'SBAggroB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+.maintitle{
+    font-family: RiaSans-ExtraBold;
+}
+.mainnav{
+    font-family: TheJamsil5Bold;
 }
 .jua-regular {
     font-family: "Jua", sans-serif;
@@ -11,6 +29,12 @@
     font-style: normal;
     font-size: large;
 }
+.nanum-gothic-regular {
+    font-family: "Nanum Gothic", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
 
 #jua-regular {
     font-family: "Jua", sans-serif;
@@ -54,7 +78,6 @@ body {
     /*background-repeat: no-repeat;*/
     background-position: center;
 }
-
 header > div {
     height: 120px;
     text-align: center;
@@ -165,8 +188,8 @@ li > a:hover {
     width: 1920px;
     height: 470px;
     margin-left: 0px;
-    margin-top: 1100px;
-    z-index: 10;
+    /*margin-top: 00px;*/
+    z-index: 0;
     position: relative;
     float: left;
 }
