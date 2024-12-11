@@ -30,6 +30,20 @@ public class AdminController {
     @Autowired
     userService userservice;
 
+    @GetMapping(value = "/withdraw")
+    public String withdraw(Model model, @ModelAttribute pageDTO pagedto) {
+        if(pagedto.getPage() == null){      // 디폴트값 세팅
+            pagedto.setPage(1);
+        }
+        List<withdrawMemDTO> cnt = userservice.countWithdraw();
+        pagedto.setTotalCount(cnt.size());      // 총 갯수 세팅
+        List<withdrawMemDTO> list = userservice.selectWithdraw(pagedto); // 페이징까지 값 가져오기
+        model.addAttribute("list", list);
+        model.addAttribute("pageDTO", pagedto);
+        return "withdrawPage";
+    }
+
+
     @GetMapping(value = "/alert")
     public String alert(Model model, @ModelAttribute pageDTO pagedto) {
         if(pagedto.getPage() == null){      // 디폴트값 세팅
@@ -42,6 +56,27 @@ public class AdminController {
         model.addAttribute("pageDTO", pagedto);
         model.addAttribute("list", alertlist);
         return "alertPage";
+    }
+
+    @GetMapping(value = "/withdrawview")
+    public String withdrawview(HttpSession session, Model model, @ModelAttribute memberDTO memberdto,
+                               @RequestParam("cause") String cause) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        // 관리자를 확인하기 위하여 정보 가져올것
+        session.setAttribute("id", username);
+
+        List<withdrawMemDTO> withdraw = userservice.withdrawCause(cause);
+        model.addAttribute("withdrawList", withdraw);
+        model.addAttribute("cause", cause);
+
+        return "withdrawview";
+    }
+
+    @ResponseBody
+    @GetMapping(value = "/deleteWithdraw")
+    public int deleteWithdraw(@RequestParam("cause") String cause) {
+        return userservice.deleteWithdraw(cause);
     }
 
     @GetMapping(value="/alertview")
@@ -125,5 +160,11 @@ public class AdminController {
         memberdto.setAuth_name("BLACKLIST");
         userservice.addBlacklist(blacklistdto);
         return userservice.updateBlacklist(memberdto);
+    }
+
+    @ResponseBody
+    @GetMapping(value = "/confirmBlack")
+    public blackListDTO confirmBlack(String id) throws Exception {
+        return userservice.selectBlack(id);
     }
 }

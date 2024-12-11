@@ -31,7 +31,7 @@
     </select>
 
     <update id="updateMember">
-        update member set pass=#{pass},name=#{name},email=#{email},addr=#{addr},gender=#{gender},age=#{age},auth_name=default where id=#{id};
+        update member set pass=#{pass} where id=#{id};
     </update>
 
     <update id="updateBlacklist">
@@ -42,8 +42,43 @@
         insert into blacklist values(#{id}, default, #{singoBoard}, #{comment}, #{singonum})
     </insert>
 
+    <!-- 계정의 정지사유 검색 -->
+    <select id="selectBlack">
+        select * from blacklist where id=#{id}
+    </select>
+
     <delete id="deleteMember">
         delete from member where id=#{id};
+    </delete>
+
+    <insert id="addWithdraw">
+        insert into withdrawmem values (#{id},#{cause},default)
+    </insert>
+
+    <select id="countWithdraw">
+        select cause, count(*) as num, date as recent_date
+        from withdrawMem
+        group by cause
+    </select>
+
+    <select id="selectWithdraw">
+        select cause, count(*) as num, date as recent_date
+        from withdrawMem
+        group by cause
+        order by count(*) desc
+        LIMIT #{perPageNum} OFFSET #{startNo}
+    </select>
+
+    <select id="withdrawCause">
+        select *
+        from withdrawMem
+        where cause=#{cause}
+    </select>
+
+    <delete id="deleteWithdraw">
+        delete
+        from withdrawMem
+        where cause=#{cause}
     </delete>
 
     <select id="getMyActivity">

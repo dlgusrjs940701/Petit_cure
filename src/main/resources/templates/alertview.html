@@ -32,7 +32,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">삭제</h4>
+                        <h4 class="modal-title">게시글 삭제</h4>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
@@ -153,9 +153,9 @@
 <script>
     let no = document.getElementById("no").value;
     let nowcate = document.getElementById('nowcate').value;
+    let id = document.getElementById('nowid').value;
 
     function checkPasswordDelete() {
-        let id = document.getElementById('nowid').value;
         let password = document.getElementById('password1').value;
 
         $.ajax({
@@ -200,16 +200,17 @@
     }
 </script>
 <script>
-    let id = document.getElementById("writeid").value;
+    no = document.getElementById("no").value;
+    id = document.getElementById("writeid").value;
     const modal = document.querySelector("#blacklistComment");
     function checkPasswordStop(){
-        let password = document.getElementById('password2').value;
+        let password2 = document.getElementById('password2').value;
         $.ajax({
             type: 'POST',
             url: "/confirmpassword",
             data: {
                 id: id,
-                password: password
+                password: password2
             },
             success: function (data) {
                 if (data) {
@@ -228,29 +229,76 @@
     function submitComment(){
         let comment = document.getElementById('comment').value;
         let cate = document.getElementById('nowcate').value;
-        let no = document.getElementById('no').value;
         let singonum = document.getElementById('singonum').value;
         let singoBoard = cate+" - "+no+"번 게시글";
+
         $.ajax({
-            type: 'GET',
-            url: '/stopUser',
-            data: {
-                id: id,
-                singoBoard: singoBoard,
-                comment: comment,
-                singonum: singonum
+            type:'GET',
+            url:'confirmBlack',
+            data:{
+                id: id
             },
-            success: function (data){
-                modal.style.display = "none";
-                if(data > 0) {
-                    alert("해당 유저의 정지를 완료하였습니다..")
-                    location.href = "/alert"
+            success: function (data) {
+                if(data == null){
+                    $.ajax({
+                        type: 'GET',
+                        url: '/stopUser',
+                        data: {
+                            id: id,
+                            singoBoard: singoBoard,
+                            comment: comment,
+                            singonum: singonum
+                        },
+                        success: function (data){
+                            modal.style.display = "none";
+                            if(data > 0) {
+                                alert("해당 유저의 정지를 완료하였습니다..")
+                                location.href = "/alert"
+                            }else{
+                                alert("유저 정지에 실패하였습니다.")
+                                location.href = "/alert"
+                            }
+                        },error : function (){
+                            alert("유저 정지 에러입니다.")
+                            location.href = "/alert"
+                        }
+                    })
                 }else{
-                    alert("유저 정지에 실패하였습니다.")
-                    location.href = "/alert"
+                    alert("해당 아이디는 이미 블랙리스트에 추가되었습니다.")
+                    if(confirm("해당 글을 삭제하시겠습니까?")){
+                        // let no = document.getElementById('no').value;
+                        let form2 = document.createElement('form');
+                        if(nowcate=='Q&A게시판'){
+                            form2.setAttribute('action', '/deleteQAalert');
+                        }else if(nowcate=='자유게시판'){
+                            form2.setAttribute('action', '/deleteFreealert');
+                        }else{
+                            form2.setAttribute('action', '/deleteDepalert');
+                        }
+                        form2.setAttribute('method', 'get');
+
+                        let data2 = document.createElement('input');
+
+                        data2.setAttribute('name', 'no');
+                        data2.setAttribute('value', no);
+
+                        form2.appendChild(data2);
+
+                        document.body.appendChild(form2);
+
+                        form2.submit();
+
+                        alert("삭제되었습니다.")
+                    }else{
+                        location.href = "/alert"
+                    }
                 }
+            },error(){
+                alert("에러입니다.")
+                location.href = "/alert"
             }
         })
+
     }
 
 </script>
