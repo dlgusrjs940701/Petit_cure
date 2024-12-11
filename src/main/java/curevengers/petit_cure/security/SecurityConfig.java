@@ -49,7 +49,7 @@ public class SecurityConfig {
 
 
     public static final String[] allowUrls = {
-            "/login","/","/mplus","/api/**","/memplus","/idCheck",
+            "/login","/","/mplus","/api/**","/memplus","/idCheck","/images/**",
             "/css**/**","/resources**/**","/freeboard*","/qanda*","company",
             "/api/user/**","/api/authenticate","/kakaomplus","/qaboardVisitList","/freeboardVisitList","/error"
     };

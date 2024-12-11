@@ -175,14 +175,16 @@ public class testhome {
 //        System.out.println(request.getSession().getAttribute("kakaoToken")+"요청 값의 토큰값");
         String username = authentication.getName();
         memberDTO member = userService.getMemberById(username);
+        if(member!=null){
+            String age = member.getAge();
+            session.setAttribute("age", age);
+        }
 //        String phone = member.getPhone_num();
-        String age = member.getAge();
-        session.setAttribute("age", age);
         pagedto.setTotalCount(testservice.totalQACountBoard());
         List<QABoardDTO> QABoardList = testservice.getAllQABoards(pagedto);
         model.addAttribute("qalist", QABoardList);
         model.addAttribute("pageDTO", pagedto);
-        System.out.println(age);
+//        System.out.println(age);
         return "Q&A";
     }
 
