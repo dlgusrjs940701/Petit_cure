@@ -2,7 +2,9 @@
 <html lang="ko" xmlns:c="http://java.sun.com/jsp/jstl/core">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"/>
 <!--jsp를 사용하는 html은 @{} 방식을 쓰지않음-->
 <link rel="stylesheet" href="/css/main.css">
 <link rel="stylesheet" href="/css/freeBoard.css">
@@ -49,16 +51,22 @@
         <form class="age-filter-form" action="filterByAge" method="get">
             <label for="ageGroup">연령대 선택:</label>
             <select id="ageGroup" name="ageGroup">
-                <option value="ADM">관리자</option>
+                <option value="ADM" th:disabled="${session.id != 'admin'}">관리자</option>
                 <option value="00">모두공개</option>
-                <option value="10">10대</option>
-                <option value="20">20대</option>
-                <option th:if="${session.age == '30~39'}" value="30">30대</option>
-                <option th:if="${session.age == '40~49'}" value="40">40대</option>
-                <option th:if="${session.age == '50~59'}" value="50">50대</option>
-                <option th:if="${session.age == '60~69'}" value="60">60대</option>
-                <option th:if="${session.age == '70~79'}" value="70">70대</option>
+                <option value="10" th:disabled="${session.id == 'admin' ? false : (session.age == null or !(session.age == '10~19' or (session.age.toString().startsWith('1'))))}">10대</option>
+                <option value="20" th:disabled="${session.id == 'admin' ? false : (session.age == null or !(session.age == '20~29' or (session.age.toString().startsWith('2'))))}">20대</option>
+                <option value="30" th:disabled="${session.id == 'admin' ? false : (session.age == null or !(session.age == '30~39' or (session.age.toString().startsWith('3'))))}">30대</option>
+                <option value="40" th:disabled="${session.id == 'admin' ? false : (session.age == null or !(session.age == '40~49' or (session.age.toString().startsWith('4'))))}">40대</option>
+                <option value="50" th:disabled="${session.id == 'admin' ? false : (session.age == null or !(session.age == '50~59' or (session.age.toString().startsWith('5'))))}">50대</option>
+                <option value="60" th:disabled="${session.id == 'admin' ? false : (session.age == null or !(session.age == '60~69' or (session.age.toString().startsWith('6'))))}">60대</option>
+                <option value="70" th:disabled="${session.id == 'admin' ? false : (session.age == null or !(session.age == '70~79' or (session.age.toString().startsWith('7'))))}">70대</option>
             </select>
+
+
+
+
+
+
             <input type="submit" value="검색" class="search">
         </form>
         <form class="search-box" action="searchQATitle" method="get">
@@ -66,7 +74,7 @@
             <input type="submit" value="검색" class="search">
         </form>
         <form action="goodQAList" method="post">
-            <input type="submit" value="추천순" class="button11" >
+            <input type="submit" value="추천순" class="button11">
         </form>
         <form action="dateQAList" method="post">
             <input type="submit" value="최신순" class="button11">
@@ -98,7 +106,7 @@
         <td colspan="5">
             <!-- 이전 페이지 그룹 링크 -->
             <span th:if="${pageDTO.prev}"></span>
-                <a th:href="@{/qanda(page=${pageDTO.startPage})}"><i class="fa-solid fa-circle-chevron-left"></i></a>
+            <a th:href="@{/qanda(page=${pageDTO.startPage})}"><i class="fa-solid fa-circle-chevron-left"></i></a>
 
             <!-- 페이지 번호 반복 -->
 
@@ -109,7 +117,7 @@
 
             <!-- 다음 페이지 그룹 링크 -->
             <span th:if="${pageDTO.next}"></span>
-                <a th:href="@{/qanda(page=${pageDTO.endPage})}"><i class="fa-solid fa-circle-chevron-right"></i></a>
+            <a th:href="@{/qanda(page=${pageDTO.endPage})}"><i class="fa-solid fa-circle-chevron-right"></i></a>
         </td>
         </tbody>
     </table>

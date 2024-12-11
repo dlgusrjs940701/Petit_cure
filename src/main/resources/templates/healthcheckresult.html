@@ -184,6 +184,10 @@
         <tr>
             <td>
                 <a href="/moreresult"><input class="btn btn-primary fs-2" value="지난 결과보기"></a>
+                <form action="/download-health-result" method="post">
+                    <input type="hidden" name="id" value="/*[[${dto.id}]]*/" />
+                    <button class="btn btn-success fs-2" type="submit">결과 엑셀 다운로드</button>
+                </form>
             </td>
         </tr>
     </table>
@@ -269,6 +273,7 @@
             document.getElementById("Healthy").style.display == 'block'
         }
     }
+
 </script>
 <script type="text/javascript"
         src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1f161183968c02ef6a4262c0d00a5de3&libraries=services"></script>
@@ -404,5 +409,10 @@
         // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
         infowindow.close();
     });
+</script>
+<script>
+    function downloadExcel() {
+        window.location.href = "/download-health-check";
+    }
 </script>
 </html>

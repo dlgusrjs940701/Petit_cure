@@ -11,17 +11,22 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <!--타임리프를 사용할 때는 @{} 형식-->
     <link rel="stylesheet" th:href="@{/css/main.css}">
-
+    <link rel="stylesheet" th:href="@{/css/sticky.css}">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
+<style>
+    .sticky > div {
+        border-radius: 100%;
+    }
+</style>
 <body>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- fragment 설정을 해야 include 가능-->
 <div th:fragment="header">
-    <header class="roboto-regular">
+    <header>
         <div>
-            <h1 style="font-weight: bold; font-size: 50px;"><a href="/">WELCOME TO PETIT CURE</a></h1>
+            <h1 style="font-weight: bold; font-size: 73px;"><a href="/">PETITCURE</a></h1>
         </div>
     </header>
 </div>
@@ -49,7 +54,8 @@
                     <li><a href="depboard">우울증전용</a></li>
                 </ul>
             </li>
-            <li><a href="company">회사소개</a></li>
+            <li th:if="${session.auth}==null"><a href="company">회사소개</a></li>
+            <li th:if="${session.auth}!=null"><a href="/withdraw">탈퇴현황</a></li>
             <li class="dropdown" th:if="${session.auth}!=null"><a href="/alert">신고현황</a></li>
             <div style="display: inline;" id="login" th:if="${session.id == null}">
                 <li style="margin-left: 700px;" th:if="${session.auth != null}"><a href="mplus">회원가입</a></li>
@@ -68,6 +74,9 @@
 </div>
 
 <section id="section">
+    <div style="position: fixed; top: 0; left: -190px;">
+        <div th:include="freeBoard::sticky" class="sticky" style=" z-index: 4; border: 0; width: 200px; border-radius: 40px; padding-top: 120px"></div>
+    </div>
     <div>
         <div>
             <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -124,8 +133,29 @@
             </div>
         </div>
     </div>
+
+<!--<section class="jua-regula">-->
+
+<!--    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel"-->
+<!--         style="width: 70%; margin: auto; margin-top: 45px; margin-bottom: 45px; border-style: outset;">-->
+<!--        &lt;!&ndash; Indicators &ndash;&gt;-->
+<!--        <div class="carousel-indicators"></div>-->
+
+<!--        &lt;!&ndash; Wrapper for slides &ndash;&gt;-->
+<!--        <div class="carousel-inner"></div>-->
+
+<!--        &lt;!&ndash; Left and right controls &ndash;&gt;-->
+<!--        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">-->
+<!--            <span class="carousel-control-prev-icon"></span>-->
+<!--        </button>-->
+<!--        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">-->
+<!--            <span class="carousel-control-next-icon"></span>-->
+<!--        </button>-->
+
+<!--    </div>-->
+
     <div class="maincon">
-        <div class="jua-regular" id="info">
+        <div class="jua-regular" id="info" style="margin-left: 285px">
             <table>
                 <tr style="display: none;" id="freeboardnum">
                 </tr>
@@ -159,14 +189,13 @@
                     <td colspan="2">
                         <div class="buttonDisplay, align-items, justify-content">
                             <button type="button" class="button" onclick="location.href='/freeBO'"
-                                    style="position: absolute;top: 1330px;left: 165px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px">확인</button>
+                                    style="position: absolute;top: 1330px;left: 418px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px">확인</button>
                         </div>
                     </td>
                 </tr>
+
             </table>
         </div>
-
-
         <div class="jua-regular" id="info">
             <table>
                 <tr style="display: none;" id="qaboardnum">
@@ -201,7 +230,7 @@
                     <td colspan="2">
                         <div class="buttonDisplay, align-items, justify-content">
                             <button type="button" class="button" onclick="location.href='/Q&ABO'"
-                                    style="position: absolute;top: 1330px;left: 630px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px">확인</button>
+                                    style="position: absolute;top: 1330px;left: 880px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px">확인</button>
                         </div>
                     </td>
                 </tr>
@@ -244,7 +273,7 @@
                     <td colspan="2">
                         <div class="buttonDisplay, align-items, justify-content">
                             <button type="button" class="button" onclick="location.href='/dpBO'"
-                                    style="position: absolute;top: 1330px;left: 1095px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px">확인</button>
+                                    style="position: absolute;top: 1330px;left: 1344px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px">확인</button>
                         </div>
                     </td>
                 </tr>
@@ -324,6 +353,85 @@
 </script>
 <script>
     window.onload = () => {
+        // const news = document.querySelector('.carousel-inner'); // Carousel의 내부 컨테이너
+        // const indicators = document.querySelector('.carousel-indicators'); // Indicators 컨테이너
+        // const topic = ["코로나19","흡연","비만"];
+        // const apiKey = "9b9cc0aa70394bc4950b08fb1faca2f7";
+        // const temp = [0,1,2];
+        // let res = new Array(3);
+        // (async function(){
+        //     // console.log("함수는 들어옴")
+        //     const response = temp
+        //         .map((el) => fetch(`https://newsapi.org/v2/everything?q=${topic[el]}&from=2024-11-30&to=2024-12-05&apiKey=${apiKey}`)
+        //             .then((res) => res.json()));
+        //     // console.log(response);
+        //     const [value1,value2,value3] = await Promise.all(response);
+        //     // let res1 = value1.
+        //     // console.log(value1.valueOf("[PromiseResult]").articles[0]);
+        //     res[0] = value1.valueOf("[PromiseResult]").articles[0];
+        //     res[1] = value2.valueOf("[PromiseResult]").articles[0];
+        //     res[2] = value3.valueOf("[PromiseResult]").articles[0];
+        //     // console.log("0" + "(숫자) / (응답 값)" + res[0]);
+        //     // console.log("1" + "(숫자) / (응답 값)" + res[1]);
+        //     // console.log("2" + "(숫자) / (응답 값)" + res[2]);
+        //     for (let num=0; num < 3; num++) {
+        //         if (res[num] != null) {
+        //             let response = res[num];
+        //             // Carousel Item에 요소 생성하고 붙이기
+        //             let item = document.createElement('div');
+        //             item.className = `carousel-item ${num === 0 ? 'active' : ''}`; // 첫 슬라이드에 active 추가
+        //
+        //             let img = document.createElement('img');
+        //             img.setAttribute('src', response.urlToImage || 'default-image.jpg');
+        //             img.className = 'd-block w-100';
+        //             img.style.height = '700px'; // 가져온 사진의 높이 설정
+        //
+        //
+        //             let a = document.createElement('a');
+        //             a.setAttribute('href', response.url);
+        //             a.setAttribute('target', '_blank');
+        //             a.style.textDecoration = 'none';
+        //             let caption = document.createElement('div');
+        //
+        //             caption.className = 'carousel-caption';
+        //             // caption.style.marginLeft = '20px';
+        //             let h2 = document.createElement('h2');
+        //             h2.textContent = response.title;
+        //             h2.style.color = '#340d0d';
+        //             let p = document.createElement('p');
+        //             p.style.color = '#310101';
+        //             p.textContent = response.description;
+        //             p.style.fontSize = '20px';
+        //
+        //             // 만든 요소들에 자손 달아주기(inner에)
+        //             caption.appendChild(h2);
+        //             caption.appendChild(p);
+        //             a.appendChild(img);
+        //             a.appendChild(caption);
+        //             item.appendChild(caption);
+        //             item.appendChild(a);
+        //             news.appendChild(item);
+        //
+        //             // Indicators 추가
+        //             let indicator = document.createElement('button');
+        //             indicator.type = 'button';
+        //             indicator.setAttribute('data-bs-target', '#myCarousel');
+        //             indicator.setAttribute('data-bs-slide-to', num.toString());
+        //             if (num === 0) indicator.className = 'active';
+        //             indicators.appendChild(indicator);
+        //
+        //         } else {
+        //             console.log('관련 뉴스가 없습니다.');
+        //             const noResult = document.createElement('div');
+        //             noResult.className = 'text-center';
+        //             noResult.textContent = '관련 기사가 없습니다.';
+        //             news.appendChild(noResult);
+        //         }
+        //     }
+        //
+        // })().catch((error) => console.log("API 호출 중 오류 발생 : ",error));
+
+
         $.ajax({
             type: 'post',
             url: "freeboardVisitList", //컨트롤러에 지정한 value값
@@ -404,3 +512,87 @@
         })
     }
 </script>
+<!--<script>-->
+<!--    window.onload=function(){-->
+<!--        // const newList = document.querySelector('.news-lists');질병관리-->
+<!--        const news = document.querySelector('.carousel-inner'); // Carousel의 내부 컨테이너-->
+<!--        const indicators = document.querySelector('.carousel-indicators'); // Indicators 컨테이너-->
+<!--        const topic = ["코로나19","흡연","비만"];-->
+<!--        const apiKey = "9b9cc0aa70394bc4950b08fb1faca2f7";-->
+<!--        const temp = [0,1,2];-->
+<!--        let res = new Array(3);-->
+<!--        (async function(){-->
+<!--            // console.log("함수는 들어옴")-->
+<!--            const response = temp-->
+<!--                .map((el) => fetch(`https://newsapi.org/v2/everything?q=${topic[el]}&from=2024-11-30&to=2024-12-05&apiKey=${apiKey}`)-->
+<!--                    .then((res) => res.json()));-->
+<!--            // console.log(response);-->
+<!--            const [value1,value2,value3] = await Promise.all(response);-->
+<!--            // let res1 = value1.-->
+<!--            // console.log(value1.valueOf("[PromiseResult]").articles[0]);-->
+<!--            res[0] = value1.valueOf("[PromiseResult]").articles[0];-->
+<!--            res[1] = value2.valueOf("[PromiseResult]").articles[0];-->
+<!--            res[2] = value3.valueOf("[PromiseResult]").articles[0];-->
+<!--            // console.log("0" + "(숫자) / (응답 값)" + res[0]);-->
+<!--            // console.log("1" + "(숫자) / (응답 값)" + res[1]);-->
+<!--            // console.log("2" + "(숫자) / (응답 값)" + res[2]);-->
+<!--            for (let num=0; num < 3; num++) {-->
+<!--                if (res[num] != null) {-->
+<!--                    let response = res[num];-->
+<!--                    // Carousel Item에 요소 생성하고 붙이기-->
+<!--                    let item = document.createElement('div');-->
+<!--                    item.className = `carousel-item ${num === 0 ? 'active' : ''}`; // 첫 슬라이드에 active 추가-->
+
+<!--                    let img = document.createElement('img');-->
+<!--                    img.setAttribute('src', response.urlToImage || 'default-image.jpg');-->
+<!--                    img.className = 'd-block w-100';-->
+<!--                    img.style.height = '700px'; // 가져온 사진의 높이 설정-->
+
+
+<!--                    let a = document.createElement('a');-->
+<!--                    a.setAttribute('href', response.url);-->
+<!--                    a.setAttribute('target', '_blank');-->
+<!--                    a.style.textDecoration = 'none';-->
+<!--                    let caption = document.createElement('div');-->
+
+<!--                    caption.className = 'carousel-caption';-->
+<!--                    // caption.style.marginLeft = '20px';-->
+<!--                    let h2 = document.createElement('h2');-->
+<!--                    h2.textContent = response.title;-->
+<!--                    h2.style.color = '#340d0d';-->
+<!--                    let p = document.createElement('p');-->
+<!--                    p.style.color = '#310101';-->
+<!--                    p.textContent = response.description;-->
+<!--                    p.style.fontSize = '20px';-->
+
+<!--                    // 만든 요소들에 자손 달아주기(inner에)-->
+<!--                    caption.appendChild(h2);-->
+<!--                    caption.appendChild(p);-->
+<!--                    a.appendChild(img);-->
+<!--                    a.appendChild(caption);-->
+<!--                    item.appendChild(caption);-->
+<!--                    item.appendChild(a);-->
+<!--                    news.appendChild(item);-->
+
+<!--                    // Indicators 추가-->
+<!--                    let indicator = document.createElement('button');-->
+<!--                    indicator.type = 'button';-->
+<!--                    indicator.setAttribute('data-bs-target', '#myCarousel');-->
+<!--                    indicator.setAttribute('data-bs-slide-to', num.toString());-->
+<!--                    if (num === 0) indicator.className = 'active';-->
+<!--                    indicators.appendChild(indicator);-->
+
+<!--                } else {-->
+<!--                    console.log('관련 뉴스가 없습니다.');-->
+<!--                    const noResult = document.createElement('div');-->
+<!--                    noResult.className = 'text-center';-->
+<!--                    noResult.textContent = '관련 기사가 없습니다.';-->
+<!--                    news.appendChild(noResult);-->
+<!--                }-->
+<!--            }-->
+
+<!--        })().catch((error) => console.log("API 호출 중 오류 발생 : ",error));-->
+
+
+<!--    }-->
+<!--</script>-->

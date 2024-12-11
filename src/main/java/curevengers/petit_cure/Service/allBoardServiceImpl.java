@@ -210,6 +210,7 @@ public class allBoardServiceImpl implements allBoardService {
         userMapper.deleteAlert(alertDTO);
     }
 
+
     @Override
     public void insertAttach(freeboard_attachDTO attachDTO) {
         userMapper.insertAttach(attachDTO);
