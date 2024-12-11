@@ -30,12 +30,28 @@
 }
 
 .list-group-item {
-    height: 400px;
+    height: 180px;
     text-align: left;
-
+    font-size: 10px;
 }
+.list-group > button:hover{
+    background-color: #1e2b34;
+    /*width: 200px;*/
+    right: 60px;
+    width: 150px;
+    /*margin-right: 200px;*/
+}
+.list-group > button {
+    background-color: #e38e8e;
+    font-size: 20px;
+}
+/*.list-group-item list-group-item-action{*/
+/*    background-color: #2c3e50;*/
+/*    color: white;*/
+/*    font-size: 20px;*/
+/*}*/
 .sticky {
-    float: left;
+    float: right;
     width: 200px;
     height: 000px;
     margin-left: 50px;
