@@ -5,14 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/f3750f8cf5" crossorigin="anonymous"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Jua&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik+Wet+Paint&family=Yeon+Sung&display=swap');
     </style>
     <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/freeBoard.css">
     <link rel="stylesheet" href="/css/MyPage.css">
 
 </head>
@@ -36,8 +40,8 @@
             <i class="fa fa-birthday-cake">&nbsp;&nbsp;</i>2000.09.16<br>
             <i class="fa-solid fa-envelope">&nbsp;&nbsp;</i><span th:text="${dto.email}"></span><br>
             <i class="fa-solid fa-location-dot">&nbsp;&nbsp;</i><span th:text="${dto.addr}"></span><br>
-            <i class="fa-regular fa-face-frown">&nbsp;&nbsp;</i>우울증_Check<br>
-            <i class="fa-solid fa-notes-medical">&nbsp;&nbsp;</i>건강검진_Check<br>
+            <a href="dpcheck" style="color: black"><i class="fa-regular fa-face-frown">&nbsp;&nbsp;</i>우울증_Check<br></a>
+            <a href="health" style="color: black"><i class="fa-solid fa-notes-medical">&nbsp;&nbsp;</i>건강검진_Check<br></a>
             <!--      <i class="fa fa-birthday-cake">&nbsp;&nbsp;</i><br>-->
             <a href="/usermodify"><input type="button" value="회원수정" style="margin-top: 40px;"></a>
             <a href="/userdelete"><input type="button" value="회원탈퇴" style="margin-top: 15px;"></a>

@@ -42,7 +42,7 @@ header>div {
     text-align: center;
     margin-top: 30px;
     padding-top: 15px;
-    margin-bottom: 15px;
+    /*margin-bottom: 15px;*/
 }
 
 nav li {
