@@ -2,6 +2,7 @@ package curevengers.petit_cure.controller;
 
 import curevengers.petit_cure.Dto.memberDTO;
 import curevengers.petit_cure.Dto.myActivityDTO;
+import curevengers.petit_cure.Dto.withdrawMemDTO;
 import curevengers.petit_cure.Service.UserServiceImpl;
 import curevengers.petit_cure.kakaoapi.KakaoApi;
 import jakarta.servlet.http.HttpServletRequest;
@@ -71,6 +72,13 @@ public class memberController {
         return userservice.cofrmID(id);
     }
 
+    // 회원 비밀번호 변경 업데이트
+    @ResponseBody
+    @PostMapping(value = "/updateMember")
+    public int updateMember(@ModelAttribute memberDTO memberdto) {
+        return userservice.updateMember(memberdto);
+    }
+
     // 로그인 화면
     @GetMapping("/login")
     public String loginPage(@RequestParam(value = "error", required = false) String error,@RequestParam(value = "exception", required = false) String exception, Model model) { // 로그인되지 않은 상태이면 로그인 페이지를, 로그인된 상태이면 main 페이지를 보여줌
@@ -90,6 +98,7 @@ public class memberController {
         return "redirect:/";
     }
 
+
     // 마이페이지로 이동
     @GetMapping("/mypage")
     public String mypage(Model m) {
@@ -102,31 +111,57 @@ public class memberController {
         return "MyPage";
     }
 
-    // 회원수정/탈퇴 할 떄 다시 한번 확인하는 창
+    // 회원수정/탈퇴 할 때 다시 한번 확인하는 창
     @GetMapping(value = "/usermodify")
-    public String usermodify() {
-
+    public String usermodify(HttpSession session) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String nowId = authentication.getName();
+        session.setAttribute("nowId",nowId);
         return "memberupdate";
     }
 
-    @GetMapping(value = "/userdelete")
-    public String userdelete() {
+    // 회원수정/탈퇴 할 때 아이디-비밀번호 확인
+    @ResponseBody
+    @PostMapping("/confirmMember")
+    public boolean confirmMember(@RequestParam("id") String id, @RequestParam("password") String password) {
+        memberDTO dto = userservice.getMemberById(id);
+        if(passwordEncoder.matches(password,dto.getPass())){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
-        return "memberupdate1";
+    // 회원수정/탈퇴 할 때 다시 한번 확인하는 창
+    @GetMapping(value = "/userdelete")
+    public String userdelete(HttpSession session) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String nowId = authentication.getName();
+        session.setAttribute("nowId",nowId);
+        return "memberupdate";
     }
 
 
-
+    // 회원 정보 수정 화면
     @GetMapping(value = "/usermod")
-    public String usermod(Model m) {
-
+    public String usermod(HttpSession session) {
+        session.setAttribute("nowId",session.getAttribute("nowId"));
         return "member";
     }
-
+    // 회원 탈퇴 화면
     @GetMapping(value = "/userdel")
-    public String userdel(Model m) {
-
+    public String userdel(HttpSession session) {
+        session.setAttribute("nowId",session.getAttribute("nowId"));
         return "memberdelete";
+    }
+
+    // 회원 탈퇴
+    @ResponseBody
+    @PostMapping(value = "/withdrawMember")
+    public int withdrawMember(@ModelAttribute withdrawMemDTO withdrawmember) {
+        System.out.println("탈퇴로 들어옴 ----------------");
+        userservice.addWithdraw(withdrawmember);
+        return userservice.deleteMember(withdrawmember.getId());
     }
 
 

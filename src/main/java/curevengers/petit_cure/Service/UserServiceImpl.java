@@ -1,15 +1,12 @@
 package curevengers.petit_cure.Service;
 
 import curevengers.petit_cure.Dao.MemberMapper;
-import curevengers.petit_cure.Dto.AuthVO;
-import curevengers.petit_cure.Dto.blackListDTO;
-import curevengers.petit_cure.Dto.myActivityDTO;
+import curevengers.petit_cure.Dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import curevengers.petit_cure.Dto.memberDTO;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -93,14 +90,46 @@ public class UserServiceImpl implements userService{
     }
 
     @Override
-    public void edit(memberDTO memberdto){      // 회원 정보 수정
+    public int updateMember(memberDTO memberdto){      // 회원 정보 수정
         // 비밀번호를 암호화해서 DB에 저장
-        memberMapper.updateMember(memberdto);
+        String pass = passwordEncoder.encode(memberdto.getPass());
+        memberdto.setPass(pass);
+
+        return memberMapper.updateMember(memberdto);
+    }
+
+    // 회원 탈퇴
+    @Override
+    public int deleteMember(String id) {
+        return memberMapper.deleteMember(id);
+    }
+
+    // 탈퇴 사유 저장
+    @Override
+    public void addWithdraw(withdrawMemDTO withdrawMember) {
+        memberMapper.addWithdraw(withdrawMember);
+    }
+
+    // 탈퇴 현황 + 페이징
+    @Override
+    public List<withdrawMemDTO> selectWithdraw(pageDTO pagedto) {
+        return memberMapper.selectWithdraw(pagedto);
+    }
+
+    // 탈퇴 현황 총 갯수
+    @Override
+    public List<withdrawMemDTO> countWithdraw() {
+        return memberMapper.countWithdraw();
     }
 
     @Override
-    public void withdraw(String id){        // 회원 탈퇴
-        memberMapper.deleteMember(id);
+    public List<withdrawMemDTO> withdrawCause(String cause) {
+        return memberMapper.withdrawCause(cause);
+    }
+
+    @Override
+    public int deleteWithdraw(String cause) {
+        return memberMapper.deleteWithdraw(cause);
     }
 
 
@@ -126,7 +155,10 @@ public class UserServiceImpl implements userService{
         memberMapper.addBlacklist(blacklistdto);
     }
 
-
+    @Override
+    public blackListDTO selectBlack(String id) {
+        return memberMapper.selectBlack(id);
+    }
 
 
 }
