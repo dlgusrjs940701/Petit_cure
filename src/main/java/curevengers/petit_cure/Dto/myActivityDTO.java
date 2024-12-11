@@ -12,5 +12,5 @@ public class myActivityDTO {
     private String title;
     private String date;
     private String content;
-    private String cate;
+    private String board;
 }

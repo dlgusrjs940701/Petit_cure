@@ -183,53 +183,36 @@
     <!--        </button>-->
 
     <!--    </div>-->
-
+    <div style="float: left; z-index: 10; position : absolute; bottom : 100px;">
+        <button onclick="mainpagelist('freeboard')" style="width: 265px; height: 50px; margin-left: 30px">자유게시판</button>
+        <button onclick="mainpagelist('qaboard')" style="width: 264px; height: 50px;">Q&A게시판</button>
+        <button onclick="mainpagelist('dpboard')" style="width: 264px; height: 50px;">우울증게시판</button>
+    </div>
     <div class="maincon">
+        <div class="jua-regular" id="info">
+            <table>
+                <tr style="display: none;" id="freeboardnum">
+                </tr>
+                <tr>
+                    <td style="width: 25%" class="boardoption">
+                        제목 :
+                    </td>
+                    <td id="freeboardtitle1" class="boardtitle">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 25%" class="boardoption">
+                        내용 :
+                    </td>
+                    <td id="freeboardcontent1" class="boardcontent">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="buttonDisplay, align-items, justify-content">
+                            <button type="button" class="button" onclick="location.href='/freeBO'"
+                                    style="position: absolute;top: 312px;left: 650px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px">확인</button>
 
-<!--        <div class="jua-regular" id="info" style="margin-left: 285px">-->
-            <!--            <table>-->
-            <!--                <tr style="display: none;" id="freeboardnum">-->
-            <!--                </tr>-->
-            <!--                <tr>-->
-            <!--                    <td class="topboard" colspan="2">-->
-            <!--                        자유게시판 최고조회글-->
-            <!--                    </td>-->
-            <!--                </tr>-->
-            <!--                <tr>-->
-            <!--                    <td style="width: 25%" class="boardoption">-->
-            <!--                        제목 :-->
-            <!--                    </td>-->
-            <!--                    <td id="freeboardtitle" class="boardoption">-->
-            <!--                    </td>-->
-            <!--                </tr>-->
-            <!--                <tr>-->
-            <!--                    <td style="width: 25%" class="boardoption">-->
-            <!--                        작성자 :-->
-            <!--                    </td>-->
-            <!--                    <td id="freeboarduser" class="boardoption">-->
-            <!--                    </td>-->
-            <!--                </tr>-->
-            <!--                <tr>-->
-            <!--                    <td style="width: 25%" class="boardoption">-->
-            <!--                        내용 :-->
-            <!--                    </td>-->
-            <!--                    <td id="freeboardcontent" class="boardoption">-->
-            <!--                    </td>-->
-            <!--                </tr>-->
-            <!--                <tr>-->
-            <!--                    <td colspan="2">-->
-            <!--                        <div class="buttonDisplay, align-items, justify-content">-->
-            <!--                            <button type="button" class="button" onclick="location.href='/freeBO'"-->
-            <!--                                    style="position: absolute;top: 340px;left: 418px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px">-->
-            <!--                                확인-->
-            <!--                            </button>-->
-            <!--                        </div>-->
-            <!--                    </td>-->
-            <!--                </tr>-->
-            <!--        </div>-->
-            <!--    </div>-->
-            <!--    </table>-->
-<!--        </div>-->
         <div class="jua-regular" id="info" style="margin-left: 1000px; width: 45%;">
             <div id="myCarousel" class="carousel slide" data-ride="carousel">
                 <!-- Indicators -->
@@ -249,6 +232,7 @@
                                 TEST 1</h3>
                             <p style="background-color: rgba(0, 0, 0, 0.5); color: #fff; padding: 10px; border-radius: 5px;">
                                 News 설명칸 - Example Text</p>
+
                         </div>
                     </div>
                     <div class="item">
@@ -270,6 +254,34 @@
                             <p style="background-color: rgba(0, 0, 0, 0.5); color: #fff; padding: 10px; border-radius: 5px;">
                                 News 설명칸 - Example Text</p>
 
+
+            </table>
+        </div>
+        <br>
+        <div class="jua-regular" id="info" style="height: 100px">
+            <table>
+                <tr style="display: none;" id="qaboardnum">
+                </tr>
+                <tr>
+                    <td style="width: 25%" class="boardoption">
+                        작성자 :
+                    </td>
+                    <td id="freeboardtitle2" class="boardtitle">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 25%" class="boardoption">
+                        내용 :
+                    </td>
+                    <td id="freeboardcontent2" class="boardcontent">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="buttonDisplay, align-items, justify-content">
+                            <button type="button" class="button" onclick="location.href='/Q&ABO'"
+                                    style="position: absolute;top: 178px;left: 652px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px">확인</button>
+
                         </div>
                     </div>
                 </div>
@@ -286,8 +298,55 @@
             </div>
         </div>
 
+        <br>
 
-
+        <div class="jua-regular" id="info" style="height: 100px">
+            <table>
+                <tr style="display: none;" id="dpboardnum">
+                </tr>
+                <tr>
+                    <td style="width: 25%" class="boardoption">
+                        제목 :
+                    </td>
+                    <td id="freeboardtitle3" class="boardtitle">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 25%" class="boardoption">
+                        내용 :
+                    </td>
+                    <td id="freeboardcontent3" class="boardcontent">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="buttonDisplay, align-items, justify-content">
+                            <button type="button" class="button" onclick="location.href='/dpBO'"
+                                    style="position: absolute;top: 56px;left: 647px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px">확인</button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+<!--                <div class="jua-regular" id="info">-->
+<!--                    <table>-->
+<!--                        <tr>-->
+<!--                            <td class="topboard">-->
+<!--                                베스트 글-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <td colspan="2">-->
+<!--                                <div class="buttonDisplay, align-items, justify-content">-->
+<!--                                    <button type="button" class="button"-->
+<!--                                            style="position: absolute;top: 340px;left: 1555px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px">확인</button>-->
+<!--                                </div>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                    </table>-->
+<!--                </div>-->
+    </div>
+</section>
 
         <!--                <div class="jua-regular" id="info">-->
         <!--                    <table>-->
@@ -447,18 +506,12 @@
             dataType: 'json',
             success: function (data) {
                 let str1 = data.title;
-                let str2 = data.id;
                 let str3 = data.content;
                 document.getElementById("freeboardnum").innerText = data.no;
                 if (str1.length > 11) {
                     document.getElementById("freeboardtitle").innerText = str1.substring(0, 12) + "...";
                 } else {
                     document.getElementById("freeboardtitle").innerText = str1;
-                }
-                if (str2.length > 11) {
-                    document.getElementById("freeboarduser").innerText = str2.substring(0, 12) + "...";
-                } else {
-                    document.getElementById("freeboarduser").innerText = str2;
                 }
                 if (str3.length > 33) {
                     document.getElementById("freeboardcontent").innerText = str3.substring(0, 34) + "...";
@@ -473,18 +526,12 @@
             dataType: 'json',
             success: function (data) {
                 let str1 = data.title;
-                let str2 = data.id;
                 let str3 = data.content;
                 document.getElementById("qaboardnum").innerText = data.no;
                 if (str1.length > 11) {
                     document.getElementById("qaboardtitle").innerText = str1.substring(0, 12) + "...";
                 } else {
                     document.getElementById("qaboardtitle").innerText = str1;
-                }
-                if (str2.length > 11) {
-                    document.getElementById("qaboarduser").innerText = str2.substring(0, 12) + "...";
-                } else {
-                    document.getElementById("qaboarduser").innerText = str2;
                 }
                 if (str3.length > 33) {
                     document.getElementById("qaboardcontent").innerText = str3.substring(0, 34) + "...";
@@ -499,7 +546,6 @@
             dataType: 'json',
             success: function (data) {
                 let str1 = data.title;
-                let str2 = data.id;
                 let str3 = data.content;
                 document.getElementById("dpboardnum").innerText = data.no;
                 if (str1.length > 11) {
@@ -507,15 +553,28 @@
                 } else {
                     document.getElementById("dpboardtitle").innerText = str1;
                 }
-                if (str2.length > 11) {
-                    document.getElementById("dpboarduser").innerText = str2.substring(0, 12) + "...";
-                } else {
-                    document.getElementById("dpboarduser").innerText = str2;
-                }
                 if (str3.length > 33) {
                     document.getElementById("dpboardcontent").innerText = str3.substring(0, 34) + "...";
                 } else {
                     document.getElementById("dpboardcontent").innerText = str3;
+                }
+            }
+        })
+    }
+</script>
+<script>
+    function mainpagelist(board) {
+        $.ajax({
+            type: 'get',
+            url: "mainpagelist",
+            data: {board: board},
+            success: function (data) {
+                for (let i = 0; i < data.length; i++) {
+                    let title = data[i].title.substring(0, 12) + "...";
+                    let content = data[i].content.substring(0, 12) + "...";
+                    document.getElementsByClassName("boardtitle")[i].innerText = title;
+                    document.getElementsByClassName("boardcontent")[i].innerText = content;
+
                 }
             }
         })

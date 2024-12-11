@@ -197,14 +197,14 @@ li > a:hover {
 .maincon > #info {
     display: inline-block;
     margin-top: 25px;
-    margin-left: 40px;
-    width: 420px;
-    height: 390px;
-    /*border: 1px solid;*/
-    /*background-color: rgb(255, 255, 255);*/
-    /*border-style: ridge;*/
+    margin-left: 30px;
+    padding-top: 8px;
+    width: 800px;
+    height: 100px;
+    border: 1px solid;
+    background-color: rgb(255, 255, 255);
+    border-style: ridge;
     /*border-radius: 7.5%;*/
-
 }
 
 footer {
@@ -226,15 +226,18 @@ nav .pagination {
 }
 
 #info > table {
-    margin: auto;
-    text-align: center;
+    margin-left: 30px;
+    text-align: left;
 }
 
 .boardoption {
-    font-size: 25px;
+    font-size: 30px;
 }
 
-.topboard {
-    font-size: 40px;
+.boardtitle {
+    font-size: 30px;
 }
 
+.boardcontent {
+    font-size: 30px;
+}

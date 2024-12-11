@@ -3,15 +3,12 @@ package curevengers.petit_cure.Service;
 import curevengers.petit_cure.Dao.MemberMapper;
 
 import curevengers.petit_cure.Dto.*;
-import curevengers.petit_cure.Dto.AuthVO;
 import curevengers.petit_cure.Dto.blackListDTO;
 import curevengers.petit_cure.Dto.myActivityDTO;
-import jakarta.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -151,17 +148,28 @@ public class UserServiceImpl implements userService{
 
     @Override
     public List<myActivityDTO> getMyActivityList(myActivityDTO myactivityDTO) {
-        if (myactivityDTO.getCate().equals("freeboard")) {
+        if (myactivityDTO.getBoard().equals("freeboard")) {
             return memberMapper.getMyActivityListFree(myactivityDTO);
-        } else if (myactivityDTO.getCate().equals("qaboard")) {
+        } else if (myactivityDTO.getBoard().equals("qaboard")) {
             return memberMapper.getMyActivityListQA(myactivityDTO);
-        } else if (myactivityDTO.getCate().equals("dpboard")) {
+        } else if (myactivityDTO.getBoard().equals("dpboard")) {
             return memberMapper.getMyActivityListDP(myactivityDTO);
         } else {
             return null;
         }
     }
 
+    @Override
+    public List<myActivityDTO> getTopList(myActivityDTO myactivityDTO) {
+        if (myactivityDTO.getBoard().equals("freeboard")) {
+            return memberMapper.getFreeTopList(myactivityDTO);
+        } else if (myactivityDTO.getBoard().equals("qaboard")) {
+            return memberMapper.getQATopList(myactivityDTO);
+        } else if (myactivityDTO.getBoard().equals("dpboard")) {
+            return memberMapper.getDPTopList(myactivityDTO);
+        }
+        return null;
+    }
 
     // 블랙리스트 대상자 추가 및 정지
     @Override
