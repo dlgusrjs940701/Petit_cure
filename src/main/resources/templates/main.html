@@ -25,15 +25,15 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- fragment 설정을 해야 include 가능-->
 <div th:fragment="header">
-    <header >
+    <header>
         <div>
-            <h1 style="font-weight: bold; font-size: 73px;"><a href="/">PETITCURE</a></h1>
+            <h1 style="font-weight: bold; font-size: 73px;" class="maintitle"><a href="/" style="color: black">PETITCURE</a></h1>
         </div>
     </header>
 </div>
 <!-- fragment 설정을 해야 include 가능-->
 <div th:fragment="nav">
-    <nav class="jua-regular" id="nav">
+    <nav class="mainnav" id="nav">
         <ul>
             <div style="width: 20px; height: 65px;">
                 <!--object-fit:cover는 가로세로 비율을 유지한 채로 사이즈가 조절되며, 비율이 맞지 않더라도 이미지를 확대해 컨테이너를 완전히 채움-->
@@ -65,8 +65,8 @@
                 <li style="margin-left: 5px;"><a href="login">로그인</a></li>
             </div>
             <div style="display: inline;" id="logout" th:if="${session.id != null}">
-                <li style="margin-left: 700px;" th:if="${session.auth != null}"><a href="/mypage">[[${session.id}]]님의 페이지</a></li>
-                <li style="margin-left: 850px;" th:if="${session.auth == null}"><a href="/mypage">[[${session.id}]]님의 페이지</a></li>
+                <li style="margin-left: 600px;" th:if="${session.auth != null}"><a href="/mypage">[[${session.id}]]님의 페이지</a></li>
+                <li style="margin-left: 800px;" th:if="${session.auth == null}"><a href="/mypage">[[${session.id}]]님의 페이지</a></li>
                 <li style="margin-left: 5px;"><a href="#">/</a></li>
                 <li style="margin-left: 5px;"><a href="/logout">로그아웃</a></li>
             </div>
@@ -75,9 +75,35 @@
 </div>
 
 <section id="section" style="background-image: url('/images/maintest.jpg');">
-<!--    <div style="position: fixed; top: 0; left: -190px;">-->
+    <div style="width: 1000px; height: 200px; margin-left: 530px; margin-top: 45px; float: left;">
+<!--        <span style="margin-left: 55px; font-size: 50px; font-weight: bolder" class="nanum-gothic-extrabold">"작은 관리에서 시작되는 큰 건강"</span>-->
+        <span style="margin-left: 30px; font-size: 50px; font-weight: bolder" class="maintitle">"작은 관리에서 시작되는 큰 건강"</span>
+    </div>
+    <div style="width: 1800px; height: 200px; margin-left: 530px; margin-top: 620px; margin-bottom: 50px; float: left;">
+        <!--        <span style="margin-left: 55px; font-size: 50px; font-weight: bolder" class="nanum-gothic-extrabold">"작은 관리에서 시작되는 큰 건강"</span>-->
+        <span style="margin-left: 30px; font-size: 40px; font-weight: bolder; float: left" class="maintitle">
+            <span style="margin-left: 100px">"건강은 초기에 잘 관리할수록</span><br><span>미래의 삶의 질을 높이는 가장 큰 투자입니다."</span>
+        </span>
+    </div>
+    <div style="position:fixed; top: 0; right: -5px;z-index: 20;" class="mainnav">
+        <div class="sticky" style="  border: 0; width: 150px;  padding-top: 120px">
+            <div class="list-group" >
+                <button type="button" class="list-group-item list-group-item-action" style="border-top-left-radius: 30px; border-top-right-radius: 30px;"
+                        onclick="location.href='https://www.e-gen.or.kr/egen/holiday_medical.do?searchType=general&popclsY=Y&emergencyViewYn=Y'">병의원 검색
+                </button>
+                <button type="button" class="list-group-item list-group-item-action" onclick="dpcheck()">우울증검진하러가기&nbsp;&nbsp;&nbsp;&nbsp;
+                    >
+                </button>
+                <button type="button" class="list-group-item list-group-item-action" onclick="healthchecklist()">자가검진결과리스트&nbsp;&nbsp;&nbsp;&nbsp;
+                    >
+                </button>
+                <button type="button" style="border-bottom-left-radius: 30px;border-bottom-right-radius: 30px;" class="list-group-item list-group-item-action" onclick="dpchecklist()">우울증검진결과리스트&nbsp;&nbsp;&nbsp;&nbsp;
+                    >
+                </button>
+            </div>
+        </div>
 <!--        <div th:include="freeBoard::sticky" class="sticky" style=" z-index: 4; border: 0; width: 200px; border-radius: 40px; padding-top: 120px"></div>-->
-<!--    </div>-->
+    </div>
 <!--    <div>-->
 <!--        <img src="images/main.jpg" alt="/images/maintest.jpg" style="margin-left: 100px">-->
 <!--        <div>-->
@@ -191,7 +217,7 @@
                     <td colspan="2">
                         <div class="buttonDisplay, align-items, justify-content">
                             <button type="button" class="button" onclick="location.href='/freeBO'"
-                                    style="position: absolute;top: 1330px;left: 418px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px">확인</button>
+                                    style="position: absolute;top: 340px;left: 418px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px">확인</button>
                         </div>
                     </td>
                 </tr>
@@ -232,7 +258,7 @@
                     <td colspan="2">
                         <div class="buttonDisplay, align-items, justify-content">
                             <button type="button" class="button" onclick="location.href='/Q&ABO'"
-                                    style="position: absolute;top: 1330px;left: 880px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px">확인</button>
+                                    style="position: absolute;top: 340px;left: 880px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px">확인</button>
                         </div>
                     </td>
                 </tr>
@@ -275,7 +301,7 @@
                     <td colspan="2">
                         <div class="buttonDisplay, align-items, justify-content">
                             <button type="button" class="button" onclick="location.href='/dpBO'"
-                                    style="position: absolute;top: 1330px;left: 1344px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px">확인</button>
+                                    style="position: absolute;top: 340px;left: 1344px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px">확인</button>
                         </div>
                     </td>
                 </tr>
