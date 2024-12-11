@@ -48,6 +48,11 @@ body {
     width: 1920px;
     height: 1080px;
     /* background-color: rgb(240, 240, 180); */
+    z-index: 0;
+    position: relative;
+    /*background-size: cover;*/
+    /*background-repeat: no-repeat;*/
+    background-position: center;
 }
 
 header > div {
@@ -129,11 +134,13 @@ li > a:hover {
 
 #section {
     height: 1200px;
-    background-color: rgb(255, 255, 255);
-    z-index: 1;
+    /*background-color: rgb(255, 255, 255);*/
+    background-size: cover;
+    z-index: -2;
 }
 
 #section > div > div {
+    /*z-index: -1;*/
     width: 1450px;
     border: 1px solid;
     height: 600px;
@@ -158,7 +165,10 @@ li > a:hover {
     width: 1920px;
     height: 470px;
     margin-left: 0px;
-    margin-top: 50px;
+    margin-top: 1100px;
+    z-index: 10;
+    position: relative;
+    float: left;
 }
 
 .maincon > #info {
@@ -177,7 +187,10 @@ footer {
     height: 330px;
     background-color: antiquewhite;
     bottom: 0px;
-
+    z-index: 10;
+    /*position: relative;*/
+    float: left;
+    width: 100%;
 }
 
 nav .pagination {
