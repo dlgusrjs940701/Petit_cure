@@ -11,9 +11,14 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <!--타임리프를 사용할 때는 @{} 형식-->
     <link rel="stylesheet" th:href="@{/css/main.css}">
-
+    <link rel="stylesheet" th:href="@{/css/sticky.css}">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
+<style>
+    .sticky > div {
+        border-radius: 100%;
+    }
+</style>
 <body>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -69,6 +74,9 @@
 </div>
 
 <section id="section">
+    <div style="position: fixed; top: 0; left: -190px;">
+        <div th:include="freeBoard::sticky" class="sticky" style=" z-index: 4; border: 0; width: 200px; border-radius: 40px; padding-top: 120px"></div>
+    </div>
     <div>
         <div>
             <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -147,7 +155,7 @@
 <!--    </div>-->
 
     <div class="maincon">
-        <div class="jua-regular" id="info">
+        <div class="jua-regular" id="info" style="margin-left: 285px">
             <table>
                 <tr style="display: none;" id="freeboardnum">
                 </tr>
@@ -181,14 +189,13 @@
                     <td colspan="2">
                         <div class="buttonDisplay, align-items, justify-content">
                             <button type="button" class="button" onclick="location.href='/freeBO'"
-                                    style="position: absolute;top: 1330px;left: 165px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px">확인</button>
+                                    style="position: absolute;top: 1330px;left: 418px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px">확인</button>
                         </div>
                     </td>
                 </tr>
+
             </table>
         </div>
-
-
         <div class="jua-regular" id="info">
             <table>
                 <tr style="display: none;" id="qaboardnum">
@@ -223,7 +230,7 @@
                     <td colspan="2">
                         <div class="buttonDisplay, align-items, justify-content">
                             <button type="button" class="button" onclick="location.href='/Q&ABO'"
-                                    style="position: absolute;top: 1330px;left: 630px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px">확인</button>
+                                    style="position: absolute;top: 1330px;left: 880px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px">확인</button>
                         </div>
                     </td>
                 </tr>
@@ -266,7 +273,7 @@
                     <td colspan="2">
                         <div class="buttonDisplay, align-items, justify-content">
                             <button type="button" class="button" onclick="location.href='/dpBO'"
-                                    style="position: absolute;top: 1330px;left: 1095px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px">확인</button>
+                                    style="position: absolute;top: 1330px;left: 1344px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px">확인</button>
                         </div>
                     </td>
                 </tr>
