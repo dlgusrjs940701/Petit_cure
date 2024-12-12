@@ -23,7 +23,8 @@
     }
 
     .button12 {
-        padding: 10px 20px;
+        margin-left: 20px;
+        padding: 10px 15px;
         font-size: 20px;
         background-color: #638fff;
         color: #000000;
@@ -38,17 +39,24 @@
     .button12:hover {
         background-color: #376be7;
     }
-
+    @font-face {
+        font-family: 'yg-jalnan';
+        src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+    }
+    body {
+        font-family: yg-jalnan;
+    }
 </style>
-<body style="padding: 50px">
+<body style="padding: 50px; text-align: center">
     <h1>해당 게시글은 '카카오 회원가입'을 통해 <br>
         '실명인증'을 진행한 회원만 이용 가능하오니, <br>
         이용을 원하시는 회원께서는 <br>
         "카카오 로그인 -> 회원가입"을 먼저 진행해주시길 바랍니다.<br></h1>
     <hr>
     <br>
-    <input type="submit" value="카카오 로그인 하러가기" class="button11" onclick="location.href='/login'">
-    <br><br>
-    <input type="submit" value="홈으로 돌아가기" class="button12" onclick="location.href='/'">
+    <button style="font-family: yg-jalnan" class="button11" onclick="location.href='/login'">카카오 로그인 하러가기</button>
+    <button style="font-family: yg-jalnan" class="button12" onclick="location.href='/'">홈으로 돌아가기</button>
 </body>
 </html>

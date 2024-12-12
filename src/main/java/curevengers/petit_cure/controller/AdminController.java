@@ -164,7 +164,12 @@ public class AdminController {
 
     @ResponseBody
     @GetMapping(value = "/confirmBlack")
-    public blackListDTO confirmBlack(String id) throws Exception {
-        return userservice.selectBlack(id);
+    public boolean confirmBlack(String id) throws Exception {
+        System.out.println(id + "계정 정지로 넘어온 id값 ----------------");
+        if(userservice.selectBlack(id) == null){
+            return true;
+        }else{
+            return false;
+        }
     }
 }

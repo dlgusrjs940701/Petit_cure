@@ -9,14 +9,17 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/20d076eb83.js" crossorigin="anonymous"></script>
     <!--타임리프를 사용할 때는 @{} 형식-->
     <link rel="stylesheet" th:href="@{/css/main.css}">
-    <link rel="stylesheet" th:href="@{/css/sticky.css}">
+<!--    <link rel="stylesheet" th:href="@{/css/sticky.css}">-->
 </head>
 <style>
-    .sticky > div {
-        border-radius: 100%;
-    }
+    /*.sticky > div {*/
+    /*    border-radius: 100%;*/
+    /*}*/
+
+
 </style>
 <!--<body style="background-image: url('/images/maintest.jpg'); ">-->
 <body>
@@ -84,23 +87,53 @@
             <span style="margin-left: 100px">"건강은 초기에 잘 관리할수록</span><br><span>미래의 삶의 질을 높이는 가장 큰 투자입니다."</span>
         </span>
     </div>
-    <div style="position:fixed; top: 150px; right: -5px;z-index: 20;" class="mainnav">
-        <div class="sticky" style="  border: 0; width: 150px; z-index: 20;  padding-top: 120px">
-            <div class="list-group" style="z-index: 20">
-                <button type="button" class="list-group-item list-group-item-action" style="border-top-left-radius: 30px; border-top-right-radius: 30px;"
-                        onclick="location.href='https://www.e-gen.or.kr/egen/holiday_medical.do?searchType=general&popclsY=Y&emergencyViewYn=Y'">병의원 검색
-                </button>
-                <button type="button" class="list-group-item list-group-item-action" onclick="dpcheck()">우울증검진하러가기&nbsp;&nbsp;&nbsp;&nbsp;
-
-                </button>
-                <button type="button" class="list-group-item list-group-item-action" onclick="healthchecklist()">자가검진결과리스트&nbsp;&nbsp;&nbsp;&nbsp;
-
-                </button>
-                <button type="button" style="border-bottom-left-radius: 30px;border-bottom-right-radius: 30px;" class="list-group-item list-group-item-action" onclick="dpchecklist()">우울증검진결과리스트&nbsp;&nbsp;&nbsp;&nbsp;
-
-                </button>
+    <div style="position:fixed; top: 300px; right: -5px;z-index: 20;" class="mainnav">
+        <div class="sticky" style="  border: 0; width: 150px;  margin-top: 200px">
+            <div class="icon-menu">
+                <a href="https://www.e-gen.or.kr/egen/holiday_medical.do" target="_blank">
+                    <ul>
+                        <i class="fa-solid fa-hospital"></i>
+                        <span style="margin-left: 10px; font-size: 2rem">병의원 검색</span>
+                    </ul>
+                </a>
+                <a onclick="dpcheck()">
+                    <ul>
+                        <i class="fa-solid fa-check-to-slot"></i>
+                        <span style="margin-left: 20px; font-size: 2rem">우울증 검진</span>
+                    </ul>
+                </a>
+                <a onclick="healthchecklist()">
+                    <ul>
+                        <i class="fa-solid fa-list"></i>
+                        <span style="margin-left: 20px; font-size: 2rem">자가검진 결과</span>
+                    </ul>
+                </a>
+                <a onclick="dpchecklist()">
+                    <ul>
+                        <i class="fa-solid fa-list-ol"></i>
+                        <span style="margin-left: 20px; font-size: 2rem">우울증 결과</span>
+                    </ul>
+                </a>
             </div>
         </div>
+
+        <!--    <div style="position:fixed; top: 266px; right: -5px;z-index: 20;" class="mainnav">-->
+<!--        <div class="sticky" style="  border: 0; width: 150px; z-index: 20;">-->
+<!--            <div class="list-group" style="z-index: 20">-->
+<!--                <button type="button" class="list-group-item list-group-item-action" style="border-top-left-radius: 30px; border-top-right-radius: 30px;"-->
+<!--                        onclick="location.href='https://www.e-gen.or.kr/egen/holiday_medical.do?searchType=general&popclsY=Y&emergencyViewYn=Y'">병의원 검색-->
+<!--                </button>-->
+<!--                <button type="button" class="list-group-item list-group-item-action" onclick="dpcheck()">우울증검진하러가기&nbsp;&nbsp;&nbsp;&nbsp;-->
+
+<!--                </button>-->
+<!--                <button type="button" class="list-group-item list-group-item-action" onclick="healthchecklist()">자가검진결과리스트&nbsp;&nbsp;&nbsp;&nbsp;-->
+
+<!--                </button>-->
+<!--                <button type="button" style="border-bottom-left-radius: 30px;border-bottom-right-radius: 30px;" class="list-group-item list-group-item-action" onclick="dpchecklist()">우울증검진결과리스트&nbsp;&nbsp;&nbsp;&nbsp;-->
+
+<!--                </button>-->
+<!--            </div>-->
+<!--        </div>-->
 <!--        <div th:include="freeBoard::sticky" class="sticky" style=" z-index: 4; border: 0; width: 200px; border-radius: 40px; padding-top: 120px"></div>-->
     </div>
 <!--    <div>-->
@@ -180,10 +213,18 @@
     <!--        </button>-->
 
     <!--    </div>-->
-    <div style="float: left; z-index: 10; position : absolute; bottom : 100px;">
-        <button onclick="mainpagelist('freeboard')" style="width: 265px; height: 50px; margin-left: 30px">자유게시판</button>
-        <button onclick="mainpagelist('qaboard')" style="width: 264px; height: 50px;">Q&A게시판</button>
-        <button onclick="mainpagelist('dpboard')" style="width: 264px; height: 50px;">우울증게시판</button>
+    <div style="float: left; z-index: 10; position : absolute; bottom : 100px;" id="infomenu1">
+        <button onclick="mainpagelist('freeboard')" style="width: 265px; height: 50px; margin-left: 30px" class="custom-btn btn-2">자유게시판</button>
+<!--        <button onclick="mainpagelist('freeboard')" style="width: 265px; height: 50px; margin-left: 30px">자유게시판</button>-->
+        <button onclick="mainpagelist('qaboard')" style="width: 264px; height: 50px;" class="custom-btn btn-2">Q&A게시판</button>
+        <!--        <button onclick="mainpagelist('qaboard')" style="width: 264px; height: 50px;">Q&A게시판</button>-->
+        <button onclick="mainpagelist('dpboard')" style="width: 264px; height: 50px;" class="custom-btn btn-2">우울증게시판</button>
+<!--        <button onclick="mainpagelist('dpboard')" style="width: 264px; height: 50px;">우울증게시판</button>-->
+    </div>
+
+    <div style="float: left; z-index: 10; position : absolute; bottom : 100px;margin-left: 30px" id="infomenu2;">
+        <button onclick="mainpagelist('dpboard')" style="width: 264px; height: 50px;" class="custom-btn btn-2">우울증게시판</button>
+        <!--        <button onclick="mainpagelist('dpboard')" style="width: 264px; height: 50px;">우울증게시판</button>-->
     </div>
     <div class="maincon">
         <div style="display: inline-block; width: 25%;">
@@ -207,9 +248,13 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <div class="buttonDisplay, align-items, justify-content">
-                                <button type="button" class="button" onclick="location.href='/freeBO'"
-                                        style="position: absolute;top: 65px;left: 647px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px">확인</button>
+                            <div class="buttonDisplay, align-items, justify-content" >
+                                <button class="btn btn-jittery" onclick="location.href='/freeBO'"
+                                        style="position: absolute;top: 65px;left: 647px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px;">
+                                    보러가기 <i class="fa-solid fa-share"></i>
+                                </button>
+<!--                                <button type="button" class="button" onclick="location.href='/freeBO'"-->
+<!--                                        style="position: absolute;top: 65px;left: 647px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px">보러가기 <i class="fa-solid fa-share"></i></button>-->
 
                             </div>
                         </td>
@@ -238,8 +283,10 @@
                     <tr>
                         <td colspan="2">
                             <div class="buttonDisplay, align-items, justify-content">
-                                <button type="button" class="button" onclick="location.href='/Q&ABO'"
-                                        style="position: absolute;top: 208px;left: 647px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px">확인</button>
+                                <button class="btn btn-jittery" onclick="location.href='/Q&ABO'"
+                                        style="position: absolute;top: 208px;left: 647px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px;">
+                                    보러가기 <i class="fa-solid fa-share"></i>
+                                </button>
                             </div>
                         </td>
                     </tr>
@@ -267,8 +314,11 @@
                     <tr>
                         <td colspan="2">
                             <div class="buttonDisplay, align-items, justify-content">
-                                <button type="button" class="button" onclick="location.href='/dpBO'"
-                                        style="position: absolute;top: 349px;left: 647px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px">확인</button>
+                                <button class="btn btn-jittery" onclick="location.href='/Q&dpBO'"
+                                        style="position: absolute;top: 349px;left: 647px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px;">
+                                    보러가기 <i class="fa-solid fa-share"></i>
+                                </button>
+
                             </div>
                         </td>
                     </tr>
@@ -276,9 +326,9 @@
             </div>
         </div>
 
-        <div style="margin-left: 450px; display: inline-block; width: 50%">
+        <div style="margin-left: 422px; display: inline-block; width: 50%">
             <div class="jua-regular" id="info1" style="margin-left: 1px; width: 100%;">
-                <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                <div id="myCarousel" class="carousel slide" data-ride="carousel" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);">
                     <!-- Indicators -->
                     <ol class="carousel-indicators">
 <!--                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>-->
