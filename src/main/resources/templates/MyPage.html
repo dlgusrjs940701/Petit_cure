@@ -68,51 +68,61 @@
         </div>
         <table style="margin-left: auto; margin-right: auto; margin-top: 5px" id="table">
             <tr>
+                <td>게시판</td>
                 <td>아이디</td>
                 <td>제목</td>
                 <td>날짜</td>
             </tr>
             <tr>
+                <td class="boardname"></td>
                 <td class="boardid"></td>
                 <td class="boardtitle"></td>
                 <td class="boarddate"></td>
             </tr>
             <tr>
+                <td class="boardname"></td>
                 <td class="boardid"></td>
                 <td class="boardtitle"></td>
                 <td class="boarddate"></td>
             </tr>
             <tr>
+                <td class="boardname"></td>
                 <td class="boardid"></td>
                 <td class="boardtitle"></td>
                 <td class="boarddate"></td>
             </tr>
             <tr>
+                <td class="boardname"></td>
                 <td class="boardid"></td>
                 <td class="boardtitle"></td>
                 <td class="boarddate"></td>
             </tr>
             <tr>
+                <td class="boardname"></td>
                 <td class="boardid"></td>
                 <td class="boardtitle"></td>
                 <td class="boarddate"></td>
             </tr>
             <tr>
+                <td class="boardname"></td>
                 <td class="boardid"></td>
                 <td class="boardtitle"></td>
                 <td class="boarddate"></td>
             </tr>
             <tr>
+                <td class="boardname"></td>
                 <td class="boardid"></td>
                 <td class="boardtitle"></td>
                 <td class="boarddate"></td>
             </tr>
             <tr>
+                <td class="boardname"></td>
                 <td class="boardid"></td>
                 <td class="boardtitle"></td>
                 <td class="boarddate"></td>
             </tr>
             <tr>
+                <td class="boardname"></td>
                 <td class="boardid"></td>
                 <td class="boardtitle"></td>
                 <td class="boarddate"></td>
@@ -155,6 +165,14 @@
             data: {board: board},
             success: function (data) {
                 for (let i = 0; i < data.length; i++) {
+                    if (data[i].board == 'freeboard') {
+                        data[i].board = '자유게시판';
+                    } else if (data[i].board == 'qaboard') {
+                        data[i].board = 'Q&A게시판';
+                    } else if (data[i].board == 'qaboard') {
+                        data[i].board = '우울증게시판';
+                    }
+                    document.getElementsByClassName("boardname")[i].innerText = data[i].board;
                     document.getElementsByClassName("boardid")[i].innerText = data[i].id;
                     document.getElementsByClassName("boardtitle")[i].innerText = data[i].title;
                     document.getElementsByClassName("boarddate")[i].innerText = data[i].date;
