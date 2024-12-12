@@ -8,6 +8,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class myActivityDTO {
+    private String no;
     private String id;
     private String title;
     private String date;

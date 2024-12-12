@@ -82,30 +82,30 @@
     </delete>
 
     <select id="getMyActivity">
-        (select id, title, date from qaboard where id = #{id} limit 10)
+        (select no, id, title, date from qaboard where id = #{id} limit 10)
         union
-        (select id, title, date from freeboard where id = #{id} limit 10)
+        (select no, id, title, date from freeboard where id = #{id} limit 10)
         union
-        (select id, content, date from freecomment where id = #{id} limit 10)
+        (select no, id, content, date from freecomment where id = #{id} limit 10)
         union
-        (select id, content, date from qacomment where id = #{id} limit 10)
+        (select no, id, content, date from qacomment where id = #{id} limit 10)
         union
-        (select id, title, date from dpboard where id = #{id} limit 10)
+        (select no, id, title, date from dpboard where id = #{id} limit 10)
         union
-        (select id, content , date from dpcomment where id = #{id} limit 10)
+        (select no, id, content , date from dpcomment where id = #{id} limit 10)
         order by date desc limit 10;
     </select>
 
     <select id="getMyActivityListFree">
-        select id, title, date from freeboard where id = #{id} order by date desc limit 9
+        select no, id, title, date from freeboard where id = #{id} order by date desc limit 9
     </select>
 
     <select id="getMyActivityListQA">
-        select id, title, date from qaboard where id = #{id} order by date desc limit 9
+        select no, id, title, date from qaboard where id = #{id} order by date desc limit 9
     </select>
 
     <select id="getMyActivityListDP">
-        select id, title, date from dpboard where id = #{id} order by date desc limit 9
+        select no, id, title, date from dpboard where id = #{id} order by date desc limit 9
     </select>
 
     <select id="getFreeTopList">

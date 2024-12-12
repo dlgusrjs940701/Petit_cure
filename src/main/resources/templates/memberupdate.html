@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/freeBoard.css">
+<!--    <link rel="stylesheet" href="/css/freeBoard.css">-->
     <script src="https://kit.fontawesome.com/f3750f8cf5" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -23,15 +23,15 @@
     <aside>
         <h1>개인 정보 확인</h1>
         <h2>비밀번호 재확인</h2>
-        <h6>회원님의 정보를 안전하게 보호하기 위해 비밀번호를 다시 한번 확인해주세요.</h6>
+        <h3>회원님의 정보를 안전하게 보호하기 위해 비밀번호를 다시 한번 확인해주세요.</h3>
 
     </aside>
 
     <div class="div">
-        <span class="div1"><p>아이디</p><input th:value="${session.nowId}"
+        <span class="div1"><p style="font-size: 20px">아이디</p><input th:value="${session.nowId}"
                                             style="width: 600px; height: 50px; margin-bottom: 30px;"
                                             class="d-inline-block form-control" id="id" readonly></span><br>
-        <span class="div2"><p>비밀번호</p><input type="password" placeholder="현재 비밀번호를 입력해주세요"
+        <span class="div2"><p style="font-size: 20px">비밀번호</p><input type="password" placeholder="현재 비밀번호를 입력해주세요"
                                              style="width: 600px; height: 50px; margin-bottom: 40px"
                                              class="d-inline-block form-control" id="password"></span><br>
     </div>

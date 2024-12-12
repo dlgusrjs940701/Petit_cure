@@ -12,73 +12,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
           integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <script src="https://kit.fontawesome.com/20d076eb83.js" crossorigin="anonymous"></script>
+
     <!--타임리프를 사용할 때는 @{} 형식-->
     <link rel="stylesheet" th:href="@{/css/main.css}">
-    <link rel="stylesheet" th:href="@{/css/sticky.css}">
+<!--    <link rel="stylesheet" th:href="@{/css/sticky.css}">-->
 </head>
-<style>
-    .icon-menu {
-        position: fixed;
-        top: 40%;
-        right: 0;
-        /*transform: translateY(-50%);*/
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        background-color: #f8f9fa;
-        border-radius: 10px 0 0 10px;
-        box-shadow: -2px 2px 8px rgba(0, 0, 0, 0.3);
-        padding: 10px 0;
-        z-index: 100;
-    }
 
-    .icon-menu a {
-        width: 80px;
-        height: 80px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 10px 0;
-        text-decoration: none;
-        color: #343a40;
-        transition: background-color 0.3s ease, color 0.3s ease;
-        position: relative;
-    }
-
-    .icon-menu a:hover {
-        background-color: #f5a8a8;
-        color: white;
-        border-radius: 50%;
-    }
-
-    .icon-menu a i {
-        font-size: 1.8rem;
-        transition: transform 0.3s ease;
-    }
-
-    .icon-menu a:hover i {
-        /*transform: scale(1.2);*/
-    }
-
-    .icon-menu a .icon-label {
-        position: absolute;
-        right: 70px;
-        background-color: #343a40;
-        color: white;
-        padding: 5px 10px;
-        border-radius: 5px;
-        font-size: 0.9rem;
-        opacity: 0;
-        white-space: nowrap;
-        /*transition: opacity 0.3s ease, transform 0.3s ease;*/
-        transform: translateX(10px);
-    }
-
-    .icon-menu a:hover .icon-label {
-        opacity: 1;
-        transform: translateX(0);
-    }
-</style>
 <!--<body style="background-image: url('/images/maintest.jpg'); ">-->
 <body>
 <!-- fragment 설정을 해야 include 가능-->
@@ -150,9 +91,54 @@
         </span>
     </div>
 
+    <div style="position:fixed; top: 300px; right: -5px;z-index: 20;" class="mainnav">
+        <div class="sticky" style="  border: 0; width: 150px;  margin-top: 200px">
+            <div class="icon-menu">
+                <a href="https://www.e-gen.or.kr/egen/holiday_medical.do" target="_blank">
+                    <ul>
+                        <i class="fa-solid fa-hospital"></i>
+                        <span style="margin-left: 10px; font-size: 2rem">병의원 검색</span>
+                    </ul>
+                </a>
+                <a onclick="dpcheck()">
+                    <ul>
+                        <i class="fa-solid fa-check-to-slot"></i>
+                        <span style="margin-left: 20px; font-size: 2rem">우울증 검진</span>
+                    </ul>
+                </a>
+                <a onclick="healthchecklist()">
+                    <ul>
+                        <i class="fa-solid fa-list"></i>
+                        <span style="margin-left: 20px; font-size: 2rem">자가검진 결과</span>
+                    </ul>
+                </a>
+                <a onclick="dpchecklist()">
+                    <ul>
+                        <i class="fa-solid fa-list-ol"></i>
+                        <span style="margin-left: 20px; font-size: 2rem">우울증 결과</span>
+                    </ul>
+                </a>
             </div>
         </div>
-        <!--        <div th:include="freeBoard::sticky" class="sticky" style=" z-index: 4; border: 0; width: 200px; border-radius: 40px; padding-top: 120px"></div>-->
+
+        <!--    <div style="position:fixed; top: 266px; right: -5px;z-index: 20;" class="mainnav">-->
+<!--        <div class="sticky" style="  border: 0; width: 150px; z-index: 20;">-->
+<!--            <div class="list-group" style="z-index: 20">-->
+<!--                <button type="button" class="list-group-item list-group-item-action" style="border-top-left-radius: 30px; border-top-right-radius: 30px;"-->
+<!--                        onclick="location.href='https://www.e-gen.or.kr/egen/holiday_medical.do?searchType=general&popclsY=Y&emergencyViewYn=Y'">병의원 검색-->
+<!--                </button>-->
+<!--                <button type="button" class="list-group-item list-group-item-action" onclick="dpcheck()">우울증검진하러가기&nbsp;&nbsp;&nbsp;&nbsp;-->
+
+<!--                </button>-->
+<!--                <button type="button" class="list-group-item list-group-item-action" onclick="healthchecklist()">자가검진결과리스트&nbsp;&nbsp;&nbsp;&nbsp;-->
+
+<!--                </button>-->
+<!--                <button type="button" style="border-bottom-left-radius: 30px;border-bottom-right-radius: 30px;" class="list-group-item list-group-item-action" onclick="dpchecklist()">우울증검진결과리스트&nbsp;&nbsp;&nbsp;&nbsp;-->
+
+<!--                </button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div th:include="freeBoard::sticky" class="sticky" style=" z-index: 4; border: 0; width: 200px; border-radius: 40px; padding-top: 120px"></div>-->
     </div>
     <!--    <div>-->
     <!--        <img src="images/main.jpg" alt="/images/maintest.jpg" style="margin-left: 100px">-->
@@ -231,10 +217,18 @@
     <!--        </button>-->
 
     <!--    </div>-->
-    <div style="float: left; z-index: 10; position : absolute; bottom : 100px;">
-        <button onclick="mainpagelist('freeboard')" style="width: 265px; height: 50px; margin-left: 30px">자유게시판</button>
-        <button onclick="mainpagelist('qaboard')" style="width: 264px; height: 50px;">Q&A게시판</button>
-        <button onclick="mainpagelist('dpboard')" style="width: 264px; height: 50px;">우울증게시판</button>
+    <div style="float: left; z-index: 10; position : absolute; bottom : 100px;" id="infomenu1">
+        <button onclick="mainpagelist('freeboard')" style="width: 265px; height: 50px; margin-left: 30px" class="custom-btn btn-2">자유게시판</button>
+<!--        <button onclick="mainpagelist('freeboard')" style="width: 265px; height: 50px; margin-left: 30px">자유게시판</button>-->
+        <button onclick="mainpagelist('qaboard')" style="width: 264px; height: 50px;" class="custom-btn btn-2">Q&A게시판</button>
+        <!--        <button onclick="mainpagelist('qaboard')" style="width: 264px; height: 50px;">Q&A게시판</button>-->
+        <button onclick="mainpagelist('dpboard')" style="width: 264px; height: 50px;" class="custom-btn btn-2">우울증게시판</button>
+<!--        <button onclick="mainpagelist('dpboard')" style="width: 264px; height: 50px;">우울증게시판</button>-->
+    </div>
+
+    <div style="float: left; z-index: 10; position : absolute; bottom : 100px;margin-left: 30px" id="infomenu2;">
+        <button onclick="mainpagelist('dpboard')" style="width: 264px; height: 50px;" class="custom-btn btn-2">우울증게시판</button>
+        <!--        <button onclick="mainpagelist('dpboard')" style="width: 264px; height: 50px;">우울증게시판</button>-->
     </div>
     <div class="maincon">
         <div style="display: inline-block; width: 25%;">
@@ -258,11 +252,14 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <div class="buttonDisplay, align-items, justify-content">
-                                <button type="button" class="button" onclick="location.href='/freeBO'"
-                                        style="position: absolute;top: 65px;left: 647px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px">
-                                    확인
+
+                            <div class="buttonDisplay, align-items, justify-content" >
+                                <button class="btn btn-jittery" onclick="location.href='/freeBO'"
+                                        style="position: absolute;top: 65px;left: 647px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px;">
+                                    보러가기 <i class="fa-solid fa-share"></i>
                                 </button>
+<!--                                <button type="button" class="button" onclick="location.href='/freeBO'"-->
+<!--                                        style="position: absolute;top: 65px;left: 647px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px">보러가기 <i class="fa-solid fa-share"></i></button>-->
 
                             </div>
                         </td>
@@ -291,9 +288,10 @@
                     <tr>
                         <td colspan="2">
                             <div class="buttonDisplay, align-items, justify-content">
-                                <button type="button" class="button" onclick="location.href='/Q&ABO'"
-                                        style="position: absolute;top: 208px;left: 647px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px">
-                                    확인
+
+                                <button class="btn btn-jittery" onclick="location.href='/Q&ABO'"
+                                        style="position: absolute;top: 208px;left: 647px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px;">
+                                    보러가기 <i class="fa-solid fa-share"></i>
                                 </button>
                             </div>
                         </td>
@@ -322,9 +320,9 @@
                     <tr>
                         <td colspan="2">
                             <div class="buttonDisplay, align-items, justify-content">
-                                <button type="button" class="button" onclick="location.href='/dpBO'"
-                                        style="position: absolute;top: 349px;left: 647px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px">
-                                    확인
+                                <button class="btn btn-jittery" onclick="location.href='/Q&dpBO'"
+                                        style="position: absolute;top: 349px;left: 647px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px;">
+                                    보러가기 <i class="fa-solid fa-share"></i>
                                 </button>
                             </div>
                         </td>
@@ -333,9 +331,9 @@
             </div>
         </div>
 
-        <div style="margin-left: 450px; display: inline-block; width: 50%">
+        <div style="margin-left: 422px; display: inline-block; width: 50%">
             <div class="jua-regular" id="info1" style="margin-left: 1px; width: 100%;">
-                <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                <div id="myCarousel" class="carousel slide" data-ride="carousel" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);">
                     <!-- Indicators -->
                     <ol class="carousel-indicators">
 <!--                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>-->
@@ -687,9 +685,33 @@
                 }
             }
         })
+        $.ajax({
+            type: 'get',
+            url: "mainpagelist",
+            data: {board: 'freeboard'},
+            success: function (data) {
+                for (let i = 0; i < data.length; i++) {
+                    if (data[i].title.length > 13) {
+                        title = data[i].title.substring(0, 14) + "...";
+                    } else {
+                        title = data[i].title;
+                    }
+                    if (data[i].content.length > 13) {
+                        content = data[i].content.substring(0, 14) + "...";
+                    } else {
+                        content = data[i].content;
+                    }
+                    document.getElementsByClassName("boardtitle")[i].innerText = title;
+                    document.getElementsByClassName("boardcontent")[i].innerText = content;
+
+                }
+            }
+        })
     }
 </script>
 <script>
+    let title
+    let content
     function mainpagelist(board) {
         $.ajax({
             type: 'get',
@@ -697,9 +719,16 @@
             data: {board: board},
             success: function (data) {
                 for (let i = 0; i < data.length; i++) {
-                    console.log(data[i].title)
-                    let title = data[i].title.substring(0, 12) + "...";
-                    let content = data[i].content.substring(0, 12) + "...";
+                    if (data[i].title.length > 13) {
+                        title = data[i].title.substring(0, 14) + "...";
+                    } else {
+                        title = data[i].title;
+                    }
+                    if (data[i].content.length > 13) {
+                        content = data[i].content.substring(0, 14) + "...";
+                    } else {
+                        content = data[i].content;
+                    }
                     document.getElementsByClassName("boardtitle")[i].innerText = title;
                     document.getElementsByClassName("boardcontent")[i].innerText = content;
 
