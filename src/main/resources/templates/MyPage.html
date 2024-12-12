@@ -16,7 +16,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Jua&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik+Wet+Paint&family=Yeon+Sung&display=swap');
     </style>
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/freeBoard.css">
+<!--    <link rel="stylesheet" href="/css/freeBoard.css">-->
     <link rel="stylesheet" href="/css/MyPage.css">
 <style>
     th, td {
@@ -52,20 +52,7 @@
         </div>
     </aside>
 
-
-    <!--  <article class="main1">-->
-    <!--    <h1 style="font-size: 30px;"><strong>내 활동</strong></h1>-->
-    <!--    <hr>-->
-    <!--    <div style="text-align: center; font-size: 25px; margin-top: 160px;">-->
-    <!--      <a href="/moreresult" style="color: black"><i class="fa-solid fa-notes-medical">&nbsp;&nbsp;</i>건강검진 결과 리스트</a><br>-->
-    <!--      <a href="/dpmoreresult" style="color: black"><i class="fa-regular fa-face-frown">&nbsp;&nbsp;</i>우울증검진 결과 리스트</a><br>-->
-    <!--      <a href="/freeboard" style="color: black"><i class="fa-solid fa-tablet-screen-button">&nbsp;&nbsp;</i>자유게시판</a><br>-->
-    <!--      <a href="/qanda" style="color: black"><i class="fa-solid fa-tablet-screen-button">&nbsp;&nbsp;</i>Q&A게시판</a><br>-->
-    <!--      <a href="/depboard" style="color: black"><i class="fa-solid fa-tablet-screen-button">&nbsp;&nbsp;</i>우울증전용게시판</a>-->
-    <!--    </div>-->
-    <!--  </article>-->
-
-    <section class="main2">
+    <section class="main2" style="font-family: yg-jalnan">
         <h1 style="font-size: 30px; margin-top: 16px;"><strong>내 활동 내역</strong></h1>
         <hr>
         <div>
@@ -73,76 +60,22 @@
             <button class="write-btn" onclick="mypagelist('qaboard')"><strong>Q&A게시판</strong></button>
             <button class="write-btn" onclick="mypagelist('dpboard')"><strong>우울증게시판</strong></button>
         </div>
-        <table style="margin-left: auto; margin-right: auto; margin-top: 5px" id="table">
-            <tr>
-                <td>게시판</td>
-                <td>아이디</td>
-                <td>제목</td>
-                <td>날짜</td>
-            </tr>
-            <tr>
-                <td class="boardno" style="display: none"></td>
-                <td class="boardname"></td>
-                <td class="boardid"></td>
-                <td class="boardtitle" onclick="goview(0)"></td>
-                <td class="boarddate"></td>
-            </tr>
-            <tr>
-                <td class="boardno" style="display: none"></td>
-                <td class="boardname"></td>
-                <td class="boardid"></td>
-                <td class="boardtitle" onclick="goview(1)"></td>
-                <td class="boarddate"></td>
-            </tr>
-            <tr>
-                <td class="boardno" style="display: none"></td>
-                <td class="boardname"></td>
-                <td class="boardid"></td>
-                <td class="boardtitle" onclick="goview(2)"></td>
-                <td class="boarddate"></td>
-            </tr>
-            <tr>
-                <td class="boardno" style="display: none" onclick="goview(3)"></td>
-                <td class="boardname"></td>
-                <td class="boardid"></td>
-                <td class="boardtitle"></td>
-                <td class="boarddate"></td>
-            </tr>
-            <tr>
-                <td class="boardno" style="display: none"></td>
-                <td class="boardname"></td>
-                <td class="boardid"></td>
-                <td class="boardtitle" onclick="goview(4)"></td>
-                <td class="boarddate"></td>
-            </tr>
-            <tr>
-                <td class="boardno" style="display: none"></td>
-                <td class="boardname"></td>
-                <td class="boardid"></td>
-                <td class="boardtitle" onclick="goview(5)"></td>
-                <td class="boarddate"></td>
-            </tr>
-            <tr>
-                <td class="boardno" style="display: none"></td>
-                <td class="boardname"></td>
-                <td class="boardid"></td>
-                <td class="boardtitle" onclick="goview(6)"></td>
-                <td class="boarddate"></td>
-            </tr>
-            <tr>
-                <td class="boardno" style="display: none"></td>
-                <td class="boardname"></td>
-                <td class="boardid"></td>
-                <td class="boardtitle" onclick="goview(7)"></td>
-                <td class="boarddate"></td>
-            </tr>
-            <tr>
-                <td class="boardno" style="display: none"></td>
-                <td class="boardname"></td>
-                <td class="boardid"></td>
-                <td class="boardtitle" onclick="goview(8)"></td>
-                <td class="boarddate"></td>
-            </tr>
+        <table style="margin-left: auto; margin-right: auto; margin-top: 5px;" id="table">
+            <thead style="font-size: 30px">
+                <tr>
+                    <th>게시판</th>
+                    <th>아이디</th>
+                    <th>제목</th>
+                    <th>날짜</th>
+                </tr>
+            </thead>
+            <tbody id="Mytbody" style="font-size: 20px">
+                <tr>
+                    <th colspan="4">
+                        활동내역 조회를 원하시는 게시판 버튼을 클릭해주세요~!
+                    </th>
+                </tr>
+            </tbody>
         </table>
     </section>
 
@@ -174,67 +107,65 @@
     });
 </script>
 <script>
-    window.onload = () => {
-        $.ajax({
-            type: 'get',
-            url: "mypagelist",
-            data: {board: 'freeboard'},
-            success: function (data) {
-                for (let i = 0; i < data.length; i++) {
-                    data[i].board = '자유게시판';
-                    document.getElementsByClassName("boardno")[i].innerText = data[i].no;
-                    document.getElementsByClassName("boardname")[i].innerText = data[i].board;
-                    document.getElementsByClassName("boardid")[i].innerText = data[i].id;
-                    document.getElementsByClassName("boardtitle")[i].innerText = data[i].title;
-                    document.getElementsByClassName("boarddate")[i].innerText = data[i].date;
-                }
-            }
-        })
-    }
     function mypagelist(board) {
+        let cate;
+        let search;
+        let tbody = document.getElementById('Mytbody');
+        while(tbody.rows.length > 0){
+            tbody.deleteRow(0)
+        }
         $.ajax({
             type: 'get',
             url: "mypagelist",
             data: {board: board},
             success: function (data) {
+                cate = data[0].board;
+                if (cate == 'freeboard') {
+                    cate = '자유게시판'
+                    search = '/view';
+                } else if (cate == 'qaboard') {
+                    cate = 'Q&A게시판'
+                    search = '/qaview';
+                } else if (cate == 'dpboard') {
+                    cate = '우울증게시판'
+                    search = '/dpview';
+                }
                 for (let i = 0; i < data.length; i++) {
-                    if (data[i].board == 'freeboard') {
-                        data[i].board = '자유게시판';
-                    } else if (data[i].board == 'qaboard') {
-                        data[i].board = 'Q&A게시판';
-                    } else if (data[i].board == 'dpboard') {
-                        data[i].board = '우울증게시판';
-                    }
-                    document.getElementsByClassName("boardno")[i].innerText = data[i].no;
-                    document.getElementsByClassName("boardname")[i].innerText = data[i].board;
-                    document.getElementsByClassName("boardid")[i].innerText = data[i].id;
-                    document.getElementsByClassName("boardtitle")[i].innerText = data[i].title;
-                    document.getElementsByClassName("boarddate")[i].innerText = data[i].date;
+                    let no = data[i].no;
+                    let tr = document.createElement('tr');
+                    tr.setAttribute('height','20px');
+                    // 카테고리 저장
+                    let td1 = document.createElement('td');
+                    td1.setAttribute('width','150px');
+                    td1.textContent = cate;
+                    // 작성 아이디 저장
+                    let td2 = document.createElement('td');
+                    td2.setAttribute('width','100px');
+                    td2.textContent = data[i].id;
+                    // 작성 제목 저장 + 연결 링크 저장
+                    let td3 = document.createElement('td');
+                    td3.setAttribute('width','200px');
+                    let a = document.createElement('a');
+                    let span = document.createElement('span');
+                    span.textContent = data[i].title;
+                    a.setAttribute('href',search+'?no='+no);
+                    a.appendChild(span);
+                    td3.appendChild(a);
+
+                    let td4 = document.createElement('td');
+                    td4.setAttribute('width','200px')
+                    td4.textContent = data[i].date;
+
+                    tr.appendChild(td1);
+                    tr.appendChild(td2);
+                    tr.appendChild(td3);
+                    tr.appendChild(td4);
+
+                    tbody.appendChild(tr);
+
                 }
             }
         })
-    }
-    function goview(no) {
-        let form = document.createElement('form');
-        if (document.getElementsByClassName("boardname")[no].innerText == '자유게시판') {
-            form.setAttribute('action', '/view');
-        } else if (document.getElementsByClassName("boardname")[no].innerText == 'Q&A게시판') {
-            form.setAttribute('action', '/qaview')
-        } else if (document.getElementsByClassName("boardname")[no].innerText == '우울증게시판') {
-            form.setAttribute('action', '/dpview')
-        }
-        form.setAttribute('method', 'get');
-
-        let data = document.createElement('input');
-
-        data.setAttribute('name', 'no');
-        data.setAttribute('value', document.getElementsByClassName("boardno")[no].innerText);
-
-        form.appendChild(data);
-
-        document.body.appendChild(form);
-
-        form.submit();
     }
 </script>
 

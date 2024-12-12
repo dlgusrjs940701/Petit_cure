@@ -95,7 +95,9 @@ public class memberController {
 
     // 로그인 화면
     @GetMapping("/login")
-    public String loginPage(@RequestParam(value = "error", required = false) String error,@RequestParam(value = "exception", required = false) String exception, Model model) { // 로그인되지 않은 상태이면 로그인 페이지를, 로그인된 상태이면 main 페이지를 보여줌
+    public String loginPage(@RequestParam(value = "error", required = false) String error,
+                            @RequestParam(value = "exception", required = false) String exception,
+                            Model model) {    // 로그인되지 않은 상태이면 로그인 페이지를, 로그인된 상태이면 main 페이지를 보여줌
         model.addAttribute("error", error);
         model.addAttribute("exception", exception);
         System.out.println(error +"  (error값 확인) / "+ exception + "  (exception값 확인) ----------------");

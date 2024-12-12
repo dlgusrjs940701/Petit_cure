@@ -39,7 +39,8 @@
         <tr th:each="list:${list}" th:style="${list.num} >= 10 ? 'color:red' : 'color:black'">
 <!--          <td th:text="${list.alertno}" hidden="true"></td>-->
           <td th:text="${list.alert_cate}" colspan="3"></td>
-          <td colspan="3" th:if="${list.alert_cate}=='Q&A게시판'"><a th:href="@{/alertview(no=${list.no},cate=${list.alert_cate},singonum=${list.num})}">[[${list.no}]]번</a></td>
+          <td colspan="3" th:if="${list.alert_cate}=='Q&A게시판'">
+              <a th:href="@{/alertview(no=${list.no},cate=${list.alert_cate},singonum=${list.num})}">[[${list.no}]]번</a></td>
           <td colspan="3" th:if="${list.alert_cate}=='자유게시판'"><a th:href="@{/alertview(no=${list.no},cate=${list.alert_cate},singonum=${list.num})}">[[${list.no}]]번</a></td>
           <td colspan="3" th:if="${list.alert_cate}=='우울증게시판'"><a th:href="@{/alertview(no=${list.no},cate=${list.alert_cate},singonum=${list.num})}">[[${list.no}]]번</a></td>
           <td th:text="${list.write_id}" colspan="2"></td>
