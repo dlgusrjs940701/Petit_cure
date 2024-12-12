@@ -6,6 +6,7 @@
       integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
       crossorigin="anonymous" referrerpolicy="no-referrer"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://kit.fontawesome.com/20d076eb83.js" crossorigin="anonymous"></script>
 <!--jsp를 사용하는 html은 @{} 방식을 쓰지않음-->
 <link rel="stylesheet" href="/css/main.css">
 <link rel="stylesheet" href="/css/freeBoard.css">
@@ -46,22 +47,57 @@
 <!-- main화면 include 설정 -->
 <div th:include="main::header"></div>
 <div th:include="main::nav"></div>
-<div th:fragment="sticky" class="sticky">
 
-        <div class="list-group">
-            <button type="button" class="list-group-item list-group-item-action"  onclick="healthcheck()">자가검진하러가기 &nbsp;&nbsp;&nbsp;&nbsp;
-                >
-            </button>
-            <button type="button" class="list-group-item list-group-item-action" onclick="dpcheck()">우울증검진하러가기&nbsp;&nbsp;&nbsp;&nbsp;
-                >
-            </button>
-            <button type="button" class="list-group-item list-group-item-action" onclick="healthchecklist()">자가검진결과리스트&nbsp;&nbsp;&nbsp;&nbsp;
-                >
-            </button>
-            <button type="button" class="list-group-item list-group-item-action" onclick="dpchecklist()">우울증검진결과리스트&nbsp;&nbsp;&nbsp;&nbsp;
-                >
-            </button>
+<section>
+    <div style="position:fixed; top: 0; right: -5px;z-index: 20;" class="mainnav">
+        <div class="sticky" style="  border: 0; width: 150px;  margin-top: 200px">
+            <div class="icon-menu">
+                <a href="https://www.e-gen.or.kr/egen/holiday_medical.do" target="_blank">
+                    <ul>
+                        <i class="fa-solid fa-hospital" style="font-size: 2.5rem"></i>
+                        <span style="margin-left: 10px; font-size: 1.2rem">병의원 검색</span>
+                    </ul>
+                </a>
+                <a onclick="dpcheck()">
+                    <ul>
+                        <i class="fa-solid fa-check-to-slot" style="font-size: 2.5rem"></i>
+                        <span style="margin-left: 20px; font-size: 1.2rem">우울증 검진</span>
+                    </ul>
+                </a>
+                <a onclick="healthchecklist()">
+                    <ul>
+                        <i class="fa-solid fa-list" style="font-size: 2.5rem"></i>
+                        <span style="margin-left: 20px; font-size: 1.2rem">자가검진 결과</span>
+                    </ul>
+                </a>
+                <a onclick="dpchecklist()">
+                    <ul>
+                        <i class="fa-solid fa-list-ol" style="font-size: 2.5rem"></i>
+                        <span style="margin-left: 20px; font-size: 1.2rem">우울증 결과</span>
+                    </ul>
+                </a>
+            </div>
         </div>
+        <!--        <div th:include="freeBoard::sticky" class="sticky" style=" z-index: 4; border: 0; width: 200px; border-radius: 40px; padding-top: 120px"></div>-->
+    </div>
+</section>
+
+
+<div class="container">
+    <div class="title-container">
+        <h2><strong>자유게시판</strong></h2>
+        <form class="search-box" action="searchTitle" method="get">
+            <input id="text" type="text" class="input-text" name="title" placeholder="제목으로 검색해주세요">
+            <input type="submit" value="검색" class="search">
+        </form>
+        <form action="visitList" method="post">
+            <input type="submit" value="조회수" class="button11">
+        </form>
+        <form action="dateList" method="post">
+            <input type="submit" value="최신순" class="button11">
+        </form>
+        <button class="write-btn" onclick="location.href='/write'"><strong>글쓰기</strong></button>
+      
     </div>
 
 
