@@ -99,6 +99,7 @@ public class testhome {
     @ResponseBody
     @PostMapping(value="/confirmpassword")
     public boolean confirmpassword(@RequestParam String password, @RequestParam String id) {
+        System.out.println(password+" / 패스워드 채킹 ---------------->" + id + "아이디 채킹 =========");
         memberDTO member = userService.getMemberById(id);
         if(passwordEncoder.matches(password,member.getPass())){
             System.out.println("비밀번호 일치함");
@@ -206,7 +207,7 @@ public class testhome {
 
     // 자유게시판 글 자세히 보기
     @GetMapping(value = "/view")
-    public String boardView(@RequestParam("no") String no, Model model, @ModelAttribute freecommentDTO freecommendto, freeboard_attachDTO attachdto) {
+    public String boardView(HttpSession session,@RequestParam("no") String no, Model model, @ModelAttribute freecommentDTO freecommendto, freeboard_attachDTO attachdto) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         memberDTO memberDTO = membermapper.getMemberByID(username);
@@ -228,6 +229,7 @@ public class testhome {
         model.addAttribute("commentFreeList", freecommentFreeList);
         model.addAttribute("attachList", attachList);
         model.addAttribute("member", memberDTO);
+        session.setAttribute("id",username);
         return "view";
     }
 

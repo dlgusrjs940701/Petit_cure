@@ -670,9 +670,33 @@
                 }
             }
         })
+        $.ajax({
+            type: 'get',
+            url: "mainpagelist",
+            data: {board: 'freeboard'},
+            success: function (data) {
+                for (let i = 0; i < data.length; i++) {
+                    if (data[i].title.length > 13) {
+                        title = data[i].title.substring(0, 14) + "...";
+                    } else {
+                        title = data[i].title;
+                    }
+                    if (data[i].content.length > 13) {
+                        content = data[i].content.substring(0, 14) + "...";
+                    } else {
+                        content = data[i].content;
+                    }
+                    document.getElementsByClassName("boardtitle")[i].innerText = title;
+                    document.getElementsByClassName("boardcontent")[i].innerText = content;
+
+                }
+            }
+        })
     }
 </script>
 <script>
+    let title
+    let content
     function mainpagelist(board) {
         $.ajax({
             type: 'get',
@@ -680,9 +704,16 @@
             data: {board: board},
             success: function (data) {
                 for (let i = 0; i < data.length; i++) {
-                    console.log(data[i].title)
-                    let title = data[i].title.substring(0, 12) + "...";
-                    let content = data[i].content.substring(0, 12) + "...";
+                    if (data[i].title.length > 13) {
+                        title = data[i].title.substring(0, 14) + "...";
+                    } else {
+                        title = data[i].title;
+                    }
+                    if (data[i].content.length > 13) {
+                        content = data[i].content.substring(0, 14) + "...";
+                    } else {
+                        content = data[i].content;
+                    }
                     document.getElementsByClassName("boardtitle")[i].innerText = title;
                     document.getElementsByClassName("boardcontent")[i].innerText = content;
 
