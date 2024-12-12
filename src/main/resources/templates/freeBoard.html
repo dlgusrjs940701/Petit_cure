@@ -97,83 +97,102 @@
             <input type="submit" value="최신순" class="button11">
         </form>
         <button class="write-btn" onclick="location.href='/write'"><strong>글쓰기</strong></button>
+      
     </div>
 
-    <table>
-        <thead>
-        <tr>
-            <th class="num">번호</th>
-            <th class="title text-center">제목</th>
-            <th class="name">작성자</th>
-            <th class="visit">조회수</th>
-            <th class="date">작성일</th>
-        </tr>
-        </thead>
-        <tbody class="tbody">
-        <tr th:each="board : ${list}">
 
-            <td th:text="${board.no}"></td>
-            <td><a th:href="@{/view(no=${board.no})}" th:text="${board.title}">
-            </a>
-                <i class="fa-solid fa-file"></i>
-            </td>
+    <div class="container">
+        <div class="title-container">
+            <h2><strong>자유게시판</strong></h2>
+            <form class="search-box" action="searchTitle" method="get">
+                <input id="text" type="text" class="input-text" name="title" placeholder="제목으로 검색해주세요">
+                <input type="submit" value="검색" class="search">
+            </form>
+            <form action="visitList" method="post">
+                <input type="submit" value="조회수" class="button11">
+            </form>
+            <form action="dateList" method="post">
+                <input type="submit" value="최신순" class="button11">
+            </form>
+            <button class="write-btn" onclick="location.href='/write'"><strong>글쓰기</strong></button>
+        </div>
 
-            <td th:text="${board.id}"></td>
-            <td th:text="${board.visit}"></td>
-            <td th:text="${board.date}"></td>
-        </tr>
-        <tr>
-            <td colspan="5">
-                <!--                 이전 페이지 그룹 링크-->
-                <span th:if="${pageDTO.prev}"></span>
-                <a th:href="@{/freeboard(page=${pageDTO.startPage})}"><i
-                        class="fa-solid fa-circle-chevron-left"></i></a>
+        <table>
+            <thead>
+            <tr>
+                <th class="num">번호</th>
+                <th class="title text-center">제목</th>
+                <th class="name">작성자</th>
+                <th class="visit">조회수</th>
+                <th class="date">작성일</th>
+            </tr>
+            </thead>
+            <tbody class="tbody">
+            <tr th:each="board : ${list}">
 
-                <!-- 페이지 번호 반복 -->
+                <td th:text="${board.no}"></td>
+                <td><a th:href="@{/view(no=${board.no})}" th:text="${board.title}">
+                </a>
+                    <i class="fa-solid fa-file"></i>
+                </td>
 
-                <span th:each="idx : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}" th:if="${totalnum} == ${pageDTO.totalCount}">
+                <td th:text="${board.id}"></td>
+                <td th:text="${board.visit}"></td>
+                <td th:text="${board.date}"></td>
+            </tr>
+            <tr>
+                <td colspan="5">
+                    <!--                 이전 페이지 그룹 링크-->
+                    <span th:if="${pageDTO.prev}"></span>
+                    <a th:href="@{/freeboard(page=${pageDTO.startPage})}"><i
+                            class="fa-solid fa-circle-chevron-left"></i></a>
+
+                    <!-- 페이지 번호 반복 -->
+
+                    <span th:each="idx : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}"
+                          th:if="${totalnum} == ${pageDTO.totalCount}">
                     <span th:if="${pageDTO.page == idx}"></span>
                     <a th:href=" @{/freeboard(page=${idx})}" th:text="${idx}"></a>
                 </span>
-                <span th:each="idx : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}" th:if="${totalnum} != ${pageDTO.totalCount}">
+                    <span th:each="idx : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}"
+                          th:if="${totalnum} != ${pageDTO.totalCount}">
                     <span th:if="${pageDTO.page == idx}"></span>
                     <a th:href=" @{/searchTitle(page=${idx})}" th:text="${idx}"></a>
                 </span>
 
-                <!--                 다음 페이지 그룹 링크-->
-                <span th:if="${pageDTO.next}"></span>
-                <a th:href="@{/freeboard(page=${pageDTO.endPage})}"><i class="fa-solid fa-circle-chevron-right"></i></a>
-            </td>
-        </tr>
+                    <!--                 다음 페이지 그룹 링크-->
+                    <span th:if="${pageDTO.next}"></span>
+                    <a th:href="@{/freeboard(page=${pageDTO.endPage})}"><i class="fa-solid fa-circle-chevron-right"></i></a>
+                </td>
+            </tr>
 
-        </tbody>
+            </tbody>
 
-    </table>
+        </table>
 
-    <div id="myModal" class="modal">
-        <!-- Modal content -->
-        <div class="modal-content">
-            <p style="text-align: center;"><span style="font-size: 9pt;"><b><span style="font-size: 12pt;">Petit_cure 고객 안내사항</span></b></span>
-            </p>
-            <p style="text-align: center; line-height: 1.2;"><br/>Petit_cure를 찾아주시는 고객 여러분께 감사드리며, 게시판 사용 시 안내드립니다.</p>
-            <div class="form-check" style="text-align: center; font-size: 9pt;">
-                <input class="form-check-input" type="checkbox" id="dontShowAgain">
-                <label class="form-check-label" for="dontShowAgain">
-                    오늘 하루 동안 보지 않기
-                </label>
-            </div>
-            <p><br/></p>
-            <div style="cursor:pointer;background-color:#DDDDDD;text-align: center;padding-bottom: 10px;padding-top: 10px;"
-                 onClick="close_pop();">
-                <span class="pop_bt" style="font-size: 13pt;">닫기</span>
+        <div id="myModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <p style="text-align: center;"><span style="font-size: 9pt;"><b><span style="font-size: 12pt;">Petit_cure 고객 안내사항</span></b></span>
+                </p>
+                <p style="text-align: center; line-height: 1.2;"><br/>Petit_cure를 찾아주시는 고객 여러분께 감사드리며, 게시판 사용 시 안내드립니다.
+                </p>
+                <div class="form-check" style="text-align: center; font-size: 9pt;">
+                    <input class="form-check-input" type="checkbox" id="dontShowAgain">
+                    <label class="form-check-label" for="dontShowAgain">
+                        오늘 하루 동안 보지 않기
+                    </label>
+                </div>
+                <p><br/></p>
+                <div style="cursor:pointer;background-color:#DDDDDD;text-align: center;padding-bottom: 10px;padding-top: 10px;"
+                     onClick="close_pop();">
+                    <span class="pop_bt" style="font-size: 13pt;">닫기</span>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div th:include="main::footer"></div>
+    <div th:include="main::footer"></div>
 </body>
-
-
 
 
 </html>
@@ -203,6 +222,7 @@
 
         form.submit();
     }
+
     function dpchecklist() {
         let form = document.createElement('form');
         form.setAttribute('action', '/dpmoreresult');
@@ -212,6 +232,7 @@
 
         form.submit();
     }
+
     function healthcheck() {
         let form = document.createElement('form');
         form.setAttribute('action', '/health');
@@ -221,6 +242,7 @@
 
         form.submit();
     }
+
     function dpcheck() {
         let form = document.createElement('form');
         form.setAttribute('action', '/dpcheck');
