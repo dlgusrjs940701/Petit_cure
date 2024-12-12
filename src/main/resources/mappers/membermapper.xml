@@ -109,14 +109,14 @@
     </select>
 
     <select id="getFreeTopList">
-        select title, content from freeboard order by visit desc limit 3
+        select no, title, content from freeboard order by visit desc limit 3
     </select>
 
     <select id="getQATopList">
-        select title, content from qaboard order by good desc limit 3
+        select no, title, content from qaboard order by good desc limit 3
     </select>
 
     <select id="getDPTopList">
-        select title, content from dpboard order by good desc limit 3
+        select no, title, content from dpboard order by good desc limit 3
     </select>
 </mapper>

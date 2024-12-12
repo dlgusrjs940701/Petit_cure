@@ -287,16 +287,13 @@ public class memberController {
     @ResponseBody
     @GetMapping(value = "mainpagelist")
     public List<myActivityDTO> mainpagelist(@RequestParam("board") String board) {
-        System.out.println(board+"어떤보드인지 확인");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String nowId = authentication.getName();
         myActivityDTO dto = new myActivityDTO();
         dto.setBoard(board);
         dto.setId(nowId);
-        System.out.println(userservice.getTopList(dto).get(0).getId());
         return userservice.getTopList(dto);
     }
-
 }
 
 

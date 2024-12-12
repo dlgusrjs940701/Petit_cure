@@ -292,10 +292,12 @@
         LIMIT #{perPageNum} OFFSET #{startNo}
     </select>
 
-    <select id="AgeQAList" parameterType="String" resultType="curevengers.petit_cure.Dto.QABoardDTO">
+    <select id="AgeQAList" resultType="curevengers.petit_cure.Dto.QABoardDTO">
         select *
         from qaboard
-        where `limit` = #{ageGroup}
+        where `limit` = #{ageGroup} or #{ageGroup} = 'all'
+        order by date
+        limit #{pagedto.perPageNum} OFFSET #{pagedto.startNo}
     </select>
 
 

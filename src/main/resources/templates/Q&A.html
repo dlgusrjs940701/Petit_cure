@@ -84,6 +84,7 @@
         <form class="age-filter-form" action="filterByAge" method="get">
             <label for="ageGroup">연령대 선택:</label>
             <select id="ageGroup" name="ageGroup">
+                <option value="all">전체보기</option>
                 <option value="ADM" th:disabled="${session.id != 'admin'}">관리자</option>
                 <option value="00">모두공개</option>
                 <option value="10" th:disabled="${session.id == 'admin' ? false : (session.age == null or !(session.age == '10~19' or (session.age.toString().startsWith('1'))))}">10대</option>
