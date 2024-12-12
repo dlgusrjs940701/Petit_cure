@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/freeBoard.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Jua&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik+Wet+Paint&family=Yeon+Sung&display=swap');
     </style>
@@ -29,6 +30,9 @@
         margin-top: 25px;
         margin-bottom: 10px;
     }
+    #download:hover {
+        background-color: white;
+    }
 </style>
 <body>
 <div th:include="main::header"></div>
@@ -39,6 +43,19 @@
             <th>
                 건강검진 check 결과
             </th>
+        </tr>
+        <tr>
+            <td style="text-align: right; padding-right: 25px;" id="download">
+                <form action="/download-health-result" method="post">
+                    <input type="hidden" name="id" value="/*[[${dto.id}]]*/"/>
+                    <button class="btn btn-success fs-2" type="submit"><i class="fa-solid fa-file-excel"></i> 엑셀 다운로드</button>
+                </form>
+                <form action="/download-pdf" method="get">
+                    <button class="btn btn-danger fs-2" type="submit">
+                        <i class="fa-solid fa-file-pdf"></i> PDF 다운로드
+                    </button>
+                </form>
+            </td>
         </tr>
         <tr>
             <td style="display: none;" id="BMI" onclick="showmap('비만')">
@@ -186,10 +203,8 @@
         <tr>
             <td>
                 <a href="/moreresult"><input class="btn btn-primary fs-2" value="지난 결과보기"></a>
-                <form action="/download-health-result" method="post">
-                    <input type="hidden" name="id" value="/*[[${dto.id}]]*/" />
-                    <button class="btn btn-success fs-2" type="submit">결과 엑셀 다운로드</button>
-                </form>
+
+
             </td>
         </tr>
     </table>
@@ -291,7 +306,7 @@
     var map
 
 
-    let resultDiv = document.getElementById('showPosition'+'');
+    let resultDiv = document.getElementById('showPosition' + '');
 
     let arr = [];
 
@@ -299,7 +314,7 @@
 
     // 인포윈도우를 생성합니다
     let infowindow = new kakao.maps.InfoWindow({
-        content : iwContent
+        content: iwContent
     });
 
     // let table = document.getElementById('mapinfo');
@@ -354,60 +369,66 @@
             type: 'post',
             url: "/addmapper", //컨트롤러에 지정한 value값
             data: {h_type: disease},
-            success: function(data) {
+            success: function (data) {
                 var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
                 // 마커 이미지의 이미지 크기 입니다
                 var imageSize = new kakao.maps.Size(24, 35);
                 // 마커 이미지를 생성합니다
                 var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-                $(data).each(function (){
-                    arr.push({name : this.h_name, lat : this.h_lat, lng : this.h_lng ,length : Math.sqrt((Math.abs(positionObj.latitude-this.h_lat)*Math.abs(positionObj.latitude-this.h_lat))+((positionObj.longitude-this.h_lng)*(positionObj.longitude-this.h_lng)))})
+                $(data).each(function () {
+                    arr.push({
+                        name: this.h_name,
+                        lat: this.h_lat,
+                        lng: this.h_lng,
+                        length: Math.sqrt((Math.abs(positionObj.latitude - this.h_lat) * Math.abs(positionObj.latitude - this.h_lat)) + ((positionObj.longitude - this.h_lng) * (positionObj.longitude - this.h_lng)))
+                    })
                     var marker = new kakao.maps.Marker({
                         map: map,
-                        title : this.h_name,
-                        position: new kakao.maps.LatLng(this.h_lat,this.h_lng),
-                        image : markerImage,
-                        content : "<div style=\"padding:5px;\">" + this.h_name + "</div>"
+                        title: this.h_name,
+                        position: new kakao.maps.LatLng(this.h_lat, this.h_lng),
+                        image: markerImage,
+                        content: "<div style=\"padding:5px;\">" + this.h_name + "</div>"
                     })
                 });
-                arr.sort(function(a, b)  {
+                arr.sort(function (a, b) {
                     return a.length - b.length;
                 });
 
                 for (let i = 0; i < arr.length; i++) {
                     var message = arr[i].name;
-                    console.log(message+" 메세지")
+                    console.log(message + " 메세지")
                     let div = document.createElement("div");
-                    div.setAttribute('name',message);
-                    div.setAttribute('lat',arr[i].lat);
-                    div.setAttribute('lng',arr[i].lng);
+                    div.setAttribute('name', message);
+                    div.setAttribute('lat', arr[i].lat);
+                    div.setAttribute('lng', arr[i].lng);
                     let textNode = document.createTextNode(message);
                     div.appendChild(textNode);
                     div.addEventListener('click', () => centerchange(arr[i].lat, arr[i].lng));
                     document.getElementById('showPosition').appendChild(div);
                 }
-                console.log(arr[0].name + "/" + arr[0].length +" 0번째 / "+arr[1].name + "/" + arr[1].length +" 1번째");
+                console.log(arr[0].name + "/" + arr[0].length + " 0번째 / " + arr[1].name + "/" + arr[1].length + " 1번째");
             },
-            error: function (request,status,error){
-                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            error: function (request, status, error) {
+                alert("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
             }
         })
     }
 </script>
 <script>
     function centerchange(lat, lng) {
-        console.log(lat+"/"+lng)
+        console.log(lat + "/" + lng)
         map.setCenter(new kakao.maps.LatLng(lat, lng));
         map.setLevel(4);
     }
+
     // 마커에 마우스오버 이벤트를 등록합니다
-    kakao.maps.event.addListener(marker, 'mouseover', function() {
+    kakao.maps.event.addListener(marker, 'mouseover', function () {
         // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
         infowindow.open(map, marker);
     });
 
     // 마커에 마우스아웃 이벤트를 등록합니다
-    kakao.maps.event.addListener(marker, 'mouseout', function() {
+    kakao.maps.event.addListener(marker, 'mouseout', function () {
         // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
         infowindow.close();
     });
