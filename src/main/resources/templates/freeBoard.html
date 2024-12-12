@@ -81,26 +81,6 @@
         <!--        <div th:include="freeBoard::sticky" class="sticky" style=" z-index: 4; border: 0; width: 200px; border-radius: 40px; padding-top: 120px"></div>-->
     </div>
 </section>
-
-
-<div class="container">
-    <div class="title-container">
-        <h2><strong>자유게시판</strong></h2>
-        <form class="search-box" action="searchTitle" method="get">
-            <input id="text" type="text" class="input-text" name="title" placeholder="제목으로 검색해주세요">
-            <input type="submit" value="검색" class="search">
-        </form>
-        <form action="visitList" method="post">
-            <input type="submit" value="조회수" class="button11">
-        </form>
-        <form action="dateList" method="post">
-            <input type="submit" value="최신순" class="button11">
-        </form>
-        <button class="write-btn" onclick="location.href='/write'"><strong>글쓰기</strong></button>
-      
-    </div>
-
-
     <div class="container">
         <div class="title-container">
             <h2><strong>자유게시판</strong></h2>
