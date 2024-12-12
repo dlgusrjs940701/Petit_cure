@@ -9,25 +9,25 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
     <script src="https://kit.fontawesome.com/20d076eb83.js" crossorigin="anonymous"></script>
+
     <!--타임리프를 사용할 때는 @{} 형식-->
     <link rel="stylesheet" th:href="@{/css/main.css}">
 <!--    <link rel="stylesheet" th:href="@{/css/sticky.css}">-->
 </head>
-<style>
-    /*.sticky > div {*/
-    /*    border-radius: 100%;*/
-    /*}*/
 
-
-</style>
 <!--<body style="background-image: url('/images/maintest.jpg'); ">-->
 <body>
 <!-- fragment 설정을 해야 include 가능-->
 <div th:fragment="header">
     <header>
         <div>
-            <h1 style="font-weight: bold; font-size: 73px;" class="maintitle"><a href="/" style="color: black">PETITCURE</a></h1>
+            <h1 style="font-weight: bold; font-size: 73px;" class="maintitle"><a href="/"
+                                                                                 style="color: black">PETITCURE</a></h1>
         </div>
     </header>
 </div>
@@ -66,8 +66,10 @@
             </div>
             <div style="display: inline;" id="logout" th:if="${session.id != null}">
 
-                <li style="margin-left: 600px;" th:if="${session.auth != null}"><a href="/mypage">[[${session.id}]]님의 페이지</a></li>
-                <li style="margin-left: 800px;" th:if="${session.auth == null}"><a href="/mypage">[[${session.id}]]님의 페이지</a></li>
+                <li style="margin-left: 600px;" th:if="${session.auth != null}"><a href="/mypage">[[${session.id}]]님의
+                    페이지</a></li>
+                <li style="margin-left: 800px;" th:if="${session.auth == null}"><a href="/mypage">[[${session.id}]]님의
+                    페이지</a></li>
 
                 <li style="margin-left: 5px;"><a href="#">/</a></li>
                 <li style="margin-left: 5px;"><a href="/logout">로그아웃</a></li>
@@ -78,8 +80,9 @@
 
 <section id="section" style="background-image: url('/images/maintest.jpg'); position: relative">
     <div style="width: 1000px; height: 200px; margin-left: 530px; margin-top: 45px; float: left;">
-<!--        <span style="margin-left: 55px; font-size: 50px; font-weight: bolder" class="nanum-gothic-extrabold">"작은 관리에서 시작되는 큰 건강"</span>-->
-        <span style="margin-left: 30px; font-size: 50px; font-weight: bolder" class="maintitle">"작은 관리에서 시작되는 큰 건강"</span>
+        <!--        <span style="margin-left: 55px; font-size: 50px; font-weight: bolder" class="nanum-gothic-extrabold">"작은 관리에서 시작되는 큰 건강"</span>-->
+        <span style="margin-left: 30px; font-size: 50px; font-weight: bolder"
+              class="maintitle">"작은 관리에서 시작되는 큰 건강"</span>
     </div>
     <div style="width: 1800px; height: 200px; margin-left: 530px; margin-top: 620px; margin-bottom: 50px; float: left;">
         <!--        <span style="margin-left: 55px; font-size: 50px; font-weight: bolder" class="nanum-gothic-extrabold">"작은 관리에서 시작되는 큰 건강"</span>-->
@@ -87,6 +90,7 @@
             <span style="margin-left: 100px">"건강은 초기에 잘 관리할수록</span><br><span>미래의 삶의 질을 높이는 가장 큰 투자입니다."</span>
         </span>
     </div>
+
     <div style="position:fixed; top: 300px; right: -5px;z-index: 20;" class="mainnav">
         <div class="sticky" style="  border: 0; width: 150px;  margin-top: 200px">
             <div class="icon-menu">
@@ -136,63 +140,63 @@
 <!--        </div>-->
 <!--        <div th:include="freeBoard::sticky" class="sticky" style=" z-index: 4; border: 0; width: 200px; border-radius: 40px; padding-top: 120px"></div>-->
     </div>
-<!--    <div>-->
-<!--        <img src="images/main.jpg" alt="/images/maintest.jpg" style="margin-left: 100px">-->
-<!--        <div>-->
-<!--            <div id="myCarousel" class="carousel slide" data-ride="carousel">-->
-<!--                &lt;!&ndash; Indicators &ndash;&gt;-->
-<!--                <ol class="carousel-indicators">-->
-<!--                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>-->
-<!--                    <li data-target="#myCarousel" data-slide-to="1"></li>-->
-<!--                    <li data-target="#myCarousel" data-slide-to="2"></li>-->
-<!--                </ol>-->
+    <!--    <div>-->
+    <!--        <img src="images/main.jpg" alt="/images/maintest.jpg" style="margin-left: 100px">-->
+    <!--        <div>-->
+    <!--            <div id="myCarousel" class="carousel slide" data-ride="carousel">-->
+    <!--                &lt;!&ndash; Indicators &ndash;&gt;-->
+    <!--                <ol class="carousel-indicators">-->
+    <!--                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>-->
+    <!--                    <li data-target="#myCarousel" data-slide-to="1"></li>-->
+    <!--                    <li data-target="#myCarousel" data-slide-to="2"></li>-->
+    <!--                </ol>-->
 
-<!--                &lt;!&ndash; Wrapper for slides &ndash;&gt;-->
-<!--                <div class="carousel-inner">-->
+    <!--                &lt;!&ndash; Wrapper for slides &ndash;&gt;-->
+    <!--                <div class="carousel-inner">-->
 
-<!--                    <div class="item active">-->
-<!--                        <img src="https://picsum.photos/id/1" alt="test1" style="width:100%; height: 600px;">-->
-<!--                        <div class="carousel-caption">-->
-<!--                            <div>-->
-<!--                                <h3>TEST 1</h3>-->
-<!--                                <p>news 설명칸</p>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="item">-->
-<!--                        <img src="https://picsum.photos/id/2" alt="test2" style="width:100%; height: 600px;">-->
-<!--                        <div class="carousel-caption">-->
-<!--                            <div>-->
-<!--                                <h3>TEST2</h3>-->
-<!--                                <p>news 설명칸</p>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
+    <!--                    <div class="item active">-->
+    <!--                        <img src="https://picsum.photos/id/1" alt="test1" style="width:100%; height: 600px;">-->
+    <!--                        <div class="carousel-caption">-->
+    <!--                            <div>-->
+    <!--                                <h3>TEST 1</h3>-->
+    <!--                                <p>news 설명칸</p>-->
+    <!--                            </div>-->
+    <!--                        </div>-->
+    <!--                    </div>-->
+    <!--                    <div class="item">-->
+    <!--                        <img src="https://picsum.photos/id/2" alt="test2" style="width:100%; height: 600px;">-->
+    <!--                        <div class="carousel-caption">-->
+    <!--                            <div>-->
+    <!--                                <h3>TEST2</h3>-->
+    <!--                                <p>news 설명칸</p>-->
+    <!--                            </div>-->
+    <!--                        </div>-->
+    <!--                    </div>-->
 
-<!--                    <div class="item">-->
-<!--                        <img src="https://picsum.photos/id/3" alt="test3" style="width:100%; height: 600px;">-->
-<!--                        <div class="carousel-caption">-->
-<!--                            <div>-->
-<!--                                <h3>TEST3</h3>-->
-<!--                                <p>news 설명칸</p>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
+    <!--                    <div class="item">-->
+    <!--                        <img src="https://picsum.photos/id/3" alt="test3" style="width:100%; height: 600px;">-->
+    <!--                        <div class="carousel-caption">-->
+    <!--                            <div>-->
+    <!--                                <h3>TEST3</h3>-->
+    <!--                                <p>news 설명칸</p>-->
+    <!--                            </div>-->
+    <!--                        </div>-->
+    <!--                    </div>-->
 
-<!--                </div>-->
+    <!--                </div>-->
 
-<!--                &lt;!&ndash; Left and right controls &ndash;&gt;-->
-<!--                <a class="left carousel-control" href="#myCarousel" data-slide="prev">-->
-<!--                    <span class="glyphicon glyphicon-chevron-left"></span>-->
-<!--                    <span class="sr-only">Previous</span>-->
-<!--                </a>-->
-<!--                <a class="right carousel-control" href="#myCarousel" data-slide="next">-->
-<!--                    <span class="glyphicon glyphicon-chevron-right"></span>-->
-<!--                    <span class="sr-only">Next</span>-->
-<!--                </a>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
+    <!--                &lt;!&ndash; Left and right controls &ndash;&gt;-->
+    <!--                <a class="left carousel-control" href="#myCarousel" data-slide="prev">-->
+    <!--                    <span class="glyphicon glyphicon-chevron-left"></span>-->
+    <!--                    <span class="sr-only">Previous</span>-->
+    <!--                </a>-->
+    <!--                <a class="right carousel-control" href="#myCarousel" data-slide="next">-->
+    <!--                    <span class="glyphicon glyphicon-chevron-right"></span>-->
+    <!--                    <span class="sr-only">Next</span>-->
+    <!--                </a>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </div>-->
 
     <!--<section class="jua-regula">-->
 
@@ -248,6 +252,7 @@
                     </tr>
                     <tr>
                         <td colspan="2">
+
                             <div class="buttonDisplay, align-items, justify-content" >
                                 <button class="btn btn-jittery" onclick="location.href='/freeBO'"
                                         style="position: absolute;top: 65px;left: 647px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px;">
@@ -283,6 +288,7 @@
                     <tr>
                         <td colspan="2">
                             <div class="buttonDisplay, align-items, justify-content">
+
                                 <button class="btn btn-jittery" onclick="location.href='/Q&ABO'"
                                         style="position: absolute;top: 208px;left: 647px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px;">
                                     보러가기 <i class="fa-solid fa-share"></i>
@@ -318,7 +324,6 @@
                                         style="position: absolute;top: 349px;left: 647px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px;">
                                     보러가기 <i class="fa-solid fa-share"></i>
                                 </button>
-
                             </div>
                         </td>
                     </tr>
@@ -399,8 +404,7 @@
                 </div>
             </div>
         </div>
-    </div>
-</section>
+
 <div th:fragment="footer">
     <footer class="jua-regular">
         <div style="float: left; height: 200px; margin-top: 30px; margin-left: 30px;">
@@ -433,7 +437,18 @@
 </div>
 </body>
 </html>
-
+<script>
+    function toggleText(element) {
+        const text = element.querySelector('.menu-text');
+        if (text.classList.contains('hidden')) {
+            text.classList.remove('hidden');
+            text.classList.add('visible');
+        } else {
+            text.classList.remove('visible');
+            text.classList.add('hidden');
+        }
+    }
+</script>
 <script>
     const submenuList = document.querySelectorAll(".dropdown");
 
