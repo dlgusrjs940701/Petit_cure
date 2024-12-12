@@ -101,10 +101,10 @@
                         <span style="margin-left: 10px; font-size: 2rem">병의원 검색</span>
                     </ul>
                 </a>
-                <a onclick="dpcheck()">
+                <a href="https://www.health.kr/searchDrug/search_detail.asp" target="_blank">
                     <ul>
-                        <i class="fa-solid fa-check-to-slot"></i>
-                        <span style="margin-left: 20px; font-size: 2rem">우울증 검진</span>
+                        <i class="fa-solid fa-pills"></i>
+                        <span style="margin-left: 20px; font-size: 2rem">약 정보보기</span>
                     </ul>
                 </a>
                 <a onclick="healthchecklist()">
@@ -255,7 +255,7 @@
                         <td colspan="2">
 
                             <div class="buttonDisplay, align-items, justify-content" >
-                                <button class="btn btn-jittery" onclick="location.href='/freeBO'"
+                                <button class="btn btn-jittery" onclick="gotoview(0)"
                                         style="position: absolute;top: 65px;left: 647px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px;">
                                     보러가기 <i class="fa-solid fa-share"></i>
                                 </button>
@@ -274,7 +274,7 @@
                     </tr>
                     <tr>
                         <td style="width: 25%" class="boardoption">
-                            작성자 :
+                            제목 :
                         </td>
                         <td id="freeboardtitle2" class="boardtitle">
                         </td>
@@ -290,7 +290,7 @@
                         <td colspan="2">
                             <div class="buttonDisplay, align-items, justify-content">
 
-                                <button class="btn btn-jittery" onclick="location.href='/Q&ABO'"
+                                <button class="btn btn-jittery" onclick="gotoview(1)"
                                         style="position: absolute;top: 208px;left: 647px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px;">
                                     보러가기 <i class="fa-solid fa-share"></i>
                                 </button>
@@ -321,7 +321,7 @@
                     <tr>
                         <td colspan="2">
                             <div class="buttonDisplay, align-items, justify-content">
-                                <button class="btn btn-jittery" onclick="location.href='/Q&dpBO'"
+                                <button class="btn btn-jittery" onclick="gotoview(2)"
                                         style="position: absolute;top: 349px;left: 647px; width: 170px; padding: 10px; font-size: 20px; border-radius: 20px;">
                                     보러가기 <i class="fa-solid fa-share"></i>
                                 </button>
@@ -693,6 +693,7 @@
             data: {board: 'freeboard'},
             success: function (data) {
                 for (let i = 0; i < data.length; i++) {
+                    boardNoList.push(data[i].no)
                     if (data[i].title.length > 13) {
                         title = data[i].title.substring(0, 14) + "...";
                     } else {
@@ -712,15 +713,21 @@
     }
 </script>
 <script>
-    let title
-    let content
+    let boardNoList = []
+    let boardname = 'freeboard'
+
     function mainpagelist(board) {
+        boardNoList = []
+        boardname = board;
+        console.log(board + " 게시판 이름 ======")
         $.ajax({
             type: 'get',
             url: "mainpagelist",
             data: {board: board},
             success: function (data) {
                 for (let i = 0; i < data.length; i++) {
+                    boardNoList.push(data[i].no)
+                    console.log(boardNoList[i] + " / 번쨰글")
                     if (data[i].title.length > 13) {
                         title = data[i].title.substring(0, 14) + "...";
                     } else {
@@ -737,5 +744,15 @@
                 }
             }
         })
+    }
+    function gotoview(no) {
+        let boardNum = boardNoList[no];
+        if (boardname == 'freeboard') {
+            location.href = "/view?no=" + boardNum;
+        } else if (boardname == 'qaboard') {
+            location.href = "/qaview?no=" + boardNum;
+        } else if (boardname == 'dpboard') {
+            location.href = "/dpview?no=" + boardNum;
+        }
     }
 </script>
