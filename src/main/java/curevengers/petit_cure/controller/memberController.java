@@ -136,7 +136,11 @@ public class memberController {
         dto.setBoard(board);
         dto.setId(nowId);
         System.out.println(userservice.getMyActivityList(dto).get(0).getId());
-        return userservice.getMyActivityList(dto);
+        List<myActivityDTO> dtoList = userservice.getMyActivityList(dto);
+        for (int i = 0; i < dtoList.size(); i++) {
+            dtoList.get(i).setBoard(board);
+        }
+        return dtoList;
     }
 
     // 회원수정/탈퇴 할 떄 다시 한번 확인하는 창
