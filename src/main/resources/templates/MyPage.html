@@ -18,7 +18,14 @@
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/freeBoard.css">
     <link rel="stylesheet" href="/css/MyPage.css">
-
+<style>
+    th, td {
+        padding: 0px;
+        text-align: center;
+        /*border: 1px solid #2c3e50;*/
+        border-radius: 10px;
+    }
+</style>
 </head>
 <body>
 <div th:include="main::header"></div>
@@ -74,57 +81,66 @@
                 <td>날짜</td>
             </tr>
             <tr>
+                <td class="boardno" style="display: none"></td>
+                <td class="boardname"></td>
+                <td class="boardid"></td>
+                <td class="boardtitle" onclick="goview(0)"></td>
+                <td class="boarddate"></td>
+            </tr>
+            <tr>
+                <td class="boardno" style="display: none"></td>
+                <td class="boardname"></td>
+                <td class="boardid"></td>
+                <td class="boardtitle" onclick="goview(1)"></td>
+                <td class="boarddate"></td>
+            </tr>
+            <tr>
+                <td class="boardno" style="display: none"></td>
+                <td class="boardname"></td>
+                <td class="boardid"></td>
+                <td class="boardtitle" onclick="goview(2)"></td>
+                <td class="boarddate"></td>
+            </tr>
+            <tr>
+                <td class="boardno" style="display: none" onclick="goview(3)"></td>
                 <td class="boardname"></td>
                 <td class="boardid"></td>
                 <td class="boardtitle"></td>
                 <td class="boarddate"></td>
             </tr>
             <tr>
+                <td class="boardno" style="display: none"></td>
                 <td class="boardname"></td>
                 <td class="boardid"></td>
-                <td class="boardtitle"></td>
+                <td class="boardtitle" onclick="goview(4)"></td>
                 <td class="boarddate"></td>
             </tr>
             <tr>
+                <td class="boardno" style="display: none"></td>
                 <td class="boardname"></td>
                 <td class="boardid"></td>
-                <td class="boardtitle"></td>
+                <td class="boardtitle" onclick="goview(5)"></td>
                 <td class="boarddate"></td>
             </tr>
             <tr>
+                <td class="boardno" style="display: none"></td>
                 <td class="boardname"></td>
                 <td class="boardid"></td>
-                <td class="boardtitle"></td>
+                <td class="boardtitle" onclick="goview(6)"></td>
                 <td class="boarddate"></td>
             </tr>
             <tr>
+                <td class="boardno" style="display: none"></td>
                 <td class="boardname"></td>
                 <td class="boardid"></td>
-                <td class="boardtitle"></td>
+                <td class="boardtitle" onclick="goview(7)"></td>
                 <td class="boarddate"></td>
             </tr>
             <tr>
+                <td class="boardno" style="display: none"></td>
                 <td class="boardname"></td>
                 <td class="boardid"></td>
-                <td class="boardtitle"></td>
-                <td class="boarddate"></td>
-            </tr>
-            <tr>
-                <td class="boardname"></td>
-                <td class="boardid"></td>
-                <td class="boardtitle"></td>
-                <td class="boarddate"></td>
-            </tr>
-            <tr>
-                <td class="boardname"></td>
-                <td class="boardid"></td>
-                <td class="boardtitle"></td>
-                <td class="boarddate"></td>
-            </tr>
-            <tr>
-                <td class="boardname"></td>
-                <td class="boardid"></td>
-                <td class="boardtitle"></td>
+                <td class="boardtitle" onclick="goview(8)"></td>
                 <td class="boarddate"></td>
             </tr>
         </table>
@@ -158,6 +174,23 @@
     });
 </script>
 <script>
+    window.onload = () => {
+        $.ajax({
+            type: 'get',
+            url: "mypagelist",
+            data: {board: 'freeboard'},
+            success: function (data) {
+                for (let i = 0; i < data.length; i++) {
+                    data[i].board = '자유게시판';
+                    document.getElementsByClassName("boardno")[i].innerText = data[i].no;
+                    document.getElementsByClassName("boardname")[i].innerText = data[i].board;
+                    document.getElementsByClassName("boardid")[i].innerText = data[i].id;
+                    document.getElementsByClassName("boardtitle")[i].innerText = data[i].title;
+                    document.getElementsByClassName("boarddate")[i].innerText = data[i].date;
+                }
+            }
+        })
+    }
     function mypagelist(board) {
         $.ajax({
             type: 'get',
@@ -169,17 +202,39 @@
                         data[i].board = '자유게시판';
                     } else if (data[i].board == 'qaboard') {
                         data[i].board = 'Q&A게시판';
-                    } else if (data[i].board == 'qaboard') {
+                    } else if (data[i].board == 'dpboard') {
                         data[i].board = '우울증게시판';
                     }
+                    document.getElementsByClassName("boardno")[i].innerText = data[i].no;
                     document.getElementsByClassName("boardname")[i].innerText = data[i].board;
                     document.getElementsByClassName("boardid")[i].innerText = data[i].id;
                     document.getElementsByClassName("boardtitle")[i].innerText = data[i].title;
                     document.getElementsByClassName("boarddate")[i].innerText = data[i].date;
-
                 }
             }
         })
+    }
+    function goview(no) {
+        let form = document.createElement('form');
+        if (document.getElementsByClassName("boardname")[no].innerText == '자유게시판') {
+            form.setAttribute('action', '/view');
+        } else if (document.getElementsByClassName("boardname")[no].innerText == 'Q&A게시판') {
+            form.setAttribute('action', '/qaview')
+        } else if (document.getElementsByClassName("boardname")[no].innerText == '우울증게시판') {
+            form.setAttribute('action', '/dpview')
+        }
+        form.setAttribute('method', 'get');
+
+        let data = document.createElement('input');
+
+        data.setAttribute('name', 'no');
+        data.setAttribute('value', document.getElementsByClassName("boardno")[no].innerText);
+
+        form.appendChild(data);
+
+        document.body.appendChild(form);
+
+        form.submit();
     }
 </script>
 

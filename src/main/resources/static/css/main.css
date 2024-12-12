@@ -131,7 +131,7 @@ li > a:hover {
     background-color: #f5a8a8;
     width: 300px;
     display: none;
-    z-index: 2;
+    z-index: 30;
 }
 
 #nav > ul > li > ul > li > a {
