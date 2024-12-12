@@ -11,6 +11,19 @@
     <script src="https://kit.fontawesome.com/20d076eb83.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
+<style>
+    .modal-dialog {
+        width: 80%;
+        height: 80%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .modal-content {
+        height: auto;
+        min-height: 80%;
+    }
+</style>
 
 <body>
 <!-- main화면 include 설정 -->
@@ -23,7 +36,7 @@
         <div class="title-container mb-4">
             <h2><strong>탈퇴현황 상세보기</strong></h2>
             <div style="float: right">
-                <button type="submit" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#causeConfirm">해당 사유 확인체크</button>
+                <button type="submit" class="btn btn-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#causeConfirm">해당 사유 확인체크</button>
             </div>
         </div>
         <div class="modal" id="causeConfirm">
