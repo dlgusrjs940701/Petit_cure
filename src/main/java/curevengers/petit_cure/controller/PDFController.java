@@ -1,5 +1,7 @@
 package curevengers.petit_cure.controller;
 
+import com.itextpdf.io.font.FontProgram;
+import com.itextpdf.io.font.FontProgramFactory;
 import com.itextpdf.kernel.colors.Color;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -7,12 +9,15 @@ import com.itextpdf.kernel.pdf.canvas.draw.ILineDrawer;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.LineSeparator;
 import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.font.FontProvider;
 import com.itextpdf.layout.properties.TextAlignment;
+import com.itextpdf.svg.renderers.impl.ISvgTextNodeRenderer;
 import curevengers.petit_cure.Dto.healthCheckDTO;
 import curevengers.petit_cure.Service.healthCheckService;
 import curevengers.petit_cure.common.util.ExplanationMapper;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.FontFamily;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -58,6 +63,20 @@ public class PDFController {
                     .setFontSize(12)
                     .setItalic();
             document.add(userId);
+//            document.add(new Paragraph("\n"));
+
+            Paragraph userHeight = new Paragraph("User Height: " + dto1.getHeight())
+                    .setTextAlignment(TextAlignment.LEFT)
+                    .setFontSize(12)
+                    .setItalic();
+            document.add(userHeight);
+//            document.add(new Paragraph("\n"));
+
+            Paragraph userWeight = new Paragraph("User Weight: " + dto1.getWeight())
+                    .setTextAlignment(TextAlignment.LEFT)
+                    .setFontSize(12)
+                    .setItalic();
+            document.add(userWeight);
             document.add(new Paragraph("\n"));
 
             Paragraph healthInfo = new Paragraph("SBP")
@@ -81,7 +100,7 @@ public class PDFController {
                     .setBold()
                     .setTextAlignment(TextAlignment.LEFT);
             document.add(healthInfo1);
-            Paragraph content1 = new Paragraph("The risk of obesity increases due to lack of exercise, inactivity, lack of sleep, and high-calorie foods. Needs regular exercise.")
+            Paragraph content1 = new Paragraph("Visceral fat syndrome. Abdominal obesity increases the risk of metabolic syndrome and diabetes.")
                     .setFontSize(12)
                     .setTextAlignment(TextAlignment.LEFT);
             document.add(content1);
@@ -92,7 +111,7 @@ public class PDFController {
                     .setBold()
                     .setTextAlignment(TextAlignment.LEFT);
             document.add(healthInfo2);
-            Paragraph content2 = new Paragraph("The risk of obesity increases due to lack of exercise, inactivity, lack of sleep, and high-calorie foods. Needs regular exercise.")
+            Paragraph content2 = new Paragraph("High blood pressure. Increased risk of cardiovascular disease and kidney disease. Weight management and regular exercise recommended.")
                     .setFontSize(12)
                     .setTextAlignment(TextAlignment.LEFT);
             document.add(content2);
@@ -103,7 +122,7 @@ public class PDFController {
                     .setBold()
                     .setTextAlignment(TextAlignment.LEFT);
             document.add(healthInfo3);
-            Paragraph content3 = new Paragraph("The risk of obesity increases due to lack of exercise, inactivity, lack of sleep, and high-calorie foods. Needs regular exercise.")
+            Paragraph content3 = new Paragraph("Low blood pressure. Main symptoms include fatigue and dizziness. In severe cases, consulting a doctor is recommended.")
                     .setFontSize(12)
                     .setTextAlignment(TextAlignment.LEFT);
             document.add(content3);
@@ -114,7 +133,7 @@ public class PDFController {
                     .setBold()
                     .setTextAlignment(TextAlignment.LEFT);
             document.add(healthInfo4);
-            Paragraph content4 = new Paragraph("The risk of obesity increases due to lack of exercise, inactivity, lack of sleep, and high-calorie foods. Needs regular exercise.")
+            Paragraph content4 = new Paragraph("High blood sugar. Causes chronic fatigue and thirst. Regular exercise and diet are required.")
                     .setFontSize(12)
                     .setTextAlignment(TextAlignment.LEFT);
             document.add(content4);
@@ -125,7 +144,7 @@ public class PDFController {
                     .setBold()
                     .setTextAlignment(TextAlignment.LEFT);
             document.add(healthInfo5);
-            Paragraph content5 = new Paragraph("The risk of obesity increases due to lack of exercise, inactivity, lack of sleep, and high-calorie foods. Needs regular exercise.")
+            Paragraph content5 = new Paragraph("Low blood sugar. Symptoms such as tremors and fatigue. Rest is recommended after consuming sugar.")
                     .setFontSize(12)
                     .setTextAlignment(TextAlignment.LEFT);
             document.add(content5);
@@ -137,7 +156,7 @@ public class PDFController {
                     .setBold()
                     .setTextAlignment(TextAlignment.LEFT);
             document.add(healthInfo6);
-            Paragraph content6 = new Paragraph("The risk of obesity increases due to lack of exercise, inactivity, lack of sleep, and high-calorie foods. Needs regular exercise.")
+            Paragraph content6 = new Paragraph("Elevated total cholesterol levels. Increased risk of cardiovascular disease. Need a healthy diet.")
                     .setFontSize(12)
                     .setTextAlignment(TextAlignment.LEFT);
             document.add(content6);
@@ -148,7 +167,8 @@ public class PDFController {
                     .setBold()
                     .setTextAlignment(TextAlignment.LEFT);
             document.add(healthInfo7);
-            Paragraph content7 = new Paragraph("The risk of obesity increases due to lack of exercise, inactivity, lack of sleep, and high-calorie foods. Needs regular exercise.")
+            Paragraph content7 = new Paragraph("\n" +
+                    "Low HDL. Increased risk of arteriosclerosis. Aerobic exercise and consumption of healthy fats are recommended.")
                     .setFontSize(12)
                     .setTextAlignment(TextAlignment.LEFT);
             document.add(content7);
@@ -159,7 +179,7 @@ public class PDFController {
                     .setBold()
                     .setTextAlignment(TextAlignment.LEFT);
             document.add(healthInfo8);
-            Paragraph content8 = new Paragraph("The risk of obesity increases due to lack of exercise, inactivity, lack of sleep, and high-calorie foods. Needs regular exercise.")
+            Paragraph content8 = new Paragraph("Hypertriglyceridemia. Caused by stress and eating high-fat foods. Need a balanced diet.")
                     .setFontSize(12)
                     .setTextAlignment(TextAlignment.LEFT);
             document.add(content8);
@@ -170,7 +190,8 @@ public class PDFController {
                     .setBold()
                     .setTextAlignment(TextAlignment.LEFT);
             document.add(healthInfo9);
-            Paragraph content9 = new Paragraph("The risk of obesity increases due to lack of exercise, inactivity, lack of sleep, and high-calorie foods. Needs regular exercise.")
+            Paragraph content9 = new Paragraph("\n" +
+                    "AST levels to evaluate liver damage. Liver health check-up recommended.")
                     .setFontSize(12)
                     .setTextAlignment(TextAlignment.LEFT);
             document.add(content9);
@@ -181,7 +202,7 @@ public class PDFController {
                     .setBold()
                     .setTextAlignment(TextAlignment.LEFT);
             document.add(healthInfo10);
-            Paragraph content10 = new Paragraph("The risk of obesity increases due to lack of exercise, inactivity, lack of sleep, and high-calorie foods. Needs regular exercise.")
+            Paragraph content10 = new Paragraph("ALT elevation. Increased risk of liver disease. Regular checkups and liver health management are required.")
                     .setFontSize(12)
                     .setTextAlignment(TextAlignment.LEFT);
             document.add(content10);
