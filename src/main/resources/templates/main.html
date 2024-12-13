@@ -80,12 +80,12 @@
 </div>
 
 <section id="section" style="background-image: url('/images/maintest.jpg'); position: relative">
-    <div style="width: 1000px; height: 200px; margin-left: 530px; margin-top: 45px; float: left;">
+    <div style="width: 1000px; height: 200px; margin-left: 530px; margin-top: 45px; float: left;" class="fade-in-box">
         <!--        <span style="margin-left: 55px; font-size: 50px; font-weight: bolder" class="nanum-gothic-extrabold">"작은 관리에서 시작되는 큰 건강"</span>-->
         <span style="margin-left: 30px; font-size: 50px; font-weight: bolder"
               class="maintitle">"작은 관리에서 시작되는 큰 건강"</span>
     </div>
-    <div style="width: 1800px; height: 200px; margin-left: 530px; margin-top: 620px; margin-bottom: 50px; float: left;">
+    <div style="width: 1800px; height: 200px; margin-left: 530px; margin-top: 620px; margin-bottom: 50px; float: left;" class="fade-in-box2">
         <!--        <span style="margin-left: 55px; font-size: 50px; font-weight: bolder" class="nanum-gothic-extrabold">"작은 관리에서 시작되는 큰 건강"</span>-->
         <span style="margin-left: 30px; font-size: 40px; font-weight: bolder; float: left" class="maintitle">
             <span style="margin-left: 100px">"건강은 초기에 잘 관리할수록</span><br><span>미래의 삶의 질을 높이는 가장 큰 투자입니다."</span>
@@ -107,117 +107,22 @@
                         <span style="margin-left: 20px; font-size: 2rem">약 정보보기</span>
                     </ul>
                 </a>
-                <a onclick="healthchecklist()">
+                <a href="https://www.e-health.go.kr/gh/heSrvc/selectBbsDtlInfo.do?bbsId=U00322&bbsSeCd=Z1&menuId=200035" target="_blank">
                     <ul>
-                        <i class="fa-solid fa-list"></i>
-                        <span style="margin-left: 20px; font-size: 2rem">자가검진 결과</span>
+                        <i class="fa-solid fa-heart-pulse"></i>
+                        <span style="margin-left: 20px; font-size: 2rem">건강증진</span>
                     </ul>
                 </a>
-                <a onclick="dpchecklist()">
-                    <ul>
-                        <i class="fa-solid fa-list-ol"></i>
-                        <span style="margin-left: 20px; font-size: 2rem">우울증 결과</span>
+                <a onclick="selectMonth()">
+                    <ul style="cursor: pointer">
+                        <i class="fa-regular fa-calendar-days"></i>
+                        <span style="margin-left: 20px; font-size: 2rem;">건강캘린더</span>
                     </ul>
                 </a>
             </div>
         </div>
 
-        <!--    <div style="position:fixed; top: 266px; right: -5px;z-index: 20;" class="mainnav">-->
-<!--        <div class="sticky" style="  border: 0; width: 150px; z-index: 20;">-->
-<!--            <div class="list-group" style="z-index: 20">-->
-<!--                <button type="button" class="list-group-item list-group-item-action" style="border-top-left-radius: 30px; border-top-right-radius: 30px;"-->
-<!--                        onclick="location.href='https://www.e-gen.or.kr/egen/holiday_medical.do?searchType=general&popclsY=Y&emergencyViewYn=Y'">병의원 검색-->
-<!--                </button>-->
-<!--                <button type="button" class="list-group-item list-group-item-action" onclick="dpcheck()">우울증검진하러가기&nbsp;&nbsp;&nbsp;&nbsp;-->
-
-<!--                </button>-->
-<!--                <button type="button" class="list-group-item list-group-item-action" onclick="healthchecklist()">자가검진결과리스트&nbsp;&nbsp;&nbsp;&nbsp;-->
-
-<!--                </button>-->
-<!--                <button type="button" style="border-bottom-left-radius: 30px;border-bottom-right-radius: 30px;" class="list-group-item list-group-item-action" onclick="dpchecklist()">우울증검진결과리스트&nbsp;&nbsp;&nbsp;&nbsp;-->
-
-<!--                </button>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div th:include="freeBoard::sticky" class="sticky" style=" z-index: 4; border: 0; width: 200px; border-radius: 40px; padding-top: 120px"></div>-->
     </div>
-    <!--    <div>-->
-    <!--        <img src="images/main.jpg" alt="/images/maintest.jpg" style="margin-left: 100px">-->
-    <!--        <div>-->
-    <!--            <div id="myCarousel" class="carousel slide" data-ride="carousel">-->
-    <!--                &lt;!&ndash; Indicators &ndash;&gt;-->
-    <!--                <ol class="carousel-indicators">-->
-    <!--                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>-->
-    <!--                    <li data-target="#myCarousel" data-slide-to="1"></li>-->
-    <!--                    <li data-target="#myCarousel" data-slide-to="2"></li>-->
-    <!--                </ol>-->
-
-    <!--                &lt;!&ndash; Wrapper for slides &ndash;&gt;-->
-    <!--                <div class="carousel-inner">-->
-
-    <!--                    <div class="item active">-->
-    <!--                        <img src="https://picsum.photos/id/1" alt="test1" style="width:100%; height: 600px;">-->
-    <!--                        <div class="carousel-caption">-->
-    <!--                            <div>-->
-    <!--                                <h3>TEST 1</h3>-->
-    <!--                                <p>news 설명칸</p>-->
-    <!--                            </div>-->
-    <!--                        </div>-->
-    <!--                    </div>-->
-    <!--                    <div class="item">-->
-    <!--                        <img src="https://picsum.photos/id/2" alt="test2" style="width:100%; height: 600px;">-->
-    <!--                        <div class="carousel-caption">-->
-    <!--                            <div>-->
-    <!--                                <h3>TEST2</h3>-->
-    <!--                                <p>news 설명칸</p>-->
-    <!--                            </div>-->
-    <!--                        </div>-->
-    <!--                    </div>-->
-
-    <!--                    <div class="item">-->
-    <!--                        <img src="https://picsum.photos/id/3" alt="test3" style="width:100%; height: 600px;">-->
-    <!--                        <div class="carousel-caption">-->
-    <!--                            <div>-->
-    <!--                                <h3>TEST3</h3>-->
-    <!--                                <p>news 설명칸</p>-->
-    <!--                            </div>-->
-    <!--                        </div>-->
-    <!--                    </div>-->
-
-    <!--                </div>-->
-
-    <!--                &lt;!&ndash; Left and right controls &ndash;&gt;-->
-    <!--                <a class="left carousel-control" href="#myCarousel" data-slide="prev">-->
-    <!--                    <span class="glyphicon glyphicon-chevron-left"></span>-->
-    <!--                    <span class="sr-only">Previous</span>-->
-    <!--                </a>-->
-    <!--                <a class="right carousel-control" href="#myCarousel" data-slide="next">-->
-    <!--                    <span class="glyphicon glyphicon-chevron-right"></span>-->
-    <!--                    <span class="sr-only">Next</span>-->
-    <!--                </a>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--    </div>-->
-
-    <!--<section class="jua-regula">-->
-
-    <!--    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel"-->
-    <!--         style="width: 70%; margin: auto; margin-top: 45px; margin-bottom: 45px; border-style: outset;">-->
-    <!--        &lt;!&ndash; Indicators &ndash;&gt;-->
-    <!--        <div class="carousel-indicators"></div>-->
-
-    <!--        &lt;!&ndash; Wrapper for slides &ndash;&gt;-->
-    <!--        <div class="carousel-inner"></div>-->
-
-    <!--        &lt;!&ndash; Left and right controls &ndash;&gt;-->
-    <!--        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">-->
-    <!--            <span class="carousel-control-prev-icon"></span>-->
-    <!--        </button>-->
-    <!--        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">-->
-    <!--            <span class="carousel-control-next-icon"></span>-->
-    <!--        </button>-->
-
-    <!--    </div>-->
     <div style="float: left; z-index: 10; position : absolute; bottom : 100px;" id="infomenu1">
         <button onclick="mainpagelist('freeboard')" style="width: 265px; height: 50px; margin-left: 30px" class="custom-btn btn-2">자유게시판</button>
 <!--        <button onclick="mainpagelist('freeboard')" style="width: 265px; height: 50px; margin-left: 30px">자유게시판</button>-->
@@ -481,10 +386,19 @@
                         "213750ed6b444d2fb4ceabcb8432f02f",
                         "afda249a1ccb482fa0944d12a295021b",
                         "70ee44584d0b440c8792518dd25119ef",
-                        "2721d1f0de38415b978ddeed5ff2291a"
-        ];
+                        "2721d1f0de38415b978ddeed5ff2291a",
+                        "e7ed60178ab94b08b37b47c31e4ed1ba",
+                        "7fe25adcf56b44ceab2cb35e42ac1076",
+                        "f0018f7c82624abca81a0d8cf0f7984f",
+                        "e2927751339f4872a96ed09e3f0920fc",
+                        "f5914f5a87b8433eb9b11c926744f647",
+                        "c12a3651c9954cadb4064d951a0d2f27",
+                        "fa7a0a3f8c8d4b60aaa7687e79fdb1f3",
+                        "5aed8653cac54044a69f0d329a6d7f94",
+                        "162340baa8d5424f8cc8d01cf8a84d38",
+                        "d6e76706631d4059b20e981f9fc9b930"];
 
-        let randomNum = Math.floor(Math.random()*10);
+        let randomNum = Math.floor(Math.random()*20);
         let apikey = apiKey[randomNum];
 
 
@@ -754,5 +668,13 @@
         } else if (boardname == 'dpboard') {
             location.href = "/dpview?no=" + boardNum;
         }
+    }
+</script>
+<script>
+    function selectMonth(){
+        let today = new Date();
+        const month = (today.getMonth()+1).toString().padStart(2,'0');
+        window.open("https://www.e-health.go.kr/gh/heNws/selectClndrBbsInfo.do?menuId=200051&bbsId=U00194&bbsSeCd=&bbsInfmMm="+month);
+        // location.href = "https://www.e-health.go.kr/gh/heNws/selectClndrBbsInfo.do?menuId=200051&bbsId=U00194&bbsSeCd=&bbsInfmMm="+$[month];
     }
 </script>

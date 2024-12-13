@@ -30,8 +30,39 @@
 <div th:include="main::header"></div>
 <div th:include="main::nav"></div>
 <section>
+    <div style="position:fixed; top: 300px; right: -5px;z-index: 20;" class="mainnav">
+        <div class="sticky" style="  border: 0; width: 150px;  margin-top: 200px">
+            <div class="icon-menu">
+                <a href="https://www.e-gen.or.kr/egen/holiday_medical.do" target="_blank">
+                    <ul>
+                        <i class="fa-solid fa-hospital"></i>
+                        <span style="margin-left: 10px; font-size: 2rem">병의원 검색</span>
+                    </ul>
+                </a>
+                <a href="https://www.health.kr/searchDrug/search_detail.asp" target="_blank">
+                    <ul>
+                        <i class="fa-solid fa-pills"></i>
+                        <span style="margin-left: 20px; font-size: 2rem">약 정보보기</span>
+                    </ul>
+                </a>
+                <a href="https://www.e-health.go.kr/gh/heSrvc/selectBbsDtlInfo.do?bbsId=U00322&bbsSeCd=Z1&menuId=200035" target="_blank">
+                    <ul>
+                        <i class="fa-solid fa-heart-pulse"></i>
+                        <span style="margin-left: 20px; font-size: 2rem">건강증진</span>
+                    </ul>
+                </a>
+                <a onclick="selectMonth()">
+                    <ul style="cursor: pointer">
+                        <i class="fa-regular fa-calendar-days"></i>
+                        <span style="margin-left: 20px; font-size: 2rem;">건강캘린더</span>
+                    </ul>
+                </a>
+            </div>
+        </div>
 
-    <aside>
+    </div>
+
+    <aside class="jua-regular">
         <h1 style="font-size: 30px;"><strong>내 프로필</strong></h1>
         <hr>
         <div><i class="fa-solid fa-circle-user fa-10x" style="margin-top: 45px;"></i></div>
@@ -51,7 +82,7 @@
         </div>
     </aside>
 
-    <section class="main2" style="font-family: yg-jalnan">
+    <section class="main2" style="font-family: TheJamsil5Bold">
         <h1 style="font-size: 30px; margin-top: 16px;"><strong>내 활동 내역</strong></h1>
         <hr>
         <div>
@@ -107,7 +138,7 @@
 </script>
 <script>
     function mypagelist(board) {
-        let cate;
+        let cate = null;
         let search;
         let tbody = document.getElementById('Mytbody');
         while(tbody.rows.length > 0){
@@ -118,6 +149,8 @@
             url: "mypagelist",
             data: {board: board},
             success: function (data) {
+                console.log(data +" / 데이터의 출력 확인")
+                console.log(data.length+" / 가져온 데이터의 length값 확인")
                 cate = data[0].board;
                 if (cate == 'freeboard') {
                     cate = '자유게시판'
@@ -152,7 +185,7 @@
                     td3.appendChild(a);
 
                     let td4 = document.createElement('td');
-                    td4.setAttribute('width','200px')
+                    td4.setAttribute('width','300px')
                     td4.textContent = data[i].date;
 
                     tr.appendChild(td1);
@@ -161,11 +194,28 @@
                     tr.appendChild(td4);
 
                     tbody.appendChild(tr);
-
                 }
+            },error(){
+                let tr = document.createElement('tr');
+                tr.setAttribute('height','20px');
+                let td1 = document.createElement('td');
+                td1.setAttribute('colspan','4');
+                td1.setAttribute('font-weight','bolder');
+                td1.setAttribute('width','750px');
+                td1.textContent = "관련 활동 내역이 없습니다.";
+
+                tr.appendChild(td1);
+                tbody.appendChild(tr);
             }
         })
     }
 </script>
-
+<script>
+    function selectMonth(){
+        let today = new Date();
+        const month = (today.getMonth()+1).toString().padStart(2,'0');
+        window.open("https://www.e-health.go.kr/gh/heNws/selectClndrBbsInfo.do?menuId=200051&bbsId=U00194&bbsSeCd=&bbsInfmMm="+month);
+        // location.href = "https://www.e-health.go.kr/gh/heNws/selectClndrBbsInfo.do?menuId=200051&bbsId=U00194&bbsSeCd=&bbsInfmMm="+$[month];
+    }
+</script>
 
