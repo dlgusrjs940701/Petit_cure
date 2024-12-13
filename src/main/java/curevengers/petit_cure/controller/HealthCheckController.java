@@ -66,7 +66,8 @@ public class HealthCheckController {
                     {"HDL", String.valueOf(result.getHDL()), Explanationmapper.getExplanation("HDL")},
                     {"HTG", String.valueOf(result.getTG()), Explanationmapper.getExplanation("HTG")},
                     {"AST", String.valueOf(result.getAST()), Explanationmapper.getExplanation("AST")},
-                    {"ALT", String.valueOf(result.getALT()), Explanationmapper.getExplanation("ALT")}
+                    {"ALT", String.valueOf(result.getALT()), Explanationmapper.getExplanation("ALT")},
+
             };
 
             // 데이터 추가
