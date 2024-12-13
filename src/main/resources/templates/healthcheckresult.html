@@ -440,4 +440,26 @@
         window.location.href = "/download-health-check";
     }
 </script>
+<script>
+    const head=document.head.innerHTML;
+    const body=document.head.innerHTML;
+
+    $(#pdf).click(function (){
+        $.ajax({
+            type: "POST",
+            dataType: 'application/json',
+            url:"/download-pdf",
+            data: {
+                "head":head,
+                "body":body,
+            },
+            success:function (data){
+                console.log("success:",data);
+            },
+            error:function (e){
+                console.log("error:", e)
+            }
+        })
+    })
+</script>
 </html>

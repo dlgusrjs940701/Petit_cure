@@ -135,6 +135,8 @@
 </script>
 <script>
     function updatePassword(){
+        let passbox1 = document.getElementById("password1");
+        let passbox2 = document.getElementById('password2');
         let password = document.getElementById('password1').value;
         let id = document.getElementById('nowid').value;
         $.ajax({
@@ -159,16 +161,28 @@
                                 location.href = "/logout"
                             }else{
                                 alert("비밀번호 변경에 실패하였습니다. 재시도해주세요.");
+                                passbox1.value ="";
+                                passbox2.value ="";
+                                $("#checkPassword1").text("");
+                                $("#checkPassword2").text("");
                             }
                         },error(){
                             alert("비밀번호 변경 에러입니다.");
                         }
                     })
                 }else{
-                    alert("기존 비밀번호와 일치합니다.")
+                    alert("기존 비밀번호와 일치합니다.");
+                    passbox1.value ="";
+                    passbox2.value ="";
+                    $("#checkPassword1").text("");
+                    $("#checkPassword2").text("");
                 }
             },error() {
                 alert("기존 비밀번호 확인 에러입니다.");
+                passbox1.value ="";
+                passbox2.value ="";
+                $("#checkPassword1").text("");
+                $("#checkPassword2").text("");
             }
         })
     }

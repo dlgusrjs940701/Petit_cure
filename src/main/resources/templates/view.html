@@ -94,8 +94,8 @@
                 <p><strong>작성일:</strong> <span th:text="${dto.date}"></span></p>
                 <p><strong>파일:</strong></p>
                 <ul id="fileList">
-                    <li th:each="file : ${attachList}">
-                        <a th:href="@{'/download?filename=' + ${file.filename}}" th:text="${file.filename}"></a>
+                    <li style="color: white" th:each="file : ${attachList}">
+                        <a hidden="hidden" th:href="@{'/download?filename=' + ${file.filename}}" th:text="${file.filename}"></a>
 
                         <!--                        <div th:if="${file.filename.endsWith('.jpg') || file.filename.endsWith('.png') || file.filename.endsWith('.gif')}">-->
 <!--                        <img th:src="@{'/images/' + ${file.filename}}" alt="첨부 이미지">-->
