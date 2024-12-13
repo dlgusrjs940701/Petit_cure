@@ -27,4 +27,10 @@ public class ExplanationMapper {
     public static String getExplanation(String key) {
         return explanations.getOrDefault(key, "설명이 없습니다.");
     }
+
+    public void getOrDefault(String key) {
+        if (!explanations.containsKey(key)) {
+            explanations.put(key, "설명이 없습니다.");
+        }
+    }
 }
