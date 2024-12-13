@@ -121,28 +121,39 @@
                 <td th:text="${board.date}"></td>
             </tr>
             <tr>
-                <td colspan="5">
-                    <!--                 이전 페이지 그룹 링크-->
-                    <span th:if="${pageDTO.prev}"></span>
-                    <a th:href="@{/freeboard(page=${pageDTO.startPage})}"><i
-                            class="fa-solid fa-circle-chevron-left"></i></a>
-
+                <td th:if="${limit == 'visit'}" colspan="6" style="background-color: white">
+                    <!-- 이전 페이지 그룹 링크 -->
+                    <span th:if="${pageDTO.page != pageDTO.startPage}">
+                        <a th:href="@{/freeboardVisit(page=${pageDTO.page}-1)}"><i class="fa-solid fa-circle-chevron-left"></i></a>
+                    </span>
                     <!-- 페이지 번호 반복 -->
 
-                    <span th:each="idx : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}"
-                          th:if="${totalnum} == ${pageDTO.totalCount}">
-                    <span th:if="${pageDTO.page == idx}"></span>
-                    <a th:href=" @{/freeboard(page=${idx})}" th:text="${idx}"></a>
-                </span>
-                    <span th:each="idx : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}"
-                          th:if="${totalnum} != ${pageDTO.totalCount}">
-                    <span th:if="${pageDTO.page == idx}"></span>
-                    <a th:href=" @{/searchTitle(page=${idx})}" th:text="${idx}"></a>
-                </span>
+                    <span th:each="idx : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}">
+                        <span th:if="${pageDTO.page == idx}"></span>
+                        <a th:href="@{/freeboardVisit(page=${idx})}" th:text="${idx}"></a>
+                    </span>
 
-                    <!--                 다음 페이지 그룹 링크-->
-                    <span th:if="${pageDTO.next}"></span>
-                    <a th:href="@{/freeboard(page=${pageDTO.endPage})}"><i class="fa-solid fa-circle-chevron-right"></i></a>
+                    <!-- 다음 페이지 그룹 링크 -->
+                    <span th:if="${pageDTO.page != pageDTO.endPage}">
+                        <a th:href="@{/freeboardVisit(page=${pageDTO.page}+1)}"><i class="fa-solid fa-circle-chevron-right"></i></a>
+                    </span>
+                </td>
+                <td th:if="${limit == 'date'}" colspan="6" style="background-color: white">
+                    <!-- 이전 페이지 그룹 링크 -->
+                    <span th:if="${pageDTO.page != pageDTO.startPage}">
+                        <a th:href="@{/freeboard(page=${pageDTO.page}-1)}"><i class="fa-solid fa-circle-chevron-left"></i></a>
+                    </span>
+                    <!-- 페이지 번호 반복 -->
+
+                    <span th:each="idx : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}">
+                        <span th:if="${pageDTO.page == idx}"></span>
+                        <a th:href="@{/freeboard(page=${idx})}" th:text="${idx}"></a>
+                    </span>
+
+                    <!-- 다음 페이지 그룹 링크 -->
+                    <span th:if="${pageDTO.page != pageDTO.endPage}">
+                        <a th:href="@{/freeboard(page=${pageDTO.page}+1)}"><i class="fa-solid fa-circle-chevron-right"></i></a>
+                    </span>
                 </td>
             </tr>
 

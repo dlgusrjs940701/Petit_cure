@@ -22,10 +22,12 @@
             <h2><strong>게시글 상세보기</strong></h2>
             <div style="float: right">
                 <input type="hidden" id="no" th:value="${dto.no}"/>
-                <button type="submit" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#update">수정
-                </button>
-                <button type="submit" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#delete">삭제
-                </button>
+                <span th:if="${dto.id} == ${session.id}">
+                    <button type="submit" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#update">수정
+                    </button>
+                    <button type="submit" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#delete">삭제
+                    </button>
+                </span>
             </div>
         </div>
         <div class="modal" id="update">
@@ -283,7 +285,7 @@
 </script>
 <script>
     let no = document.getElementById("no").value
-    let id = document.getElementById("nowid").innerHTML
+    let id = document.getElementById("nowid").value
 
     function checkPasswordUpdate() {
         let password = document.getElementById("password1").value

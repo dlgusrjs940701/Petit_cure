@@ -194,7 +194,7 @@
                     </div>
                 </div>
             </div>
-        <div class="comment-section mt-5">
+            <div class="comment-section mt-5">
             <h4><strong>댓글쓰기</strong></h4>
             <form action="comment" method="post" class="mb-4">
                 <input type="hidden" name="id" th:value="${session.id}" required>
@@ -220,9 +220,11 @@
                     class="text-muted mt-3">
                 댓글 작성은 허용되지 않습니다.
             </p>
+            </div>
+            <div class="mt-4">
+                <button class="btn btn-secondary" onclick="history.back()">뒤로 가기</button>
+            </div>
         </div>
-
-
     </div>
 </section>
 <div th:include="main::footer"></div>

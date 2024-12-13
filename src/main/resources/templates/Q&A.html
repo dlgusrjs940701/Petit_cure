@@ -137,21 +137,41 @@
             <td th:text="${board.good}"></td>
             <td th:text="${board.date}"></td>
         </tr>
-        <td colspan="5">
-            <!-- 이전 페이지 그룹 링크 -->
-            <span th:if="${pageDTO.prev}"></span>
-            <a th:href="@{/qanda(page=${pageDTO.startPage})}"><i class="fa-solid fa-circle-chevron-left"></i></a>
+        <td colspan="5" style="background-color: white">
+            <div th:if="${limit == 'date'}">
+                <!-- 이전 페이지 그룹 링크 -->
+                <span th:if="${pageDTO.page != pageDTO.startPage}">
+                    <a th:href="@{/qanda(page=${pageDTO.page}-1)}"><i class="fa-solid fa-circle-chevron-left"></i></a>
+                </span>
+                <!-- 페이지 번호 반복 -->
 
-            <!-- 페이지 번호 반복 -->
+                <span th:each="idx : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}">
+                    <span th:if="${pageDTO.page == idx}"></span>
+                    <a th:href="@{/qanda(page=${idx})}" th:text="${idx}"></a>
+                </span>
 
-            <span th:each="idx : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}">
-                <span th:if="${pageDTO.page == idx}"></span>
-                <a th:href="@{/qanda(page=${idx})}" th:text="${idx}"></a>
-            </span>
+                <!-- 다음 페이지 그룹 링크 -->
+                <span th:if="${pageDTO.page != pageDTO.endPage}">
+                    <a th:href="@{/qanda(page=${pageDTO.page}+1)}"><i class="fa-solid fa-circle-chevron-right"></i></a>
+                </span>
+            </div>
+            <div th:if="${limit == 'good'}">
+                <!-- 이전 페이지 그룹 링크 -->
+                <span th:if="${pageDTO.page != pageDTO.startPage}">
+                    <a th:href="@{/qandaGood(page=${pageDTO.page}-1)}"><i class="fa-solid fa-circle-chevron-left"></i></a>
+                </span>
+                <!-- 페이지 번호 반복 -->
 
-            <!-- 다음 페이지 그룹 링크 -->
-            <span th:if="${pageDTO.next}"></span>
-            <a th:href="@{/qanda(page=${pageDTO.endPage})}"><i class="fa-solid fa-circle-chevron-right"></i></a>
+                <span th:each="idx : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}">
+                    <span th:if="${pageDTO.page == idx}"></span>
+                    <a th:href="@{/qandaGood(page=${idx})}" th:text="${idx}"></a>
+                </span>
+
+                <!-- 다음 페이지 그룹 링크 -->
+                <span th:if="${pageDTO.page != pageDTO.endPage}">
+                    <a th:href="@{/qandaGood(page=${pageDTO.page}+1)}"><i class="fa-solid fa-circle-chevron-right"></i></a>
+                </span>
+            </div>
         </td>
         </tbody>
     </table>

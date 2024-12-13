@@ -148,7 +148,7 @@ public class testhome {
         return "redirect:/depboard";
     }
 
-    // 자유게시판
+    // 자유게시판 최신순
     @GetMapping(value = "/freeboard")
     public String getFreeBoardList(Model model, @ModelAttribute pageDTO pagedto, @ModelAttribute freeboard_attachDTO attachDTO) {
         if (pagedto.getPage() == null) {
@@ -160,11 +160,31 @@ public class testhome {
         model.addAttribute("list", freeBoardList);
         model.addAttribute("pageDTO", pagedto);
         model.addAttribute("attachDTO", attachDTO);
+        System.out.println(attachDTO.toString());
         model.addAttribute("totalnum", totalnum);
+        model.addAttribute("limit", "date");
         return "freeBoard";
     }
 
-    // QA게시판
+    // 자유게시판 조회순
+    @GetMapping(value = "/freeboardVisit")
+    public String freeboardVisit(Model model, @ModelAttribute pageDTO pagedto, @ModelAttribute freeboard_attachDTO attachDTO) {
+        if (pagedto.getPage() == null) {
+            pagedto.setPage(1);
+        }
+        pagedto.setTotalCount(testservice.totalCountBoard());
+        List<freeBoardDTO> freeBoardList = testservice.getAllFreeBoardsVisit(pagedto);
+        int totalnum = testservice.totalCountBoard();
+        model.addAttribute("list", freeBoardList);
+        model.addAttribute("pageDTO", pagedto);
+        model.addAttribute("attachDTO", attachDTO);
+        System.out.println(attachDTO.toString());
+        model.addAttribute("totalnum", totalnum);
+        model.addAttribute("limit", "visit");
+        return "freeBoard";
+    }
+
+    // QA게시판 최신순
     @GetMapping(value = "/qanda")
     public String getQABoardList(Model model, @ModelAttribute pageDTO pagedto,HttpSession session) {
         if (pagedto.getPage() == null) {
@@ -185,6 +205,33 @@ public class testhome {
         List<QABoardDTO> QABoardList = testservice.getAllQABoards(pagedto);
         model.addAttribute("qalist", QABoardList);
         model.addAttribute("pageDTO", pagedto);
+        model.addAttribute("limit", "date");
+//        System.out.println(age);
+        return "Q&A";
+    }
+
+    // QA게시판 추천순
+    @GetMapping(value = "/qandaGood")
+    public String qandaGood(Model model, @ModelAttribute pageDTO pagedto,HttpSession session) {
+        if (pagedto.getPage() == null) {
+            pagedto.setPage(1);
+        }
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        System.out.println(request.getCookies().toString()+"요청값에서 온 쿠키값**********************");
+//        System.out.println(authentication.getPrincipal()+"요청값에서온 principal값");
+//        System.out.println(request.getSession().getAttribute("kakaoToken")+"요청 값의 토큰값");
+        String username = authentication.getName();
+        memberDTO member = userService.getMemberById(username);
+        if(member!=null){
+            String age = member.getAge();
+            session.setAttribute("age", age);
+        }
+//        String phone = member.getPhone_num();
+        pagedto.setTotalCount(testservice.totalQACountBoard());
+        List<QABoardDTO> QABoardList = testservice.getAllQABoardsGood(pagedto);
+        model.addAttribute("qalist", QABoardList);
+        model.addAttribute("pageDTO", pagedto);
+        model.addAttribute("limit", "good");
 //        System.out.println(age);
         return "Q&A";
     }
@@ -760,6 +807,8 @@ public class testhome {
         pagedto.setTotalCount(testservice.totalCountBoard());
         List<freeBoardDTO> visitList = testservice.visitList(pagedto);
         model.addAttribute("list", visitList);
+        model.addAttribute("pageDTO", pagedto);
+        model.addAttribute("limit", "visit");
         return "freeBoard";
     }
 
@@ -772,6 +821,8 @@ public class testhome {
         pagedto.setTotalCount(testservice.totalCountBoard());
         List<freeBoardDTO> dateList = testservice.dateList(pagedto);
         model.addAttribute("list", dateList);
+        model.addAttribute("pageDTO", pagedto);
+        model.addAttribute("limit", "date");
         return "freeBoard";
     }
 
