@@ -156,6 +156,14 @@ public class testhome {
         }
         pagedto.setTotalCount(testservice.totalCountBoard());
         List<freeBoardDTO> freeBoardList = testservice.getAllFreeBoards(pagedto);
+        if(freeBoardList!=null){
+            for (freeBoardDTO freeBoardDTO : freeBoardList) {
+                List<freeboard_attachDTO> attachList = testservice.getAttach(freeBoardDTO.getNo());
+                if(attachList.size()>0){
+                    freeBoardDTO.setFileExist("true");
+                }
+            }
+        }
         int totalnum = testservice.totalCountBoard();
         model.addAttribute("list", freeBoardList);
         model.addAttribute("pageDTO", pagedto);

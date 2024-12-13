@@ -23,7 +23,5 @@ public class freeBoardDTO {
     private String password;
 
     private String[] newFileName;
-
-
-
+    private String fileExist;
 }
