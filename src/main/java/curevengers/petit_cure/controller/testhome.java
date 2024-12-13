@@ -513,7 +513,7 @@ public class testhome {
     @PostMapping(value = "/freecomment")
     public String freecomment(@ModelAttribute freecommentDTO dto) {
         testservice.addFreeComment(dto);
-        return "redirect:/freeboard?no=" + dto.getFreeboard_no();
+        return "redirect:/view?no=" + dto.getFreeboard_no();
     }
 
     // Q&A댓글 기능

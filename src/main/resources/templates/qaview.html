@@ -80,8 +80,8 @@
                 <p><strong>작성일:</strong> <span th:text="${dto.date}"></span></p>
                 <p><strong>파일:</strong></p>
                 <ul id="fileList">
-                    <li th:each="file : ${qaattachList}">
-                        <a th:href="@{'/download?filename=' + ${file.filename}}" th:text="${file.filename}"></a>
+                    <li style="color: white" th:each="file : ${qaattachList}">
+                        <a hidden="hidden" th:href="@{'/download?filename=' + ${file.filename}}" th:text="${file.filename}"></a>
                     </li>
                 </ul>
             </div>

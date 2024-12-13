@@ -11,6 +11,9 @@ public class ExplanationMapper {
     private static final Map<String, String> explanations = new HashMap<>();
 
     static {
+        explanations.put("아이디", "");
+        explanations.put("키", "");
+        explanations.put("몸무게", "");
         explanations.put("BMI", "운동 부족, 비활동성, 수면부족, 고열량 음식 등으로 비만 위험 증가. 규칙적인 운동 필요.");
         explanations.put("mxAC", "내장지방 증후군. 복부비만으로 대사 증후군 및 당뇨병 위험 증가.");
         explanations.put("HBP", "고혈압. 심혈관 질환, 신장질환 위험 증가. 체중 관리 및 규칙적 운동 권장.");
@@ -22,6 +25,7 @@ public class ExplanationMapper {
         explanations.put("HTG", "고중성지방혈증. 스트레스와 고지방 음식 섭취가 원인. 균형 잡힌 식단 필요.");
         explanations.put("AST", "간 손상 여부를 평가하는 AST 수치. 간 건강 검진 권장.");
         explanations.put("ALT", "ALT 상승. 간질환 위험 증가. 규칙적인 검진과 간 건강 관리 필요.");
+
     }
 
     public static String getExplanation(String key) {
