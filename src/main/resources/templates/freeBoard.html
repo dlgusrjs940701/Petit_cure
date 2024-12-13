@@ -49,7 +49,7 @@
 <div th:include="main::nav"></div>
 
 <section>
-    <div style="position:fixed; top: 0; right: -5px;z-index: 20;" class="mainnav">
+    <div style="position:fixed; top: 300px; right: -5px;z-index: 20;" class="mainnav">
         <div class="sticky" style="  border: 0; width: 150px;  margin-top: 200px">
             <div class="icon-menu">
                 <a href="https://www.e-gen.or.kr/egen/holiday_medical.do" target="_blank">
@@ -58,27 +58,27 @@
                         <span style="margin-left: 10px; font-size: 1.2rem">병의원 검색</span>
                     </ul>
                 </a>
-                <a onclick="dpcheck()">
+                <a href="https://www.health.kr/searchDrug/search_detail.asp" target="_blank">
                     <ul>
-                        <i class="fa-solid fa-check-to-slot" style="font-size: 2.5rem"></i>
-                        <span style="margin-left: 20px; font-size: 1.2rem">우울증 검진</span>
+                        <i class="fa-solid fa-pills" style="font-size: 2.5rem"></i>
+                        <span style="margin-left: 20px; font-size: 1.2rem">약 정보보기</span>
                     </ul>
                 </a>
-                <a onclick="healthchecklist()">
+                <a href="https://www.e-health.go.kr/gh/heSrvc/selectBbsDtlInfo.do?bbsId=U00322&bbsSeCd=Z1&menuId=200035" target="_blank">
                     <ul>
-                        <i class="fa-solid fa-list" style="font-size: 2.5rem"></i>
-                        <span style="margin-left: 20px; font-size: 1.2rem">자가검진 결과</span>
+                        <i class="fa-solid fa-heart-pulse" style="font-size: 2.5rem"></i>
+                        <span style="margin-left: 20px; font-size: 1.2rem">건강증진</span>
                     </ul>
                 </a>
-                <a onclick="dpchecklist()">
-                    <ul>
-                        <i class="fa-solid fa-list-ol" style="font-size: 2.5rem"></i>
-                        <span style="margin-left: 20px; font-size: 1.2rem">우울증 결과</span>
+                <a onclick="selectMonth()">
+                    <ul style="cursor: pointer">
+                        <i class="fa-regular fa-calendar-days" style="font-size: 2.5rem"></i>
+                        <span style="margin-left: 20px; font-size: 1.2rem">건강캘린더</span>
                     </ul>
                 </a>
             </div>
         </div>
-        <!--        <div th:include="freeBoard::sticky" class="sticky" style=" z-index: 4; border: 0; width: 200px; border-radius: 40px; padding-top: 120px"></div>-->
+
     </div>
 </section>
     <div class="container">
@@ -231,5 +231,13 @@
         document.body.appendChild(form);
 
         form.submit();
+    }
+</script>
+<script>
+    function selectMonth(){
+        let today = new Date();
+        const month = (today.getMonth()+1).toString().padStart(2,'0');
+        window.open("https://www.e-health.go.kr/gh/heNws/selectClndrBbsInfo.do?menuId=200051&bbsId=U00194&bbsSeCd=&bbsInfmMm="+month);
+        // location.href = "https://www.e-health.go.kr/gh/heNws/selectClndrBbsInfo.do?menuId=200051&bbsId=U00194&bbsSeCd=&bbsInfmMm="+$[month];
     }
 </script>

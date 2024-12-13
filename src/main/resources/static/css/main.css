@@ -17,6 +17,34 @@
     font-weight: normal;
     font-style: normal;
 }
+.fade-in-box {
+    display: inline-block;
+    /*background: yellow;*/
+    padding: 10px;
+    -webkit-animation: fadein 3s; /* Safari and Chrome */
+    /*-webkit-animation: fadeout 6s; !* Safari and Chrome *!*/
+}
+.fade-in-box2{
+    display: inline-block;
+    /*background: yellow;*/
+    padding: 10px;
+    /*animation: fadein 5s;*/
+    -webkit-animation: fadein 5s; /* Safari and Chrome */
+    /*-webkit-animation: fadeout 10s; !* Safari and Chrome *!*/
+}
+@-webkit-keyframes fadein { /* Safari and Chrome */
+    from {
+        opacity: 0;
+        translateX(Y):-10px
+        /*font-size: 50px;*/
+    }
+    to {
+        opacity: 1;
+        translateX(Y):20px
+        /*font-size: 60px;*/
+    }
+}
+
 .maintitle{
     font-family: RiaSans-ExtraBold;
 }
@@ -192,7 +220,7 @@ nav > ul > li {
 
 li > a:hover {
     /* background-color: #ee8787; */
-    background-color: #cc4a4a;
+    background-color: #8a3232;
     color: white;
 }
 
@@ -201,7 +229,7 @@ li > a:hover {
     position: absolute;
     left: 0;
     top: 50px;
-    background-color: #f5a8a8;
+    background-color: #8a3232;
     width: 300px;
     display: none;
     z-index: 30;
@@ -210,14 +238,14 @@ li > a:hover {
 #nav > ul > li > ul > li > a {
     padding: 5px;
     display: flexbox;
-    transition: all 0.75s;
+    transition: all 0.85s;
     width: 300px;
 }
 
 #nav > ul > li > ul > li > a:hover {
     padding-left: 0px;
     width: 300px;
-    background-color: #e48d8d;
+    background-color: #622929;
     color: white;
 }
 
