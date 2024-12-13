@@ -71,9 +71,9 @@
         <div style="margin-top: 30px; margin-right: auto; margin-left: auto; font-size: 25px;">
             <i class="fa-solid fa-user">&nbsp;&nbsp;</i><span th:text="${dto.name}"></span><br>
             <!--      <i class="fa-solid fa-phone">&nbsp;&nbsp;</i><span th:text="${dto.phone_num}"></span><br>-->
-            <i class="fa fa-birthday-cake">&nbsp;&nbsp;</i>2000.09.16<br>
+<!--            <i class="fa fa-birthday-cake">&nbsp;&nbsp;</i>2000.09.16<br>-->
             <i class="fa-solid fa-envelope">&nbsp;&nbsp;</i><span th:text="${dto.email}"></span><br>
-            <i class="fa-solid fa-location-dot">&nbsp;&nbsp;</i><span th:text="${dto.addr}"></span><br>
+            <span th:if="${dto.addr}!=null"><i class="fa-solid fa-location-dot"></i><span th:text="${dto.addr}"></span></span><br>
             <a href="dpmoreresult" style="color: black"><i class="fa-regular fa-face-frown">&nbsp;&nbsp;</i>우울증_Check<br></a>
             <a href="moreresult" style="color: black"><i class="fa-solid fa-notes-medical">&nbsp;&nbsp;</i>건강검진_Check<br></a>
             <!--      <i class="fa fa-birthday-cake">&nbsp;&nbsp;</i><br>-->
