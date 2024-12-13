@@ -37,6 +37,11 @@ public class allBoardServiceImpl implements allBoardService {
     }
 
     @Override
+    public List<freeBoardDTO> getAllFreeBoardsVisit(pageDTO pagedto) {
+        return userMapper.findAllBoardsVisit(pagedto);
+    }
+
+    @Override
     public List<QABoardDTO> getAllQABoards(pageDTO pagedto) {
         try {
             return userMapper.findQAAllBoards(pagedto);
@@ -45,6 +50,11 @@ public class allBoardServiceImpl implements allBoardService {
             e.printStackTrace();
             throw new RuntimeException("QA게시판 조회에 실패했습니다.");
         }
+    }
+
+    @Override
+    public List<QABoardDTO> getAllQABoardsGood(pageDTO pagedto) {
+        return userMapper.findQAAllBoardsGood(pagedto);
     }
 
     @Override

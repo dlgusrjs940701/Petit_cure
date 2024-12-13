@@ -15,7 +15,11 @@ public interface UserMapper {
 
     List<freeBoardDTO> findAllBoards(pageDTO pagedto);
 
+    List<freeBoardDTO> findAllBoardsVisit(pageDTO pagedto);
+
     List<QABoardDTO> findQAAllBoards(pageDTO pagedto);
+
+    List<QABoardDTO> findQAAllBoardsGood(pageDTO pagedto);
 
     List<alertDTO> findalertAllBoards(pageDTO pagedto);
 

@@ -14,7 +14,11 @@ public interface allBoardService {
     //게시판 글 조회
     List<freeBoardDTO> getAllFreeBoards(pageDTO pagedto);
 
+    List<freeBoardDTO> getAllFreeBoardsVisit(pageDTO pagedto);
+
     List<QABoardDTO> getAllQABoards(pageDTO pagedto);
+
+    List<QABoardDTO> getAllQABoardsGood(pageDTO pagedto);
 
     List<alertDTO> findalertAllBoards(pageDTO pagedto);
 
