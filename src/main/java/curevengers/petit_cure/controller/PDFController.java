@@ -19,9 +19,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriUtils;
 
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 @RestController
 public class PDFController {
@@ -34,8 +37,10 @@ public class PDFController {
 
     @GetMapping("/download-pdf")
     public void downloadPDF(HttpServletResponse response, @ModelAttribute healthCheckDTO dto) throws Exception {
+
+        String filename = UriUtils.encode("health_check.pdf", StandardCharsets.UTF_8);
         response.setContentType("application/pdf");
-        response.setHeader("Content-Disposition", "attachment; filename=\"health_check.pdf\"");
+        response.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\";",filename));
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String nowId = authentication.getName();
         dto.setId(nowId);
@@ -65,6 +70,16 @@ public class PDFController {
                     .setBold()
                     .setTextAlignment(TextAlignment.LEFT);
             document.add(healthInfo);
+
+//            String test = URLEncoder.encode("안녕","utf-8");
+
+            Paragraph subInfo = new Paragraph("안녕")
+                    .setFontSize(16)
+                    .setBold()
+                    .setTextAlignment(TextAlignment.LEFT);
+            document.add(subInfo);
+
+
             Paragraph content = new Paragraph("The risk of obesity increases due to lack of exercise, inactivity, lack of sleep, and high-calorie foods. Needs regular exercise.")
                     .setFontSize(12)
                     .setTextAlignment(TextAlignment.LEFT);
