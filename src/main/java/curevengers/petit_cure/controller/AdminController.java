@@ -226,7 +226,7 @@ public class AdminController {
 
     // 공지사항 작성
     @GetMapping(value="/noticewrite")
-    public String noticewrite(@RequestParam("no") String no) throws Exception {
+    public String noticewrite() throws Exception {
         return "noticeWrite";
     }
 
@@ -254,9 +254,10 @@ public class AdminController {
         dto.setId(nowId);
 //        System.out.println(userservice.getMyActivityList(dto).get(0).getId());
         List<myActivityDTO> dtoList = userservice.adminList(dto);
-        for (int i = 0; i < dtoList.size(); i++) {
-            dtoList.get(i).setBoard(board);
-        }
+//        for (int i = 0; i < dtoList.size(); i++) {
+//            dtoList.get(i).setBoard(board);
+//        }
+        System.out.println(dtoList.size() +" / 결과로 넘어온 list길이---------");
         return dtoList;
     }
 }

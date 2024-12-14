@@ -131,10 +131,10 @@
                 board: board
             },
             success:function (data){
-                cate = data[0].board;
-                if(cate == 'notice'){
+                // cate = data[0].board;
+                if(board == 'notice'){
                     search = "/noticeview"
-                }else if(cate=='qanda'){
+                }else if(board =='qanda'){
                     search='/qaview'
                 }
                 for (let i=0;i<data.length;i++){
@@ -142,22 +142,35 @@
                     let tr = document.createElement('tr');
                     tr.setAttribute('height','20px');
                     // 작성 아이디 저장
-                    let td2 = document.createElement('td');
-                    if(cate=='notice'){
-                        td2.textContent = 'ADMIN';
+                    let td1 = document.createElement('td');
+                    if(board=='notice'){
+                        td1.setAttribute('width','100px');
+                        td1.textContent = 'ADMIN';
                     }else{
-                        td2.setAttribute('width','100px');
-                        td2.textContent = data[i].id;
+                        td1.setAttribute('width','100px');
+                        td1.textContent = data[i].id;
                     }
                     // 작성 제목 저장 + 연결 링크 저장
-                    let td3 = document.createElement('td');
-                    td3.setAttribute('width','200px');
+                    let td2 = document.createElement('td');
+                    td2.setAttribute('width','350px');
                     let a = document.createElement('a');
                     let span = document.createElement('span');
                     span.textContent = data[i].title;
                     a.setAttribute('href',search+'?no='+no);
                     a.appendChild(span);
-                    td3.appendChild(a);
+                    td2.appendChild(a);
+
+                    // 날짜
+                    let td3 = document.createElement('td');
+                    td3.setAttribute('width','250px');
+                    td3.textContent = data[i].date;
+
+                    tr.appendChild(td1);
+                    tr.appendChild(td2)
+                    tr.appendChild(td3);
+
+                    tbody.appendChild(tr);
+
                 }
             },error(){
                 let tr = document.createElement('tr');

@@ -380,6 +380,7 @@ public class testhome {
         model.addAttribute("commentList", qacommentList);
         model.addAttribute("qaattachList", qaattachList);
         model.addAttribute("member", memberDTO);
+        session.setAttribute("auth_name",memberDTO.getAuth_name());
         session.setAttribute("id",username);
         return "qaview";
     }
