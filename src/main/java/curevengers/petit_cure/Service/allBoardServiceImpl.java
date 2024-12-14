@@ -20,6 +20,31 @@ public class allBoardServiceImpl implements allBoardService {
 //    }
 
     @Override
+    public List<noticeDTO> getNoticenum() {
+        return userMapper.getNoticenum();
+    }
+
+    @Override
+    public List<noticeDTO> getNotices(pageDTO pagedto) {
+        return userMapper.getNotices(pagedto);
+    }
+
+    @Override
+    public noticeDTO getNotice(String no) {
+        return userMapper.noticeOne(no);
+    }
+
+    @Override
+    public int delnoticeOne(String no) {
+        return userMapper.delnoticeOne(Integer.valueOf(no));
+    }
+
+    @Override
+    public int noticesave(noticeDTO noticedto) {
+        return userMapper.noticesave(noticedto);
+    }
+
+    @Override
     public void add(testDto dto) {
         System.out.println("서비스창");
         userMapper.insert(dto);

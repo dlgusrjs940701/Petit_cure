@@ -22,6 +22,33 @@
         ORDER BY date DESC
         LIMIT #{perPageNum} OFFSET #{startNo}
     </select>
+    <select id="getNoticenum">
+        select *
+        from notice
+    </select>
+    <select id="getNotices">
+        select *
+        from notice
+        ORDER BY date DESC
+        LIMIT #{perPageNum} OFFSET #{startNo}
+    </select>
+    <select id="noticeOne">
+        select *
+        from notice
+        where no = #{no}
+    </select>
+    <insert id="noticesave">
+        insert into notice values (default,#{title},#{content},default)
+    </insert>
+
+
+    <delete id="delnoticeOne">
+        delete
+        from notice
+        where no = #{no}
+    </delete>
+
+
     <select id="findAllBoardsVisit">
         SELECT *
         FROM freeboard

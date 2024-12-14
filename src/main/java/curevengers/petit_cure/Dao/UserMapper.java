@@ -13,6 +13,12 @@ public interface UserMapper {
     //    @Insert("Insert Into 연결test values (#{id})") void insert(String id);
     public void insert(testDto dto);
 
+    List<noticeDTO> getNoticenum();
+    List<noticeDTO> getNotices(pageDTO pagedto);
+    noticeDTO noticeOne(String no);
+    int delnoticeOne(int no);
+    int noticesave(noticeDTO dto);
+
     List<freeBoardDTO> findAllBoards(pageDTO pagedto);
 
     List<freeBoardDTO> findAllBoardsVisit(pageDTO pagedto);
