@@ -37,7 +37,7 @@
                     </div>
                     <div class="modal-body">
                         <label for="password1">게시글 비밀번호</label>
-                        <input type="text" id="password1" placeholder="게시글 비밀번호를 입력해주세요." class="form-control" name="password" required>
+                        <input type="password" id="password1" placeholder="게시글 비밀번호를 입력해주세요." class="form-control" name="password" required>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="checkPasswordUpdate()">확인</button>
@@ -56,7 +56,7 @@
                     </div>
                     <div class="modal-body">
                         <label for="password2">게시글 비밀번호</label>
-                        <input type="text" id="password2" placeholder="게시글 비밀번호를 입력해주세요." class="form-control" name="password" required>
+                        <input type="password" id="password2" placeholder="게시글 비밀번호를 입력해주세요." class="form-control" name="password" required>
                     </div>
                     <div class="modal-footer" style="float: right">
                         <button type="submit" class="btn btn-success" onclick="checkPasswordDelete()" data-bs-dismiss="modal">확인</button>
@@ -138,6 +138,7 @@
                     <tr>
                         <th>작성자</th>
                         <th>작성내용</th>
+                        <th>수정 / 삭제</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -163,11 +164,11 @@
                         </div>
                         <div class="modal-body">
                             <label for="id3">작성자 ID</label>
-                            <input type="text" id="id3" placeholder="ID를 입력해주세요." class="form-control" name="id" readonly required>
+                            <input type="text" id="id3" placeholder="ID를 입력해주세요." class="form-control" name="id" th:value="${session.id}" readonly required>
                             <label for="password3">비밀번호</label>
                             <input type="password" id="password3" placeholder="비밀번호를 입력해주세요." class="form-control" name="password" required>
                             <label for="content3">작성내용</label>
-                            <input type="text" id="content3" placeholder="작성내용을 입력해주세요." class="form-control" name="content" required>
+                            <input type="text" id="content3" placeholder="작성내용을 입력해주세요." class="form-control" name="content"  required>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="checkCommentPasswordUpdate()">확인</button>
@@ -185,7 +186,7 @@
                         </div>
                         <div class="modal-body">
                             <label for="password4">비밀번호</label>
-                            <input type="text" id="password4" placeholder="비밀번호를 입력해주세요." class="form-control" name="password" required>
+                            <input type="password" id="password4" placeholder="비밀번호를 입력해주세요." class="form-control" name="password" required>
                         </div>
                         <div class="modal-footer" style="float: right">
                             <button type="submit" class="btn btn-success" onclick="checkCommentPasswordDelete()" data-bs-dismiss="modal">확인</button>
@@ -197,8 +198,6 @@
             <div class="comment-section mt-5">
             <h4><strong>댓글쓰기</strong></h4>
             <form action="comment" method="post" class="mb-4">
-                <input type="hidden" name="id" th:value="${session.id}" required>
-
                 <div class="mb-3">
                     <input type="text" placeholder="댓글을 입력하세요" class="form-control" name="content"
                            th:disabled="${dto.limit.substring(0, 1) != '0' && dto.limit.substring(0, 1) != member.age.substring(0, 1)}"
@@ -247,53 +246,196 @@
         });
     });
 </script>
-<script>
+<script th:inline="javascript">
+
     let no = document.getElementById("no").value
+    let id = document.getElementById("nowid").value
     function checkPasswordUpdate() {
-        if (document.getElementById("checkpass").value == document.getElementById("password1").value) {
-            let form = document.createElement('form');
-            form.setAttribute('action', '/updateqaBoardView');
-            form.setAttribute('method', 'get');
 
-            let data = document.createElement('input');
+        let password = document.getElementById("password1").value
 
-            data.setAttribute('name', 'no');
-            data.setAttribute('value', no);
+        $.ajax({
+            method:'POST',
+            url:'confirmMember',
+            data:{
+                id: id,
+                password: password
+            },
+            success: function (data){
+                if(data){
+                    alert("인증에 성공하였습니다!")
 
-            form.appendChild(data);
+                    let form = document.createElement('form');
+                    form.setAttribute('action', '/updateqaBoardView');
+                    form.setAttribute('method', 'get');
 
-            document.body.appendChild(form);
+                    let data = document.createElement('input');
 
-            form.submit();
+                    data.setAttribute('name', 'no');
+                    data.setAttribute('value', no);
 
-            alert("인증되었습니다.")
-        } else {
-            alert("비밀번호가 틀렸습니다.")
-            document.getElementById("password1").value = null;
-        }
+                    form.appendChild(data);
+
+                    document.body.appendChild(form);
+
+                    form.submit();
+                }else{
+                    alert("비밀번호가 틀렸습니다.")
+                    document.getElementById("password1").value = null;
+                }
+            },error(){
+                alert("에러입니다.")
+            }
+        })
+
     }
     function checkPasswordDelete() {
-        if (document.getElementById("checkpass").value == document.getElementById("password2").value) {
-            let form = document.createElement('form');
-            form.setAttribute('action', '/deleteqaBoard');
-            form.setAttribute('method', 'get');
+        let password = document.getElementById('password2').value
 
-            let data = document.createElement('input');
+        $.ajax({
+            method:'POST',
+            url:'confirmMember',
+            data:{
+                id: id,
+                password: password
+            },
+            success:function (data){
+                if(data){
+                    alert("인증에 성공하였습니다!")
+                    let form = document.createElement('form');
+                    form.setAttribute('action', '/deleteqaBoard');
+                    form.setAttribute('method', 'get');
 
-            data.setAttribute('name', 'no');
-            data.setAttribute('value', no);
+                    let data = document.createElement('input');
 
-            form.appendChild(data);
+                    data.setAttribute('name', 'no');
+                    data.setAttribute('value', no);
 
-            document.body.appendChild(form);
+                    form.appendChild(data);
 
-            form.submit();
+                    document.body.appendChild(form);
 
-            alert("삭제되었습니다.")
-        } else {
-            alert("비밀번호가 틀렸습니다.")
-            document.getElementById("password2").value = null;
+                    form.submit();
+
+                    alert("삭제되었습니다.")
+                } else {
+                    alert("비밀번호가 틀렸습니다.")
+                    document.getElementById("password2").value = null;
+                }
+            },error(){
+                alert("에러입니다.")
+            }
+        })
+    }
+
+    let commentNo;
+    let boardNo;
+    function tossno(num) {
+        // console.log(num + " / 댓글수정 번호---")
+        let commentList = /*[[${commentList}]]*/ {};
+        for (let i = 0; i<commentList.length; i++) {
+            if (commentList[i].no === num) {
+                document.getElementsByName("id")[0].value = commentList[i].id;
+                document.getElementsByName("content")[0].value = commentList[i].content;
+                commentNo = num;
+                boardNo = commentList[i].qaboard_no;
+                break;
+            }
         }
+    }
+
+    function checkCommentPasswordUpdate() {
+        let password = document.getElementById('password3').value
+
+
+        $.ajax({
+            method:'POST',
+            url:'confirmMember',
+            data:{
+                id: id,
+                password: password
+            },
+            success:function (data) {
+                if (data) {
+                    let form = document.createElement('form');
+                    form.setAttribute('action', '/updateqaComment');
+                    form.setAttribute('method', 'post');
+
+                    let data1 = document.createElement('input');
+                    let data2 = document.createElement('input');
+                    let data3 = document.createElement('input');
+                    console.log(commentNo + " (댓글 번호) /"+document.getElementsByName("content")[0].value+" (수정 내용) / "+ boardNo+ " (게시글 번호)")
+
+                    data1.setAttribute('name', 'commentNo');
+                    data1.setAttribute('value', commentNo);
+
+                    data2.setAttribute('name', 'content');
+                    data2.setAttribute('value', document.getElementsByName("content")[0].value);
+
+                    data3.setAttribute('name', 'boardNo');
+                    data3.setAttribute('value', boardNo);
+
+                    form.appendChild(data1);
+                    form.appendChild(data2);
+                    form.appendChild(data3);
+
+                    document.body.appendChild(form);
+
+                    form.submit();
+
+                    alert("수정되었습니다.")
+                } else {
+                    alert("비밀번호가 틀렸습니다.")
+                    document.getElementById("password3").value = null;
+                }
+            },error(){
+                alert("에러입니다.")
+            }
+        })
+    }
+    function checkCommentPasswordDelete() {
+        let password = document.getElementById('password4').value
+
+        $.ajax({
+            method:'POST',
+            url:'confirmMember',
+            data:{
+                id: id,
+                password: password
+            },
+            success:function (data) {
+                if (data) {
+                    let form = document.createElement('form');
+                    form.setAttribute('action', '/deleteqaBoardComment');
+                    form.setAttribute('method', 'post');
+
+                    let data1 = document.createElement('input');
+                    let data2 = document.createElement('input');
+
+                    data1.setAttribute('name', 'boardNo');
+                    data1.setAttribute('value', boardNo);
+
+                    data2.setAttribute('name', 'commentNo');
+                    data2.setAttribute('value', commentNo);
+
+                    form.appendChild(data1);
+                    form.appendChild(data2);
+
+                    document.body.appendChild(form);
+
+                    console.log(boardNo + "/" + commentNo)
+
+                    form.submit();
+
+                    alert("삭제되었습니다.")
+                } else {
+                    alert("비밀번호가 틀렸습니다.")
+                    document.getElementById("password4").value = null;
+                }
+            },error(){
+                alert("에러입니다.")
+            }
+        })
     }
 </script>
 <script>

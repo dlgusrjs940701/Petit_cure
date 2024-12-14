@@ -736,6 +736,8 @@ public class testhome {
     // Q&A게시판 댓글 수정
     @PostMapping(value = "/updateqaComment")
     public String updateqaComment(@RequestParam("commentNo") int commentNo, @RequestParam("content") String content, @RequestParam("boardNo") int boardNo, Model m) throws Exception {
+//        System.out.println(commentNo + " (댓글 번호) /"+content+" (수정 내용) / "+ boardNo+ " (게시글 번호)");
+
         qacommentDTO qacommentdto = new qacommentDTO();
         qacommentdto.setNo(String.valueOf(commentNo));
         qacommentdto.setContent(content);
