@@ -345,7 +345,10 @@ public class testhome {
 
     // QA게시판 글쓰기
     @GetMapping(value = "/qawrite")
-    public String QAwrite() {
+    public String QAwrite(HttpSession session, Authentication authentication, Model model) {
+        String username = authentication.getName();
+        memberDTO memberDTO = membermapper.getMemberByID(username);
+        model.addAttribute("member", memberDTO);
         return "qawrite";
     }
 
