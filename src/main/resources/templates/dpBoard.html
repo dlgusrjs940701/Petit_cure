@@ -88,10 +88,10 @@
             <input id="text" type="text" class="input-text" name="title" placeholder="검색어 입력">
             <input type="submit" value="검색" class="search">
         </form>
-        <form action="gooddpList" method="post">
+        <form action="depboardGood" method="get">
             <input type="submit" value="추천순" class="button11">
         </form>
-        <form action="datedpList" method="post">
+        <form action="depboard" method="get">
             <input type="submit" value="최신순" class="button11">
         </form>
         <button class="write-btn" onclick="location.href='/dpwrite'"><strong>글쓰기</strong></button>
@@ -111,28 +111,49 @@
         <tr th:each="board : ${list}">
 
             <td th:text="${board.no}"></td>
-            <td><a th:href="@{/dpview(no=${board.no})}" th:text="${board.title}"></a></td>
+            <td><a th:href="@{/dpview(no=${board.no})}" th:text="${board.title}"></a>
+                <span th:if="${board.fileExist}!=null">
+                        <i class="fa-solid fa-file"></i>
+                    </span>
+            </td>
             <td th:text="${board.id}"></td>
             <td th:text="${board.good}"></td>
             <td th:text="${board.date}"></td>
         </tr>
         <tr>
-            <td colspan="5" style="background-color: white">
-                <!-- 이전 페이지 그룹 링크 -->
-                <span th:if="${pageDTO.prev}"></span>
-                <a th:href="@{/depboard(page=${pageDTO.startPage})}"><i
-                        class="fa-solid fa-circle-chevron-left"></i></a>
 
+            <td th:if="${limit == 'visit'}" colspan="5" style="background-color: white">
+                <!-- 이전 페이지 그룹 링크 -->
+                <span th:if="${pageDTO.page != pageDTO.startPage}">
+                        <a th:href="@{/depboard(page=${pageDTO.page}-1)}"><i class="fa-solid fa-circle-chevron-left"></i></a>
+                    </span>
                 <!-- 페이지 번호 반복 -->
 
                 <span th:each="idx : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}">
-                    <span th:if="${pageDTO.page == idx}"></span>
-                    <a th:href="@{/depboard(page=${idx})}" th:text="${idx}"></a>
-                </span>
-
+                        <span th:if="${pageDTO.page == idx}"></span>
+                        <a th:href="@{/depboard(page=${idx})}" th:text="${idx}"></a>
+                    </span>
                 <!-- 다음 페이지 그룹 링크 -->
-                <span th:if="${pageDTO.next}"></span>
-                <a th:href="@{/depboard(page=${pageDTO.endPage})}"><i class="fa-solid fa-circle-chevron-right"></i></a>
+                <span th:if="${pageDTO.page != pageDTO.endPage}">
+                        <a th:href="@{/depboard(page=${pageDTO.page}+1)}"><i class="fa-solid fa-circle-chevron-right"></i></a>
+                    </span>
+            </td>
+
+            <td th:if="${limit == 'good'}" colspan="5" style="background-color: white">
+                <!-- 이전 페이지 그룹 링크 -->
+                <span th:if="${pageDTO.page != pageDTO.startPage}">
+                        <a th:href="@{/depboardGood(page=${pageDTO.page}-1)}"><i class="fa-solid fa-circle-chevron-left"></i></a>
+                    </span>
+                <!-- 페이지 번호 반복 -->
+
+                <span th:each="idx : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}">
+                        <span th:if="${pageDTO.page == idx}"></span>
+                        <a th:href="@{/depboardGood(page=${idx})}" th:text="${idx}"></a>
+                    </span>
+                <!-- 다음 페이지 그룹 링크 -->
+                <span th:if="${pageDTO.page != pageDTO.endPage}">
+                        <a th:href="@{/depboardGood(page=${pageDTO.page}+1)}"><i class="fa-solid fa-circle-chevron-right"></i></a>
+                    </span>
             </td>
         </tr>
 

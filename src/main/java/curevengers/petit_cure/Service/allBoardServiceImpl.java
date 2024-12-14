@@ -121,13 +121,13 @@ public class allBoardServiceImpl implements allBoardService {
     }
 
     @Override
-    public List<freeBoardDTO> getsearchFreeBoards(String title) {
-        return userMapper.findSearchBoards(title);
+    public List<freeBoardDTO> getsearchFreeBoards(String title, pageDTO pageDTO) {
+        return userMapper.findSearchBoards(title, pageDTO);
     }
 
     @Override
-    public List<QABoardDTO> getsearchQABoards(String title) {
-        return userMapper.findSearchQABoards(title);
+    public List<QABoardDTO> getsearchQABoards(String title, pageDTO pageDTO) {
+        return userMapper.findSearchQABoards(title, pageDTO);
     }
 
     @Override

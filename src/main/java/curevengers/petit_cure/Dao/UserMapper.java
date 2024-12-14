@@ -37,9 +37,9 @@ public interface UserMapper {
 
     void insertQABoard(QABoardDTO dto);
 
-    List<freeBoardDTO> findSearchBoards(String title);
+    List<freeBoardDTO> findSearchBoards(String title, pageDTO pageDTO);
 
-    List<QABoardDTO> findSearchQABoards(String title);
+    List<QABoardDTO> findSearchQABoards(String title, pageDTO pageDTO);
 
     void updateVisit(int no);
 

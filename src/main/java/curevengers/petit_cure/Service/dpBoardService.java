@@ -7,6 +7,8 @@ import java.util.List;
 public interface dpBoardService {
     public List<dpBoardDTO> selectAll(pageDTO pagedto) throws Exception;
 
+    public List<dpBoardDTO> selectAllGood(pageDTO pageDTO) throws Exception;
+
     public int countAll() throws Exception;
 
     public void insert(dpBoardDTO dto) throws Exception;
@@ -25,7 +27,7 @@ public interface dpBoardService {
 
     public void deletedpBoard(int no) throws Exception;
 
-    public List<dpBoardDTO> getsearchDPBoards(String title) throws Exception;
+    public List<dpBoardDTO> getsearchDPBoards(String title, pageDTO pageDTO) throws Exception;
 
     public void updatedpComment(int commentNo, String content) throws Exception;
 

@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
       integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
       crossorigin="anonymous" referrerpolicy="no-referrer"/>
+<script src="https://kit.fontawesome.com/20d076eb83.js" crossorigin="anonymous"></script>
 <!--jsp를 사용하는 html은 @{} 방식을 쓰지않음-->
 <link rel="stylesheet" href="/css/main.css">
 <link rel="stylesheet" href="/css/freeBoard.css">
@@ -107,10 +108,10 @@
             <input id="text" type="text" class="input-text" name="title" placeholder="제목으로 검색해주세요">
             <input type="submit" value="검색" class="search">
         </form>
-        <form action="goodQAList" method="post">
+        <form action="qandaGood" method="get">
             <input type="submit" value="추천순" class="button11">
         </form>
-        <form action="dateQAList" method="post">
+        <form action="qanda" method="get">
             <input type="submit" value="최신순" class="button11">
         </form>
         <button class="write-btn" onclick="location.href='/qawrite'"><strong>글쓰기</strong></button>
@@ -131,6 +132,9 @@
 
             <td th:text="${board.no}"></td>
             <td><a th:href="@{/qaview(no=${board.no})}" th:text="${board.title}"></a>
+                <span th:if="${board.fileExist}!=null">
+                        <i class="fa-solid fa-file"></i>
+                    </span>
             </td>
 
             <td th:text="${board.id}"></td>
