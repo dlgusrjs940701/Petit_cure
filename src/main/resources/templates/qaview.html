@@ -200,9 +200,8 @@
             <form action="comment" method="post" class="mb-4">
                 <div class="mb-3">
                     <input type="text" placeholder="댓글을 입력하세요" class="form-control" name="content"
-                           th:disabled="${dto.limit.substring(0, 1) != '0' && dto.limit.substring(0, 1) != member.age.substring(0, 1)}"
+                           th:disabled="${dto.limit.substring(0, 1)} != '0' and ${dto.limit.substring(0, 1)} != ${member.age.substring(0, 1)} and ${session.auth_name}!='ADMIN'"
                            required>
-                    </input>
                 </div>
 
                 <input type="hidden" th:value="${session.id}" name="id">
@@ -211,12 +210,12 @@
                 <button
                         type="submit"
                         class="btn btn-primary"
-                        th:disabled="${dto.limit.substring(0, 1) != '0' && dto.limit.substring(0, 1) != member.age.substring(0, 1)}">
+                        th:disabled="${dto.limit.substring(0, 1)} != '0' and ${dto.limit.substring(0, 1)} != ${member.age.substring(0, 1)} and ${session.auth_name}!='ADMIN'">
                     댓글 작성
                 </button>
             </form>
             <p
-                    th:if="${dto.limit.substring(0, 1) != '0' && dto.limit.substring(0, 1) != member.age.substring(0, 1)}"
+                    th:if="${dto.limit.substring(0, 1)} != '0' and ${dto.limit.substring(0, 1)} != ${member.age.substring(0, 1)} and ${session.auth_name}!='ADMIN'"
                     class="text-muted mt-3">
                 댓글 작성은 허용되지 않습니다.
             </p>
