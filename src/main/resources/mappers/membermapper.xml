@@ -25,6 +25,12 @@
         select * from member;
     </select>
 
+    <select id="adminNotice">
+        select * from notice order by date desc limit 10
+    </select>
+    <select id="adminQA">
+        select * from qaboard where `limit` = 'ADM' order by date desc limit 10
+    </select>
 
     <select id="getMemberByID">
         select * from member where id=#{username};

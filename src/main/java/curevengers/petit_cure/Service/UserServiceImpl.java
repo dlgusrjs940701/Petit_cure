@@ -160,6 +160,17 @@ public class UserServiceImpl implements userService{
     }
 
     @Override
+    public List<myActivityDTO> adminList(myActivityDTO myactivityDTO) {
+        if (myactivityDTO.getBoard().equals("notice")) {
+            return memberMapper.adminNotice(myactivityDTO);
+        } else if (myactivityDTO.getBoard().equals("qanda")) {
+            return memberMapper.adminQA(myactivityDTO);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
     public List<myActivityDTO> getTopList(myActivityDTO myactivityDTO) {
         if (myactivityDTO.getBoard().equals("freeboard")) {
             return memberMapper.getFreeTopList(myactivityDTO);

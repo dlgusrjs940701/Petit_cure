@@ -8,6 +8,11 @@ public interface allBoardService {
 
 
 //    int totalCountBoard();
+    List<noticeDTO> getNoticenum();
+    List<noticeDTO> getNotices(pageDTO pagedto);
+    noticeDTO getNotice(String no);
+    int delnoticeOne(String no);
+    public int noticesave(noticeDTO noticedto);
 
     public void add(testDto dto);
 
