@@ -160,6 +160,7 @@ public class memberController {
     @PostMapping("/confirmMember")
     public boolean confirmMember(@RequestParam("id") String id, @RequestParam("password") String password) {
         memberDTO dto = userservice.getMemberById(id);
+        System.out.println("비밀번호 일치 확인시 입력한 값 ---------   /  "+password);
         if(passwordEncoder.matches(password,dto.getPass())){
             return true;
         }else{

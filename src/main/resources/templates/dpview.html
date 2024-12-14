@@ -36,7 +36,7 @@
                         </div>
                         <div class="modal-body">
                             <label for="password1">비밀번호</label>
-                            <input type="text" id="password1" placeholder="비밀번호를 입력해주세요." class="form-control" name="password" required>
+                            <input type="password" id="password1" placeholder="비밀번호를 입력해주세요." class="form-control" name="password" required>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-success" data-bs-dismiss="modal" onclick="checkPasswordUpdate()">확인</button>
@@ -55,7 +55,7 @@
                         </div>
                         <div class="modal-body">
                             <label for="password2">비밀번호</label>
-                            <input type="text" id="password2" placeholder="비밀번호를 입력해주세요." class="form-control" name="password" required>
+                            <input type="password" id="password2" placeholder="비밀번호를 입력해주세요." class="form-control" name="password" required>
                         </div>
                         <div class="modal-footer" style="float: right">
                             <button type="submit" class="btn btn-success" onclick="checkPasswordDelete()" data-bs-dismiss="modal">확인</button>
@@ -85,7 +85,7 @@
                 </div>
                 <hr>
                 <div class="content mb-4">
-                    <p th:text="${dto.content}"></p>
+                    <p th:text="${dto.content}" style="white-space: pre-wrap"></p>
                 </div>
 
 <!--                추천 및 신고 버튼 -->
@@ -186,7 +186,7 @@
                             </div>
                             <div class="modal-body">
                                 <label for="password4">비밀번호</label>
-                                <input type="text" id="password4" placeholder="비밀번호를 입력해주세요." class="form-control" name="password" required>
+                                <input type="password" id="password4" placeholder="비밀번호를 입력해주세요." class="form-control" name="password" required>
                             </div>
                             <div class="modal-footer" style="float: right">
                                 <button type="submit" class="btn btn-success" onclick="checkCommentPasswordDelete()" data-bs-dismiss="modal">확인</button>
@@ -240,51 +240,83 @@
 </script>
 <script>
     let no = document.getElementById("no").value
+    let id = document.getElementById("nowid").value
     function checkPasswordUpdate() {
-        if (document.getElementById("checkpass").value == document.getElementById("password1").value) {
-            let form = document.createElement('form');
-            form.setAttribute('action', '/updatedpBoardView');
-            form.setAttribute('method', 'get');
 
-            let data = document.createElement('input');
+        let password = document.getElementById("password1").value
 
-            data.setAttribute('name', 'no');
-            data.setAttribute('value', no);
+        $.ajax({
+            method:'POST',
+            url:'confirmMember',
+            data:{
+                id: id,
+                password: password
+            },
+            success: function (data){
+                if(data){
+                    alert("인증에 성공하였습니다!")
+                    let form = document.createElement('form');
+                    form.setAttribute('action', '/updatedpBoardView');
+                    form.setAttribute('method', 'get');
 
-            form.appendChild(data);
+                    let data = document.createElement('input');
 
-            document.body.appendChild(form);
+                    data.setAttribute('name', 'no');
+                    data.setAttribute('value', no);
 
-            form.submit();
+                    form.appendChild(data);
 
-            alert("인증되었습니다.")
-        } else {
-            alert("비밀번호가 틀렸습니다.")
-            document.getElementById("password1").value = null;
-        }
+                    document.body.appendChild(form);
+
+                    form.submit();
+                }else{
+                    alert("비밀번호가 틀렸습니다.")
+                    document.getElementById("password1").value = null;
+                }
+            },error(){
+                alert("에러입니다.")
+            }
+        })
+
     }
+
     function checkPasswordDelete() {
-        if (document.getElementById("checkpass").value == document.getElementById("password2").value) {
-            let form = document.createElement('form');
-            form.setAttribute('action', '/deletedpBoard');
-            form.setAttribute('method', 'get');
+        let password = document.getElementById('password2').value
 
-            let data = document.createElement('input');
+        $.ajax({
+            method:'POST',
+            url:'confirmMember',
+            data:{
+                id: id,
+                password: password
+            },
+            success:function (data){
+                if(data){
+                    alert("인증에 성공하였습니다!")
+                    let form = document.createElement('form');
+                    form.setAttribute('action', '/deletedpBoard');
+                    form.setAttribute('method', 'get');
 
-            data.setAttribute('name', 'no');
-            data.setAttribute('value', no);
+                    let data = document.createElement('input');
 
-            form.appendChild(data);
+                    data.setAttribute('name', 'no');
+                    data.setAttribute('value', no);
 
-            document.body.appendChild(form);
+                    form.appendChild(data);
 
-            form.submit();
+                    document.body.appendChild(form);
 
-            alert("삭제되었습니다.")
-        } else {
-            alert("비밀번호가 틀렸습니다.")
-            document.getElementById("password2").value = null;
-        }
+                    form.submit();
+
+                    alert("삭제되었습니다.")
+                } else {
+                    alert("비밀번호가 틀렸습니다.")
+                    document.getElementById("password2").value = null;
+                }
+            },error(){
+                alert("에러입니다.")
+            }
+        })
     }
 
 </script>
@@ -304,67 +336,97 @@
         }
     }
     function checkCommentPasswordUpdate() {
-        if (document.getElementById("checkpass").value == document.getElementById("password3").value) {
-            let form = document.createElement('form');
-            form.setAttribute('action', '/updatedpComment');
-            form.setAttribute('method', 'post');
+        let password = document.getElementById('password3').value
 
-            let data1 = document.createElement('input');
-            let data2 = document.createElement('input');
-            let data3 = document.createElement('input');
+        $.ajax({
+            method:'POST',
+            url:'confirmMember',
+            data:{
+                id: id,
+                password: password
+            },
+            success:function (data) {
+                if (data) {
+                    let form = document.createElement('form');
+                    form.setAttribute('action', '/updatedpComment');
+                    form.setAttribute('method', 'post');
 
-            data1.setAttribute('name', 'commentNo');
-            data1.setAttribute('value', commentNo);
+                    let data1 = document.createElement('input');
+                    let data2 = document.createElement('input');
+                    let data3 = document.createElement('input');
 
-            data2.setAttribute('name', 'content');
-            data2.setAttribute('value', document.getElementsByName("content")[0].value);
+                    data1.setAttribute('name', 'commentNo');
+                    data1.setAttribute('value', commentNo);
 
-            data3.setAttribute('name', 'boardNo');
-            data3.setAttribute('value', boardNo);
+                    data2.setAttribute('name', 'content');
+                    data2.setAttribute('value', document.getElementsByName("content")[0].value);
 
-            form.appendChild(data1);
-            form.appendChild(data2);
-            form.appendChild(data3);
+                    data3.setAttribute('name', 'boardNo');
+                    data3.setAttribute('value', boardNo);
 
-            document.body.appendChild(form);
+                    form.appendChild(data1);
+                    form.appendChild(data2);
+                    form.appendChild(data3);
 
-            form.submit();
+                    document.body.appendChild(form);
 
-            alert("수정되었습니다.")
-        } else {
-            alert("비밀번호가 틀렸습니다.")
-            document.getElementById("password3").value = null;
-        }
+                    form.submit();
+
+                    alert("수정되었습니다.")
+                } else {
+                    alert("비밀번호가 틀렸습니다.")
+                    document.getElementById("password3").value = null;
+                }
+            },error(){
+                alert("에러입니다.")
+            }
+        })
     }
+
+
     function checkCommentPasswordDelete() {
-        if (document.getElementById("checkpass").value == document.getElementById("password4").value) {
-            let form = document.createElement('form');
-            form.setAttribute('action', '/deletedpBoardComment');
-            form.setAttribute('method', 'post');
+        let password = document.getElementById('password4').value
 
-            let data1 = document.createElement('input');
-            let data2 = document.createElement('input');
+        $.ajax({
+            method:'POST',
+            url:'confirmMember',
+            data:{
+                id: id,
+                password: password
+            },
+            success:function (data) {
+                if (data) {
+                    let form = document.createElement('form');
+                    form.setAttribute('action', '/deletedpBoardComment');
+                    form.setAttribute('method', 'post');
 
-            data1.setAttribute('name', 'boardNo');
-            data1.setAttribute('value', boardNo);
+                    let data1 = document.createElement('input');
+                    let data2 = document.createElement('input');
 
-            data2.setAttribute('name', 'commentNo');
-            data2.setAttribute('value', commentNo);
+                    data1.setAttribute('name', 'boardNo');
+                    data1.setAttribute('value', boardNo);
 
-            form.appendChild(data1);
-            form.appendChild(data2);
+                    data2.setAttribute('name', 'commentNo');
+                    data2.setAttribute('value', commentNo);
 
-            document.body.appendChild(form);
+                    form.appendChild(data1);
+                    form.appendChild(data2);
 
-            console.log(boardNo+"/"+commentNo)
+                    document.body.appendChild(form);
 
-            form.submit();
+                    console.log(boardNo + "/" + commentNo)
 
-            alert("삭제되었습니다.")
-        } else {
-            alert("비밀번호가 틀렸습니다.")
-            document.getElementById("password4").value = null;
-        }
+                    form.submit();
+
+                    alert("삭제되었습니다.")
+                } else {
+                    alert("비밀번호가 틀렸습니다.")
+                    document.getElementById("password4").value = null;
+                }
+            },error(){
+                alert("에러입니다.")
+            }
+        })
     }
 </script>
 <script>
