@@ -165,11 +165,98 @@ public class AdminController {
     @ResponseBody
     @GetMapping(value = "/confirmBlack")
     public boolean confirmBlack(String id) throws Exception {
-        System.out.println(id + "계정 정지로 넘어온 id값 ----------------");
+//        System.out.println(id + "계정 정지로 넘어온 id값 ----------------");
         if(userservice.selectBlack(id) == null){
             return true;
         }else{
             return false;
         }
+    }
+
+    // 공지사항 목록
+    @GetMapping(value = "/notice")
+    public String notice(Model model, @ModelAttribute pageDTO pagedto,HttpSession session) throws Exception {
+        if(pagedto.getPage()==null){
+            pagedto.setPage(1);
+        }
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        memberDTO memberdto = userservice.getMemberById(username);
+
+        pagedto.setTotalCount(allboardservice.getNoticenum().size());
+        List<noticeDTO> noticeList = allboardservice.getNotices(pagedto);
+        model.addAttribute("noticeList", noticeList);
+        model.addAttribute("pageDTO", pagedto);
+//        model.addAttribute("memberDTO", memberdto);
+        if(memberdto != null){
+            session.setAttribute("auth_name", memberdto.getAuth_name());
+        }else{
+            session.setAttribute("auth_name", null);
+        }
+
+        return "notice";
+    }
+
+    // 공지사항 자세히보기
+    @GetMapping(value = "/noticeview")
+    public String noticeview(Model model, @ModelAttribute("no") String no,HttpSession session) throws Exception {
+        noticeDTO dto = allboardservice.getNotice(no);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        memberDTO memberdto = userservice.getMemberById(username);
+
+//        model.addAttribute("memberDTO", memberdto);
+        if(memberdto != null){
+            session.setAttribute("auth_name", memberdto.getAuth_name());
+        }else{
+            session.setAttribute("auth_name", null);
+        }
+        model.addAttribute("dto", dto);
+
+        return "noticeview";
+    }
+
+    // 공지사항 삭제
+    @ResponseBody
+    @GetMapping(value="/deleteNoticeboard")
+    public int deleteNoticeboard(@RequestParam("no") String no) throws Exception {
+        System.out.println(no+" / 공지사항 삭제용 번호 --------");
+        return allboardservice.delnoticeOne(no);
+    }
+
+    // 공지사항 작성
+    @GetMapping(value="/noticewrite")
+    public String noticewrite(@RequestParam("no") String no) throws Exception {
+        return "noticeWrite";
+    }
+
+    // 공지사항 작성저장
+    @ResponseBody
+    @PostMapping(value = "/noticesave")
+    public int noticesave(@ModelAttribute noticeDTO noticedto){
+        return allboardservice.noticesave(noticedto);
+    }
+
+
+    @GetMapping(value = "/adminPage")
+    public String adminpage(){
+        return "adminPage";
+    }
+
+    @ResponseBody
+    @GetMapping(value = "adminlist")
+    public List<myActivityDTO> mypagelist(@RequestParam("board") String board) {
+        System.out.println(board+"어떤보드인지 확인");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String nowId = authentication.getName();
+        myActivityDTO dto = new myActivityDTO();
+        dto.setBoard(board);
+        dto.setId(nowId);
+//        System.out.println(userservice.getMyActivityList(dto).get(0).getId());
+        List<myActivityDTO> dtoList = userservice.adminList(dto);
+        for (int i = 0; i < dtoList.size(); i++) {
+            dtoList.get(i).setBoard(board);
+        }
+        return dtoList;
     }
 }
