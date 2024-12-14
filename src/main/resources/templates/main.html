@@ -27,7 +27,7 @@
     <header>
         <div>
             <h1 style="font-weight: bold; font-size: 73px;" class="maintitle"><a href="/"
-                                                                                 style="color: black">PETITCURE</a></h1>
+                                                                                 style="color: black; text-decoration: none">PETITCURE</a></h1>
         </div>
     </header>
 </div>
@@ -67,7 +67,7 @@
             <div style="display: inline;" id="logout" th:if="${session.id != null}">
 
                 <li style="margin-left: 600px;" th:if="${session.auth != null}"><a href="/mypage">[[${session.id}]]님의
-                    페이지</a></li>
+                    페이지</li></a>
                 <li style="margin-left: 800px;" th:if="${session.auth == null}"><a href="/mypage">[[${session.id}]]님의
                     페이지</a></li>
 

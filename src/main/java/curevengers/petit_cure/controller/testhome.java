@@ -112,6 +112,11 @@ public class testhome {
     // QA게시판 글쓰기 저장
     @PostMapping(value = "/qasave")
     public String qasave(@ModelAttribute QABoardDTO dto, MultipartFile[] file, Model model, qaboard_attachDTO qaattachDTO) throws IOException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        memberDTO member = userService.getMemberById(username);
+        dto.setId(username);
+        dto.setPassword(member.getPass());
         String[] newFileName = filedatautil.fileUpload(file);
         dto.setNewFileName(newFileName);
         testservice.addQABoard(dto);
@@ -132,6 +137,11 @@ public class testhome {
     // 우울증 게시판 글쓰기 저장
     @PostMapping(value = "/dpsave")
     public String dpsave(@ModelAttribute dpBoardDTO dto, MultipartFile[] file, Model model, dpboard_attachDTO dpattachDTO) throws Exception {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        memberDTO member = userService.getMemberById(username);
+        dto.setId(username);
+        dto.setPassword(member.getPass());
         String[] newFileName = filedatautil.fileUpload(file);
         dto.setNewFileName(newFileName);
         dpboardservice.insert(dto);
@@ -648,6 +658,13 @@ public class testhome {
 
         memberDTO memberDTO = membermapper.getMemberByID(username);
         freeBoardDTO updatedto = testservice.getBoardNo(dto.getNo());
+        if (updatedto.getCate() == "1") {
+            updatedto.setCate("함께 공유해요");
+        } else if (updatedto.getCate() == "2") {
+            updatedto.setCate("나 진지해요");
+        } else if (updatedto.getCate() == "3") {
+            updatedto.setCate("우리 잡담해요");
+        }
         List<freecommentDTO> dpcommentList = testservice.getFreeComment(dto.getNo());
         m.addAttribute("dto", updatedto);
         m.addAttribute("commentList", dpcommentList);

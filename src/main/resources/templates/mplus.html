@@ -312,6 +312,7 @@
                     document.getElementById("comment").style.color="#00d0ff";
                     btn.disabled = false;
                     confirm();
+                    clearInterval(interval);
                 }
                 // console.log(status);
             }
@@ -388,6 +389,7 @@
     }
 </script>
 <script>
+    let interval
     let timer = document.getElementById('Timer');
     let time = 600000;
     let min = 10;
@@ -397,7 +399,7 @@
 
 
     function Timer(){
-        setInterval(function (){
+        interval = setInterval(function (){
             time = time - 1000;
             min = time / (60 * 1000);
 

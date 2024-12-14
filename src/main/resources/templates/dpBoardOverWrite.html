@@ -20,10 +20,6 @@
     <h2><strong>글쓰기</strong></h2>
     <form action="/updatedpBoard" method="post">
         <input type="hidden" name="no" th:value="${dto.no}">
-        <div class="myinfo">
-            <strong>&nbsp ID </strong><input type="text" name="id" th:value="${dto.id}" readonly>
-            <strong>비밀번호</strong><input type="password" name="password" placeholder="비번 입력" th:value="${dto.password}" required>
-        </div>
         <div class="title-w">
             <strong>제목</strong><input type="text" name="title" placeholder="제목 입력" th:value="${dto.title}" required>
         </div>
