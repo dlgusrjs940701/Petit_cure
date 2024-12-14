@@ -12,6 +12,8 @@ import java.util.List;
 public interface dpBoardMapper {
     public List<dpBoardDTO> selectAll(pageDTO pagedto) throws Exception;
 
+    public List<dpBoardDTO> selectAllGood(pageDTO pagedto) throws Exception;
+
     public int countAll() throws Exception;
 
     public void insert(dpBoardDTO dto) throws Exception;
@@ -30,8 +32,7 @@ public interface dpBoardMapper {
 
     public void deletedpBoard(int no) throws Exception;
 
-    public List<dpBoardDTO> search(String title) throws Exception;
-
+    public List<dpBoardDTO> search(String title, pageDTO pageDTO) throws Exception;
 
     public void updatedpComment(int commentNo, String content) throws Exception;
 

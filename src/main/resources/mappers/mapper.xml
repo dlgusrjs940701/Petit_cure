@@ -49,17 +49,18 @@
     </select>
 
     <!-- 자유게시판 검색기능-->
-    <select id="findSearchBoards" parameterType="String" resultType="curevengers.petit_cure.Dto.freeBoardDTO">
-        select no, title, visit, date
+    <select id="findSearchBoards" resultType="curevengers.petit_cure.Dto.freeBoardDTO">
+        select *
         from freeboard
         where title like CONCAT('%', #{title}, '%')
-
+        order by date desc LIMIT #{pageDTO.perPageNum} OFFSET #{pageDTO.startNo}
     </select>
     <!--     QA게시판 검색기능-->
-    <select id="findSearchQABoards" parameterType="String" resultType="curevengers.petit_cure.Dto.QABoardDTO">
-        select no, title, good, date
+    <select id="findSearchQABoards" resultType="curevengers.petit_cure.Dto.QABoardDTO">
+        select *
         from qaboard
         where title like CONCAT('%', #{title}, '%')
+        order by date desc LIMIT #{pageDTO.perPageNum} OFFSET #{pageDTO.startNo}
     </select>
 
     <!-- 게시판 글 자세히보기-->
@@ -308,7 +309,7 @@
         select *
         from qaboard
         where `limit` = #{ageGroup} or #{ageGroup} = 'all'
-        order by date
+        order by date desc
         limit #{pagedto.perPageNum} OFFSET #{pagedto.startNo}
     </select>
 

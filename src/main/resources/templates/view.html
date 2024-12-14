@@ -106,7 +106,7 @@
 
 
             <div class="content mb-4">
-                <p th:text="${dto.content}"></p>
+                <p th:text="${dto.content}" style="white-space: pre-wrap"></p>
             </div>
 
             <!-- 추천 및 신고 버튼 -->
@@ -426,18 +426,29 @@ function checkCommentPasswordUpdate() {
                 form.setAttribute('action', '/updatefreeComment');
                 form.setAttribute('method', 'post');
 
-                let data = document.createElement('input');
+                let data1 = document.createElement('input');
+                let data2 = document.createElement('input');
+                let data3 = document.createElement('input');
+                console.log(commentNo + " (댓글 번호) /"+document.getElementsByName("content")[0].value+" (수정 내용) / "+ boardNo+ " (게시글 번호)")
 
-                data.setAttribute('name', 'no');
-                data.setAttribute('value', no);
+                data1.setAttribute('name', 'commentNo');
+                data1.setAttribute('value', commentNo);
 
-                form.appendChild(data);
+                data2.setAttribute('name', 'content');
+                data2.setAttribute('value', document.getElementsByName("content")[0].value);
+
+                data3.setAttribute('name', 'boardNo');
+                data3.setAttribute('value', boardNo);
+
+                form.appendChild(data1);
+                form.appendChild(data2);
+                form.appendChild(data3);
 
                 document.body.appendChild(form);
 
                 form.submit();
 
-                alert("인증되었습니다.")
+                alert("수정되었습니다.")
             } else {
                 alert("비밀번호가 틀렸습니다.")
                 document.getElementById("password3").value = null;
@@ -466,18 +477,25 @@ function checkCommentPasswordDelete() {
                 form.setAttribute('action', '/deletefreeBoardComment');
                 form.setAttribute('method', 'post');
 
-                let data = document.createElement('input');
+                let data1 = document.createElement('input');
+                let data2 = document.createElement('input');
 
-                data.setAttribute('name', 'no');
-                data.setAttribute('value', no);
+                data1.setAttribute('name', 'boardNo');
+                data1.setAttribute('value', boardNo);
 
-                form.appendChild(data);
+                data2.setAttribute('name', 'commentNo');
+                data2.setAttribute('value', commentNo);
+
+                form.appendChild(data1);
+                form.appendChild(data2);
 
                 document.body.appendChild(form);
 
+                console.log(boardNo + "/" + commentNo)
+
                 form.submit();
 
-                alert("인증되었습니다.")
+                alert("삭제되었습니다.")
             } else {
                 alert("비밀번호가 틀렸습니다.")
                 document.getElementById("password4").value = null;

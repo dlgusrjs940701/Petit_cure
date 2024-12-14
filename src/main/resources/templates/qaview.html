@@ -86,7 +86,7 @@
                 </ul>
             </div>
             <div class="content mb-4">
-                <p th:text="${dto.content}"></p>
+                <p th:text="${dto.content}" style="white-space: pre-wrap"></p>
             </div>
             <input type="hidden" name="boardlikenum" id="boardlikenum" th:value="${boardLike}"/>
             <div style="margin-left: 75%">
@@ -205,6 +205,7 @@
                     </input>
                 </div>
 
+                <input type="hidden" th:value="${session.id}" name="id">
                 <input type="hidden" th:value="${dto.getNo()}" name="qaboard_no">
 
                 <button

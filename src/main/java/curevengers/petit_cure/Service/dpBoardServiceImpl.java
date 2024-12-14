@@ -20,6 +20,11 @@ public class dpBoardServiceImpl implements dpBoardService {
     }
 
     @Override
+    public List<dpBoardDTO> selectAllGood(pageDTO pagedto) throws Exception {
+        return dpboardmapper.selectAllGood(pagedto);
+    }
+
+    @Override
     public int countAll() throws Exception {
         return dpboardmapper.countAll();
     }
@@ -77,8 +82,8 @@ public class dpBoardServiceImpl implements dpBoardService {
     }
 
     @Override
-    public List<dpBoardDTO> getsearchDPBoards(String title) throws Exception {
-        return dpboardmapper.search(title);
+    public List<dpBoardDTO> getsearchDPBoards(String title, pageDTO pageDTO) throws Exception {
+        return dpboardmapper.search(title, pageDTO);
     }
 
     @Override

@@ -11,6 +11,10 @@
         select * from dpboard order by date desc LIMIT #{perPageNum} OFFSET #{startNo}
     </select>
 
+    <select id="selectAllGood">
+        select * from dpboard order by good desc LIMIT #{perPageNum} OFFSET #{startNo}
+    </select>
+
     <select id="countAll">
         select count(*) from dpboard
     </select>
@@ -59,7 +63,7 @@
     </delete>
 
     <select id="search">
-        select * from dpboard where title like CONCAT('%', #{title}, '%') order by date desc LIMIT #{perPageNum} OFFSET #{startNo}
+        select * from dpboard where title like CONCAT('%', #{title}, '%') order by date desc LIMIT #{pageDTO.perPageNum} OFFSET #{pageDTO.startNo}
     </select>
 
     <update id="updatedpComment">

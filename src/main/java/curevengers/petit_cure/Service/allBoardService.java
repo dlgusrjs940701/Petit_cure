@@ -34,9 +34,9 @@ public interface allBoardService {
     void addQABoard(QABoardDTO dto);
 
 
-    List<freeBoardDTO> getsearchFreeBoards(String title);
+    List<freeBoardDTO> getsearchFreeBoards(String title, pageDTO pageDTO);
 
-    List<QABoardDTO> getsearchQABoards(String title);
+    List<QABoardDTO> getsearchQABoards(String title, pageDTO pageDTO);
 
     // 조회수 구현
     public void updateVisit(int no);

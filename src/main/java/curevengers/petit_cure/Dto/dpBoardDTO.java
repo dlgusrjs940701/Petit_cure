@@ -18,4 +18,5 @@ public class dpBoardDTO {
     private String password;
     private String[] newFileName;
     private String cate;
+    private String fileExist;
 }

@@ -18,5 +18,5 @@ public class QABoardDTO {
     private String password;
 
     private String[] newFileName;
-
+    private String fileExist;
 }

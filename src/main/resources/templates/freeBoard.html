@@ -70,10 +70,10 @@
                         <span style="margin-left: 20px; font-size: 1.2rem">건강증진</span>
                     </ul>
                 </a>
-                <a onclick="selectMonth()">
+                <a href="#">
                     <ul style="cursor: pointer">
-                        <i class="fa-regular fa-calendar-days" style="font-size: 2.5rem"></i>
-                        <span style="margin-left: 20px; font-size: 1.2rem">건강캘린더</span>
+                        <i class="fa-solid fa-bullhorn" style="font-size: 2.5rem"></i>
+                        <span style="margin-left: 20px; font-size: 1.2rem">공지사항</span>
                     </ul>
                 </a>
             </div>
@@ -88,10 +88,10 @@
                 <input id="text" type="text" class="input-text" name="title" placeholder="제목으로 검색해주세요">
                 <input type="submit" value="검색" class="search">
             </form>
-            <form action="visitList" method="post">
+            <form action="freeboardVisit" method="get">
                 <input type="submit" value="조회수" class="button11">
             </form>
-            <form action="dateList" method="post">
+            <form action="freeboard" method="get">
                 <input type="submit" value="최신순" class="button11">
             </form>
             <button class="write-btn" onclick="location.href='/write'"><strong>글쓰기</strong></button>

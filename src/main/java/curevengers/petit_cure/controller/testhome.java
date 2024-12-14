@@ -194,11 +194,18 @@ public class testhome {
         }
         pagedto.setTotalCount(testservice.totalCountBoard());
         List<freeBoardDTO> freeBoardList = testservice.getAllFreeBoardsVisit(pagedto);
+        if(freeBoardList!=null){
+            for (freeBoardDTO freeBoardDTO : freeBoardList) {
+                List<freeboard_attachDTO> attachList = testservice.getAttach(freeBoardDTO.getNo());
+                if(attachList.size()>0){
+                    freeBoardDTO.setFileExist("true");
+                }
+            }
+        }
         int totalnum = testservice.totalCountBoard();
         model.addAttribute("list", freeBoardList);
         model.addAttribute("pageDTO", pagedto);
         model.addAttribute("attachDTO", attachDTO);
-        System.out.println(attachDTO.toString());
         model.addAttribute("totalnum", totalnum);
         model.addAttribute("limit", "visit");
         return "freeBoard";
@@ -206,7 +213,7 @@ public class testhome {
 
     // QA게시판 최신순
     @GetMapping(value = "/qanda")
-    public String getQABoardList(Model model, @ModelAttribute pageDTO pagedto,HttpSession session) {
+    public String getQABoardList(Model model, @ModelAttribute pageDTO pagedto,HttpSession session, @ModelAttribute freeboard_attachDTO attachDTO) {
         if (pagedto.getPage() == null) {
             pagedto.setPage(1);
         }
@@ -223,8 +230,17 @@ public class testhome {
 //        String phone = member.getPhone_num();
         pagedto.setTotalCount(testservice.totalQACountBoard());
         List<QABoardDTO> QABoardList = testservice.getAllQABoards(pagedto);
+        if(QABoardList!=null){
+            for (QABoardDTO QABoardDTO : QABoardList) {
+                List<qaboard_attachDTO> attachList = testservice.getQAAttach(QABoardDTO.getNo());
+                if(attachList.size()>0){
+                    QABoardDTO.setFileExist("true");
+                }
+            }
+        }
         model.addAttribute("qalist", QABoardList);
         model.addAttribute("pageDTO", pagedto);
+        model.addAttribute("attachDTO", attachDTO);
         model.addAttribute("limit", "date");
 //        System.out.println(age);
         return "Q&A";
@@ -232,7 +248,7 @@ public class testhome {
 
     // QA게시판 추천순
     @GetMapping(value = "/qandaGood")
-    public String qandaGood(Model model, @ModelAttribute pageDTO pagedto,HttpSession session) {
+    public String qandaGood(Model model, @ModelAttribute pageDTO pagedto,HttpSession session, @ModelAttribute qaboard_attachDTO attachDTO) {
         if (pagedto.getPage() == null) {
             pagedto.setPage(1);
         }
@@ -249,16 +265,25 @@ public class testhome {
 //        String phone = member.getPhone_num();
         pagedto.setTotalCount(testservice.totalQACountBoard());
         List<QABoardDTO> QABoardList = testservice.getAllQABoardsGood(pagedto);
+        if(QABoardList!=null){
+            for (QABoardDTO QABoardDTO : QABoardList) {
+                List<qaboard_attachDTO> attachList = testservice.getQAAttach(QABoardDTO.getNo());
+                if(attachList.size()>0){
+                    QABoardDTO.setFileExist("true");
+                }
+            }
+        }
         model.addAttribute("qalist", QABoardList);
         model.addAttribute("pageDTO", pagedto);
+        model.addAttribute("attachDTO", attachDTO);
         model.addAttribute("limit", "good");
 //        System.out.println(age);
         return "Q&A";
     }
 
-    // 우울증게시판
+    // 우울증게시판 최신순
     @GetMapping(value = "/depboard")
-    public String depBoard(Model model, @ModelAttribute pageDTO pagedto, HttpSession httpSession) throws Exception {
+    public String depBoard(Model model, @ModelAttribute pageDTO pagedto, @ModelAttribute dpboard_attachDTO attachDTO) throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String name=authentication.getName();
         if (pagedto.getPage() == null) {
@@ -266,8 +291,44 @@ public class testhome {
         }
         pagedto.setTotalCount(dpboardservice.countAll());
         List<dpBoardDTO> dpBoardList = dpboardservice.selectAll(pagedto);
+        if(dpBoardList!=null){
+            for (dpBoardDTO dpBoardDTO : dpBoardList) {
+                List<dpboard_attachDTO> attachList = dpboardservice.getDPAttach(dpBoardDTO.getNo());
+                if(attachList.size()>0){
+                    dpBoardDTO.setFileExist("true");
+                }
+            }
+        }
         model.addAttribute("list", dpBoardList);
         model.addAttribute("pageDTO", pagedto);
+        model.addAttribute("attachDTO", attachDTO);
+        model.addAttribute("limit", "visit");
+        System.out.println(authentication.getName());
+        return "dpBoard";
+    }
+
+    // 우울증게시판 추천순
+    @GetMapping(value = "/depboardGood")
+    public String depboardGood(Model model, @ModelAttribute pageDTO pagedto, @ModelAttribute dpboard_attachDTO attachDTO) throws Exception {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String name=authentication.getName();
+        if (pagedto.getPage() == null) {
+            pagedto.setPage(1);
+        }
+        pagedto.setTotalCount(dpboardservice.countAll());
+        List<dpBoardDTO> dpBoardList = dpboardservice.selectAllGood(pagedto);
+        if(dpBoardList!=null){
+            for (dpBoardDTO dpBoardDTO : dpBoardList) {
+                List<dpboard_attachDTO> attachList = dpboardservice.getDPAttach(dpBoardDTO.getNo());
+                if(attachList.size()>0){
+                    dpBoardDTO.setFileExist("true");
+                }
+            }
+        }
+        model.addAttribute("list", dpBoardList);
+        model.addAttribute("pageDTO", pagedto);
+        model.addAttribute("attachDTO", attachDTO);
+        model.addAttribute("limit", "good");
         System.out.println(authentication.getName());
         return "dpBoard";
     }
@@ -466,40 +527,72 @@ public class testhome {
 
     // 자유게시판 검색 기능
     @GetMapping(value = "/searchTitle")
-    public String searchBoard(@RequestParam("title") String title, Model model) {
-        List<freeBoardDTO> board = testservice.getsearchFreeBoards(title);
-        pageDTO pagedto = new pageDTO();
-        pagedto.setPage(1);
-        pagedto.setTotalCount(board.size());
+    public String searchBoard(@RequestParam("title") String title, @ModelAttribute pageDTO pagedto, Model model, @ModelAttribute freeboard_attachDTO attachDTO) {
+        if (pagedto.getPage() == null) {
+            pagedto.setPage(1);
+        }
+        List<freeBoardDTO> board = testservice.getsearchFreeBoards(title, pagedto);
+        if(board!=null){
+            pagedto.setTotalCount(board.size());
+            for (freeBoardDTO freeBoardDTO : board) {
+                List<freeboard_attachDTO> attachList = testservice.getAttach(freeBoardDTO.getNo());
+                if(attachList.size()>0){
+                    freeBoardDTO.setFileExist("true");
+                }
+            }
+        }
         int totalnum = testservice.totalCountBoard();
         model.addAttribute("list", board);
         model.addAttribute("pageDTO", pagedto);
         model.addAttribute("totalnum", totalnum);
+        model.addAttribute("attachDTO", attachDTO);
+        model.addAttribute("limit", "date");
         return "freeBoard";
     }
 
     // Q&A게시판 검색 기능
     @GetMapping(value = "/searchQATitle")
-    public String searchQABoard(@RequestParam("title") String title, Model model) {
-        List<QABoardDTO> board = testservice.getsearchQABoards(title);
-        pageDTO pagedto = new pageDTO();
-        pagedto.setPage(1);
+    public String searchQABoard(@RequestParam("title") String title, @ModelAttribute pageDTO pagedto, Model model, @ModelAttribute qaboard_attachDTO attachDTO) {
+        if (pagedto.getPage() == null) {
+            pagedto.setPage(1);
+        }
+        List<QABoardDTO> board = testservice.getsearchQABoards(title, pagedto);
+        if(board!=null){
+            for (QABoardDTO QABoardDTO : board) {
+                List<qaboard_attachDTO> attachList = testservice.getQAAttach(QABoardDTO.getNo());
+                if(attachList.size()>0){
+                    QABoardDTO.setFileExist("true");
+                }
+            }
+        }
         pagedto.setTotalCount(testservice.totalQACountBoard());
         model.addAttribute("qalist", board);
         model.addAttribute("pageDTO", pagedto);
-
+        model.addAttribute("attachDTO", attachDTO);
+        model.addAttribute("limit", "date");
         return "Q&A";
     }
 
     // 우울증게시판 검색 기능
     @GetMapping(value = "/searchDPTitle")
-    public String searchDPTitle(@RequestParam("title") String title, Model model) throws Exception {
-        List<dpBoardDTO> board = dpboardservice.getsearchDPBoards(title);
-        pageDTO pagedto = new pageDTO();
-        pagedto.setPage(1);
+    public String searchDPTitle(@RequestParam("title") String title, @ModelAttribute pageDTO pagedto, Model model, @ModelAttribute dpboard_attachDTO attachDTO) throws Exception {
+        if (pagedto.getPage() == null) {
+            pagedto.setPage(1);
+        }
+        List<dpBoardDTO> board = dpboardservice.getsearchDPBoards(title, pagedto);
+        if(board!=null){
+            for (dpBoardDTO dpBoardDTO : board) {
+                List<dpboard_attachDTO> attachList = dpboardservice.getDPAttach(dpBoardDTO.getNo());
+                if(attachList.size()>0){
+                    dpBoardDTO.setFileExist("true");
+                }
+            }
+        }
         pagedto.setTotalCount(dpboardservice.countAll());
         model.addAttribute("list", board);
         model.addAttribute("pageDTO", pagedto);
+        model.addAttribute("attachDTO", attachDTO);
+        model.addAttribute("limit", "date");
         return "dpBoard";
     }
 
@@ -833,81 +926,81 @@ public class testhome {
         return "redirect:/dpview?no="+boardNo;
     }
 
-    // 자유게시판 조회수 나열
-    @PostMapping(value = "/visitList")
-    public String visitList(Model model, @ModelAttribute pageDTO pagedto) {
-        if (pagedto.getPage() == null) {
-            pagedto.setPage(1);
-        }
-        pagedto.setTotalCount(testservice.totalCountBoard());
-        List<freeBoardDTO> visitList = testservice.visitList(pagedto);
-        model.addAttribute("list", visitList);
-        model.addAttribute("pageDTO", pagedto);
-        model.addAttribute("limit", "visit");
-        return "freeBoard";
-    }
-
-    // 자유게시판 최신순 나열
-    @PostMapping(value = "/dateList")
-    public String dateList(Model model, @ModelAttribute pageDTO pagedto) {
-        if (pagedto.getPage() == null) {
-            pagedto.setPage(1);
-        }
-        pagedto.setTotalCount(testservice.totalCountBoard());
-        List<freeBoardDTO> dateList = testservice.dateList(pagedto);
-        model.addAttribute("list", dateList);
-        model.addAttribute("pageDTO", pagedto);
-        model.addAttribute("limit", "date");
-        return "freeBoard";
-    }
-
-    // Q&A게시판 추천순 나열
-    @PostMapping(value = "/goodQAList")
-    public String goodQAList(Model model, @ModelAttribute pageDTO pagedto) {
-        if (pagedto.getPage() == null) {
-            pagedto.setPage(1);
-        }
-        pagedto.setTotalCount(testservice.totalQACountBoard());
-        List<QABoardDTO> goodQAList = testservice.goodQAList(pagedto);
-        model.addAttribute("qalist", goodQAList);
-        return "Q&A";
-    }
-
-    // Q&A게시판 최신순 나열
-    @PostMapping(value = "/dateQAList")
-    public String dateQAList(Model model, @ModelAttribute pageDTO pagedto) {
-        if (pagedto.getPage() == null) {
-            pagedto.setPage(1);
-        }
-        pagedto.setTotalCount(testservice.totalQACountBoard());
-        List<QABoardDTO> dateQAList = testservice.dateQAList(pagedto);
-        model.addAttribute("qalist", dateQAList);
-        return "Q&A";
-    }
-
-    // 우울증게시판 추천순 나열
-    @PostMapping(value = "/gooddpList")
-    public String gooddpList(Model model, @ModelAttribute pageDTO pagedto) throws Exception {
-        if (pagedto.getPage() == null) {
-            pagedto.setPage(1);
-        }
-        pagedto.setTotalCount(dpboardservice.countAll());
-        List<dpBoardDTO> gooddpList = dpboardservice.gooddpList(pagedto);
-        model.addAttribute("list", gooddpList);
-        return "dpBoard";
-    }
-
-    // 우울증게시판 최신순 나열
-    @PostMapping(value = "/datedpList")
-    public String datedpList(Model model, @ModelAttribute pageDTO pagedto) throws Exception {
-        if (pagedto.getPage() == null) {
-            pagedto.setPage(1);
-        }
-        pagedto.setTotalCount(dpboardservice.countAll());
-        List<dpBoardDTO> datedpList = dpboardservice.datedpList(pagedto);
-        model.addAttribute("list", datedpList);
-        return "dpBoard";
-    }
+//    // 자유게시판 조회수 나열
+//    @PostMapping(value = "/visitList")
+//    public String visitList(Model model, @ModelAttribute pageDTO pagedto) {
+//        if (pagedto.getPage() == null) {
+//            pagedto.setPage(1);
+//        }
+//        pagedto.setTotalCount(testservice.totalCountBoard());
+//        List<freeBoardDTO> visitList = testservice.visitList(pagedto);
+//        model.addAttribute("list", visitList);
+//        model.addAttribute("pageDTO", pagedto);
+//        model.addAttribute("limit", "visit");
+//        return "freeBoard";
+//    }
+//
+//    // 자유게시판 최신순 나열
+//    @PostMapping(value = "/dateList")
+//    public String dateList(Model model, @ModelAttribute pageDTO pagedto) {
+//        if (pagedto.getPage() == null) {
+//            pagedto.setPage(1);
+//        }
+//        pagedto.setTotalCount(testservice.totalCountBoard());
+//        List<freeBoardDTO> dateList = testservice.dateList(pagedto);
+//        model.addAttribute("list", dateList);
+//        model.addAttribute("pageDTO", pagedto);
+//        model.addAttribute("limit", "date");
+//        return "freeBoard";
+//    }
+//
+//    // Q&A게시판 추천순 나열
+//    @PostMapping(value = "/goodQAList")
+//    public String goodQAList(Model model, @ModelAttribute pageDTO pagedto) {
+//        if (pagedto.getPage() == null) {
+//            pagedto.setPage(1);
+//        }
+//        pagedto.setTotalCount(testservice.totalQACountBoard());
+//        List<QABoardDTO> goodQAList = testservice.goodQAList(pagedto);
+//        model.addAttribute("qalist", goodQAList);
+//        return "Q&A";
+//    }
+//
+//    // Q&A게시판 최신순 나열
+//    @PostMapping(value = "/dateQAList")
+//    public String dateQAList(Model model, @ModelAttribute pageDTO pagedto) {
+//        if (pagedto.getPage() == null) {
+//            pagedto.setPage(1);
+//        }
+//        pagedto.setTotalCount(testservice.totalQACountBoard());
+//        List<QABoardDTO> dateQAList = testservice.dateQAList(pagedto);
+//        model.addAttribute("qalist", dateQAList);
+//        return "Q&A";
+//    }
+//
+//    // 우울증게시판 추천순 나열
+//    @PostMapping(value = "/gooddpList")
+//    public String gooddpList(Model model, @ModelAttribute pageDTO pagedto) throws Exception {
+//        if (pagedto.getPage() == null) {
+//            pagedto.setPage(1);
+//        }
+//        pagedto.setTotalCount(dpboardservice.countAll());
+//        List<dpBoardDTO> gooddpList = dpboardservice.gooddpList(pagedto);
+//        model.addAttribute("list", gooddpList);
+//        return "dpBoard";
+//    }
+//
+//    // 우울증게시판 최신순 나열
+//    @PostMapping(value = "/datedpList")
+//    public String datedpList(Model model, @ModelAttribute pageDTO pagedto) throws Exception {
+//        if (pagedto.getPage() == null) {
+//            pagedto.setPage(1);
+//        }
+//        pagedto.setTotalCount(dpboardservice.countAll());
+//        List<dpBoardDTO> datedpList = dpboardservice.datedpList(pagedto);
+//        model.addAttribute("list", datedpList);
+//        return "dpBoard";
+//    }
 
     // 메인페이지 자유게시판 글 중 최고 조회수 글 조회
     @ResponseBody
@@ -942,7 +1035,7 @@ public class testhome {
 
     // 댓글 제한 기능
     @GetMapping(value = "/filterByAge")
-    public String ageQABoard(@RequestParam("ageGroup") String ageGroup, Model model, pageDTO pagedto) {
+    public String ageQABoard(@RequestParam("ageGroup") String ageGroup, Model model, pageDTO pagedto, @ModelAttribute qaboard_attachDTO attachDTO) {
 //        memberDTO member = (memberDTO) session.getAttribute("member");
 //        String memberAgeGroup=member.getAge();
         if (pagedto.getPage() == null) {
@@ -950,8 +1043,17 @@ public class testhome {
         }
         pagedto.setTotalCount(testservice.totalQACountBoard());
         List<QABoardDTO> board = testservice.getAgeQABoards(ageGroup, pagedto);
+        if(board!=null){
+            for (QABoardDTO QABoardDTO : board) {
+                List<qaboard_attachDTO> attachList = testservice.getQAAttach(QABoardDTO.getNo());
+                if(attachList.size()>0){
+                    QABoardDTO.setFileExist("true");
+                }
+            }
+        }
         model.addAttribute("qalist", board);
         model.addAttribute("pagedto", pagedto);
+        model.addAttribute("attachDTO", attachDTO);
 //        model.addAttribute("memberAgeGroup", memberAgeGroup);
         return "Q&A";
     }
