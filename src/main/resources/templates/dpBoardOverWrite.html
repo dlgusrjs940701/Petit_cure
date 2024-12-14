@@ -17,9 +17,13 @@
 <div th:include="main::nav"></div>
 
 <div class="card-write">
-    <h2><strong>글쓰기</strong></h2>
+    <h2><strong>글수정하기</strong></h2>
     <form action="/updatedpBoard" method="post">
         <input type="hidden" name="no" th:value="${dto.no}">
+        <div class="myinfo">
+            <strong>&nbsp ID </strong><input type="text" name="id" th:value="${dto.id}" readonly>
+            <input type="password" name="password" th:value="${dto.password}" hidden="true" required>
+        </div>
         <div class="title-w">
             <strong>제목</strong><input type="text" name="title" placeholder="제목 입력" th:value="${dto.title}" required>
         </div>

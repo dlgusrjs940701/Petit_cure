@@ -66,9 +66,13 @@
             </div>
             <div style="display: inline;" id="logout" th:if="${session.id != null}">
 
-                <li style="margin-left: 600px;" th:if="${session.auth != null}"><a href="/mypage">[[${session.id}]]님의
-                    페이지</li></a>
-                <li style="margin-left: 800px;" th:if="${session.auth == null}"><a href="/mypage">[[${session.id}]]님의
+                <li style="margin-left: 600px;" th:if="${session.auth != null} and ${session.id.length()<=7}"><a href="/mypage">[[${session.id}]]님의
+                    페이지</a></li>
+                <li style="margin-left: 800px;" th:if="${session.auth == null} and ${session.id.length()<=7}"><a href="/mypage">[[${session.id}]]님의
+                    페이지</a></li>
+                <li style="margin-left: 600px;" th:if="${session.auth != null} and ${session.id.length()>7}"><a href="/mypage">[[${#strings.substring(session.id,0,6)}]]...님의
+                    페이지</a></li>
+                <li style="margin-left: 800px;" th:if="${session.auth == null} and ${session.id.length()>7}"><a href="/mypage">[[${#strings.substring(session.id,0,6)}]]...님의
                     페이지</a></li>
 
                 <li style="margin-left: 5px;"><a href="#">/</a></li>
