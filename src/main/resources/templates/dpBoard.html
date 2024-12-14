@@ -89,7 +89,7 @@
             <input type="submit" value="검색" class="search">
         </form>
         <form action="gooddpList" method="post">
-            <input type="submit" value="조회수" class="button11">
+            <input type="submit" value="추천순" class="button11">
         </form>
         <form action="datedpList" method="post">
             <input type="submit" value="최신순" class="button11">
@@ -117,7 +117,7 @@
             <td th:text="${board.date}"></td>
         </tr>
         <tr>
-            <td colspan="5">
+            <td colspan="5" style="background-color: white">
                 <!-- 이전 페이지 그룹 링크 -->
                 <span th:if="${pageDTO.prev}"></span>
                 <a th:href="@{/depboard(page=${pageDTO.startPage})}"><i

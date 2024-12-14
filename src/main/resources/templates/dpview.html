@@ -144,7 +144,7 @@
                         <tbody>
                         <tr th:each="comment : ${commentList}">
                             <td th:text="${comment.id}" style="width: 20%"></td>
-                            <td th:text="${comment.content}" style="width: 60%"></td>
+                            <td th:text="${comment.content}" style="width: 60%; white-space: pre-wrap"></td>
                             <td style="width: 20%" th:if="${comment.id} == ${session.id}">
                                 <button type="submit" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#updateComment" onclick="tossno(this.value)" th:value="${comment.no}">수정</button>
                                 <button type="submit" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#deleteComment" onclick="tossno(this.value)" th:value="${comment.no}">삭제</button>
@@ -255,6 +255,7 @@
             success: function (data){
                 if(data){
                     alert("인증에 성공하였습니다!")
+
                     let form = document.createElement('form');
                     form.setAttribute('action', '/updatedpBoardView');
                     form.setAttribute('method', 'get');

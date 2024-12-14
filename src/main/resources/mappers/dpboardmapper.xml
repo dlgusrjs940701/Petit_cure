@@ -8,7 +8,7 @@
     </select>
 
     <select id="selectAll">
-        select * from dpboard order by good desc LIMIT #{perPageNum} OFFSET #{startNo}
+        select * from dpboard order by date desc LIMIT #{perPageNum} OFFSET #{startNo}
     </select>
 
     <select id="countAll">
@@ -51,7 +51,7 @@
     </insert>
 
     <update id="updatedpBoard">
-        update dpboard set password = #{password}, title = #{title}, content = #{content} where no = #{no}
+        update dpboard set title = #{title}, content = #{content} where no = #{no}
     </update>
 
     <delete id="deletedpBoard">
