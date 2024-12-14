@@ -135,6 +135,8 @@ public class testhome {
         String[] newFileName = filedatautil.fileUpload(file);
         dto.setNewFileName(newFileName);
         dpboardservice.insert(dto);
+//        System.out.println(dto.getPassword()+" / 입력한 패스워드---------------------");
+//        System.out.println(dto.getTitle()+" / 입력한 제목----------------------");
         int dpboard_no=dto.getNo();
         for (int i = 0; i < file.length; i++) {
             if (!file[i].isEmpty()) {
@@ -349,7 +351,10 @@ public class testhome {
 
     // 우울증게시판 글쓰기
     @GetMapping(value = "/dpwrite")
-    public String dpWrite() {
+    public String dpWrite(Model model, Authentication authentication, HttpSession session) throws Exception {
+        String username = authentication.getName();
+        memberDTO memberDTO = membermapper.getMemberByID(username);
+        model.addAttribute("member", memberDTO);
         return "dpBoardWrite";
     }
 

@@ -16,7 +16,7 @@
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="no">
-        insert into dpboard values (nextval(dpboardno),#{id},#{password},#{title},#{content},default,default,default)
+        insert into dpboard values (nextval(dpboardno),#{id},#{title},#{password},#{content},default,default,default)
     </insert>
 
 <!--    우울증게시판 좋아요 구현 -->
