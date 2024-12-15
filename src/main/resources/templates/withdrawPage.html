@@ -22,7 +22,7 @@
   <section class="main2">
     <h1 style="font-size: 30px; margin-top: 16px;"><strong>현재 탈퇴 현황</strong></h1>
     <hr>
-    <table style="margin-left: auto; margin-right: auto; margin-top: 40px; font-size: medium">
+    <table style="margin-left: auto; margin-right: auto;  font-size: medium">
       <thead style="width: 100%; border-bottom: 1px solid black">
       <tr>
         <th colspan="8">탈퇴 사유</th>
@@ -40,19 +40,19 @@
           <!-- 이전 페이지 그룹 링크 -->
           <td colspan="13">
             <span th:if="${pageDTO.prev}"></span>
-            <a th:href="@{/alert(page=${pageDTO.startPage})}">
+            <a th:href="@{/withdraw(page=${pageDTO.startPage})}">
               <i class="fa-solid fa-circle-chevron-left"></i>
             </a>
 
             <!-- 페이지 번호 반복 -->
             <span th:each="idx : ${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}">
               <span th:if="${pageDTO.page == idx}"></span>
-              <a th:href="@{/alert(page=${idx})}" th:text="${idx}"></a>
+              <a th:href="@{/withdraw(page=${idx})}" th:text="${idx}"></a>
             </span>
 
             <!-- 다음 페이지 그룹 링크-->
             <span th:if="${pageDTO.next}"></span>
-            <a th:href="@{/alert(page=${pageDTO.endPage})}">
+            <a th:href="@{/withdraw(page=${pageDTO.endPage})}">
               <i class="fa-solid fa-circle-chevron-right"></i>
             </a>
           </td>
