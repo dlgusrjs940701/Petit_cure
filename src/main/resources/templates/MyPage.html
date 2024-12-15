@@ -175,10 +175,16 @@
                     td2.textContent = data[i].id;
                     // 작성 제목 저장 + 연결 링크 저장
                     let td3 = document.createElement('td');
+                    let title;
+                    if (data[i].title.length > 9) {
+                        title = data[i].title.substring(0,9) + "...";
+                    } else {
+                        title = data[i].title;
+                    }
                     td3.setAttribute('width','200px');
                     let a = document.createElement('a');
                     let span = document.createElement('span');
-                    span.textContent = data[i].title;
+                    span.textContent = title;
                     a.setAttribute('href',search+'?no='+no);
                     a.appendChild(span);
                     td3.appendChild(a);

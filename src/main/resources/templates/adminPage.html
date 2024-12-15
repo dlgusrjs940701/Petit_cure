@@ -151,11 +151,18 @@
                         td1.textContent = data[i].id;
                     }
                     // 작성 제목 저장 + 연결 링크 저장
+                    let title;
+
                     let td2 = document.createElement('td');
                     td2.setAttribute('width','350px');
                     let a = document.createElement('a');
                     let span = document.createElement('span');
-                    span.textContent = data[i].title;
+                    if (data[i].title.length > 13) {
+                        title = data[i].title.substring(0,13) + "...";
+                    } else {
+                        title = data[i].title;
+                    }
+                    span.textContent = title;
                     a.setAttribute('href',search+'?no='+no);
                     a.appendChild(span);
                     td2.appendChild(a);

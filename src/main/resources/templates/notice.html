@@ -81,13 +81,13 @@
 <div class="container">
     <div class="title-container">
         <h2><strong>공지사항</strong></h2>
-        <form class="search-box" action="searchQATitle" method="get">
-            <input id="text" type="text" class="input-text" name="title" placeholder="제목으로 검색해주세요">
-            <input type="submit" value="검색" class="search">
-        </form>
-        <form action="noticeList" method="post">
-            <input type="submit" value="최신순" class="button11">
-        </form>
+<!--        <form class="search-box" action="searchQATitle" method="get">-->
+<!--            <input id="text" type="text" class="input-text" name="title" placeholder="제목으로 검색해주세요">-->
+<!--            <input type="submit" value="검색" class="search">-->
+<!--        </form>-->
+<!--        <form action="noticeList" method="post">-->
+<!--            <input type="submit" value="최신순" class="button11">-->
+<!--        </form>-->
         <button class="write-btn" onclick="location.href='/noticewrite'" th:if="${session.auth_name}=='ADMIN'"><strong>공지사항 작성</strong></button>
         <div th:if="${session.auth_name}== null"></div>
     </div>

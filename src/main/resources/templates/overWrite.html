@@ -33,7 +33,7 @@
         <option value="3" th:if="${dto.cate=='3'}" selected>우리 잡담해요</option>
     </select>
     <div class="msg">
-        <strong>내용</strong><textarea name="content" th:text="${dto.content}" required></textarea>
+        <strong>내용</strong><textarea name="content" th:text="${dto.content}" style="white-space: pre-wrap" required></textarea>
         <input type="file" name="file" >
         <div class="button">
             <button type="submit" class="btn" onclick="updateBoard()">저장</button>
