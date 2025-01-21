@@ -1,100 +1,112 @@
-## 📌 프로젝트 소개
+# Curevengers: 개인 맞춤형 건강 관리 서비스
 
-# Curevengers: Full Stack 기반 Final 프로젝트
-
-**"작은 관심에서 오는 큰 건강!"**
+**"작은 관심에서 시작되는 큰 건강"**
 
 ---
 
-## 1. 프로젝트 소개
+## 📌 프로젝트 개요
 
-### 💡 제작 배경 및 기획
-- **개발 기간**: 2024.11.18 ~ 2024.12.16 (총 28일, 4주)  
-- **기획 배경**  
-  현대 사회에서는 건강에 대한 관심이 높아졌지만, 여전히 건강 관리의 실천은 부족한 상황입니다.  
-  > *"AHA 조사에 따르면 한국은 건강 인식이 50개국 중 뒤에서 5번째 수준"*  
-  이를 개선하기 위해 건강관리 체크, 병원 연계, 건강 정보 소통 공간을 제공하는 서비스를 개발했습니다.  
+### 💡 프로젝트 소개
+- **팀명**: Curevengers  
+- **개발 기간**: 2024.11.18 ~ 2024.12.16 (4주)  
+- **팀원 구성**:  
+  - **박연정** (팀장): DB 설계, API 개발, Spring Security 및 소셜 로그인 구현  
+  - **이현건**: 게시판 기능, 엑셀/PDF 다운로드 구현  
+  - **최진석**: 건강검진 기능 개발, Kakao Map API 설계  
+  - **윤율**: View 제작 및 Kakao Map API 연계  
 
-- **프로젝트 목표**:  
-  개인 맞춤형 건강 관리 서비스 개발을 통해 건강 인식을 제고하고 건강한 사회를 만드는 데 기여.  
-
----
+### 💡 기획 배경 및 목적
+현대인의 건강 관리 소홀 문제를 해결하고자 본 프로젝트를 기획했습니다. AHA 조사에 따르면, 한국은 건강 인식 수준이 낮은 편에 속하며, 이를 개선하기 위해 다음과 같은 서비스를 제공합니다:
+1. **개인 건강 관리 항목**을 체크 및 기록.
+2. **맞춤 병원 추천**과 연계.
+3. 사용자 간 정보 공유 및 동기 부여를 위한 **게시판 기능**.
 
 ### 💡 기대 효과
-- **개인의 건강 관리 개선**  
-  건강 상태를 보다 잘 인지하고, 추천 병원 방문을 통해 질병을 예방.  
-- **정서적 지원**  
-  고민 및 경험을 공유할 수 있는 게시판을 통해 고립감을 해소하고 신뢰를 형성.  
+- 사용자들이 현재 건강 상태를 보다 명확히 인식하고, 이를 바탕으로 적절한 조치를 취할 수 있습니다.
+- 건강 정보를 안전하고 신뢰성 있게 공유하여 정서적 지지를 얻고 고립감을 해소할 수 있습니다.
 
 ---
 
-## 2. 주요 기능 및 설계
+## 🛠️ 주요 기능 및 설계
 
-### 🖥️ Main 화면 디자인
-<img src="https://github.com/user-attachments/assets/f5b786b0-7173-4c7a-b337-91ae8bf050c0" width="50%" alt="Main 화면">
+### 주요 기능
+1. **회원가입 및 로그인**  
+   - Spring Security를 이용한 권한 관리.
+   - Kakao API를 활용한 소셜 로그인 지원.
+   - AJAX로 구현된 비동기 회원가입.
+
+2. **게시판 기능**  
+   - 자유게시판, Q&A 게시판, 우울증 게시판 구현.
+   - 추천/신고, 댓글 작성 등 비동기 기능 제공.
+   - 정렬 및 페이징 기능으로 데이터 최적화.
+
+3. **건강검진 기능**  
+   - 사용자가 건강검진표 작성 후 엑셀/PDF로 다운로드.
+   - Kakao Map API로 추천 병원 시각화.
+
+4. **관리자 기능**  
+   - 블랙리스트 관리 및 탈퇴현황 조회.
+   - 사용자 신고 처리와 게시판 관리.
+
+5. **마이페이지**  
+   - 최근 활동 내역 확인 및 개인정보 수정.
+   - 계정 삭제 시 2차 인증 절차 진행.
 
 ---
 
-### 🛠️ 주요 기능 및 요구 사항
-
-#### 비회원 / 회원
-<img src="https://github.com/user-attachments/assets/fb29d40a-d3a4-4177-bf61-06b26e34e40f" alt="회원 기능">
-
-#### 관리자
-<img src="https://github.com/user-attachments/assets/ed443dbc-001e-430b-8e60-13963dea5b04" alt="관리자 기능">
-
----
-
-### 🗂️ ERD 설계  
-- 총 23개 테이블  
+### 데이터베이스 설계 (ERD)
+- **총 23개 테이블 구성**  
   - 회원 관리: 3개  
-  - 게시판: 13개  
-  - 검사 및 관리자 기능: 7개  
+  - 게시판: 13개 (자유게시판, Q&A 게시판, 우울증 게시판)  
+  - 검진/우울증 관리: 3개  
+  - 관리자 전용: 4개  
 
 <img src="https://github.com/user-attachments/assets/c630786b-523c-46ab-b1c8-6106325684ee" alt="ERD 설계">
 
 ---
 
-## 3. 기술 스택 및 개발 환경  
+## 🛠️ 기술 스택 및 개발 환경
 
-### 🌐 **Frontend**
-- HTML5, CSS3, JavaScript, Bootstrap  
-- Thymeleaf, JSP  
-- jQuery, JSON  
+### 기술 스택
+- **Frontend**: HTML5, CSS3, JavaScript, Thymeleaf, Bootstrap
+- **Backend**: Java, Spring Boot, Spring Security
+- **Database**: MariaDB
+- **API**: Kakao Map API, Daum 주소 검색 API, News API
+- **라이브러리**:
+  - Spring Security: 인증 및 권한 관리.
+  - Apache POI: Excel/PDF 다운로드 구현.
 
-### ⚙️ **Backend**
-- Spring Boot, Spring Security  
-- Apache Tomcat  
-- MyBatis  
-
-### 📊 **Database**
-- MariaDB, DBeaver  
-
----
-
-## 4. 팀 구성 및 역할 분담
-
-| 이름  | 역할       | 주요 담당 업무                                                                                                                                                            |
-|-------|------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **박연정** | 팀장        | DB 설계, ERD 작성, Spring Security 구현, News API 개발                                                                                                        |
-| **이현건** | 팀원        | DB 설계, ERD 작성, 게시판 구현, Excel-PDF 다운로드 구현                                                                                                                             |
-| **최진석** | 팀원        | DB 설계, ERD 작성, 건강검진 기능 개발, Kakao Map API 개발                                                                                                                            |
-| **윤 율**   | 팀원        | View 제작, Kakao Map API 연계                                                                                                                                    |
+### 개발 환경
+- **IDE**: IntelliJ IDEA, Eclipse
+- **Infra**: AWS EC2, Apache Tomcat
 
 ---
 
-## 5. 실제 구현 및 주요 화면  
+## 📽️ 시연 영상
 
-- [회원가입](https://youtu.be/7DGF0gJPiAY)  
-- [로그인](https://youtu.be/icFCi6NpcXM)  
-- [건강검진 Check](https://youtu.be/TSHQcxzJQqY)  
-- [우울증 Check](https://youtu.be/ALDZ6Ou3t0U)  
+### 주요 기능 미리보기
+| 메인화면 | 회원가입 | 로그인 |
+|----------|----------|--------|
+| ![메인화면](https://github.com/user-attachments/assets/2e6cd813-a018-46a0-a1a4-ab51325136aa) | ![회원가입](https://github.com/user-attachments/assets/5294b9fb-3934-4d3b-b4d5-18a884bab21b) | ![로그인](https://github.com/user-attachments/assets/8412140c-8be4-4d80-adb5-a882df7db6ec) |
 
----
-
-## 6. 발표 자료 및 프로젝트 문서  
-[PPT 발표 자료 보기](https://www.canva.com/design/DAGZX1WRm88/T4WvpIvJDjoHudtSJ3umDA/edit)
-
+- [시연 영상 전체 보기](https://youtu.be/OBIiHWSFoac)
+- [각 기능별 상세 설명](https://github.com/dlgusrjs940701)
 
 ---
 
+## 🙌 개발 경험 및 소감
+
+이번 프로젝트는 짧은 기간 동안 팀원들의 협업과 효율적인 형상 관리를 통해 성공적으로 완성되었습니다.  
+
+- **협업 경험**: 매일 오전 pull, 저녁 merge 전략을 통해 코드 충돌을 최소화하고 작업 효율성을 높였습니다.  
+- **기술 구현**: Spring Security를 활용한 소셜 로그인, RESTful API 설계, 데이터베이스 연동 등의 기술을 학습하고 적용하며 실무 능력을 향상시켰습니다.  
+- **사용자 경험**: 직관적인 UI/UX 설계를 위해 다양한 피드백을 반영해 사용자가 편리하게 이용할 수 있는 인터페이스를 구축했습니다.  
+
+---
+
+## 📂 프로젝트 문서 및 깃허브
+
+- **GitHub Repository**: [https://github.com/dlgusrjs940701](https://github.com/dlgusrjs940701)  
+- **PPT 발표 자료**: [Curevengers 프로젝트 발표자료](https://www.canva.com/design/DAGZX1WRm88/T4WvpIvJDjoHudtSJ3umDA/edit)  
+
+---
