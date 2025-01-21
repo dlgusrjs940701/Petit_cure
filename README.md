@@ -93,7 +93,8 @@
 ---
 
 ## 6. 발표 자료 및 프로젝트 문서  
-[PPT 발표 자료 보기](https://www.canva.com/design/DAGZVvxtMYA/wBKJnaE-GkslEEP4kNPlJA/edit?utm_content=DAGZVvxtMYA&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+[PPT 발표 자료 보기](https://www.canva.com/design/DAGZX1WRm88/T4WvpIvJDjoHudtSJ3umDA/edit)
+
 
 ---
 
