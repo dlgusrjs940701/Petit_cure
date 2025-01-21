@@ -90,7 +90,6 @@
 | ![메인화면](https://github.com/user-attachments/assets/2e6cd813-a018-46a0-a1a4-ab51325136aa) | ![회원가입](https://github.com/user-attachments/assets/5294b9fb-3934-4d3b-b4d5-18a884bab21b) | ![로그인](https://github.com/user-attachments/assets/8412140c-8be4-4d80-adb5-a882df7db6ec) |
 
 - [시연 영상 전체 보기](https://youtu.be/OBIiHWSFoac)
-- [각 기능별 상세 설명](https://github.com/dlgusrjs940701)
 
 ---
 
@@ -104,9 +103,8 @@
 
 ---
 
-## 📂 프로젝트 문서 및 깃허브
-
-- **GitHub Repository**: [https://github.com/dlgusrjs940701](https://github.com/dlgusrjs940701)  
+## 📂 프로젝트 문서
+  
 - **PPT 발표 자료**: [Curevengers 프로젝트 발표자료](https://www.canva.com/design/DAGZX1WRm88/T4WvpIvJDjoHudtSJ3umDA/edit)  
 
 ---
